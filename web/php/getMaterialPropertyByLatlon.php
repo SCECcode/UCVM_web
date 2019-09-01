@@ -18,15 +18,7 @@ $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m cvmh -f ../model/UCVMC_TA
 if ($firstzmode == 'e') 
      $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m cvmh -f ../model/UCVMC_TARGET/conf/ucvm.conf -c ge -b ".$estr;
 
-echo $query;
-
 $result = exec(escapeshellcmd($query), $retval, $status);
-
-echo $result;
-
-echo "<pre>"; print_r($retval); echo "</pre>";
-echo $status;
-echo $result;
 
 $result2 = "";
 if($secondlat != "" && $secondlon != "") {
