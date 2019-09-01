@@ -1,1 +1,2 @@
-# UCVM_web
+# UCVM
+Unifed Community Velocity Model

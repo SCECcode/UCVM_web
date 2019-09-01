@@ -1,0 +1,97 @@
+/* required styles */
+
+hr { 
+  display: block;
+  margin-top: 0.3em;
+  margin-bottom: 0.4em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 2px;
+}
+
+table { width: 100%; border-collapse: collapse;}
+table, td, th { border: 1px solid grey; padding: 2px;}
+th {text-align: left;}
+
+.ucvm-top-small-btn {
+          background: transparent; 
+          padding: 6px 6px;
+          font-size: 14px;
+          color: black;
+          width: 3vw;
+          height: 3vh;
+          display: inline-block;
+          border-radius: 2px;
+          }
+
+.ucvm-small-btn {
+          background: #D5D5D5; 
+          color: black;
+          border: none; 
+          display: inline-block;
+          }
+
+.ucvm-small-btn:disabled {
+         color: white;
+        }
+
+.ucvm-table {
+          max-height: 67vh;
+          border: 1px solid grey;
+          overflow: auto;
+        }
+
+.ucvm-top-btn {
+          background: #D5D5D5; 
+          padding: 1px 3px;
+          border: 2px solid #D9D9D9;
+          color: black;
+          width: 18vw;
+          height: 4vh;
+          display: inline-block;
+        }
+
+.ucvm-top-btn:hover {
+          color: #990000;
+}
+
+.ucvm-btn {
+          background: white; 
+          border: 0px solid #D5D5D5;
+          color: black;
+          width: 5em;
+          height: 3vh;
+          display: inline-block;
+        }
+
+
+.ucvm-btn:disabled {
+         color: white;
+        }
+
+.ucvm-div {
+        position:relative;
+        left: 10px;
+        width:90%;
+        }
+
+select {
+    width: 100%;
+    border: 2px solid grey;
+    border-radius: 2px;
+}
+
+select:hover {
+    background: #D5D5D5; 
+}
+
+input[type=text] {
+    width: 140px;
+    padding: 0px 10px 0px 10px;
+}
+
+input:hover {
+    background-color: #D9D9D9;
+    }
+
