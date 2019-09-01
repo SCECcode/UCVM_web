@@ -19,8 +19,8 @@ $envstr=makeEnvString();
 
 $file="../result/cross.png";
 
-$vval= intval((float)$firstz/500);
-$hval=  intval(((float)$secondlat - (float)$firstlat)*200);
+$vval= intval((float)$firstz/200);
+$hval=  intval(((float)$secondlat - (float)$firstlat)*400);
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$firstz;
 $qstub=" -h ".$hval." -d vs -c cvmh -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;
