@@ -2,7 +2,7 @@
 
 export TOP_GFM_DIR=`pwd`
 
-chmod og+rw $TOP_GFM_DIR/model/result
+chmod og+rw $TOP_GFM_DIR/web/result
 
 export UCVM_SRC_PATH=$TOP_GFM_DIR/model/UCVMC
 export UCVM_INSTALL_PATH=$TOP_GFM_DIR/web/model/UCVMC_TARGET
