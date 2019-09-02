@@ -11,6 +11,7 @@ $firstlat = ($_GET['firstlat']);
 $firstlon = ($_GET['firstlon']);
 $firstz = ($_GET['firstz']);
 $firstzmode = ($_GET['firstzmode']);
+$model = ($_GET['model']);
 
 $secondlat = ($_GET['secondlat']);
 $secondlon = ($_GET['secondlon']);
@@ -21,7 +22,7 @@ putenv("PATH=".$np);
 $itemlist = new \stdClass();
 
 $file="../result/vertical.png";
-$query=makeVerticalQuery($firstlat,$firstlon,$firstz,$firstzmode,$file);
+$query=makeVerticalQuery($model,$firstlat,$firstlon,$firstz,$firstzmode,$file);
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
@@ -31,7 +32,7 @@ if ( $status == 0 && file_exists($file)) {
 
 if ( $secondlat != "" && $secondlon !="" ) {
    $file2="../result/vertical2.png";
-   $query2=makeVerticalQuery($secondlat,$secondlon,$firstz,$firstzmode,$file2);
+   $query2=makeVerticalQuery($model,$secondlat,$secondlon,$firstz,$firstzmode,$file2);
    $result2 = exec(escapeshellcmd($query2), $retval2, $status2);
    if ( $status2== 0 && file_exists($file2)) {
      $itemlist->second="vertical2.png";

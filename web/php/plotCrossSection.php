@@ -11,6 +11,8 @@ $firstlat = ($_GET['firstlat']);
 $firstlon = ($_GET['firstlon']);
 $firstz = ($_GET['firstz']);
 $firstzmode = ($_GET['firstzmode']);
+$model= ($_GET['model']);
+
 
 $secondlat = ($_GET['secondlat']);
 $secondlon = ($_GET['secondlon']);
@@ -23,7 +25,7 @@ $vval= intval((float)$firstz/200);
 $hval=  intval(((float)$secondlat - (float)$firstlat)*400);
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$firstz;
-$qstub=" -h ".$hval." -d vs -c cvmh -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;
+$qstub=" -h ".$hval." -d vs -c ".$model." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;
 
 if ($firstzmode == 'e') 
      $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_cross_section.py -s 200 ".$qstub.$lstr;

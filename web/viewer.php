@@ -72,11 +72,18 @@
 
 <div class="row" id='queryBlock' style="margin:0px 0px 20px 30px; background-color:transparent;top:40vh; width:100%;">
   <div class="row" > Lat:<input type="text" id="firstLatTxt" title="first lat" value="34.30" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:#990000; text-align:center;"><input type="text" id="secondLatTxt" title="second lat" value='35.6' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:#990000; text-align:center;"> Lon:<input type="text" id="firstLonTxt" title="first lon" value="-119.20" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:#990000; text-align:center;"><input type="text" id="secondLonTxt" title="second lat" value='-117.5' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:#990000; text-align:center;"> Z:<input type="text" id="firstZTxt" title="first Z" value="3000" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:#990000; text-align:center;">
-Zmode:<select id="firstZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+Zmode:
+<select id="firstZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="d">Depth</option>
              <option value="e">Elevation</option>
-       </select>
+</select>
+Model:
+<select id="modelTxt" title="model" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+             <option value="cvmh">CVMH</option>
+</select>
+
   </div>
+
 </div><!-- queryBlock -->
 
 <div class="row" id='resultBlock' style="position:relative;left:30px;width:90%;">

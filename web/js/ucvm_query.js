@@ -10,6 +10,8 @@ function getMaterialPropertyByLatlon() {
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
+    var modelstr=document.getElementById("modelTxt").value;
+window.console.log(modelstr);
 
     // second set is optional..
     var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
@@ -34,7 +36,7 @@ function getMaterialPropertyByLatlon() {
                 document.getElementById('spinIconForProperty').style.display = "none";
             }
         }
-        xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr, true);
+        xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr+"&model="+modelstr, true);
         xmlhttp.send();
     }
 }
@@ -44,6 +46,7 @@ function plotCrossSection() {
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
+    var modelstr=document.getElementById("modelTxt").value;
 
     var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
     var secondlonstr=(document.getElementById("secondLonTxt"))?document.getElementById("secondLonTxt").value:"";
@@ -69,7 +72,7 @@ function plotCrossSection() {
                 document.getElementById('spinIconForCrossSection').style.display = "none";
             }
         }
-        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
+        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr+"&model="+modelstr,true);
         xmlhttp.send();
     }
 }
@@ -79,6 +82,7 @@ function plotVerticalProfile() {
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
+    var modelstr=document.getElementById("modelTxt").value;
 
     // second set is optional..
     var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
@@ -105,7 +109,7 @@ function plotVerticalProfile() {
                 document.getElementById('spinIconForVerticalProfile').style.display = "none";
             }
         }
-        xmlhttp.open("GET","php/plotVerticalProfile.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
+        xmlhttp.open("GET","php/plotVerticalProfile.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr+"&model="+modelstr,true);
         xmlhttp.send();
     }
 }
@@ -116,6 +120,7 @@ function plotHorizontalSlice() {
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var firstzstr=document.getElementById("firstZTxt").value;
     var firstzmodestr=document.getElementById("firstZmodeTxt").value;
+    var modelstr=document.getElementById("modelTxt").value;
 
     // second set is optional..
     var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
@@ -142,7 +147,7 @@ function plotHorizontalSlice() {
                 document.getElementById('spinIconForHorizontalSlice').style.display = "none";
             }
         }
-        xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr,true);
+        xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&firstz="+firstzstr+"&firstzmode="+firstzmodestr+"&model="+modelstr,true);
         xmlhttp.send();
     }
 }

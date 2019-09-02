@@ -11,6 +11,8 @@ $firstlat = ($_GET['firstlat']);
 $firstlon = ($_GET['firstlon']);
 $firstz = ($_GET['firstz']);
 $firstzmode = ($_GET['firstzmode']);
+$model = ($_GET['model']);
+
 
 $secondlat = ($_GET['secondlat']);
 $secondlon = ($_GET['secondlon']);
@@ -24,7 +26,7 @@ $llval= ($secondlon - $firstlon)/50;
 $file="../result/horizontal.png";
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
-$qstub=" -d vs -c cvmh -s ".$lval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
+$qstub=" -d vs -c ".$model." -s ".$lval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
 
 $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_horizontal_slice.py ".$qstub.$lstr;
 
