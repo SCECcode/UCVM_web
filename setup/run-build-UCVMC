@@ -5,8 +5,8 @@
 
 source setup/setup_UCVMC.sh
 
-rm -rf $UCVM_INSTALL_PATH
-rm -rf $UCVM_SRC_PATH
+#rm -rf $UCVM_INSTALL_PATH
+#rm -rf $UCVM_SRC_PATH
 
 cd $TOP_GFM_DIR/model
 git clone https://github.com/SCECcode/UCVMC.git -b forGFM

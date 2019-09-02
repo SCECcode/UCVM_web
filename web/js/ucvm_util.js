@@ -50,7 +50,6 @@ function processSearchResult(rlist) {
 // should be a very small file and used for testing and so can ignore
 // >>Synchronous XMLHttpRequest on the main thread is deprecated
 // >>because of its detrimental effects to the end user's experience.
-//     url=http://localhost/data/synapse/segments-dummy.csv
 function ckExist(url) {
   var http = new XMLHttpRequest();
   http.onreadystatechange = function () {
