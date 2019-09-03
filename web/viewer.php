@@ -37,7 +37,7 @@
 
     <div class="row col-md-3 col-xs-3" style="display:inline-block;">
       <div class="row">
-        <button id="propertyBtn" class="btn ucvm-top-btn" style="width:20vw" title="get material property " onclick="propertyClick();">
+        <button id="propertyBtn" class="btn ucvm-top-btn" style="width:20vw" title="CLICK ME to get material property" onclick="propertyClick();">
         <span class="glyphicon glyphicon-star"></span> query material property</button>
         <div class="row" style="display:inline-block;">
           <div id="spinIconForProperty" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="row col-md-2 col-xs-2" style="display:inline-block;">
-          <button id="verticalProfileBtn" class="btn ucvm-top-btn" title="depth profile" onclick="verticalProfileClick();">
+          <button id="verticalProfileBtn" class="btn ucvm-top-btn" title="CLICK ME to plot depth profiles" onclick="verticalProfileClick();">
           <span class="glyphicon glyphicon-star"></span> profile</button>
         <div class="row" style="display:inline-block;">
           <div id="spinIconForVerticalProfile" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none"><i class="spin-icon animate-spin">&#xe839;</i></div>
@@ -53,7 +53,7 @@
     </div>
     <div class="row" id="resultForVerticalProfile" align="left" style="display:inline-block;"></div>
     <div class="row col-md-2 col-xs-2" style="margin-left:3vw; display:inline-block;">
-        <button id="crossSectionBtn" class="btn ucvm-top-btn" title="cross section" onclick="crossSectionClick();">
+        <button id="crossSectionBtn" class="btn ucvm-top-btn" title="CLICK ME to plot cross section" onclick="crossSectionClick();">
         <span class="glyphicon glyphicon-star"></span> cross</button>
         <div clsss="row" style="display:inline-block;">
           <div id="spinIconForCrossSection" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none"><i class="spin-icon animate-spin">&#xe839;</i></div>
@@ -61,7 +61,7 @@
     </div>
     <div class="row" id="resultForCrossSection" align="center"style="display:inline-block;"></div>
     <div class="row col-md-2 col-xs-2" style="margin-left:3vw; display:inline-block;">
-        <button id="horizontalSliceBtn" class="btn ucvm-top-btn" title="horizontal slice" onclick="horizontalSliceClick();">
+        <button id="horizontalSliceBtn" class="btn ucvm-top-btn" title="CLICK ME to plot horizontal slice" onclick="horizontalSliceClick();">
         <span class="glyphicon glyphicon-star"></span> horizontal</button>
         <div class="row" style="display:inline-block;">
           <div id="spinIconForHorizontalSlice" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none"><i class="spin-icon animate-spin">&#xe839;</i></div>

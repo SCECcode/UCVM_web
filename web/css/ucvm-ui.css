@@ -1,5 +1,11 @@
 /* required styles */
 
+/*
+button[title]:hover:before {
+   font: 10px;
+}
+*/
+
 hr { 
   display: block;
   margin-top: 0.3em;
