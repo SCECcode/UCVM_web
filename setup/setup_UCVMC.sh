@@ -2,16 +2,18 @@
 
 export TOP_UCVM_DIR=`pwd`
 
-chmod og+rw $TOP_UCVM_DIR/web/result
+export ANACONDA2=/usr/local/share/anaconda2
 
 export UCVM_SRC_PATH=$TOP_UCVM_DIR/model/UCVMC
-export UCVM_INSTALL_PATH=$TOP_UCVM_DIR/web/model/UCVMC_TARGET
+export UCVM_INSTALL_PATH=$TOP_UCVM_DIR/model/UCVMC_TARGET
 
 if [ $LD_LIBRARY_PATH ] ; then
   export LD_LIBRARY_PATH=$UCVM_INSTALL_PATH/lib/euclid3/lib:$UCVM_INSTALL_PATH/lib/proj-5/lib:$LD_LIBRARY_PATH
   else
     export LD_LIBRARY_PATH=$UCVM_INSTALL_PATH/lib/euclid3/lib:$UCVM_INSTALL_PATH/lib/proj-5/lib
 fi
+
+export $ANACONDA2/bin:$LD_LIBRARY_PATH
 
 ## setup python script
 if [ $PYTHONPATH ] ; then 

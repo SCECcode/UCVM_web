@@ -1,0 +1,26 @@
+## run as installer of the system stack
+#   
+
+rm -rf Anaconda2-2019.07-Linux-x86_64.sh
+rm -rf UCVM_web
+rm -rf anaconda2
+
+sudo yum install git
+sudo yum install gcc
+sudo yum install gfortran
+sudo yum install autotools
+sudo yum install autoconf
+sudo yum install aclocal
+sudo yum install automake
+
+wget https://repo.anaconda.com/archive/Anaconda2-2019.07-Linux-x86_64.sh
+sudo bash Anaconda2-2019.07-Linux-x86_64.sh -b -p /usr/local/share/anaconda2
+
+git clone https://github.com/SCECcode/UCVM_web.git
+
+## build UCVMC 
+cd UCVM_web
+bash ./setup/run-build-UCVMC
+
+
+    
