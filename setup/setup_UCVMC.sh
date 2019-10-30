@@ -13,7 +13,7 @@ if [ $LD_LIBRARY_PATH ] ; then
     export LD_LIBRARY_PATH=$UCVM_INSTALL_PATH/lib/euclid3/lib:$UCVM_INSTALL_PATH/lib/proj-5/lib
 fi
 
-export $ANACONDA2/bin:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$ANACONDA2/bin:$LD_LIBRARY_PATH
 
 ## setup python script
 if [ $PYTHONPATH ] ; then 
