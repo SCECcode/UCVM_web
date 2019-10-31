@@ -1,0 +1,10 @@
+#!/bin/bash
+
+## run at top level
+
+source setup/setup_UCVM_web.sh
+
+chmod og+rw $TOP_UCVM_WEB_DIR/web/result
+ln -s $UCVM_INSTALL_PATH $TOP_UCVM_WEB_DIR/model
+
+exit
