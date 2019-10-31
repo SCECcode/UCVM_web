@@ -21,5 +21,9 @@ git clone https://github.com/SCECcode/UCVM_web.git
 cd UCVM_web
 bash ./setup/run-build-UCVMC
 
+## python basemap, basemap-data-hires, matplotlib
+sudo /usr/local/share/anaconda2/bin/conda install -y matplotlib
+sudo /usr/local/share/anaconda2/bin/conda install -y basemap
+sudo /usr/local/share/anaconda2/bin/conda install -y basemap-data-hires
 
     
