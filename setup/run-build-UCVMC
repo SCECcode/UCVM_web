@@ -12,6 +12,8 @@ mkdir $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
 git clone https://github.com/SCECcode/UCVMC.git -b forGFM
 
+# 6th is cvmsi,
+# 8th is cvmh
 cd $UCVM_SRC_PATH/largefiles
 ./get_large_files.py << EOB 
 n
