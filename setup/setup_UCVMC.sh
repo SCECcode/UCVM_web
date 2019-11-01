@@ -10,7 +10,7 @@ export TOP_UCVM_DIR=`pwd`
 export ANACONDA2=/usr/local/share/anaconda2
 
 export UCVM_SRC_PATH=$TOP_UCVM_DIR/model/UCVMC
-export UCVM_INSTALL_PATH=$TOP_UCVM_DIR/model/UCVMC_TARGET
+export UCVM_INSTALL_PATH=$TOP_UCVM_DIR/web/model/UCVMC_TARGET
 
 if [ $LD_LIBRARY_PATH ] ; then
   export LD_LIBRARY_PATH=$UCVM_INSTALL_PATH/lib/euclid3/lib:$UCVM_INSTALL_PATH/lib/proj-5/lib:$UCVM_INSTALL_PATH/model/cvmh1511/lib:$UCVM_INSTALL_PATH/model/cvms426/lib:$LD_LIBRARY_PATH

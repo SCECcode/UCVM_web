@@ -21,6 +21,12 @@ if ($firstzmode == 'e')
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+echo "-->",$query;
+echo "-->",$status;
+echo "-->",$retval;
+echo "-->",$result;
+
+
 $result2 = "";
 if($secondlat != "" && $secondlon != "") {
   $estr2 = " -l ".$secondlat.",".$secondlon.",".$firstz." ";
@@ -38,6 +44,8 @@ $resultlist->first=$result;
 $resultlist->second=$result2;
 
 $resultstring = htmlspecialchars(json_encode($resultlist), ENT_QUOTES, 'UTF-8');
+echo "===>",$resultstring;
+
 echo "<div data-side=\"materialPropertyByLatlon\" data-params=\""; 
 echo $resultstring;
 echo "\" style=\"display:flex\"></div>";
