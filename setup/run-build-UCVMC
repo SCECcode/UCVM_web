@@ -19,10 +19,10 @@ n
 n
 n
 n
-n
-n
-n
 y
+n
+n
+n
 EOB
 
 ### cd $UCVM_SRC_PATH/largefiles; ./check_largefiles_md5.py

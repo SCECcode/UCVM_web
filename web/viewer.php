@@ -79,7 +79,10 @@ Zmode:
 </select>
 Model:
 <select id="modelTxt" title="model" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+             <option value="cvmsi">CVMSI</option>
+<!--
              <option value="cvmh">CVMH</option>
+-->
 </select>
 
   </div>
