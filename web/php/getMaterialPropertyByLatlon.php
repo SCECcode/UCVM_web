@@ -39,12 +39,7 @@ if($secondlat != "" && $secondlon != "") {
   $result2 = exec(escapeshellcmd($query2), $retval);
 }
 
-$resultlist = new \stdClass();
-$resultlist->first=$result;
-$resultlist->second=$result2;
-
 $resultstring = htmlspecialchars(json_encode($resultlist), ENT_QUOTES, 'UTF-8');
-echo "===>",$resultstring;
 
 echo "<div data-side=\"materialPropertyByLatlon\" data-params=\""; 
 echo $resultstring;
