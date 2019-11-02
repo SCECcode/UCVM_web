@@ -21,11 +21,6 @@ if ($firstzmode == 'e')
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
-echo "-->",$query;
-echo "-->",$status;
-echo "-->",$retval;
-echo "-->",$result;
-
 
 $result2 = "";
 if($secondlat != "" && $secondlon != "") {
@@ -38,6 +33,10 @@ if($secondlat != "" && $secondlon != "") {
 
   $result2 = exec(escapeshellcmd($query2), $retval);
 }
+
+$resultlist = new \stdClass();
+$resultlist->first=$result;
+$resultlist->second=$result2;
 
 $resultstring = htmlspecialchars(json_encode($resultlist), ENT_QUOTES, 'UTF-8');
 
