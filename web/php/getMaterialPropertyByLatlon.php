@@ -21,7 +21,6 @@ if ($firstzmode == 'e')
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
-
 $result2 = "";
 if($secondlat != "" && $secondlon != "") {
   $estr2 = " -l ".$secondlat.",".$secondlon.",".$firstz." ";
