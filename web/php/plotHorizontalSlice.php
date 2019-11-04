@@ -9,8 +9,8 @@ include ("util.php");
 
 $firstlat = ($_GET['firstlat']);
 $firstlon = ($_GET['firstlon']);
-$firstz = ($_GET['firstz']);
-$firstzmode = ($_GET['firstzmode']);
+$z = ($_GET['z']);
+$zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 
 
@@ -19,7 +19,7 @@ $secondlon = ($_GET['secondlon']);
 
 $envstr=makeEnvString();
 
-$zval=(int) $firstz;
+$zval=(int) $z;
 $lval= ($secondlat - $firstlat)/50;
 $llval= ($secondlon - $firstlon)/50;
 

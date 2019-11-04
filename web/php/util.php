@@ -9,20 +9,4 @@ function makeEnvString() {
    return $envstr;
 }
 
-function makeVerticalQuery($model,$lat,$lon,$z,$zmode,$file) { 
-
-$envstr=makeEnvString();
-
-$lstr = " -s ".$lat.",".$lon." -e ".$z;
-$qstub=" -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET -b 0 -d vs,vp,density -c ".$model." -o ".$file;
-
-if ($zmode == 'e') { 
-     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_profile.py -v -100 ".$qstub.$lstr;
-}
-if ($zmode == 'd') { 
-     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_depth_profile.py -v 100 ".$qstub.$lstr;
-}
-
-return $query;
-}
 ?>

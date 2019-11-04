@@ -9,8 +9,8 @@ include ("util.php");
 
 $firstlat = ($_GET['firstlat']);
 $firstlon = ($_GET['firstlon']);
-$firstz = ($_GET['firstz']);
-$firstzmode = ($_GET['firstzmode']);
+$z = ($_GET['z']);
+$zmode = ($_GET['zmode']);
 $model= ($_GET['model']);
 
 
@@ -21,16 +21,22 @@ $envstr=makeEnvString();
 
 $file="../result/cross.png";
 
-$vval= intval((float)$firstz/200);
-$hval=  intval(((float)$secondlat - (float)$firstlat)*400);
+$vval= intval((float)$z/100);
+$hhval= ((float)$secondlat - (float)$firstlat)*110.57;
+$hhhval= ((float)$secondlon - (float)$firstlon)*111.32;
+$dval=  sqrt(($hhval*$hhval) + ($hhhval*$hhhval));
+$hval=intval(($dval/200)*1000);
 
-$lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$firstz;
+$lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$z;
 $qstub=" -h ".$hval." -d vs -c ".$model." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;
 
-if ($firstzmode == 'e') 
-     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_cross_section.py -s 200 ".$qstub.$lstr;
-if ($firstzmode == 'd') 
+if ($zmode == 'e') {
+     $sval= $vval *5;
+     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_cross_section.py -s ".$sval." ".$qstub.$lstr;
+}
+if ($zmode == 'd') { 
      $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_cross_section.py -s 0 ".$qstub.$lstr;
+}
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 

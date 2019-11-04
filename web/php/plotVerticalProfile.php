@@ -7,36 +7,34 @@
 <?php
 include ("util.php");
 
-$firstlat = ($_GET['firstlat']);
-$firstlon = ($_GET['firstlon']);
-$firstz = ($_GET['firstz']);
-$firstzmode = ($_GET['firstzmode']);
+$lat = ($_GET['lat']);
+$lon = ($_GET['lon']);
+$z = ($_GET['z']);
+$zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 
-$secondlat = ($_GET['secondlat']);
-$secondlon = ($_GET['secondlon']);
-
-$np="/usr/local/anaconda2/bin:/usr/local/anaconda2/condabin:".getenv("PATH");
+$np="/usr/local/share/anaconda2/bin:/usr/local/share/anaconda2/condabin:".getenv("PATH");
 putenv("PATH=".$np);
 
 $itemlist = new \stdClass();
 
 $file="../result/vertical.png";
-$query=makeVerticalQuery($model,$firstlat,$firstlon,$firstz,$firstzmode,$file);
 
+$envstr=makeEnvString();
+
+$lstr = " -s ".$lat.",".$lon." -e ".$z;
+$qstub=" -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET -b 0 -d vs,vp,density -c ".$model." -o ".$file;
+
+if ($zmode == 'e') {
+     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_profile.py -v -100 ".$qstub.$lstr;
+}
+if ($zmode == 'd') {
+     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_depth_profile.py -v 100 ".$qstub.$lstr;
+}
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 if ( $status == 0 && file_exists($file)) {
     $itemlist->first="vertical.png";
-}
-
-if ( $secondlat != "" && $secondlon !="" ) {
-   $file2="../result/vertical2.png";
-   $query2=makeVerticalQuery($model,$secondlat,$secondlon,$firstz,$firstzmode,$file2);
-   $result2 = exec(escapeshellcmd($query2), $retval2, $status2);
-   if ( $status2== 0 && file_exists($file2)) {
-     $itemlist->second="vertical2.png";
-   }
 }
 
 $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');

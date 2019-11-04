@@ -2,28 +2,120 @@
    ucvm_ui.js
 ***/
 
+var SAVE_GO_TYPE;
+
 function setup_viewer() {
 }
 
+// horizontal is only depth
 function horizontalSliceClick() {
-    document.getElementById('spinIconForHorizontalSlice').style.display = "block";	
+    document.getElementById('inputModeBlock').style.display = "none";
+    document.getElementById('point2Block').style.display = "block";
+    document.getElementById('pointBlock').style.display = "block";
+    document.getElementById('queryBlock').style.display = "block";
+    document.getElementById('fileBlock').style.display = "none";
+    setDefaultZ2depth();
+    SAVE_GO_TYPE='horizontal';
+}
+
+function horizontalClick() {
+    document.getElementById('spinIconForHorizontalSlice').style.display = "block";    
     plotHorizontalSlice();
 }
 
 function crossSectionClick() {
-    document.getElementById('spinIconForCrossSection').style.display = "block";	
+    document.getElementById('inputModeBlock').style.display = "none";
+    document.getElementById('pointBlock').style.display = "block";
+    document.getElementById('point2Block').style.display = "block";
+    document.getElementById('queryBlock').style.display = "block";
+    document.getElementById('fileBlock').style.display = "none";
+    SAVE_GO_TYPE='cross';
+}
+
+function crossClick() {
+    document.getElementById('spinIconForCrossSection').style.display = "block";    
     plotCrossSection();
 }
 
 function verticalProfileClick() {
-    document.getElementById('spinIconForVerticalProfile').style.display = "block";	
+    document.getElementById('inputModeBlock').style.display = "none";
+    document.getElementById('queryBlock').style.display = "block";
+    document.getElementById('pointBlock').style.display = "block";
+    document.getElementById('point2Block').style.display = "none";
+    document.getElementById('fileBlock').style.display = "none";
+    SAVE_GO_TYPE='profile';
+}
+
+function profileClick() {
+    document.getElementById('spinIconForVerticalProfile').style.display = "block";    
     plotVerticalProfile();
 }
 
 function propertyClick() {
-    document.getElementById('spinIconForProperty').style.display = "block";	
+    document.getElementById('inputModeBlock').style.display = "block";
+    document.getElementById('queryBlock').style.display = "block";
+    document.getElementById('pointBlock').style.display = "block";
+    document.getElementById('point2Block').style.display = "none";
+    SAVE_GO_TYPE='query';
+}
+
+function queryClick() {
+    document.getElementById('spinIconForProperty').style.display = "block";    
     getMaterialPropertyByLatlon();
 }
+
+function goClick() {
+    switch (SAVE_GO_TYPE) {
+        case('query') :
+            queryClick();
+            break;
+        case('profile') :
+            profileClick();
+            break;
+        case('cross') :
+            crossClick();
+            break;
+        case('horizontal') :
+            horizontalSliceClick();
+            break;
+        default:
+            window.console.log("bad go click..");
+    }
+}
+
+// it is filelist
+function selectLocalFiles(_urls) {
+
+    document.getElementById('spinIconForListProperty').style.display = "block";
+
+    if(_urls == undefined) {
+      throw new Error("must have an url!");
+    }
+    var _url=_urls[0];
+    if( _url instanceof File) {
+      readAndProcessLocalFile(_url);
+    } else {
+      throw new Error("local file must be a File object type!");
+    }
+}
+
+function clearSearchResult()
+{
+    document.getElementById("searchResult").innerHTML = "";
+}
+
+function setDefaultZ2depth()
+{
+    document.getElementById("ZmodeTxt").value = "d";
+    document.getElementById("ZTxt").value = "4000";
+}
+
+function setDefaultZ2elevation()
+{
+    document.getElementById("ZmodeTxt").value = "e";
+    document.getElementById("ZTxt").value = "-3000";
+}
+
 
 function plotPNG2(str)
 {
@@ -74,11 +166,6 @@ function plotPNG(str)
 
     return html;
     
-}
-
-function clearSearchResult()
-{
-    document.getElementById("searchResult").innerHTML = "";
 }
 
 // takes 2 sets of result
@@ -150,7 +237,7 @@ window.console.log(JSON.stringify(blob));
 
 // takes 1 or more sets of result
 // of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable(str)
+function makeHorizontalResultTableSAVE(str)
 {
     var i;
     var blob;
@@ -235,11 +322,255 @@ window.console.log(JSON.stringify(blob));
 }
 
 
+// takes 1 or more sets of result
+// of { 'first':{...}, 'second':{...}, ...}
+function makeHorizontalResultTable(str)
+{
+    var i;
+    var blob;
+    if( str == undefined || str == "" ) {
+       window.console.log("ERROR: no return result");
+       return "";
+    }
+    if( typeof str === 'string') { 
+       blob=JSON.parse(str);
+       } else {
+         blob=str;
+    }
+
+    var dkeys=Object.keys(blob); // dkeys: first, second
+    var dsz=(Object.keys(blob).length); // 2
+
+    if(dsz < 1) {
+       window.console.log("ERROR: expecting at least 1 set of material properties");
+       return;
+    }
+
+    html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
+    html=html+"<div class=\"gfm-table\"><table><tbody>";
+
+    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
+    if( typeof datablob === 'string') { 
+       datablob=JSON.parse(datablob);
+    }
+
+    // create the key first
+    var labelline="";
+    var key;
+    
+    var datakeys=Object.keys(datablob);
+    var sz=(Object.keys(datablob).length);
+
+    labelline="<tr>";
+ 
+    for(i=0; i<sz; i++) {
+        key=datakeys[i];
+        // special case
+        if(key == 'Z') { 
+          var zmodestr=document.getElementById("ZmodeTxt").value;
+          if(zmodestr == "e")
+              key=key+" (by<br>elevation)";
+          else
+              key=key+" (by<br>depth)";
+ 
+        }
+        labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
+    }
+    labelline=labelline+"</tr>";
+
+    html=html+labelline;
+
+    // now adding the data part..
+    var mpline="";
+    for(j=0; j< dsz; j++) {
+        var datablob=blob[dkeys[j]];
+        if(datablob == "")
+           continue;
+        if( typeof datablob === 'string') { 
+           datablob=JSON.parse(datablob);
+        }
+        mpline="<tr>";
+        for(i=0; i<sz; i++) {
+            var key2=datakeys[i];
+            var val2=datablob[key2];
+            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+         }
+         mpline=mpline+"</tr>";
+         html=html+mpline;
+    }
+
+    html=html+"</tbody></table></div>";
+    return html;
+}
+
+
+// takes 1 or more sets of result
+// of { 'first':{...}, 'second':{...}, ...}
+function makeHorizontalResultTable_start(str)
+{
+    var i;
+    var blob;
+    if( str == undefined || str == "" ) {
+       window.console.log("ERROR: no return result");
+       return "";
+    }
+    if( typeof str === 'string') { 
+       blob=JSON.parse(str);
+       } else {
+         blob=str;
+    }
+
+    var dkeys=Object.keys(blob); // dkeys: first, second
+    var dsz=(Object.keys(blob).length); // 2
+
+    if(dsz < 1) {
+       window.console.log("ERROR: expecting at least 1 set of material properties");
+       return;
+    }
+
+    var htmlstr="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
+    htmlstr=htmlstr+"<div class=\"gfm-table\"><table><tbody>";
+
+    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
+    if( typeof datablob === 'string') { 
+       datablob=JSON.parse(datablob);
+    }
+
+    // create the key first
+    var labelline="";
+    var key;
+    
+    var datakeys=Object.keys(datablob);
+    var sz=(Object.keys(datablob).length);
+
+    labelline="<tr>";
+ 
+    for(i=0; i<sz; i++) {
+        key=datakeys[i];
+        // special case
+        if(key == 'Z') { 
+          var zmodestr=document.getElementById("ZmodeTxt").value;
+          if(zmodestr == "e")
+              key=key+" (by<br>elevation)";
+          else
+              key=key+" (by<br>depth)";
+ 
+        }
+        labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
+    }
+    labelline=labelline+"</tr>";
+
+    htmlstr=htmlstr+labelline;
+
+    // now adding the data part..
+    var mpline="";
+    for(j=0; j< dsz; j++) {
+        var datablob=blob[dkeys[j]];
+        if(datablob == "")
+           continue;
+        if( typeof datablob === 'string') { 
+           datablob=JSON.parse(datablob);
+        }
+        mpline="<tr>";
+        for(i=0; i<sz; i++) {
+            var key2=datakeys[i];
+            var val2=datablob[key2];
+            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+         }
+         mpline=mpline+"</tr>";
+         htmlstr=htmlstr+mpline;
+    }
+
+    return htmlstr;
+}
+// make rows of the table
+function makeHorizontalResultTable_next(str)
+{
+    var htmlstr="";
+
+    if (str == undefined )
+      return htmlstr;
+
+    if( typeof str === 'string') { 
+       blob=JSON.parse(str);
+       } else {
+         blob=str;
+    }
+
+    var dkeys=Object.keys(blob); // dkeys: first, second
+    var dsz=(Object.keys(blob).length); // 2
+
+    if(dsz < 1) {
+       window.console.log("ERROR: expecting at least 1 set of material properties");
+       return;
+    }
+
+    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
+    if( typeof datablob === 'string') {
+       datablob=JSON.parse(datablob);
+    }
+
+    var datakeys=Object.keys(datablob);
+    var sz=(Object.keys(datablob).length);
+
+    // now adding the data part..
+    var mpline="";
+    for(j=0; j< dsz; j++) {
+        var datablob=blob[dkeys[j]];
+        if(datablob == "")
+           continue;
+        if( typeof datablob === 'string') { 
+           datablob=JSON.parse(datablob);
+        }
+        mpline="<tr>";
+        for(i=0; i<sz; i++) {
+            var key2=datakeys[i];
+            var val2=datablob[key2];
+            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+         }
+         mpline=mpline+"</tr>";
+         htmlstr=htmlstr+mpline;
+    }
+
+    return htmlstr;
+}
+
+// last bit of the table
+function makeHorizontalResultTable_last() {
+    var html="</tbody></table></div>";
+    return html;
+}
+
+
+function saveAsCSVBlobFile(data, timestamp)
+{
+//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+//   var rnd= Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    var fname="UCVM_"+timestamp+".csv";
+    var blob = new Blob([data], {
+        type: "text/plain;charset=utf-8"
+    });
+    //FileSaver.js
+    saveAs(blob, fname);
+}
+
+function linkDownload(str)
+{
+    var html="";
+    // just one
+    if( typeof str === 'string') { 
+       html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a></div>";
+       return html;
+    }
+    return html;
+}
+
+
 function saveAsBlobFile(data, timestamp)
 {
 //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
 //   var rnd= Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    var fname="GFM_"+timestamp+".json";
+    var fname="UCVM_"+timestamp+".json";
     var blob = new Blob([data], {
         type: "text/plain;charset=utf-8"
     });

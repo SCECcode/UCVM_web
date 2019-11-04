@@ -26,6 +26,29 @@ jQuery(document).ready(function() {
     $(".links").fadeIn("slow");
   });
 
+  $('#QuerymodeTxt').on('change', function() {
+    var v=document.getElementById('QuerymodeTxt').value;
+    clearSearchResult();
+    if( v == "file") {
+      document.getElementById('pointBlock').style.display = "none";
+      document.getElementById('fileBlock').style.display = "";
+      } else {
+        document.getElementById('pointBlock').style.display = "";
+        document.getElementById('fileBlock').style.display = "none";
+    }
+  });
+
+  // toggle to some usable default
+  $('#ZmodeTxt').on('change', function() {
+    var v=document.getElementById('ZmodeTxt').value;
+    if( v == "e") {
+        document.getElementById("ZTxt").value = "-3000";
+        } else {
+            document.getElementById("ZTxt").value = "4000";
+    }
+  });
+
+
   viewermap=setup_viewer();
 
 }) // end of MAIN

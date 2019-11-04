@@ -72,20 +72,7 @@
 
 <div class="row" id='queryBlock' style="margin:0px 0px 20px 30px; background-color:transparent;top:40vh; width:100%; display:none">
 
-  <div class="row col-md-10 col-xs-10" style="display:inline-block; border:solid 1px green;">
-    <div class="row col-md-3" style="display:inline-block"> Zmode:
-      <select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-             <option value="e">Elevation</option>
-             <option value="d">Depth</option>
-       </select>
-    </div>
-
-    <div class="row col-md-3" style="display:inline-block"> InputMode:
-      <select id="QuerymodeTxt" title="how to query" class="custom-select custom-select-sm" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-             <option value="point"> Point</option>
-             <option value="file"> File</option>
-       </select>
-    </div>
+  <div class="row col-md-10 col-xs-10" style="display:inline-block;">
 
     <div class="row col-md-3" style="display:inline-block"> Model:
       <select id="modelTxt" title="model" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
@@ -93,6 +80,20 @@
              <option value="cvmh">CVMH</option>
       </select>
     </div>
+    <div class="row col-md-3" style="display:inline-block"> Zmode:
+      <select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+             <option value="e">Elevation</option>
+             <option value="d">Depth</option>
+       </select>
+    </div>
+
+    <div class="row col-md-3" id="inputModeBlock" style="display:none"> InputMode:
+      <select id="QuerymodeTxt" title="how to query" class="custom-select custom-select-sm" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+             <option value="point"> Point</option>
+             <option value="file"> File</option>
+       </select>
+    </div>
+
     <div class="row col-md-3 col-xs-3" style="display:inline-block;">
       <div class="row">
        <button id="goBtn" class="btn ucvm-top-btn" title="get material property" onclick="goClick();">
@@ -105,17 +106,17 @@
   <div class="row col-md-10 col-xs-10" id="pointBlock" style="margin:20px 0px 0px 10px;display:">
    <div class="row"> Lat:<input type="text" id="firstLatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  &nbsp;&nbsp;Lon:<input type="text" id="firstLonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-&nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="3000" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+&nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="-3000" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
     </div>
   </div><!--- pointBlock --->
 
-  <div class="row col-md-10 col-xs-10" id="point2Block" style="margin:20px 0px 0px 10px;display:inline-block;">
+  <div class="row col-md-10 col-xs-10" id="point2Block" style="margin:20px 0px 0px 10px;display:none">
    <div class="row"> Lat:<input type="text" id="secondLatTxt" title="lat" value="35.60" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  &nbsp;&nbsp;Lon:<input type="text" id="secondLonTxt" title="lon" value="-117.50" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
    </div>
   </div> <!--- point2Block --->
 
-  <div class="row col-md-10 col-xs-10" id="fileBlock" style="margin:20px 0px 0px 10px;display:inline-block;">
+  <div class="row col-md-10 col-xs-10" id="fileBlock" style="margin:20px 0px 0px 10px;display:none">
     <div class="row">
       <input id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
       <button id="selectbtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
