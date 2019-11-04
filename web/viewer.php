@@ -70,7 +70,7 @@
     <div class="row" id="resultForHorizontalSlice" align="center" style="display:inline-block;"></div>
    </div> <!-- controlBlock -->
 
-<div class="row" id='queryBlock' style="margin:0px 0px 20px 30px; background-color:transparent;top:40vh; width:100%;">
+<div class="row" id='queryBlock' style="margin:0px 0px 20px 30px; background-color:transparent;top:40vh; width:100%; display:none">
 
   <div class="row col-md-10 col-xs-10" style="display:inline-block; border:solid 1px green;">
     <div class="row col-md-3" style="display:inline-block"> Zmode:
@@ -95,14 +95,14 @@
     </div>
     <div class="row col-md-3 col-xs-3" style="display:inline-block;">
       <div class="row">
-       <button id="queryBtn" class="btn ucvm-top-btn" title="get material property" onclick="queryClick();">
-       <span class="glyphicon glyphicon-star"></span> Query</button>
-       <div id="spinIconForQuery" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+       <button id="goBtn" class="btn ucvm-top-btn" title="get material property" onclick="goClick();">
+       <span class="glyphicon glyphicon-play"></span> GO!</button>
+       <div id="spinIconForGo" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
        </div>
     </div>
   </div>
 
-  <div class="row col-md-10 col-xs-10" id="pointBlock" style="margin:20px 0px 0px 10px;display:inline-block;">
+  <div class="row col-md-10 col-xs-10" id="pointBlock" style="margin:20px 0px 0px 10px;display:">
    <div class="row"> Lat:<input type="text" id="firstLatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  &nbsp;&nbsp;Lon:<input type="text" id="firstLonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 &nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="3000" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
