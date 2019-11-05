@@ -21,8 +21,8 @@ $envstr=makeEnvString();
 
 $zval=(int) $z;
 
-$lval= ($secondlat - $firstlat)/60;
-$llval=($secondlon - $firstlon)/60;
+$lval= round(($secondlat - $firstlat)/60, 3);
+$llval=round(($secondlon - $firstlon)/60, 3);
 
 $file="../result/horizontal.png";
 

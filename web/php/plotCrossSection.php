@@ -24,7 +24,7 @@ $file="../result/cross.png";
 $vval= intval((float)$z/100);
 $hhval= ((float)$secondlat - (float)$firstlat)*110.57;
 $hhhval= ((float)$secondlon - (float)$firstlon)*111.32;
-$dval=  sqrt(($hhval*$hhval) + ($hhhval*$hhhval));
+$dval=  round(sqrt(($hhval*$hhval) + ($hhhval*$hhhval)),3);
 $hval=intval(($dval/200)*1000);
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$z;

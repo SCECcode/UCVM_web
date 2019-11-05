@@ -30,7 +30,7 @@
 <div class="container-fluid">
 
   <div class="row col-12" style="margin:20px 20px 20px 20px" >
-            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows users query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.</p>
+            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows user query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.</p>
   </div>
 
   <div class="row" id="controlBlock" style="margin:0px 0px 20px 30px; width:100%;display:flex;">
@@ -77,7 +77,9 @@
     <div class="row col-md-3" style="display:inline-block"> Model:
       <select id="modelTxt" title="model" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="cvmsi">CVMSI</option>
+<!--
              <option value="cvmh">CVMH</option>
+-->
       </select>
     </div>
     <div class="row col-md-3" style="display:inline-block"> Zmode:
