@@ -20,8 +20,9 @@ $secondlon = ($_GET['secondlon']);
 $envstr=makeEnvString();
 
 $zval=(int) $z;
-$lval= ($secondlat - $firstlat)/50;
-$llval= ($secondlon - $firstlon)/50;
+
+$lval= ($secondlat - $firstlat)/60;
+$llval=($secondlon - $firstlon)/60;
 
 $file="../result/horizontal.png";
 

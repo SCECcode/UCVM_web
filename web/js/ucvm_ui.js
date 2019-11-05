@@ -76,7 +76,7 @@ function goClick() {
             crossClick();
             break;
         case('horizontal') :
-            horizontalSliceClick();
+            horizontalClick();
             break;
         default:
             window.console.log("bad go click..");
