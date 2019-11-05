@@ -10,11 +10,10 @@ function setup_viewer() {
 // horizontal is only depth
 function horizontalSliceClick() {
     document.getElementById('inputModeBlock').style.display = "none";
-    document.getElementById('point2Block').style.display = "block";
-    document.getElementById('pointBlock').style.display = "block";
     document.getElementById('queryBlock').style.display = "block";
+    document.getElementById('pointBlock').style.display = "block";
+    document.getElementById('point2Block').style.display = "block";
     document.getElementById('fileBlock').style.display = "none";
-    setDefaultZ2depth();
     SAVE_GO_TYPE='horizontal';
 }
 
@@ -25,9 +24,9 @@ function horizontalClick() {
 
 function crossSectionClick() {
     document.getElementById('inputModeBlock').style.display = "none";
+    document.getElementById('queryBlock').style.display = "block";
     document.getElementById('pointBlock').style.display = "block";
     document.getElementById('point2Block').style.display = "block";
-    document.getElementById('queryBlock').style.display = "block";
     document.getElementById('fileBlock').style.display = "none";
     SAVE_GO_TYPE='cross';
 }

@@ -29,7 +29,12 @@ $file="../result/horizontal.png";
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
 $qstub=" -d vs -c ".$model." -s ".$lval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
 
-$query= $envstr." ../model/UCVMC_TARGET/utilities/plot_horizontal_slice.py ".$qstub.$lstr;
+if( $zmode == 'd') {
+  $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_horizontal_slice.py ".$qstub.$lstr;
+}
+if( $zmode == 'e') {
+  $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_horizontal_slice.py ".$qstub.$lstr;
+}
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
