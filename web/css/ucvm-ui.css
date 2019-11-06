@@ -62,6 +62,14 @@ th {text-align: left;}
           color: #990000;
 }
 
+.ucvm-top-btn:active, .ucvm-top-btn.active {
+          border:2px solid #990000; 
+}
+
+#goBtn:active, #goBtn.active {
+	border:2px solid #990000;
+}
+
 .ucvm-btn {
           background: white; 
           border: 0px solid #D5D5D5;

@@ -7,6 +7,14 @@ var SAVE_GO_TYPE;
 function setup_viewer() {
 }
 
+function clear_all_top_btn() {
+    $('#crossSectionBtn').removeClass('active')
+    $('#horizontalSliceBtn').removeClass('active')
+    $('#verticalProfileBtn').removeClass('active')
+    $('#propertyBtn').removeClass('active')
+    $('#goBtn').removeClass('active');
+}
+
 // horizontal is only depth
 function horizontalSliceClick() {
     document.getElementById('inputModeBlock').style.display = "none";
@@ -15,6 +23,8 @@ function horizontalSliceClick() {
     document.getElementById('point2Block').style.display = "block";
     document.getElementById('fileBlock').style.display = "none";
     SAVE_GO_TYPE='horizontal';
+    $('#horizontalSliceBtn').addClass('active')
+    $('#goBtn').addClass('active');
 }
 
 function horizontalClick() {
@@ -29,6 +39,8 @@ function crossSectionClick() {
     document.getElementById('point2Block').style.display = "block";
     document.getElementById('fileBlock').style.display = "none";
     SAVE_GO_TYPE='cross';
+    $('#crossSectionBtn').addClass('active')
+    $('#goBtn').addClass('active');
 }
 
 function crossClick() {
@@ -43,6 +55,8 @@ function verticalProfileClick() {
     document.getElementById('point2Block').style.display = "none";
     document.getElementById('fileBlock').style.display = "none";
     SAVE_GO_TYPE='profile';
+    $('#verticalProfileBtn').addClass('active')
+    $('#goBtn').addClass('active');
 }
 
 function profileClick() {
@@ -56,6 +70,8 @@ function propertyClick() {
     document.getElementById('pointBlock').style.display = "block";
     document.getElementById('point2Block').style.display = "none";
     SAVE_GO_TYPE='query';
+    $('#propertyBtn').addClass('active');
+    $('#goBtn').addClass('active');
 }
 
 function queryClick() {
@@ -80,6 +96,7 @@ function goClick() {
         default:
             window.console.log("bad go click..");
     }
+    clear_all_top_btn();
 }
 
 // it is filelist
