@@ -15,14 +15,14 @@ git clone https://github.com/SCECcode/UCVMC.git -b forGFM
 # 8th is cvmh
 cd $UCVM_SRC_PATH/largefiles
 ./get_large_files.py << EOB 
-n
+y
 n
 n
 n
 n
 y
 n
-n
+y
 EOB
 
 ### cd $UCVM_SRC_PATH/largefiles; ./check_largefiles_md5.py

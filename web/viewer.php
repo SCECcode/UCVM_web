@@ -75,11 +75,10 @@
   <div class="row col-md-10 col-xs-10" style="display:inline-block;">
 
     <div class="row col-md-3" style="display:inline-block"> Model:
-      <select id="modelTxt" title="model" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-             <option value="cvmsi">CVMSI</option>
-<!--
-             <option value="cvmh">CVMH</option>
--->
+      <select id="modelTxt" title="model" class="custom-select custom-select-sm" style="width:15vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+             <option value="cvms5">CVM-S4.26</option>
+             <option value="cvmsi">CVM-S4.26M01</option>
+             <option value="cvmh">CVM-Hv15.1</option>
       </select>
     </div>
     <div class="row col-md-3" style="display:inline-block"> Zmode:
