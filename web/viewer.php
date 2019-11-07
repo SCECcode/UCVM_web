@@ -74,7 +74,7 @@
 
   <div class="row col-md-10 col-xs-10" style="display:inline-block;">
 
-    <div class="row col-md-3" style="display:inline-block"> Model:
+    <div class="row col-md-4" style="display:inline-block"> Model:
       <select id="modelTxt" title="model" class="custom-select custom-select-sm" style="width:15vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="cvms5">CVM-S4.26</option>
              <option value="cvmsi">CVM-S4.26M01</option>
@@ -82,7 +82,7 @@
       </select>
     </div>
     <div class="row col-md-3" style="display:inline-block"> Zmode:
-      <select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+      <select id="ZmodeTxt" title="Z mode" class="custom-select custom-select-sm" style="width:10vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
              <option value="e">Elevation</option>
              <option value="d">Depth</option>
        </select>
