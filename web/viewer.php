@@ -4,27 +4,75 @@
 <html>
 <head>
 
-<title>UCVM Viewer</title>
-<link rel="stylesheet" href="css/vendor/bootstrap.css">
-<link rel="stylesheet" href="css/vendor/jquery-ui.css">
-<link rel="stylesheet" href="css/vendor/animation.css">
-<link rel="stylesheet" href="css/vendor/fontello.css">
-<link rel="stylesheet" href="css/ucvm-ui.css">
+    <title>UCVM Viewer</title>
+    <link href="css/vendor/font-awesome.min.css" rel="stylesheet">
 
-<script type='text/javascript' src='js/vendor/jquery.min.js'></script>
-<script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
-<script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
-<script type='text/javascript' src="js/vendor/jquery.csv.js"></script>
-<script type='text/javascript' src='js/vendor/FileSaver.js'></script>
-<script type='text/javascript' src='js/vendor/jszip.js'></script>
+    <link rel="stylesheet" href="css/vendor/leaflet.css">
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/vendor/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/vendor/jquery-ui.css">
+    <link rel="stylesheet" href="css/vendor/glyphicons.css">
+    <link rel="stylesheet" href="css/vendor/animation.css">
+    <link rel="stylesheet" href="css/ucvm-ui.css?v=1">
+    <link rel="stylesheet" href="css/sidebar.css?v=1">
+
+    <script type='text/javascript' src='js/vendor/popper.min.js'></script>
+    <script type="text/javascript" src="js/vendor/leaflet-src.js"></script>
+    <script type='text/javascript' src='js/vendor/jquery.min.js'></script>
+    <script type='text/javascript' src="js/vendor/jquery.csv.js"></script>
+    <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
+    <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
+    <script type='text/javascript' src='js/vendor/ersi-leaflet.js'></script>
+    <script type='text/javascript' src='js/vendor/FileSaver.js'></script>
+    <script type='text/javascript' src='js/vendor/jszip.js'></script>
+    <script type='text/javascript' src='js/vendor/jquery.floatThead.min.js'></script>
 
 <!-- ucvm js -->
-<script type="text/javascript" src="js/debug.js"></script>
-<script type="text/javascript" src="js/ucvm_util.js"></script>
-<script type="text/javascript" src="js/ucvm_ui.js"></script>
-<script type="text/javascript" src="js/ucvm_main.js"></script>
-<script type="text/javascript" src="js/ucvm_query.js"></script>
-<script type="text/javascript" src="js/ucvm_defines.js"></script>
+    <script type="text/javascript" src="js/debug.js"></script>
+    <script type="text/javascript" src="js/ucvm_util.js?v=1"></script>
+    <script type="text/javascript" src="js/ucvm_ui.js"?v=1></script>
+    <script type="text/javascript" src="js/ucvm_main.js?v=1"></script>
+    <script type="text/javascript" src="js/ucvm_query.js?v=1"></script>
+    <script type="text/javascript" src="js/ucvm_defines.js?v=1"></script>
+    <script type="text/javascript" src="js/ucvm_sidebar.js?v=1"></script>
+    <script type="text/javascript" src="js/ucvm_leaflet.js?v=1"></script>
+
+
+<!--
+    https://leaflet.github.io/Leaflet.draw/docs/Leaflet.draw-latest.html#l-draw
+    this is for including the Leaflet.draw plugin
+-->
+    <link rel="stylesheet" href="plugin/Leaflet.draw/leaflet.draw.css">
+    <script type='text/javascript' src="plugin/Leaflet.draw/Leaflet.draw.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/Leaflet.Draw.Event.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/Toolbar.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/Tooltip.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/ext/GeometryUtil.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/ext/LatLngUtil.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/ext/LineUtil.Intersect.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/ext/Polygon.Intersect.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/ext/Polyline.Intersect.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/ext/TouchEvents.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/DrawToolbar.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/handler/Draw.Feature.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/handler/Draw.SimpleShape.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/handler/Draw.Polyline.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/handler/Draw.Marker.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/handler/Draw.Circle.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/handler/Draw.CircleMarker.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/handler/Draw.Polygon.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/draw/handler/Draw.Rectangle.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/EditToolbar.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/EditToolbar.Edit.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/EditToolbar.Delete.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/Control.Draw.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/Edit.Poly.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/Edit.SimpleShape.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/Edit.Rectangle.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/Edit.Marker.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/Edit.CircleMarker.js"></script>
+    <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/Edit.Circle.js"></script>
+
 </head>
 <body>
 <div class="container-fluid">

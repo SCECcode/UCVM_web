@@ -6508,7 +6508,6 @@ var Layer = Evented.extend({
 	// @method getAttribution: String
 	// Used by the `attribution control`, returns the [attribution option](#gridlayer-attribution).
 	getAttribution: function () {
-window.console.log("XXX calling get attribution...",this.options.attribution);
 		return this.options.attribution;
 	},
 

@@ -4,7 +4,7 @@
 $host_site_actual_path = "/";
 if (isset($_SERVER['HTTP_X_FORWARDED_SERVER'])) {
 	// check that we're behind a proxy
-	$host_site_actual_path = "/research/gfm-viewer/";
+	$host_site_actual_path = "/research/cfm-viewer/";
 }
 
 
@@ -15,7 +15,8 @@ function getHeader($this_page) {
 	global $host_site_actual_path;
 
 	$all_pages = [
-                $host_site_actual_path => "Viewer",
+		$host_site_actual_path => "Viewer",
+		"guide" => "User Guide",
 		"disclaimer" => "Disclaimer",
 		"contact" => "Contact"
 	];
@@ -37,7 +38,7 @@ _END;
     <div class="container top">
         <nav class="navbar navbar-expand-lg navbar-dark  scec-header">
             <a class="navbar-brand" href="$host_site_actual_path"><img class="scec-logo" src="img/sceclogo_transparent.png">
-                &nbsp;Geological Framework Model Viewer</a>
+                &nbsp;Community Fault Model Viewer (Beta)</a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
