@@ -38,6 +38,7 @@ function crossSectionClick() {
     document.getElementById('pointBlock').style.display = "block";
     document.getElementById('point2Block').style.display = "block";
     document.getElementById('fileBlock').style.display = "none";
+    document.getElementById('zBlock').style.display = "block";
     SAVE_GO_TYPE='cross';
     $('#crossSectionBtn').addClass('active')
     $('#goBtn').addClass('active');
@@ -54,6 +55,7 @@ function verticalProfileClick() {
     document.getElementById('pointBlock').style.display = "block";
     document.getElementById('point2Block').style.display = "none";
     document.getElementById('fileBlock').style.display = "none";
+    document.getElementById('zBlock').style.display = "none";
     SAVE_GO_TYPE='profile';
     $('#verticalProfileBtn').addClass('active')
     $('#goBtn').addClass('active');
@@ -69,6 +71,7 @@ function propertyClick() {
     document.getElementById('queryBlock').style.display = "block";
     document.getElementById('pointBlock').style.display = "block";
     document.getElementById('point2Block').style.display = "none";
+    document.getElementById('zBlock').style.display = "none";
     SAVE_GO_TYPE='query';
     $('#propertyBtn').addClass('active');
     $('#goBtn').addClass('active');
