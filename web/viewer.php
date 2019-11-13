@@ -157,7 +157,8 @@
    <div class="row"> Lat:<input type="text" id="firstLatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  &nbsp;&nbsp;Lon:<input type="text" id="firstLonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 &nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="-3000" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-&nbsp;&nbsp;start Z:<input type="text" id="startZTxt" title="startZ" value="200" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;display:;">
+&nbsp;&nbsp;Z start:<input type="text" id="ZStartTxt" title="Z start" value="200" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;display:;">
+&nbsp;&nbsp;Z step:<input type="text" id="ZStepTxt" title="Z step" value="200" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;display:;">
     </div>
   </div><!--- pointBlock --->
 
