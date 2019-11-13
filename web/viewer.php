@@ -157,10 +157,14 @@
    <div class="row"> Lat:<input type="text" id="firstLatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  &nbsp;&nbsp;Lon:<input type="text" id="firstLonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 &nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="-3000" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-&nbsp;&nbsp;Z start:<input type="text" id="ZStartTxt" title="Z start" value="200" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;display:;">
-&nbsp;&nbsp;Z step:<input type="text" id="ZStepTxt" title="Z step" value="-100" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;display:;">
     </div>
   </div><!--- pointBlock --->
+  <div class="row col-md-10 col-xs-10" id="zBlock" style="margin:20px 0px 0px 10px;display:">
+&nbsp;&nbsp;Z start:<input type="text" id="ZStartTxt" title="Z start" value="200" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+&nbsp;&nbsp;Z step:<input type="text" id="ZStepTxt" title="Z step" value="-100" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+  <div><!--- zBlock --->
+   <div class="row"> Lat:<input type="text" id="firstLatTxt" title="lat" value="34.30" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+ &nbsp;&nbsp;Lon:<input type="text" id="firstLonTxt" title="lon" value="-119.20" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 
   <div class="row col-md-10 col-xs-10" id="point2Block" style="margin:20px 0px 0px 10px;display:none">
    <div class="row"> Lat:<input type="text" id="secondLatTxt" title="lat" value="35.60" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
