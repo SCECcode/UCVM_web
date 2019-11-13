@@ -126,6 +126,8 @@ function plotCrossSection() {
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var zstr=document.getElementById("ZTxt").value;
     var zmodestr=document.getElementById("ZmodeTxt").value;
+    var zstartstr=document.getElementById("ZStartTxt").value;
+    var zstepstr=document.getElementById("ZStepTxt").value;
     var modelstr=document.getElementById("modelTxt").value;
 
     var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
@@ -153,7 +155,7 @@ function plotCrossSection() {
                 document.getElementById('spinIconForCrossSection').style.display = "none";
             }
         }
-        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr,true);
+        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&zstep="+zstepstr,true);
         xmlhttp.send();
     }
 }
