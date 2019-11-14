@@ -13,7 +13,7 @@ $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model= ($_GET['model']);
 $zstart = ($_GET['zstart']);
-$zstep = intval($_GET['zstep']);
+$datatype = ($_GET['datatype']);
 
 $secondlat = ($_GET['secondlat']);
 $secondlon = ($_GET['secondlon']);
@@ -30,7 +30,7 @@ $dval=  round(sqrt(($hhval*$hhval) + ($hhhval*$hhhval)),3);
 $hval=intval(($dval/200)*1000);
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$z;
-$qstub=" -s ".$zstart." -h ".$hval." -d vp -c ".$model." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;
+$qstub=" -s ".$zstart." -h ".$hval." -d ".$datatype." -c ".$model." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;
 
 if ($zmode == 'e') {
      $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_cross_section.py".$qstub.$lstr;

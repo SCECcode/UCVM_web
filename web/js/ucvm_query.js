@@ -84,7 +84,7 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
             }
        }
     }
-    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&ulabel="+ulabel+"&chunks="+total_chunks+"&model="+modelstr+"&skip="+skip, true);
+    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&ulabel="+ulabel+"&chunks="+total_chunks+"&model="+modelstr+"&skip="+skip+"&datatype="+datatypestr, true);
     xmlhttp.send();
 }
 
@@ -127,7 +127,7 @@ function plotCrossSection() {
     var zstr=document.getElementById("ZTxt").value;
     var zmodestr=document.getElementById("ZmodeTxt").value;
     var zstartstr=document.getElementById("ZStartTxt").value;
-    var zstepstr=document.getElementById("ZStepTxt").value;
+    var datatypestr=document.getElementById("dataTypeTxt").value;
     var modelstr=document.getElementById("modelTxt").value;
 
     var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
@@ -155,7 +155,7 @@ function plotCrossSection() {
                 document.getElementById('spinIconForCrossSection').style.display = "none";
             }
         }
-        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&zstep="+zstepstr,true);
+        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&datatype="+datatypestr,true);
         xmlhttp.send();
     }
 }
@@ -201,6 +201,7 @@ function plotHorizontalSlice() {
     var firstlonstr=document.getElementById("firstLonTxt").value;
     var zstr=document.getElementById("ZTxt").value;
     var zmodestr=document.getElementById("ZmodeTxt").value;
+    var datatypestr=document.getElementById("dataTypeTxt").value;
     var modelstr=document.getElementById("modelTxt").value;
 
     // second set is optional..
@@ -229,7 +230,7 @@ function plotHorizontalSlice() {
                 document.getElementById('spinIconForHorizontalSlice').style.display = "none";
             }
         }
-        xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr,true);
+        xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&datatype="+datatypestr,true);
         xmlhttp.send();
     }
 }

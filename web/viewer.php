@@ -109,16 +109,21 @@
    <div class="row"> Lat:<input type="text" id="firstLatTxt" title="lat" value="33.63" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  &nbsp;&nbsp;Lon:<input type="text" id="firstLonTxt" title="lon" value="-118.40" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 &nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="-300" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-  <div id="zBlock" style="margin:20px 0px 0px 10px;display:none">
+<span id="dataType">
+&nbsp;&nbsp;Datatype:<input type="text" id="dataTypeTxt" title="dataType" value="vs" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+</span>
+  <div id="zelock" style="margin:20px 0px 0px 10px;display:none">
 &nbsp;&nbsp;Z start:<input type="text" id="ZStartTxt" title="Z start" value="200" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+<span id="zStep">
 &nbsp;&nbsp;Z step:<input type="text" id="ZStepTxt" title="Z step" value="-10" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+</span>
   <div><!--- zBlock --->
     </div>
   </div><!--- pointBlock --->
 
   <div class="row col-md-10 col-xs-10" id="point2Block" style="margin:20px 0px 0px 10px;display:none">
-   <div class="row"> Lat:<input type="text" id="secondLatTxt" title="lat" value="35.60" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
- &nbsp;&nbsp;Lon:<input type="text" id="secondLonTxt" title="lon" value="-117.50" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+   <div class="row"> Lat:<input type="text" id="secondLatTxt" title="lat" value="33.70" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+ &nbsp;&nbsp;Lon:<input type="text" id="secondLonTxt" title="lon" value="-118.20" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
    </div>
   </div> <!--- point2Block --->
 

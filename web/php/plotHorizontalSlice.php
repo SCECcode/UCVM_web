@@ -12,6 +12,7 @@ $firstlon = ($_GET['firstlon']);
 $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
+$datatype = ($_GET['datatype']);
 
 
 $secondlat = ($_GET['secondlat']);
@@ -21,13 +22,24 @@ $envstr=makeEnvString();
 
 $zval=(int) $z;
 
-$lval= round(($secondlat - $firstlat)/60, 3);
-$llval=round(($secondlon - $firstlon)/60, 3);
+$lval= round(($secondlat - $firstlat), 3);
+$llval=round(($secondlon - $firstlon), 3);
+
+if ($lval == 0) {
+echo "ERROR: Two points can not have same Latitute";
+return;
+}
+if ($llval == 0) {
+echo "ERROR: Two points can not have same Longitude";
+return;
+}
+
+$sval= round(sqrt(($lval*$lval) + ($llval*$llval))/100,3);
 
 $file="../result/horizontal.png";
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
-$qstub=" -d vs -c ".$model." -s ".$lval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
+$qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
 
 if( $zmode == 'd') {
   $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_horizontal_slice.py ".$qstub.$lstr;
