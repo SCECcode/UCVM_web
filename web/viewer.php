@@ -79,6 +79,7 @@
              <option value="cvms">CVM-S4</option>
              <option value="cvms5">CVM-S4.26</option>
              <option value="cvmsi">CVM-S4.26M01</option>
+             <option value="cvmsi,cvmh">CVM-S4.26M01+cvmh</option>
              <option value="cvmh">CVM-Hv15.1</option>
       </select>
     </div>
@@ -108,9 +109,9 @@
   <div class="row col-md-10 col-xs-10" id="pointBlock" style="margin:20px 0px 0px 10px;display:">
    <div class="row"> Lat:<input type="text" id="firstLatTxt" title="lat" value="33.63" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
  &nbsp;&nbsp;Lon:<input type="text" id="firstLonTxt" title="lon" value="-118.40" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
-&nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="-300" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+&nbsp;&nbsp;Z:<input type="text" id="ZTxt" title="Z" value="-2000" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 <span id="dataType">
-&nbsp;&nbsp;Datatype:<input type="text" id="dataTypeTxt" title="dataType" value="vs" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
+&nbsp;&nbsp;Datatype:<input type="text" id="dataTypeTxt" title="dataType" value="vp" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
 </span>
   <div id="zBlock" style="margin:20px 0px 0px 10px;display:none">
 &nbsp;&nbsp;Z start:<input type="text" id="ZStartTxt" title="Z start" value="200" onfocus="this.value=''" style="width:8vw; right-margin:10px; border:1px solid grey; color:#990000; text-align:center;">
