@@ -33,6 +33,7 @@ if ($zmode == 'e') {
 if ($zmode == 'd') {
      $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_depth_profile.py ".$qstub.$lstr;
 }
+
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 if ( $status == 0 && file_exists($file)) {

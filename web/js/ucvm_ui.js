@@ -22,6 +22,8 @@ function horizontalSliceClick() {
     document.getElementById('pointBlock').style.display = "block";
     document.getElementById('point2Block').style.display = "block";
     document.getElementById('fileBlock').style.display = "none";
+    document.getElementById('zBlock').style.display = "none";
+    clear_all_top_btn();
     SAVE_GO_TYPE='horizontal';
     $('#horizontalSliceBtn').addClass('active')
     $('#goBtn').addClass('active');
@@ -39,6 +41,7 @@ function crossSectionClick() {
     document.getElementById('point2Block').style.display = "block";
     document.getElementById('fileBlock').style.display = "none";
     document.getElementById('zBlock').style.display = "block";
+    clear_all_top_btn();
     SAVE_GO_TYPE='cross';
     $('#crossSectionBtn').addClass('active')
     $('#goBtn').addClass('active');
@@ -55,7 +58,8 @@ function verticalProfileClick() {
     document.getElementById('pointBlock').style.display = "block";
     document.getElementById('point2Block').style.display = "none";
     document.getElementById('fileBlock').style.display = "none";
-    document.getElementById('zBlock').style.display = "none";
+    document.getElementById('zBlock').style.display = "block";
+    clear_all_top_btn();
     SAVE_GO_TYPE='profile';
     $('#verticalProfileBtn').addClass('active')
     $('#goBtn').addClass('active');
@@ -72,6 +76,7 @@ function propertyClick() {
     document.getElementById('pointBlock').style.display = "block";
     document.getElementById('point2Block').style.display = "none";
     document.getElementById('zBlock').style.display = "none";
+    clear_all_top_btn();
     SAVE_GO_TYPE='query';
     $('#propertyBtn').addClass('active');
     $('#goBtn').addClass('active');
@@ -122,19 +127,6 @@ function clearSearchResult()
 {
     document.getElementById("searchResult").innerHTML = "";
 }
-
-function setDefaultZ2depth()
-{
-    document.getElementById("ZmodeTxt").value = "d";
-    document.getElementById("ZTxt").value = "4000";
-}
-
-function setDefaultZ2elevation()
-{
-    document.getElementById("ZmodeTxt").value = "e";
-    document.getElementById("ZTxt").value = "-3000";
-}
-
 
 function plotPNG2(str)
 {

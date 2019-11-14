@@ -43,8 +43,10 @@ jQuery(document).ready(function() {
     var v=document.getElementById('ZmodeTxt').value;
     if( v == "e") {
         document.getElementById("ZTxt").value = "-3000";
+        document.getElementById("ZStepTxt").value = "-100";
         } else {
             document.getElementById("ZTxt").value = "4000";
+            document.getElementById("ZStepTxt").value = "100";
     }
   });
 
