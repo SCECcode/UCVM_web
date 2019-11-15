@@ -66,7 +66,6 @@ $header = getHeader("Viewer");
     <!-- ucvm js -->
     <script type="text/javascript" src="js/debug.js?v=1"></script>
     <script type="text/javascript" src="js/ucvm_leaflet.js?v=1"></script>
-    <script type="text/javascript" src="js/ucvm_layer.js?v=1"></script>
     <script type="text/javascript" src="js/ucvm_util.js?v=1"></script>
     <script type="text/javascript" src="js/ucvm_ui.js?v=1"></script>
     <script type="text/javascript" src="js/ucvm_main.js?v=1"></script>

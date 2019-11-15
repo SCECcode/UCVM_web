@@ -281,7 +281,7 @@ window.console.log(JSON.stringify(blob));
     }
 
     html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-    html=html+"<div class=\"gfm-table\"><table><tbody>";
+    html=html+"<div class=\"ucvm-table\"><table><tbody>";
 
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
     if( typeof datablob === 'string') { 
@@ -366,7 +366,7 @@ function makeHorizontalResultTable(str)
     }
 
     html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-    html=html+"<div class=\"gfm-table\"><table><tbody>";
+    html=html+"<div class=\"ucvm-table\"><table><tbody>";
 
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
     if( typeof datablob === 'string') { 
@@ -448,7 +448,7 @@ function makeHorizontalResultTable_start(str)
     }
 
     var htmlstr="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-    htmlstr=htmlstr+"<div class=\"gfm-table\"><table><tbody>";
+    htmlstr=htmlstr+"<div class=\"ucvm-table\"><table><tbody>";
 
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
     if( typeof datablob === 'string') { 
