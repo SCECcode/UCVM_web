@@ -146,7 +146,7 @@
 
 <div class="row" id='resultBlock' style="position:relative;left:30px;width:90%;">
 
-<div class="wrapper">
+<div class="wrapper" style="display:none">
   <div class="popup">
     <iframe src="">
        <p>iframes are not supported by your browser.</p>
