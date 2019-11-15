@@ -15,8 +15,8 @@ $header = getHeader("Viewer");
     <link rel="stylesheet" href="css/vendor/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/vendor/jquery-ui.css">
     <link rel="stylesheet" href="css/vendor/glyphicons.css">
-    <link rel="stylesheet" href="css/ucvm-ui.css?v=1">
-    <link rel="stylesheet" href="css/sidebar.css?v=1">
+    <link rel="stylesheet" href="css/ucvm-ui.css">
+    <link rel="stylesheet" href="css/sidebar.css">
 
     <script type='text/javascript' src='js/vendor/popper.min.js'></script>
     <script type="text/javascript" src="js/vendor/leaflet-src.js"></script>
@@ -64,13 +64,13 @@ $header = getHeader("Viewer");
     <script type='text/javascript' src="plugin/Leaflet.draw/edit/handler/Edit.Circle.js"></script>
 
     <!-- ucvm js -->
-    <script type="text/javascript" src="js/debug.js?v=1"></script>
-    <script type="text/javascript" src="js/ucvm_leaflet.js?v=1"></script>
-    <script type="text/javascript" src="js/ucvm_util.js?v=1"></script>
-    <script type="text/javascript" src="js/ucvm_ui.js?v=1"></script>
-    <script type="text/javascript" src="js/ucvm_main.js?v=1"></script>
-    <script type="text/javascript" src="js/ucvm_query.js?v=1"></script>
-    <script type="text/javascript" src="js/ucvm_sidebar.js?v=1"></script>
+    <script type="text/javascript" src="js/debug.js"></script>
+    <script type="text/javascript" src="js/ucvm_leaflet.js"></script>
+    <script type="text/javascript" src="js/ucvm_util.js"></script>
+    <script type="text/javascript" src="js/ucvm_ui.js"></script>
+    <script type="text/javascript" src="js/ucvm_main.js"></script>
+    <script type="text/javascript" src="js/ucvm_query.js"></script>
+    <script type="text/javascript" src="js/ucvm_sidebar.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics o
 TODO: need a new id
