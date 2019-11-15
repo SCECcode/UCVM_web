@@ -4,9 +4,6 @@
 
 var SAVE_GO_TYPE;
 
-function setup_viewer() {
-}
-
 function clear_all_top_btn() {
     $('#crossSectionBtn').removeClass('active')
     $('#horizontalSliceBtn').removeClass('active')
