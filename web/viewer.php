@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>UCVM Viewer</title>
+<title>old UCVM Viewer</title>
 <link rel="stylesheet" href="css/vendor/bootstrap.css">
 <link rel="stylesheet" href="css/vendor/jquery-ui.css">
 <link rel="stylesheet" href="css/vendor/animation.css">

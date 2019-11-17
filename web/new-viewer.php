@@ -148,10 +148,11 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
         <div class="col-4">
             <div class="input-group filters">
                 <select id="search-type" class="custom-select">
-                    <option value="">Input ingest by ...</option>
-                    <option value="latlonClick">Latitude &amp; Longitude</option>
+                    <option value="">Input by ...</option>
+                    <option value="pointClick">point</option>
+                    <option value="lineClick">line</option>
+                    <option value="areaClick">area</option>
                     <option disabled>-- Advanced --</option>
-                    <option value="fileClick">File</option>
                 </select>
                 <div class="input-group-append">
                     <button onclick="refreshAll();" class="btn btn-dark pl-4 pr-4" type="button">Reset</button>
@@ -160,8 +161,8 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
             <div class="row">
                 <div class="col input-group">
                     <ul id="sidebar" class="navigation">
-                        <li id='latlon' class='navigationLi ' style="display:none">
-                            <div id='latlonMenu' class='menu'>
+                        <li id='area' class='navigationLi ' style="display:none">
+                            <div id='areaMenu' class='menu'>
                                 <div class="row mt-2">
                                     <div class="col-12">
                                         <p>Draw a rectangle on the map or enter latitudes and longitudes below.</p>
@@ -171,30 +172,30 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                     <div class="col-5 pr-0">
                                         <input type="text"
                                                placeholder="Latitude"
-                                               id="firstLatTxt"
+                                               id="areaFirstLatTxt"
                                                title="first lat"
                                                onfocus="this.value=''"
                                                class="form-control">
-                                        <input type="text" id="firstLonTxt" placeholder='Longitude' title="first lon"
+                                        <input type="text" id="areaFirstLonTxt" placeholder='Longitude' title="first lon"
                                                onfocus="this.value=''" class="form-control mt-1">
                                     </div>
                                     <div class="col-5 pr-0">
                                         <input type="text"
-                                               id="secondLatTxt"
+                                               id="areaSecondLatTxt"
                                                title="optional second lat"
                                                value='optional'
                                                onfocus="this.value=''"
                                                class="form-control">
                                         <input type="text"
-                                               id="secondLonTxt"
+                                               id="areaSecondLonTxt"
                                                title="optional second lon"
                                                value='optional'
                                                onfocus="this.value=''"
                                                class="form-control mt-1">
                                     </div>
                                     <div class="col-1 pr-0 align-items-center">
-                                        <button id="latlonBtn" type="button" title="search with latlon"
-                                                class="btn btn-default ucvm-small-btn " onclick="searchByLatlon()">
+                                        <button id="areaBtn" type="button" title="search with latlon"
+                                                class="btn btn-default ucvm-small-btn " onclick="searchByLatlonForArea()">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>

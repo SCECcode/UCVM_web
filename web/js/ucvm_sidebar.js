@@ -4,7 +4,7 @@
 
 **/
 
-var latlon_sidebar=false;
+var area_sidebar=false;
 
 var drawing_rectangle=false;
 
@@ -12,39 +12,39 @@ var drawing_rectangle=false;
 // to dismiss the sidebar
 function dismiss_sidebar() {
   clear_popup(); 
-  if(latlon_sidebar) latlonClick();
+  if(area_sidebar) areaClick();
 }
 
-// latlon sidebar js
+// area sidebar js
 // slide out
-function latlonClick() {
-  if(!latlon_sidebar) { dismiss_sidebar(); }
+function areaClick() {
+  if(!area_sidebar) { dismiss_sidebar(); }
 
-  latlon_sidebar = !latlon_sidebar;
-  if(latlon_sidebar) {
-    sidebar_latlon_slideOut();
-    $('#latlonBtn').addClass('pick');
-    markLatlon();
+  area_sidebar = !area_sidebar;
+  if(area_sidebar) {
+    sidebar_area_slideOut();
+    $('#areaBtn').addClass('pick');
+    markAreaLatlon();
     } else {
       // enable the popup on map
-      sidebar_latlon_slideIn();
-      $('#latlonBtn').removeClass('pick');
+      sidebar_area_slideIn();
+      $('#areaBtn').removeClass('pick');
   }
 }
 
-function set_latlons(firstlat,firstlon,secondlat,secondlon) {
+function set_area_latlon(firstlat,firstlon,secondlat,secondlon) {
    // need to capture the lat lon and draw a rectangle
-   if(latlon_sidebar && drawing_rectangle) {
-       $( "#firstLatTxt" ).val(firstlat);
-       $( "#firstLonTxt" ).val(firstlon);
-       $( "#secondLatTxt" ).val(secondlat);
-       $( "#secondLonTxt" ).val(secondlon);
+   if(area_sidebar && drawing_rectangle) {
+       $( "#areaFirstLatTxt" ).val(firstlat);
+       $( "#areaFirstLonTxt" ).val(firstlon);
+       $( "#areaSecondLatTxt" ).val(secondlat);
+       $( "#areaSecondLonTxt" ).val(secondlon);
    }
 }
 
 function draw_at()
 {
-   if(latlon_sidebar && drawing_rectangle) {
+   if(area_sidebar && drawing_rectangle) {
      drawRectangle();
    }
 }
@@ -85,19 +85,19 @@ function chk_and_add_bounding_rectangle() {
 }
 
 //dismiss all popup and suppress the popup on map
-function sidebar_latlon_slideOut() {
-  if (jQuery('#latlon').hasClass('menuDisabled')) {
+function sidebar_area_slideOut() {
+  if (jQuery('#area').hasClass('menuDisabled')) {
     // if this menu is disabled, don't slide
     return;
   }
-  var panelptr=$('#latlon');
+  var panelptr=$('#area');
   var sidebarptr=$('#sidebar');
   panelptr.css("display","");
   sidebarptr.css("display","");
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
 
-function markLatlon() {
+function markAreaLatlon() {
   if(skipPopup == false) { // enable marking
     clear_popup();
     skipPopup = true;
@@ -114,26 +114,26 @@ function markLatlon() {
   }
 }
 
-function reset_markLatlon() {
+function reset_markAreaLatlon() {
   skipPopup = false;
   $('#markerBtn').css("color","blue");
   drawing_rectangle=false;
   skipRectangle();
   rebind_layer_popup();
   remove_bounding_rectangle_layer();
-  reset_select_latlon();
+  reset_select_area_latlon();
 }
 
 
 // enable the popup on map
-function sidebar_latlon_slideIn() {
-  if (jQuery('#latlon').hasClass('menuDisabled')) {
+function sidebar_area_slideIn() {
+  if (jQuery('#area').hasClass('menuDisabled')) {
     // if this menu is disabled, don't slide
     return;
   }
-  var panelptr=$('#latlon');
+  var panelptr=$('#area');
   panelptr.removeClass('fade-in').addClass('fade-out');
   panelptr.css("display","none");
-  reset_markLatlon();
+  reset_markAreaLatlon();
 }
 
