@@ -14,7 +14,7 @@ var hold_htmlstr="";
 //
 
 var MAX_CHUNKS_TO_DISPLAY=1;
-function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_chunks, chunk_step) {
+function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chunks, chunk_step) {
     if(current_chunk == total_chunks) 
         return;
     var cnt=dataarray.length;
@@ -31,22 +31,23 @@ function getMaterialPropertyByLatlonList(ulabel,dataarray,current_chunk, total_c
         dataset.push(dataarray[i]);
     }
     var datastr=dataset.toString();
+    window.console.log(datastr);
 
     var skip=0; // skip the transfer of the result
     if( current_chunk >= MAX_CHUNKS_TO_DISPLAY)
       skip=1;
 
-    _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks,chunk_step);
+    _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
            
 }
 
 // to be called by getMaterialPropertyByLatlonList
-function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
+function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
     if(current_chunk == 0)
         clearSearchResult();
     // extract content of a file
-    var zmodestr=document.getElementById("ZmodeTxt").value;
-    var modelstr=document.getElementById("modelTxt").value;
+    var zmodestr=document.getElementById("zModeType").value;
+    var modelstr=document.getElementById("modelType").value;
 
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -58,44 +59,47 @@ function _getMaterialPropertyByLatlonChunk(skip,ulabel,datastr, dataarray, curre
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-            var str=processSearchResult("getMaterialPropertyByLatlonChunk");
+            var str=processSearchResult("getMaterialPropertyByLatlonChunk",uid);
            
             if(current_chunk==0) { // first one
-               htmlstr = makeHorizontalResultTable_start(str);
-               hold_htmlstr=hold_htmlstr+htmlstr;
-               getMaterialPropertyByLatlonList(ulabel,dataarray, current_chunk+1, total_chunks, chunk_step);
+               makeHorizontalResultTable_start(uid,str);
+               getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
             } else {
 // try to limit the size of the table..
-               if( current_chunk < MAX_CHUNKS_TO_DISPLAY) {
-                   htmlstr = makeHorizontalResultTable_next(str);
-                   hold_htmlstr=hold_htmlstr+htmlstr;
+               if(current_chunk < MAX_CHUNKS_TO_DISPLAY) {
+                  makeHorizontalResultTable_next(uid,str);
                } 
-               getMaterialPropertyByLatlonList(ulabel,dataarray, current_chunk+1, total_chunks, chunk_step);
+               getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
             }
             if(current_chunk==(total_chunks-1)) { // last one
-               htmlstr=makeHorizontalResultTable_last();
-               hold_htmlstr=hold_htmlstr+htmlstr;
-               document.getElementById("searchResult").innerHTML = hold_htmlstr;
-               document.getElementById('spinIconForListProperty').style.display = "none";
 // create a download link to the actual data file
-               window.console.log("setup the download link...");
-               document.getElementById('resultForMPQuery').innerHTML=linkDownload("UCVM_"+ulabel+".json");
-               set_ULABEL(ulabel);
+               insertMetaPlotResultTable_mp("material property",uid,str);
+               document.getElementById('spinIconForListProperty').style.display = "none";
+               reset_point_UID();
             }
        }
     }
-    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&ulabel="+ulabel+"&chunks="+total_chunks+"&model="+modelstr+"&skip="+skip+"&datatype="+datatypestr, true);
+    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&chunks="+total_chunks+"&model="+modelstr+"&skip="+skip+"&uid="+uid, true);
     xmlhttp.send();
 }
 
 // get material property blob by lat lon z zmode
 function getMaterialPropertyByLatlon() {
-    clearSearchResult();
-    var latstr=document.getElementById("firstLatTxt").value;
-    var lonstr=document.getElementById("firstLonTxt").value;
-    var zstr=document.getElementById("ZTxt").value;
-    var zmodestr=document.getElementById("ZmodeTxt").value;
-    var modelstr=document.getElementById("modelTxt").value;
+    var latstr=document.getElementById("pointFirstLatTxt").value;
+    var lonstr=document.getElementById("pointFirstLonTxt").value;
+    var zstr=document.getElementById("pointZTxt").value;
+    var zmodestr=document.getElementById("zModeType").value;
+    var modelstr=document.getElementById("modelType").value;
+    var uid=document.getElementById("pointUIDTxt").value;
+
+    if(uid == '') {
+      uid=getRnd();
+      set_point_UID(uid);    
+      // must be coming from the sidebar and so need to plot on map..
+      add_bounding_point(uid,latstr,lonstr);
+    } else {
+      reset_dirty_uid();
+    }
 
     if (latstr == "" || lonstr=="") {
         return;
@@ -111,27 +115,40 @@ function getMaterialPropertyByLatlon() {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-                var str=processSearchResult("getMaterialPropertyByLatlon");
-                document.getElementById("searchResult").innerHTML = makeHorizontalResultTable(str);
+                var str=processSearchResult("getMaterialPropertyByLatlon",uid);
+                if(get_points_mp() == 1) {
+                  makeHorizontalResultTable(uid,str);
+                  } else {
+                    makeHorizontalResultTable_row(uid,str);
+                }
                 document.getElementById('spinIconForProperty').style.display = "none";
+                reset_point_UID();
             }
         }
-        xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr, true);
+        xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&uid="+uid, true);
         xmlhttp.send();
     }
 }
 
 function plotCrossSection() {
-    var firstlatstr=document.getElementById("firstLatTxt").value;
-    var firstlonstr=document.getElementById("firstLonTxt").value;
-    var zstr=document.getElementById("ZTxt").value;
-    var zmodestr=document.getElementById("ZmodeTxt").value;
-    var zstartstr=document.getElementById("ZStartTxt").value;
-    var datatypestr=document.getElementById("dataTypeTxt").value;
-    var modelstr=document.getElementById("modelTxt").value;
+    var firstlatstr=document.getElementById("lineFirstLatTxt").value;
+    var firstlonstr=document.getElementById("lineFirstLonTxt").value;
+    var zstr=document.getElementById("lineZTxt").value;
+    var zstartstr=document.getElementById("lineZStartTxt").value;
+    var datatypestr=document.getElementById("lineDataTypeTxt").value;
+    var zmodestr=document.getElementById("zModeType").value;
+    var modelstr=document.getElementById("modelType").value;
 
-    var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
-    var secondlonstr=(document.getElementById("secondLonTxt"))?document.getElementById("secondLonTxt").value:"";
+    var secondlatstr=document.getElementById("lineSecondLatTxt").value;
+    var secondlonstr=document.getElementById("lineSecondLonTxt").value;
+    var uid=document.getElementById("lineUIDTxt").value;
+    if(uid == '') {
+      uid=getRnd();
+      set_line_UID(uid);
+      add_bounding_line(uid,firstlatstr,firstlonstr,secondlatstr,secondlonstr);
+      } else {    
+        reset_dirty_uid();
+    }
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {
@@ -149,25 +166,36 @@ function plotCrossSection() {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-                var str=processSearchResult("plotCrossSection");
+                var str=processSearchResult("plotCrossSection",uid);
+
 		if (str != undefined) 
-                  document.getElementById("resultForCrossSection").innerHTML = plotPNG(str);
-                document.getElementById('spinIconForCrossSection').style.display = "none";
+                  insertMetaPlotResultTable("cross section",uid,str);
+
+                document.getElementById('spinIconForLine').style.display = "none";
+                reset_line_UID();
             }
         }
-        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&datatype="+datatypestr,true);
+        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&datatype="+datatypestr+"&uid="+uid,true);
         xmlhttp.send();
     }
 }
 
 function plotVerticalProfile() {
-    var latstr=document.getElementById("firstLatTxt").value;
-    var lonstr=document.getElementById("firstLonTxt").value;
-    var zstr=document.getElementById("ZTxt").value;
-    var zmodestr=document.getElementById("ZmodeTxt").value;
-    var modelstr=document.getElementById("modelTxt").value;
-    var zstartstr=document.getElementById("ZStartTxt").value;
-    var zstepstr=document.getElementById("ZStepTxt").value;
+    var latstr=document.getElementById("profileFirstLatTxt").value;
+    var lonstr=document.getElementById("profileFirstLonTxt").value;
+    var zstr=document.getElementById("profileZTxt").value;
+    var zstartstr=document.getElementById("profileZStartTxt").value;
+    var zstepstr=document.getElementById("profileZStepTxt").value;
+    var uid=document.getElementById("profileUIDTxt").value;
+    var zmodestr=document.getElementById("zModeType").value;
+    var modelstr=document.getElementById("modelType").value;
+    if(uid == '') {
+      uid=getRnd();
+      set_profile_UID(uid);
+      add_bounding_profile(uid,latstr,lonstr);
+      } else {    
+        reset_dirty_uid();
+    }
 
     if (latstr == "" || lonstr=="" ) {
         clearSearchResult();
@@ -184,29 +212,39 @@ function plotVerticalProfile() {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-                var str=processSearchResult("plotVerticalProfile");
-		if (str != undefined) 
-                  document.getElementById("resultForVerticalProfile").innerHTML = plotPNG(str);
-                document.getElementById('spinIconForVerticalProfile').style.display = "none";
+                var str=processSearchResult("plotVerticalProfile",uid);
+
+		if (str != undefined) {
+                  insertMetaPlotResultTable("vertical profile", uid,str);
+                }
+                document.getElementById('spinIconForProfile').style.display = "none";
+                reset_profile_UID();
             }
         }
-        xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&zstep="+zstepstr,true);
+        xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
         xmlhttp.send();
     }
 }
 
 
 function plotHorizontalSlice() {
-    var firstlatstr=document.getElementById("firstLatTxt").value;
-    var firstlonstr=document.getElementById("firstLonTxt").value;
-    var zstr=document.getElementById("ZTxt").value;
-    var zmodestr=document.getElementById("ZmodeTxt").value;
-    var datatypestr=document.getElementById("dataTypeTxt").value;
-    var modelstr=document.getElementById("modelTxt").value;
+    var firstlatstr=document.getElementById("areaFirstLatTxt").value;
+    var firstlonstr=document.getElementById("areaFirstLonTxt").value;
+    var zstr=document.getElementById("areaZTxt").value;
+    var datatypestr=document.getElementById("areaDataTypeTxt").value;
+    var zmodestr=document.getElementById("zModeType").value;
+    var modelstr=document.getElementById("modelType").value;
+    var uid=document.getElementById("areaUIDTxt").value;
 
-    // second set is optional..
-    var secondlatstr=(document.getElementById("secondLatTxt"))?document.getElementById("secondLatTxt").value:"";
-    var secondlonstr=(document.getElementById("secondLonTxt"))?document.getElementById("secondLonTxt").value:"";
+    var secondlatstr=document.getElementById("areaSecondLatTxt").value;
+    var secondlonstr=document.getElementById("areaSecondLonTxt").value;
+    if(uid == '') {
+      uid=getRnd();
+      set_area_UID(uid);
+      add_bounding_area(uid,firstlatstr,firstlonstr,secondlatstr,secondlonstr);
+      } else {    
+        reset_dirty_uid();
+    }
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {
@@ -224,13 +262,17 @@ function plotHorizontalSlice() {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-                var str=processSearchResult("plotHorizontalSlice");
+window.console.log(this.responseText);
+                var str=processSearchResult("plotHorizontalSlice",uid);
+
 		if (str != undefined) 
-                  document.getElementById("resultForHorizontalSlice").innerHTML = plotPNG(str);
-                document.getElementById('spinIconForHorizontalSlice').style.display = "none";
+                  insertMetaPlotResultTable("horizontal slice",uid,str);
+
+                document.getElementById('spinIconForArea').style.display = "none";
+                reset_area_UID();
             }
         }
-        xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&datatype="+datatypestr,true);
+        xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&datatype="+datatypestr+"&uid="+uid,true);
         xmlhttp.send();
     }
 }

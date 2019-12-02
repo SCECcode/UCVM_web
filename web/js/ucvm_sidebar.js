@@ -4,16 +4,39 @@
 
 **/
 
+var point_sidebar=false;
+var profile_sidebar=false;
+var line_sidebar=false;
 var area_sidebar=false;
 
-var drawing_rectangle=false;
+var drawing_point=false;
+var drawing_profile=false;
+var drawing_line=false;
+var drawing_area=false;
 
 // initiate a click on the sidebar buttons
 // to dismiss the sidebar
 function dismiss_sidebar() {
   clear_popup(); 
+  if(point_sidebar) pointClick();
+  if(profile_sidebar) profileClick();
+  if(line_sidebar) lineClick();
   if(area_sidebar) areaClick();
 }
+
+function refresh_sidebar() {
+  dismiss_sidebar();
+  reset_point_latlons();
+  reset_profile_latlons();
+  reset_line_latlons();
+  reset_area_latlons();
+}
+
+/***********************************************************/
+function freezeClick() {
+  refresh_sidebar();
+}
+/***********************************************************/
 
 // area sidebar js
 // slide out
@@ -32,34 +55,59 @@ function areaClick() {
   }
 }
 
-function set_area_latlon(firstlat,firstlon,secondlat,secondlon) {
-   // need to capture the lat lon and draw a rectangle
-   if(area_sidebar && drawing_rectangle) {
-       $( "#areaFirstLatTxt" ).val(firstlat);
-       $( "#areaFirstLonTxt" ).val(firstlon);
-       $( "#areaSecondLatTxt" ).val(secondlat);
-       $( "#areaSecondLonTxt" ).val(secondlon);
+function set_area_latlons(uid, firstlat,firstlon,secondlat,secondlon) {
+   // need to capture the lat lon and draw a area
+   if(area_sidebar && drawing_area) {
+       $( "#areaFirstLatTxt" ).val(round2Four(firstlat));
+       $( "#areaFirstLonTxt" ).val(round2Four(firstlon));
+       $( "#areaSecondLatTxt" ).val(round2Four(secondlat));
+       $( "#areaSecondLonTxt" ).val(round2Four(secondlon));
+       var t= document.getElementById("zModeType").value;
+       if(t == "d") {
+          $( "#areaZTxt" ).val(1000);
+          } else {
+          $( "#areaZTxt" ).val(-1000);
+       }
+       $( "#areaDataTypeTxt" ).val("vs"); 
+       $( "#areaUIDTxt" ).val(uid);
    }
 }
 
-function draw_at()
-{
-   if(area_sidebar && drawing_rectangle) {
-     drawRectangle();
-   }
+function reset_area_latlons() {
+   $( "#areaFirstLatTxt" ).val('');
+   $( "#areaFirstLonTxt" ).val('');
+   $( "#areaSecondLatTxt" ).val('');
+   $( "#areaSecondLonTxt" ).val('');
+   $( "#areaZTxt" ).val('');
+   $( "#areaDataTypeTxt" ).val('');
+   reset_area_UID();
 }
 
-// need to capture the lat lon and draw a rectangle but
-// not when in the map-marking mode : drawing_rectangle==true
-function chk_and_add_bounding_rectangle() {
+function set_area_UID(uid) {
+   $( "#areaUIDTxt" ).val(uid);
+}
+function reset_area_UID() {
+   $( "#areaUIDTxt" ).val('');
+}
+
+function in_drawing_area() { 
+   if(drawing_area && area_sidebar) {
+     return 1;
+   } 
+   return 0;
+}
+
+// need to capture the lat lon and draw a area but
+// not when in the map-marking mode : drawing_area==true
+function chk_and_add_bounding_area() {
   
-  if(drawing_rectangle) {
+  if(drawing_area) {
     return;
   }
-  var firstlatstr=document.getElementById("firstLatTxt").value;
-  var firstlonstr=document.getElementById("firstLonTxt").value;
-  var secondlatstr=document.getElementById("secondLatTxt").value;
-  var secondlonstr=document.getElementById("secondLonTxt").value;
+  var firstlatstr=document.getElementById("areaFirstLatTxt").value;
+  var firstlonstr=document.getElementById("areaFirstLonTxt").value;
+  var secondlatstr=document.getElementById("areaSecondLatTxt").value;
+  var secondlonstr=document.getElementById("areaSecondLonTxt").value;
 
   if(secondlatstr == "optional" && secondlonstr == "optional") {
     if(firstlatstr && firstlonstr) { // 2 values
@@ -69,7 +117,7 @@ function chk_and_add_bounding_rectangle() {
        park_b=t2-0.001;
        park_c=t1+0.001;
        park_d=t2+0.001;
-       add_bounding_rectangle(park_a,park_b,park_c,park_d);
+       add_bounding_area(park_a,park_b,park_c,park_d);
     } 
     } else {
        if(secondlatstr && secondlonstr) {
@@ -78,7 +126,7 @@ function chk_and_add_bounding_rectangle() {
            park_b=parseFloat(firstlonstr);
            park_c=parseFloat(secondlatstr);
            park_d=parseFloat(secondlonstr);
-           add_bounding_rectangle(park_a,park_b,park_c,park_d);
+           add_bounding_area(park_a,park_b,park_c,park_d);
          }
        }
   }
@@ -101,27 +149,18 @@ function markAreaLatlon() {
   if(skipPopup == false) { // enable marking
     clear_popup();
     skipPopup = true;
-    drawing_rectangle=true;
-    unbind_layer_popup();
-    $('#markerBtn').css("color","red");
+    drawing_area=true;
     } else {
        skipPopup = false;
-       drawing_rectangle=false;
-       skipRectangle();
-       $('#markerBtn').css("color","blue");
-       remove_bounding_rectangle_layer();
-       rebind_layer_popup();
+       drawing_area=false;
+       skipArea();
   }
 }
 
 function reset_markAreaLatlon() {
   skipPopup = false;
-  $('#markerBtn').css("color","blue");
-  drawing_rectangle=false;
-  skipRectangle();
-  rebind_layer_popup();
-  remove_bounding_rectangle_layer();
-  reset_select_area_latlon();
+  drawing_area=false;
+  skipArea();
 }
 
 
@@ -137,3 +176,385 @@ function sidebar_area_slideIn() {
   reset_markAreaLatlon();
 }
 
+
+/***********************************************************/
+
+// point sidebar js
+// slide out
+function pointClick() {
+  if(!point_sidebar) { dismiss_sidebar(); }
+
+  point_sidebar = !point_sidebar;
+  if(point_sidebar) {
+    sidebar_point_slideOut();
+    $('#pointBtn').addClass('pick');
+    markPointLatlon();
+    } else {
+      // enable the popup on map
+      sidebar_point_slideIn();
+      reset_point_latlons();
+      $('#pointBtn').removeClass('pick');
+  }
+}
+
+function set_point_latlons(uid,lat,lon) {
+   // need to capture the lat lon and draw a point
+   if(point_sidebar && drawing_point) {
+       $( "#pointFirstLatTxt" ).val(round2Four(lat));
+       $( "#pointFirstLonTxt" ).val(round2Four(lon));
+       $( "#pointUIDTxt" ).val(uid);
+       $( "#pointZTxt" ).val(0);
+   }
+}
+function reset_point_latlons() {
+   $( "#pointFirstLatTxt" ).val('');
+   $( "#pointFirstLonTxt" ).val('');
+   $( "#pointZTxt" ).val('');
+   reset_point_UID();
+}
+
+function set_point_UID(uid) {
+   $( "#pointUIDTxt" ).val(uid);
+}
+
+function reset_point_UID() {
+   $( "#pointUIDTxt" ).val('');
+}
+
+function in_drawing_point() {
+   if(point_sidebar && drawing_point) {
+     return 1;
+   }
+   return 0;
+}
+
+// need to capture the lat lon and draw a point but
+// not when in the map-marking mode : drawing_point==true
+function chk_and_add_point() {
+  
+  if(drawing_point) {
+    return;
+  }
+
+  var firstlatstr=document.getElementById("pointFirstLatTxt").value;
+  var firstlonstr=document.getElementById("pointFirstLonTxt").value;
+
+  if(firstlatstr && firstlonstr) { // 2 values
+    var park_a=parseFloat(firstlatstr);
+    var park_b=parseFloat(firstlonstr);
+    add_bounding_point(park_a,park_b);
+  }
+}
+//dismiss all popup and suppress the popup on map
+function sidebar_point_slideOut() {
+  if (jQuery('#point').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#point');
+  var sidebarptr=$('#sidebar');
+  panelptr.css("display","");
+  sidebarptr.css("display","");
+  panelptr.removeClass('fade-out').addClass('fade-in');
+}
+
+function markPointLatlon() {
+  if(skipPopup == false) { // enable marking
+    clear_popup();
+    skipPopup = true;
+    drawing_point=true;
+    } else {
+       skipPopup = false;
+       drawing_point=false;
+       skipPoint();
+  }
+}
+
+function reset_markPointLatlon() {
+  skipPopup = false;
+  drawing_point=false;
+  skipPoint();
+}
+
+
+// enable the popup on map
+function sidebar_point_slideIn() {
+  if (jQuery('#point').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#point');
+  panelptr.removeClass('fade-in').addClass('fade-out');
+  panelptr.css("display","none");
+  reset_markPointLatlon();
+}
+
+
+/***********************************************************/
+
+// line sidebar js
+// slide out
+function lineClick() {
+  if(!line_sidebar) { dismiss_sidebar(); }
+
+  line_sidebar = !line_sidebar;
+  if(line_sidebar) {
+    sidebar_line_slideOut();
+    $('#lineBtn').addClass('pick');
+    markLineLatlon();
+    } else {
+      // enable the popup on map
+      sidebar_line_slideIn();
+      $('#lineBtn').removeClass('pick');
+  }
+}
+
+function set_line_latlons(uid,firstlat,firstlon,secondlat,secondlon) {
+   // need to capture the lat lon and draw a line
+   if(line_sidebar && drawing_line) {
+       $( "#lineFirstLatTxt" ).val(round2Four(firstlat));
+       $( "#lineFirstLonTxt" ).val(round2Four(firstlon));
+       $( "#lineSecondLatTxt" ).val(round2Four(secondlat));
+       $( "#lineSecondLonTxt" ).val(round2Four(secondlon));
+       var t= document.getElementById("zModeType").value;
+       if(t == "d") {
+          $( "#lineZTxt" ).val(5000);
+          $( "#lineZStartTxt" ).val(0);
+          } else {
+          $( "#lineZTxt" ).val(-4000);
+          $( "#lineZStartTxt" ).val(300);
+       }
+       $( "#lineDataTypeTxt" ).val("vs"); 
+       $( "#lineUIDTxt" ).val(uid);
+   }
+}
+
+function reset_line_latlons(){
+   $( "#lineFirstLatTxt" ).val('');
+   $( "#lineFirstLonTxt" ).val('');
+   $( "#lineSecondLatTxt" ).val('');
+   $( "#lineSecondLonTxt" ).val('');
+   $( "#lineZTxt" ).val('');
+   $( "#lineZStartTxt" ).val('');
+   $( "#lineDataTypeTxt" ).val('');
+   reset_line_UID();
+}
+
+function set_line_UID(uid){
+   $( "#lineUIDTxt" ).val(uid);
+}
+function reset_line_UID(){
+   $( "#lineUIDTxt" ).val('');
+}
+
+function in_drawing_line() {
+   if(line_sidebar && drawing_line) {
+     return 1;
+   }
+   return 0;
+}
+
+// need to capture the lat lon and draw a line but
+// not when in the map-marking mode : drawing_line==true
+function chk_and_add_bounding_line() {
+  
+  if(drawing_line) {
+    return;
+  }
+  var firstlatstr=document.getElementById("lineFirstLatTxt").value;
+  var firstlonstr=document.getElementById("lineFirstLonTxt").value;
+  var secondlatstr=document.getElementById("lineSecondLatTxt").value;
+  var secondlonstr=document.getElementById("lineSecondLonTxt").value;
+
+  if(secondlatstr == "optional" && secondlonstr == "optional") {
+    if(firstlatstr && firstlonstr) { // 2 values
+       var t1=parseFloat(firstlatstr);
+       var t2=parseFloat(firstlonstr);
+       park_a=t1-0.001;
+       park_b=t2-0.001;
+       park_c=t1+0.001;
+       park_d=t2+0.001;
+       add_bounding_line(park_a,park_b,park_c,park_d);
+    } 
+    } else {
+       if(secondlatstr && secondlonstr) {
+         if(firstlatstr && firstlonstr) { // 4 values
+           park_a=parseFloat(firstlatstr);
+           park_b=parseFloat(firstlonstr);
+           park_c=parseFloat(secondlatstr);
+           park_d=parseFloat(secondlonstr);
+           add_bounding_line(park_a,park_b,park_c,park_d);
+         }
+       }
+  }
+}
+
+//dismiss all popup and suppress the popup on map
+function sidebar_line_slideOut() {
+  if (jQuery('#line').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#line');
+  var sidebarptr=$('#sidebar');
+  panelptr.css("display","");
+  sidebarptr.css("display","");
+  panelptr.removeClass('fade-out').addClass('fade-in');
+}
+
+function markLineLatlon() {
+  if(skipPopup == false) { // enable marking
+    clear_popup();
+    skipPopup = true;
+    drawing_line=true;
+    } else {
+       skipPopup = false;
+       drawing_line=false;
+       skipLine();
+  }
+}
+
+function reset_markLineLatlon() {
+  skipPopup = false;
+  drawing_line=false;
+  skipLine();
+}
+
+
+// enable the popup on map
+function sidebar_line_slideIn() {
+  if (jQuery('#line').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#line');
+  panelptr.removeClass('fade-in').addClass('fade-out');
+  panelptr.css("display","none");
+  reset_markLineLatlon();
+}
+
+
+/***********************************************************/
+
+// profile sidebar js
+// slide out
+function profileClick() {
+  if(!profile_sidebar) { dismiss_sidebar(); }
+
+  profile_sidebar = !profile_sidebar;
+  if(profile_sidebar) {
+    sidebar_profile_slideOut();
+    $('#profileBtn').addClass('pick');
+    markProfileLatlon();
+    } else {
+      // enable the popup on map
+      sidebar_profile_slideIn();
+      $('#profileBtn').removeClass('pick');
+  }
+}
+
+function set_profile_latlons(uid,lat,lon) {
+   // need to capture the lat lon and draw a profile
+   if(profile_sidebar && drawing_profile) {
+       $( "#profileFirstLatTxt" ).val(round2Four(lat));
+       $( "#profileFirstLonTxt" ).val(round2Four(lon));
+       $( "#profileUIDTxt" ).val(uid);
+// should put in some default values for Z start, Z end, Z step
+
+       var t= document.getElementById("zModeType").value;
+
+       if( t == 'd' ) {
+           $( "#profileZTxt" ).val(30000);
+           $( "#profileZStartTxt" ).val(0);
+           $( "#profileZStepTxt" ).val(100);
+           } else {
+               $( "#profileZTxt" ).val(-25000);
+               $( "#profileZStartTxt" ).val(500);
+               $( "#profileZStepTxt" ).val(-100);
+       }
+   }
+}
+
+function reset_profile_latlons() {
+   $( "#profileFirstLatTxt" ).val('');
+   $( "#profileFirstLonTxt" ).val('');
+   $( "#profileZTxt" ).val('');
+   $( "#profileZStartTxt" ).val('');
+   $( "#profileZStepTxt" ).val('');
+   reset_profile_UID();
+}
+
+function set_profile_UID(uid) {
+   $( "#profileUIDTxt" ).val(uid);
+}
+function reset_profile_UID() {
+   $( "#profileUIDTxt" ).val('');
+}
+
+function in_drawing_profile() {
+   if(profile_sidebar && drawing_profile) {
+     return 1;
+   }
+   return 0;
+}
+
+// need to capture the lat lon and draw a profile but
+// not when in the map-marking mode : drawing_profile==true
+function chk_and_add_profile() {
+  
+  if(drawing_profile) {
+    return;
+  }
+
+  var firstlatstr=document.getElementById("profileFirstLatTxt").value;
+  var firstlonstr=document.getElementById("profileFirstLonTxt").value;
+
+  if(firstlatstr && firstlonstr) { // 2 values
+    var park_a=parseFloat(firstlatstr);
+    var park_b=parseFloat(firstlonstr);
+    add_bounding_profile(park_a,park_b);
+  }
+}
+//dismiss all popup and suppress the popup on map
+function sidebar_profile_slideOut() {
+  if (jQuery('#profile').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#profile');
+  var sidebarptr=$('#sidebar');
+  panelptr.css("display","");
+  sidebarptr.css("display","");
+  panelptr.removeClass('fade-out').addClass('fade-in');
+}
+
+function markProfileLatlon() {
+  if(skipPopup == false) { // enable marking
+    clear_popup();
+    skipPopup = true;
+    drawing_profile=true;
+    } else {
+       skipPopup = false;
+       drawing_profile=false;
+       skipProfile();
+  }
+}
+
+function reset_markProfileLatlon() {
+  skipPopup = false;
+  drawing_profile=false;
+  skipProfile();
+}
+
+
+// enable the popup on map
+function sidebar_profile_slideIn() {
+  if (jQuery('#profile').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#profile');
+  panelptr.removeClass('fade-in').addClass('fade-out');
+  panelptr.css("display","none");
+  reset_markProfileLatlon();
+}

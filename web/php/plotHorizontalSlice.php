@@ -13,7 +13,7 @@ $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 $datatype = ($_GET['datatype']);
-
+$uid = ($_GET['uid']);
 
 $secondlat = ($_GET['secondlat']);
 $secondlon = ($_GET['secondlon']);
@@ -36,7 +36,7 @@ return;
 
 $sval= round(sqrt(($lval*$lval) + ($llval*$llval))/100,3);
 
-$file="../result/horizontal.png";
+$file="../result/".$uid."horizontal.png";
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
 $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
@@ -51,8 +51,8 @@ if( $zmode == 'e') {
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 if ( $status == 0 && file_exists($file)) {
-    $resultstring = htmlspecialchars("horizontal.png", ENT_QUOTES, 'UTF-8');
-    echo "<div data-side=\"horizontalSlice\" data-params=\"";
+    $resultstring = htmlspecialchars($uid."horizontal.png", ENT_QUOTES, 'UTF-8');
+    echo "<div data-side=\"horizontalSlice".$uid."\" data-params=\"";
     echo $resultstring;
     echo "\" style=\"display:flex\"></div>";
 }  

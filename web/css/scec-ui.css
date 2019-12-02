@@ -158,13 +158,13 @@ ul li {
     position: relative;
 }
 
-.info-page-container.guide .cfm-interface img {
+.info-page-container.guide .ucvm-interface img {
    border: 1px solid #ddd;
     max-width: 630px;
     width: 100%;
 }
 
-.info-page-container.guide .cfm-perspective-view {
+.info-page-container.guide .ucvm-perspective-view {
     max-width: 550px;
 }
 

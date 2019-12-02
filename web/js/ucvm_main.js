@@ -11,6 +11,7 @@ jQuery(document).ready(function() {
   frameWidth=window.innerWidth;
 
   viewermap=setup_viewer();
+  setup_model();
 
   $(".popup").hide();
 
@@ -26,32 +27,19 @@ jQuery(document).ready(function() {
     $(".links").fadeIn("slow");
   });
 
-  $('#QuerymodeTxt').on('change', function() {
-    var v=document.getElementById('QuerymodeTxt').value;
-    clearSearchResult();
-    if( v == "file") {
-      document.getElementById('pointBlock').style.display = "none";
-      document.getElementById('fileBlock').style.display = "";
-      } else {
-        document.getElementById('pointBlock').style.display = "";
-        document.getElementById('fileBlock').style.display = "none";
+  $("#search-type").change(function () {
+    var funcToRun = $(this).val();
+    if (funcToRun != "") {
+      window[funcToRun]();
     }
   });
+  $("#search-type").trigger("change");
 
-  // toggle to some usable default
-  $('#ZmodeTxt').on('change', function() {
-    var v=document.getElementById('ZmodeTxt').value;
-    if( v == "e") {
-        document.getElementById("ZTxt").value = "-3000";
-        document.getElementById("ZStepTxt").value = "-100";
-        } else {
-            document.getElementById("ZTxt").value = "4000";
-            document.getElementById("ZStepTxt").value = "100";
-    }
+  $("#modelType").change(function () {
+      var model = $(this).val();
+      remove_all_models();
+      load_a_model(model);
   });
-
-
-  viewermap=setup_viewer();
 
 }) // end of MAIN
 

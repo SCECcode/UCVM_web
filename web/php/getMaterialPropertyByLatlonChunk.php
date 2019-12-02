@@ -10,18 +10,18 @@ $datastr = ($_GET['datastr']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 $chunkid = intVal($_GET['chunkid']);
-$ulabel = ($_GET['ulabel']);
+$uid = ($_GET['uid']);
 $lastchunks = intVal($_GET['chunks'])-1;
 $skip = intVal($_GET['skip']);
 
 /* if chunkid == 0, it is first chunk, create 
-   the .json file in result/GFM_ulabel.json, 
+   the .json file in result/UCVM_uidpoint_matprops.json, 
    other ones, just 'append'               */
 
-$fname="../result/UCVM_".$ulabel.".json";
+$fname="../result/".$uid."point_matprops.json";
 if ($chunkid == 0) {
    $fp= fopen($fname,"w") or die("Unable to open file!");
-   $start=" { \"GFM_".$ulabel."\": [";
+   $start=" { \"".$uid."\": [";
    fwrite($fp,$start); fwrite($fp,"\n");
    } else {
       $fp= fopen($fname,"a") or die("Unable to open file to append!");
@@ -73,7 +73,7 @@ if($skip) {
   $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
 }
 
-echo "<div data-side=\"materialPropertyByLatlonChunk\" data-params=\""; 
+echo "<div data-side=\"materialPropertyByLatlonChunk".$uid."\" data-params=\""; 
 echo $resultstring;
 echo "\" style=\"display:flex\"></div>";
 ?>

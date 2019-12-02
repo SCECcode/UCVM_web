@@ -2,114 +2,41 @@
    ucvm_ui.js
 ***/
 
-var SAVE_GO_TYPE;
+/***
+   tracking download handles
+***/
 
-function clear_all_top_btn() {
-    $('#crossSectionBtn').removeClass('active')
-    $('#horizontalSliceBtn').removeClass('active')
-    $('#verticalProfileBtn').removeClass('active')
-    $('#propertyBtn').removeClass('active')
-    $('#goBtn').removeClass('active');
+// png is a filename to the png file
+// metablob could be multiple filenames to different metadata files 
+// [ {"uid":uid, "plot":png, "meta":metablob, "mp":mplist } ]
+var ucvm_metaplottb_list=[];
+
+function setup_model() {
+   var tb=makeModelTable();
+   var html=document.getElementById('modelTable-container');
+   html.innerHTML=tb;
+   makeModelSelection();
+   make_all_model_layer();
 }
 
-// horizontal is only depth
-function horizontalSliceClick() {
-    document.getElementById('inputModeBlock').style.display = "none";
-    document.getElementById('queryBlock').style.display = "block";
-    document.getElementById('pointBlock').style.display = "block";
-    document.getElementById('point2Block').style.display = "block";
-    document.getElementById('fileBlock').style.display = "none";
-    document.getElementById('zBlock').style.display = "none";
-    document.getElementById('dataType').style.display = "block";
-    document.getElementById('zStep').style.display = "none";
-    clear_all_top_btn();
-    SAVE_GO_TYPE='horizontal';
-    $('#horizontalSliceBtn').addClass('active')
-    $('#goBtn').addClass('active');
-}
-
-function horizontalClick() {
-    document.getElementById('spinIconForHorizontalSlice').style.display = "block";    
-    plotHorizontalSlice();
-}
-
-function crossSectionClick() {
-    document.getElementById('inputModeBlock').style.display = "none";
-    document.getElementById('queryBlock').style.display = "block";
-    document.getElementById('pointBlock').style.display = "block";
-    document.getElementById('point2Block').style.display = "block";
-    document.getElementById('fileBlock').style.display = "none";
-    document.getElementById('zBlock').style.display = "block";
-    document.getElementById('dataType').style.display = "block";
-    document.getElementById('zStep').style.display = "none";
-    clear_all_top_btn();
-    SAVE_GO_TYPE='cross';
-    $('#crossSectionBtn').addClass('active')
-    $('#goBtn').addClass('active');
-}
-
-function crossClick() {
-    document.getElementById('spinIconForCrossSection').style.display = "block";    
-    plotCrossSection();
-}
-
-function verticalProfileClick() {
-    document.getElementById('inputModeBlock').style.display = "none";
-    document.getElementById('queryBlock').style.display = "block";
-    document.getElementById('pointBlock').style.display = "block";
-    document.getElementById('point2Block').style.display = "none";
-    document.getElementById('fileBlock').style.display = "none";
-    document.getElementById('zBlock').style.display = "block";
-    document.getElementById('dataType').style.display = "none";
-    document.getElementById('zStep').style.display = "block";
-    clear_all_top_btn();
-    SAVE_GO_TYPE='profile';
-    $('#verticalProfileBtn').addClass('active')
-    $('#goBtn').addClass('active');
-}
-
-function profileClick() {
-    document.getElementById('spinIconForVerticalProfile').style.display = "block";    
-    plotVerticalProfile();
-}
-
-function propertyClick() {
-    document.getElementById('inputModeBlock').style.display = "block";
-    document.getElementById('queryBlock').style.display = "block";
-    document.getElementById('pointBlock').style.display = "block";
-    document.getElementById('point2Block').style.display = "none";
-    document.getElementById('zBlock').style.display = "none";
-    document.getElementById('dataType').style.display = "none";
-    document.getElementById('zStep').style.display = "none";
-    clear_all_top_btn();
-    SAVE_GO_TYPE='query';
-    $('#propertyBtn').addClass('active');
-    $('#goBtn').addClass('active');
-}
-
-function queryClick() {
+function processByLatlonForPoint() {
     document.getElementById('spinIconForProperty').style.display = "block";    
     getMaterialPropertyByLatlon();
 }
 
-function goClick() {
-    switch (SAVE_GO_TYPE) {
-        case('query') :
-            queryClick();
-            break;
-        case('profile') :
-            profileClick();
-            break;
-        case('cross') :
-            crossClick();
-            break;
-        case('horizontal') :
-            horizontalClick();
-            break;
-        default:
-            window.console.log("bad go click..");
-    }
-    clear_all_top_btn();
+function processByLatlonForProfile() {
+    document.getElementById('spinIconForProfile').style.display = "block";    
+    plotVerticalProfile();
+}
+
+function processByLatlonForLine() {
+    document.getElementById('spinIconForLine').style.display = "block";    
+    plotCrossSection();
+}
+
+function processByLatlonForArea() {
+    document.getElementById('spinIconForArea').style.display = "block";    
+    plotHorizontalSlice();
 }
 
 // it is filelist
@@ -128,39 +55,11 @@ function selectLocalFiles(_urls) {
     }
 }
 
-function clearSearchResult()
-{
-    document.getElementById("searchResult").innerHTML = "";
+function clearSearchResult() {
+    refreshMPTable();
 }
 
-function plotPNG2(str)
-{
-    var html="";
-
-    // just one
-    if( typeof str === 'string') { 
-       html="<a href=\"result/"+str+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
-       return html;
-    }
-
-    // a set of them,  obj['first'] and obj['second']
-    var keys=Object.keys(str);
-    var sz=(Object.keys(str).length);
-    var i;
-
-    html=html+"<div class=\"row\" style=\"display:inline-block\">";
-    for(i=0;i<sz;i++) {
-       var val=str[keys[i]]; 
-       html=html+"<a href=\"result/"+val+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
-    }
-    html=html+"</div>";
-
-    return html;
-    
-}
-
-function plotPNG(str)
-{
+function plotPNG(str) {
     var html="";
     // just one
     if( typeof str === 'string') { 
@@ -184,163 +83,36 @@ function plotPNG(str)
     
 }
 
-// takes 2 sets of result
-function makeResultTable(str)
-{
-    var i;
-    var blob;
-    if( str == undefined || str == "" ) {
-       window.console.log("ERROR: no return result");
-       return "";
-    }
-    if( typeof str === 'string') { 
-       blob=JSON.parse(str);
-       } else {
-         blob=str;
-    }
-
-    var keys=Object.keys(blob);
-    var sz=(Object.keys(blob).length);
-
-window.console.log(JSON.stringify(blob));
-    var justOne=0;
-    if(sz != 2) {
-       window.console.log("ERROR: expecting 2 set of material properties");
-       return;
-    }
-    var blob1=blob[keys[0]];
-    var blob2=blob[keys[1]];
-
-    if( typeof blob1 === 'string' && blob1 != "") { 
-       blob1=JSON.parse(blob1);
-    }
-
-    if(blob2 == "") { 
-       justOne=1; 
-    }
-
-    if( !justOne && typeof blob2 === 'string' && blob2 != "") {
-       blob2=JSON.parse(blob2);
-    }
-
-    var html;
-    keys=Object.keys(blob1);
-    sz=(Object.keys(blob1).length);
-
-    html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-
-    html=html+"<div class=\"ucvm-table\"><table><tbody>";
-  
-    for(i=0; i<sz; i++) {
-       var key=keys[i];
-       var val1=blob1[key];
-       if(!justOne) {
-         var val2=blob2[key];
-         var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:20px\">"+val2+"</td></tr>";
-         html=html+t;
-         } else {
-           // access unit/extra handling
-           var u=getUnitsWithLabel(key, parseInt(val1));
-           if(u == undefined)
-              u="";
-           var t="<tr><td style=\"width:10px\">"+key+"</td><td style=\"width:20px\">"+val1+"</td><td style=\"width:30px\">"+u+"</td></tr>";
-           html=html+t;
-       }
-    }
-    html=html+"</tbody></table></div>";
-    return html;
+function insertMetaPlotResultTable(note,uid,str) {
+    var plothtml=plotPNG(str);
+    ucvm_metaplottb_list.push( { uid:uid, plot:str, meta:'', mp:'' });
+    makeMetaPlotResultTable(note,uid,plothtml);
 }
 
-// takes 1 or more sets of result
-// of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTableSAVE(str)
-{
-    var i;
-    var blob;
-    if( str == undefined || str == "" ) {
-       window.console.log("ERROR: no return result");
-       return "";
-    }
-    if( typeof str === 'string') { 
-       blob=JSON.parse(str);
-       } else {
-         blob=str;
-    }
-
-    var dkeys=Object.keys(blob); // dkeys: first, second
-    var dsz=(Object.keys(blob).length); // 2
-
-window.console.log(JSON.stringify(blob));
-
-    if(dsz < 1) {
-       window.console.log("ERROR: expecting at least 1 set of material properties");
-       return;
-    }
-
-    html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-    html=html+"<div class=\"ucvm-table\"><table><tbody>";
-
-    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
-    if( typeof datablob === 'string') { 
-       if(datablob == "") {
-           window.console.log("ERROR: expecting at least 1 set of material properties");
-           return ""; // html
-       }
-       datablob=JSON.parse(datablob);
-    }
-
-    // create the key and unit parts first
-    var labelline="";
-    var unitline="";
-    var key;
+function insertMetaPlotResultTable_mp(note,uid,str) {
+    var dloadhtml=linkDownload(uid+"point_matprops.json");
+    ucvm_metaplottb_list.push( { uid:uid, plot:str, meta:'', mp:'' });
+    makeMetaPlotResultTable(note,uid,dloadhtml);
+}
     
-    var datakeys=Object.keys(datablob);
-    var sz=(Object.keys(datablob).length);
-
-    labelline="<tr>";
-    unitline="<tr>";
- 
-    for(i=0; i<sz; i++) {
-        key=datakeys[i];
-        var u=getUnitsWithLabel(key);
-        if(u == undefined)
-           u="";
-        labelline=labelline+"<td style=\"width:20px\">"+key+"</td>";
-        unitline=unitline+"<td style=\"width:20px\">"+u+"</td>";
+function makeMetaPlotResultTable(note,uid,html) {
+    
+    var table=document.getElementById("metadataPlotTable");
+    if (ucvm_metaplottb_list.length == 1) {
+      table.deleteRow(0); // delete the holdover
+//label
+      row=table.insertRow(-1);
+      row.innerHTML="<td style=\"width:10vw\"><b>UID</b></td><td style=\"width:24vw\"><b>LINKS</b></td><td style=\"width:24vw\"><b>Description</b></td>";
+//
     }
-    labelline=labelline+"</tr>";
-    unitline=unitline+"</tr>";
+    row=table.insertRow(-1);
+    row.innerHTML="<td style=\"width:10vw\">"+uid+"</td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
 
-    html=html+labelline;
-
-    // now adding the data part..
-    for(j=0; j< dsz; j++) {
-        var datablob=blob[dkeys[j]];
-        if(datablob == "")
-           continue;
-        if( typeof datablob === 'string') { 
-           datablob=JSON.parse(datablob);
-        }
-        var mpline="<tr>";
-        mpline="<tr>";
-        for(i=0; i<sz; i++) {
-            var key2=datakeys[i];
-            var val2=datablob[key2];
-            mpline=mpline+"<td style=\"width:20px\">"+val2+"</td>";
-         }
-         mpline=mpline+"</tr>";
-         html=html+mpline;
-    }
-
-    html=html+unitline;
-    html=html+"</tbody></table></div>";
-    return html;
 }
-
 
 // takes 1 or more sets of result
 // of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable(str)
+function makeHorizontalResultTable(uid,str)
 {
     var i;
     var blob;
@@ -361,9 +133,6 @@ function makeHorizontalResultTable(str)
        window.console.log("ERROR: expecting at least 1 set of material properties");
        return;
     }
-
-    html="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-    html=html+"<div class=\"ucvm-table\"><table><tbody>";
 
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
     if( typeof datablob === 'string') { 
@@ -377,24 +146,21 @@ function makeHorizontalResultTable(str)
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
-    labelline="<tr>";
- 
+    var zkeyidx=0;
     for(i=0; i<sz; i++) {
         key=datakeys[i];
         // special case
         if(key == 'Z') { 
-          var zmodestr=document.getElementById("ZmodeTxt").value;
-          if(zmodestr == "e")
-              key=key+" (by<br>elevation)";
-          else
-              key=key+" (by<br>depth)";
- 
+          zkeyidx=i;
         }
-        labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
+        labelline=labelline+"<td style=\"width:24vw\"><b>"+key+"</b></td>";
     }
-    labelline=labelline+"</tr>";
 
-    html=html+labelline;
+    var table=document.getElementById("materialPropertyTable");
+    table.deleteRow(0); // delete the holdover
+
+    row=table.insertRow(-1);
+    row.innerHTML=labelline;
 
     // now adding the data part..
     var mpline="";
@@ -405,24 +171,99 @@ function makeHorizontalResultTable(str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        mpline="<tr>";
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
+            if(i == zkeyidx) {
+              var zmodestr=document.getElementById("zModeType").value;
+              if(zmodestr == "e")
+                val2=val2+" (by<br>elevation)";
+              else
+                val2=val2+" (by<br>depth)";
+            } 
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
-         mpline=mpline+"</tr>";
-         html=html+mpline;
+         row=table.insertRow(-1);
+         row.innerHTML=mpline;
+    }
+}
+
+function makeHorizontalResultTable_row(uid,str)
+{
+    var i;
+    var blob;
+
+    if( typeof str === 'string') { 
+       blob=JSON.parse(str);
+       } else {
+         blob=str;
     }
 
-    html=html+"</tbody></table></div>";
-    return html;
+    var dkeys=Object.keys(blob); // dkeys: first, second
+    var dsz=(Object.keys(blob).length); // 2
+
+    if(dsz < 1) {
+       window.console.log("ERROR: expecting at least 1 set of material properties");
+       return;
+    }
+
+    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
+    if( typeof datablob === 'string') { 
+       datablob=JSON.parse(datablob);
+    }
+
+    // create the key first
+    var key;
+    
+    var datakeys=Object.keys(datablob);
+    var sz=(Object.keys(datablob).length);
+
+    labelline="<tr>";
+ 
+    var zkeyidx=0; // look for Z entry
+    for(i=0; i<sz; i++) {
+        key=datakeys[i];
+        // special case
+        if(key == 'Z') { 
+          zkeyidx=i;
+          break;
+        }
+    }
+
+    // the data part..
+    var mpline="";
+    for(j=0; j< dsz; j++) {
+        var datablob=blob[dkeys[j]];
+        if(datablob == "")
+           continue;
+        if( typeof datablob === 'string') { 
+           datablob=JSON.parse(datablob);
+        }
+        for(i=0; i<sz; i++) {
+            var key2=datakeys[i];
+            var val2=datablob[key2];
+            if(i == zkeyidx) {
+              var zmodestr=document.getElementById("zModeType").value;
+              if(zmodestr == "e")
+                val2=val2+" (by<br>elevation)";
+              else
+                val2=val2+" (by<br>depth)";
+            } 
+            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+         }
+    }
+
+    /* look for the table stub.. */
+
+    var table=document.getElementById("materialPropertyTable");
+    var row=table.insertRow(-1);
+    row.innerHTML=mpline;
 }
 
 
 // takes 1 or more sets of result
 // of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable_start(str)
+function makeHorizontalResultTable_start(uid,str)
 {
     var i;
     var blob;
@@ -444,8 +285,6 @@ function makeHorizontalResultTable_start(str)
        return;
     }
 
-    var htmlstr="<table><tbody><tr><th style=\"border:1px solid white;\">Material Property</th></tr></tbody></table>";
-    htmlstr=htmlstr+"<div class=\"ucvm-table\"><table><tbody>";
 
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
     if( typeof datablob === 'string') { 
@@ -459,48 +298,52 @@ function makeHorizontalResultTable_start(str)
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
-    labelline="<tr>";
- 
     for(i=0; i<sz; i++) {
         key=datakeys[i];
         // special case
         if(key == 'Z') { 
-          var zmodestr=document.getElementById("ZmodeTxt").value;
+          var zmodestr=document.getElementById("zModeType").value;
           if(zmodestr == "e")
               key=key+" (by<br>elevation)";
           else
               key=key+" (by<br>depth)";
  
         }
-        labelline=labelline+"<td style=\"width:24vw\">"+key+"</td>";
+        labelline=labelline+"<td style=\"width:24vw\"><b>"+key+"</b></td>";
     }
-    labelline=labelline+"</tr>";
 
-    htmlstr=htmlstr+labelline;
+    var table=document.getElementById("materialPropertyTable");
+    var header = table.createTHead();
+    header.innerHTML="<title><b>Material Property</b></title>";
+
+    table.deleteRow(0); // delete the holdover
+
+    row=table.insertRow(-1);
+    row.innerHTML=labelline;
+
 
     // now adding the data part..
     var mpline="";
     for(j=0; j< dsz; j++) {
+        mpline="";
         var datablob=blob[dkeys[j]];
         if(datablob == "")
            continue;
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        mpline="<tr>";
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
-         mpline=mpline+"</tr>";
-         htmlstr=htmlstr+mpline;
+         row=table.insertRow(-1);
+         row.innerHTML=mpline;
     }
-
-    return htmlstr;
 }
+
 // make rows of the table
-function makeHorizontalResultTable_next(str)
+function makeHorizontalResultTable_next(uid,str)
 {
     var htmlstr="";
 
@@ -529,6 +372,7 @@ function makeHorizontalResultTable_next(str)
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
+    var table=document.getElementById("materialPropertyTable");
     // now adding the data part..
     var mpline="";
     for(j=0; j< dsz; j++) {
@@ -538,25 +382,15 @@ function makeHorizontalResultTable_next(str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        mpline="<tr>";
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
-         mpline=mpline+"</tr>";
-         htmlstr=htmlstr+mpline;
+         var row=table.insertRow(-1);
+         row.innerHTML=mpline;
     }
-
-    return htmlstr;
 }
-
-// last bit of the table
-function makeHorizontalResultTable_last() {
-    var html="</tbody></table></div>";
-    return html;
-}
-
 
 function saveAsCSVBlobFile(data, timestamp)
 {

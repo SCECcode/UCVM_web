@@ -4,6 +4,31 @@ var rectangle_options = {
          shapeOptions: {
               stroke: true,
               color: "blue",
+              weight: 2,
+              opacity: 0.4,
+              fill: true,
+              fillColor: null, //same as color by default
+              fillOpacity: 0.05,
+              clickable: false
+         }
+};
+var rectangleDrawer;
+
+var point_options = {
+       title: "a point marker",
+};
+var pointDrawer;
+
+var profile_icon = L.AwesomeMarkers.icon({ icon: 'home', markerColor: 'orange', });
+var profile_options = { icon: profile_icon };
+
+var profileDrawer; //profile drawer is the same as point drawer
+
+var line_options = {
+       showLength: true,
+         shapeOptions: {
+              stroke: true,
+              color: "blue",
               weight: 3,
               opacity: 0.5,
               fill: true,
@@ -12,7 +37,17 @@ var rectangle_options = {
               clickable: false
          }
 };
-var rectangleDrawer;
+var lineDrawer;
+
+// this is for drawing model's layer..
+var polygon_options = {
+    color:'red',
+    fillOpacity:0.04,
+    opacity:0.7,
+    weight:1,
+  
+};
+
 var mymap, baseLayers, layerControl, currentLayer;
 var visibleFaults = new L.FeatureGroup();
 
@@ -106,40 +141,42 @@ function setup_viewer()
   }
 */
 
-// ==> mouse location popup <==
-//   var popup = L.popup();
-  // function onMapClick(e) {
-  //   if(!skipPopup) { // suppress if in latlon search ..
-  //     popup
-  //       .setLatLng(e.latlng)
-  //       .setContent("You clicked the map at " + e.latlng.toString())
-  //       .openOn(mymap);
-  //   }
-  // }
-  // mymap.on('click', onMapClick);
-
   function onMapMouseOver(e) {
-    if(drawing_rectangle) {
-      draw_at();
+    if( in_drawing_point() ) {
+      drawPoint();
+      return;
+    }
+    if( in_drawing_profile() ) {
+      drawProfile();
+      return;
+    }
+    if( in_drawing_line() ) { 
+      drawLine();
+      return;
+    }
+    if( in_drawing_area()) { 
+      drawArea();
+      return;
     }
   }
+
   mymap.on('mouseover', onMapMouseOver);
 
-// ==> rectangle drawing control <==
-/*
-  var drawnItems = new L.FeatureGroup();
-  mymap.addLayer(drawnItems);
-  var drawControl = new L.Control.Draw({
-       draw: false,
-       edit: { featureGroup: drawnItems }
-  });
-  mymap.addControl(drawControl);
-*/
+
+// ==> point drawing control <==
+  pointDrawer = new L.Draw.Marker(mymap, point_options);
+// ==> profile drawing control <==
+  profileDrawer = new L.Draw.Marker(mymap, profile_options);
+// ==> line drawing control <==
+  lineDrawer = new L.Draw.Polyline(mymap, line_options);
+// ==> area/rectangle drawing control <==
   rectangleDrawer = new L.Draw.Rectangle(mymap, rectangle_options);
+
   mymap.on(L.Draw.Event.CREATED, function (e) {
     var type = e.layerType,
         layer = e.layer;
-    if (type === 'rectangle') {  // only tracks retangles
+
+    if (type === 'rectangle') {  // tracks retangles
         // get the boundary of the rectangle
         var latlngs=layer.getLatLngs();
         // first one is always the south-west,
@@ -147,9 +184,21 @@ function setup_viewer()
         var loclist=latlngs[0];
         var sw=loclist[0];
         var ne=loclist[2];
-        add_bounding_rectangle_layer(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
-        mymap.addLayer(layer);
-        searchByLatlon();
+        add_bounding_area_layer(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
+    }
+    if (type === 'marker') {  // can be a point or a profile
+        var sw=layer.getLatLng();
+        if( in_drawing_profile() ) {
+          add_bounding_profile_layer(layer,sw['lat'],sw['lng']);
+          } else {
+            add_bounding_point_layer(layer,sw['lat'],sw['lng']);
+        }
+    }
+    if (type === 'polyline') {  // tracks lines
+        var latlngs=layer.getLatLngs();
+        var sw=latlngs[0];
+        var ne=latlngs[1];
+        add_bounding_line_layer(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
     }
   });
 
@@ -158,106 +207,17 @@ function setup_viewer()
   return mymap;
 }
 
-function drawRectangle(){
-  rectangleDrawer.enable();
-}
-function skipRectangle(){
-  rectangleDrawer.disable();
-}
+function drawArea(){ rectangleDrawer.enable(); }
+function skipArea(){ rectangleDrawer.disable(); }
 
-// ==> feature popup on each layer <==
-function popupDetails(layer) {
-   layer.openPopup(layer);
-}
+function drawPoint(){ pointDrawer.enable(); }
+function skipPoint(){ pointDrawer.disable(); }
 
-function closeDetails(layer) {
-   layer.closePopup();
-}
+function drawProfile(){ profileDrawer.enable(); }
+function skipProfile(){ profileDrawer.disable(); }
 
-function addGeoToMap(cfmTrace, mymap) {
-
-   var geoLayer=L.geoJSON(cfmTrace, {
-     filter: function (feature, layer) {
-            if (feature.properties) {
-                var tmp=feature.properties.show_on_map != undefined ? !feature.properties.show_on_map : true;
-                return tmp;
-            }
-            return false;
-     },
-     style: function(feature) {
-        var tmp=feature.properties.style;
-        if(feature.properties.style != undefined) {
-            return feature.properties.style;
-        } else {
-            return {color: "#0000ff", "weight":2}
-        }
-     },
-     onEachFeature: bindPopupEachFeature
-   }).addTo(mymap);
-   visibleFaults.addLayer(geoLayer);
-
-   // var layerPopup;
-   // geoLayer.on('mouseover', function(e){
-/* not used..
-    // array of array
-    var coordinates = e.layer.feature.geometry.coordinates;
-    // pick the middle one
-    var s=Math.floor((coordinates.length)/2);
-    var tmp_coords=coordinates[s][0];
-    var swapped_coordinates = [tmp_coords[1], tmp_coords[0]];  //Swap Lat and Lng
-*/
-// leaflet-popup-close-button -- location
-//     if (mymap && !skipPopup) {
-//        var tmp=e.layer.feature.properties;
-//        var level1=tmp.popupMainContent;
-// //       layerPopup = L.popup({ autoClose: false, closeOnClick: false })
-//        layerPopup = L.popup()
-//            .setLatLng(e.latlng)
-//            .setContent(level1)
-//            .openOn(mymap);
-//     }
-//   });
-/*** XXX
-  geoLayer.on('mouseout', function (e) {
-    window.console.log("moues out..layer#"+e.layer.feature.id)
-    if (layerPopup && mymap) {
-        mymap.closePopup(layerPopup);
-        layerPopup = null;
-    }
-  });
-***/
-
-    geoLayer.on('mouseover', function(e){
-        if (mymap && !drawing_rectangle) {
-            e.layer.setStyle({weight: 5});
-        }
-   });
-
-   geoLayer.on('mouseout', function(e){
-       if (mymap && !drawing_rectangle) {
-           e.layer.setStyle({weight: 2});
-       }
-   });
-
-  return geoLayer;
-}
-
-
-// binding the 'detail' fault content
-function bindPopupEachFeature(feature, layer) {
-    var popupContent="";
-
-    // if (feature.properties != undefined  && feature.properties.popupContent != undefined ) {
-    //   popupContent += feature.properties.popupContent;
-    // }
-    // layer.bindPopup(popupContent);
-    layer.on({
-        click: function(e) {
-            let clickedFaultID = feature.id;
-            toggle_highlight(clickedFaultID);
-        },
-    })
-}
+function drawLine(){ lineDrawer.enable(); }
+function skipLine(){ lineDrawer.disable(); }
 
 // https://gis.stackexchange.com/questions/148554/disable-feature-popup-when-creating-new-simple-marker
 function unbindPopupEachFeature(layer) {
@@ -265,25 +225,42 @@ function unbindPopupEachFeature(layer) {
     layer.off('click');
 }
 
-function addRectangleLayer(latA,lonA,latB,lonB) {
-/*
-  var pointA=L.point(latA,lonA);
-  var pointB=L.point(latB,lonB);
-  var bounds=L.latLngBounds(viewermap.containerPointToLatLng(pointA),
-                                  viewermap.containerPointToLatLng(pointB));
-*/
+function makeModelLayer(latlngs,color) {
+  var mypoly=polygon_options;
+  mypoly['color']=color;
+  var layer = L.polygon(latlngs, mypoly);
+  return layer;
+}
+
+function addAreaLayer(latA,lonA,latB,lonB) {
   var bounds = [[latA, lonA], [latB, lonB]];
-  var layer=L.rectangle(bounds).addTo(viewermap);
+  var layer=L.rectangle(bounds,rectangle_options).addTo(viewermap);
+  mymap.addLayer(layer);
   return layer;
 }
 
-function addMarkerLayer(lat,lon) {
+function addPointLayer(lat,lon) {
   var bounds = [lat, lon];
-  var layer = new L.marker(bounds).addTo(viewermap);
+  var layer = new L.marker(bounds,point_options).addTo(viewermap);
+  mymap.addLayer(layer);
   return layer;
 }
 
-function switchLayer(layerString) {
+function addProfileLayer(lat,lon) {
+  var bounds = [lat, lon];
+  var layer = new L.marker(bounds,profile_options).addTo(viewermap);
+  mymap.addLayer(layer);
+  return layer;
+}
+
+function addLineLayer(latA,lonA,latB,lonB) {
+  var bounds = [[latA, lonA], [latB, lonB]];
+  var layer=L.polyline(bounds,line_option).addTo(viewermap);
+  mymap.addLayer(layer);
+  return layer;
+}
+
+function switchBaseLayer(layerString) {
     mymap.removeLayer(currentLayer);
     mymap.addLayer(baseLayers[layerString]);
     currentLayer = baseLayers[layerString];

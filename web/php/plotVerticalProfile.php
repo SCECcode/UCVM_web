@@ -14,13 +14,14 @@ $zstart = ($_GET['zstart']);
 $zstep = ($_GET['zstep']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
+$uid = ($_GET['uid']);
 
 $np="/usr/local/share/anaconda2/bin:/usr/local/share/anaconda2/condabin:".getenv("PATH");
 putenv("PATH=".$np);
 
 $itemlist = new \stdClass();
 
-$file="../result/vertical.png";
+$file="../result/".$uid."vertical.png";
 
 $envstr=makeEnvString();
 
@@ -37,11 +38,11 @@ if ($zmode == 'd') {
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 if ( $status == 0 && file_exists($file)) {
-    $itemlist->first="vertical.png";
+    $itemlist->first=$uid."vertical.png";
 }
 
 $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
-echo "<div data-side=\"verticalProfile\" data-params=\""; 
+echo "<div data-side=\"verticalProfile".$uid."\" data-params=\""; 
 echo $resultstring;
 echo "\" style=\"display:flex\"></div>";
 ?>

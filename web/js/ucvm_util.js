@@ -3,47 +3,89 @@
 
 ***/
 
-//https://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects-by-property
-/* sorting json blobs
-var homes = [
-   {"h_id":"3","city":"Dallas","state":"TX","zip":"75201","price":"162500"},
-   {"h_id":"4","city":"Bevery Hills","state":"CA","zip":"90210","price":"319250"}]
--- Sort by price high to low
-homes.sort(sort_by('price', true, parseInt));
--- Sort by city, case-insensitive, A-Z
-homes.sort(sort_by('city', false, function(a){return a.toUpperCase()}));
-*/
-var sort_by=function(field, reverse, primer){
-
-   var key = primer ? 
-       function(x) {return primer(x[field])} : 
-       function(x) {return x[field]};
-
-   reverse = !reverse ? 1 : -1;
-
-   return function (a, b) {
-       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
-     } 
+// remove an item from a list base on its matching 'uid'
+function removeFromList(alist, uid) {
+    var cnt=alist.length;
+    var item;
+    for(i=0;i<cnt;i++) {
+       item=alist[i];
+       if(item['uid']==uid) { // found the item to remove
+           var index = alist.indexOf(item);
+           if (index > -1) {
+             alist.splice(index, 1);
+             return item;
+           }
+           return undefined; 
+       }
+    }
+    return undefined;
 }
 
-function processSearchResult(rlist) {
+//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+//    var rnd= Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+function getRnd() {
+//https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
+    var timestamp = $.now();
+    var rnd="UCVM_"+timestamp;
+    return rnd;
+}
+
+/*
+   first latlon has to be sw side 
+   second latlons is the ne side of the rectangle
+*/
+// [flat, flon, slat, slon ]=fixOrdering(firstlat, firstlon, secondlat, secondlon) 
+function fixAreaOrdering(firstlat, firstlon, secondlat, secondlon) {
+    var minlon = firstlon;
+    var maxlon = secondlon;
+    if(firstlon > secondlon) {
+        minlon = secondlon;
+        maxlon = firstlon;
+    }
+
+    var minlat = firstlat;
+    var maxlat = secondlat;
+    if( firstlat >  secondlat) {
+        minlat = secondlat;
+        maxlat = firstlat;
+    }
+    return [minlat, minlon, maxlat, maxlon];
+}
+
+/*
+XXX ??? might need something so that backend would work 
+plot tool can not do a complete horizontal line ???
+*/
+function fixLineOrdering(firstlat, firstlon, secondlat, secondlon) {
+
+    return firstAreaOrdering(firstlat, firstlon, secondlat, secondlon);
+}
+
+function processSearchResult(rlist,uid) {
     if (rlist == 'plotHorizontalSlice') {
-        str = $('[data-side="horizontalSlice"]').data('params');
+        dstr = '[data-side=\"'+"horizontalSlice"+uid+'\"]';
+        str = $(dstr).data('params');
     }
     if (rlist == 'plotVerticalProfile') {
-        str = $('[data-side="verticalProfile"]').data('params');
+        dstr = '[data-side=\"'+"verticalProfile"+uid+'\"]';
+        str = $(dstr).data('params');
     }
     if (rlist == 'plotCrossSection') {
-        str = $('[data-side="crossSection"]').data('params');
+        dstr = '[data-side=\"'+"crossSection"+uid+'\"]';
+        str = $(dstr).data('params');
     }
     if (rlist == 'getMaterialPropertyByLatlon') {
-        str = $('[data-side="materialPropertyByLatlon"]').data('params');
+        dstr = '[data-side=\"'+"materialPropertyByLatlon"+uid+'\"]';
+        str = $(dstr).data('params');
     }
     if (rlist == 'getMaterialPropertyByLatlonChunk') {
-        str = $('[data-side="materialPropertyByLatlonChunk"]').data('params');
+        dstr = '[data-side=\"'+"materialPropertyByLatlonChunk"+uid+'\"]';
+        str = $(dstr).data('params');
     }
     if (rlist == 'getMaterialPropertyByLatlonList') {
-        str = $('[data-side="materialPropertyByLatlonList"]').data('params');
+        dstr = '[data-side=\"'+"materialPropertyByLatlonList"+uid+'\"]';
+        str = $(dstr).data('params');
     }
 
     if (rlist == undefined) {
@@ -184,17 +226,7 @@ function loadAndProcessBinfromFile(urls) {
 }
 
 
-var SAVE_ULABEL=0;
 var CHUNK_SIZE=20;
-function set_ULABEL(ulabel)
-{
-  SAVE_ULABEL=ulabel;
-}
-
-function get_ULABEL()
-{
-  return SAVE_ULABEL;
-}
 
 //https://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects-by-property
 /* sorting json blobs
@@ -263,12 +295,50 @@ function readAndProcessLocalFile(fobj) {
     if(chunks == 1)
        chunk_size=cnt;
 
-    // use timestamp as unique label
-    var ulabel=$.now();
+    var uid=getRnd();
      
-    getMaterialPropertyByLatlonList(ulabel,fdata,0, chunks, chunk_size);
+    getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
   };
   reader.readAsText(fobj);
   
 };
 
+function refreshMPTable() {
+    var table=document.getElementById("materialPropertyTable");
+    table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Material Property for selected locations will appear here. </td></tr></tbody>";
+}
+
+function refreshResultTable() {
+    var table=document.getElementById("metadataPlotTable");
+    table.innerHTML="<tbody><tr id=\"placeholder-row\"><td colspan=\"12\">Result, Plot and Metadata will appear here. </td></tr></tbody>";
+}
+
+function refreshAll() {
+  reset_markAreaLatlon();
+  reset_markPointLatlon();
+  reset_markLineLatlon();
+  reset_markProfileLatlon();
+
+  document.getElementById("search-type").value = "";
+  document.getElementById("phpResponseTxt").innerHTML = "";
+
+  refreshMPTable();
+  refreshResultTable();
+  remove_all_layers();
+  refresh_map();
+  refresh_sidebar();
+}
+
+// https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary
+
+function round2Four(val) {
+  var ep;
+  if (Number.EPSILON === undefined) {
+    ep= Math.pow(2, -52);
+    } else {
+      ep=Number.EPSILON;
+  }
+
+  var ret=Math.round( ( val + Number.EPSILON ) * 10000 ) / 10000;
+  return ret;
+}

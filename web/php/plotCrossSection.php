@@ -14,6 +14,7 @@ $zmode = ($_GET['zmode']);
 $model= ($_GET['model']);
 $zstart = ($_GET['zstart']);
 $datatype = ($_GET['datatype']);
+$uid = ($_GET['uid']);
 
 $secondlat = ($_GET['secondlat']);
 $secondlon = ($_GET['secondlon']);
@@ -44,7 +45,7 @@ $result = exec(escapeshellcmd($query), $retval, $status);
 if ( $status == 0 && file_exists($file)) {
 
     $resultstring = htmlspecialchars("cross.png", ENT_QUOTES, 'UTF-8');
-    echo "<div data-side=\"crossSection\" data-params=\"";
+    echo "<div data-side=\"crossSection".$uid."\" data-params=\"";
     echo $resultstring;
     echo "\" style=\"display:flex\"></div>";
 }
