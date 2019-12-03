@@ -211,7 +211,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                                placeholder="UID" 
                                                title="Uniqued ID"
                                                onfocus="this.value=''" 
-                                               class="form-control mt-1" style="display:">
+                                               class="form-control mt-1" style="display:none">
 
                                     </div>
                                     <div class="col-1 pr-0 ml-3 align-items-center">
@@ -273,7 +273,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                                placeholder="UID" 
                                                title="Uniqued ID"
                                                onfocus="this.value=''" 
-                                               class="form-control mt-1" style="display:">
+                                               class="form-control mt-1" style="display:none">
                                     </div>
                                     <div class="col-1 pr-0 ml-3 align-items-center">
                                         <button id="profileBtn" type="button" title="query with latlon"
@@ -346,7 +346,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                                placeholder="UID" 
                                                title="Uniqued ID"
                                                onfocus="this.value=''" 
-                                               class="form-control mt-1" style="display:">
+                                               class="form-control mt-1" style="display:none">
                                     </div>
                                     <div class="col-1 pr-0 ml-3 align-items-center">
                                         <button id="areaBtn" type="button" title="query with latlon"
@@ -412,7 +412,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                                placeholder="UID" 
                                                title="Uniqued ID"
                                                onfocus="this.value=''" 
-                                               class="form-control mt-1" style="display:">
+                                               class="form-control mt-1" style="display:none">
                                     </div>
                                     <div class="col-1 pr-0 ml-3 align-items-center">
                                         <button id="areaBtn" type="button" title="query with latlon"
