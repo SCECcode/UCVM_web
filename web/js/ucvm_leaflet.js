@@ -19,7 +19,9 @@ var point_options = {
 };
 var pointDrawer;
 
-var profile_icon = L.AwesomeMarkers.icon({ icon: 'home', markerColor: 'orange', });
+var redMarker= L.AwesomeMarkers.icon({ icon:'home',markerColor:'red'});
+
+var profile_icon = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'orange'});
 var profile_options = { icon: profile_icon };
 
 var profileDrawer; //profile drawer is the same as point drawer
@@ -123,23 +125,10 @@ function setup_viewer()
 // ==> scalebar <==
   L.control.scale({metric: 'false', imperial:'false', position: 'bottomleft'}).addTo(mymap);
 
-/* TODO
- watermark XXX
-  L.Control.Watermark = L.control.extend({
-    onAdd: function (map) {
-      var img=L.DomUtil.create('img');
-      img.src = './css/images/logo.png';
-      img.stuyle.width ='200px';
-      return img;
-    },
-    onRemove: function(map) {
-       // no-op
-    }
-  });
-  L.control.watermark= function(opts) {
-     return new L.Control.Watermark(opts);
-  }
-*/
+/*** TEST popup
+  var marker=L.marker([32, -118], {icon:redMarker}).addTo(mymap);
+  marker.on('mouseover', function () {marker.bindPopup('HI', {className: 'my-popup'}).openPopup();})
+***/
 
   function onMapMouseOver(e) {
     if( in_drawing_point() ) {
@@ -159,8 +148,27 @@ function setup_viewer()
       return;
     }
   }
+  function onMapMouseOut(e) {
+    if( in_drawing_point() ) {
+      skipPoint();
+      return;
+    }
+    if( in_drawing_profile() ) {
+      skipProfile();
+      return;
+    }
+    if( in_drawing_line() ) { 
+      skipLine();
+      return;
+    }
+    if( in_drawing_area()) { 
+      skipArea();
+      return;
+    }
+  }
 
   mymap.on('mouseover', onMapMouseOver);
+  mymap.on('mouseout', onMapMouseOut);
 
 
 // ==> point drawing control <==
@@ -198,7 +206,9 @@ function setup_viewer()
         var latlngs=layer.getLatLngs();
         var sw=latlngs[0];
         var ne=latlngs[1];
-        add_bounding_line_layer(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
+        if(sw != undefined && ne != undefined) {
+          add_bounding_line_layer(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
+        }
     }
   });
 

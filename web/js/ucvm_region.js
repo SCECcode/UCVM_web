@@ -9,11 +9,11 @@
 var UCVM_tb={
 "models": [
     {'id':1,
-     'model name':'CVM-Hv15.1',
+     'model name':'CVM-H v15.1',
      'abb name':'cvmh',
      'path name':'cvmh1511',
      'model filename':'cvmh-15.1.1.tar.gz',
-     'description':'Southern California Velocity Model developed by Harvard Structural Geology Group with optional geotechnical layer',
+     'description':'Southern California Velocity Model developed by Harvard Structural Geology Group',
      'coordinates': [
           { 'lon':-120.862028,'lat':30.956496 },
           { 'lon':-120.862028, 'lat':36.612951 },
@@ -37,7 +37,7 @@ var UCVM_tb={
      'abb name':'cvms5',
      'path name':'cvms5',
      'model filename':'cvms5.tar.gz',
-     'description':'Tomography improved version of CVM-S4 with optional geotechnical layer(Ely-Jordan GTL, default is off)',
+     'description':'Tomography improved version of CVM-S4 with no geotechnical layer',
      'coordinates': [
           { 'lon':-116.000, 'lat':30.4499 },
           { 'lon':-122.300, 'lat':34.7835 },
@@ -49,7 +49,7 @@ var UCVM_tb={
      'abb name':'cvmsi',
      'path name':'cvms426',
      'model filename':'cvms426.tar.gz',
-     'description':'CVM-S4.26 with added geotechnical layer',
+     'description':'CVM-S4.26 with geotechnical layer',
      'coordinates': [
           { 'lon':-116.000, 'lat':30.4499 },
           { 'lon':-122.300, 'lat':34.7835 },
@@ -122,7 +122,7 @@ function makeModelTable() {
    var i;
    var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">UCVM Model Table</th></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:6vw\"><b>model</b></td><td style=\"width:6vw\"><b>UCVM abbreviation</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
+   tbhtml=tbhtml+"<tr><td style=\"width:8vw\"><b>Model</b></td><td style=\"width:6vw\"><b>UCVM abbreviation</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
 
    for( i=0; i<cnt; i++) {
      var item=tb[i];

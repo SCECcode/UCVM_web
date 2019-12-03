@@ -1,4 +1,22 @@
 /* required styles */
+.my-custom-select {
+    padding: 0px 10px 0px 10px;
+    display: block;
+    width: 110%;
+    height: calc(2.25rem + 2px);
+    color: #6e7984;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+
+.my-popup {pointer-events: none;}
 
 hr { 
   display: block;
