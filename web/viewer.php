@@ -156,7 +156,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
             </div>
             <div class="row input-group filters">
                 <select id="search-type" class="custom-select">
-                    <option value="freezeClick">Select </option>
+                    <option value="freezeClick">Select</option>
                     <option value="pointClick">point</option>
                     <option disabled>-- Advanced --</option>
                     <option value="profileClick">profile</option>
