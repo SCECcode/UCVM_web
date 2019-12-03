@@ -319,7 +319,7 @@ function refreshAll() {
   reset_markLineLatlon();
   reset_markProfileLatlon();
 
-  document.getElementById("search-type").value = "Select";
+  document.getElementById("search-type").value = "freezeClick";
   document.getElementById("phpResponseTxt").innerHTML = "";
 
   refreshMPTable();
