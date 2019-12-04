@@ -21,7 +21,7 @@ $secondlon = ($_GET['secondlon']);
 
 $envstr=makeEnvString();
 
-$file="../result/cross.png";
+$file="../result/".$uid."cross.png";
 
 $vval= intval(((float)$z-(float)$zstart)/100); 
 
@@ -44,7 +44,7 @@ $result = exec(escapeshellcmd($query), $retval, $status);
 
 if ( $status == 0 && file_exists($file)) {
 
-    $resultstring = htmlspecialchars("cross.png", ENT_QUOTES, 'UTF-8');
+    $resultstring = htmlspecialchars($uid."cross.png", ENT_QUOTES, 'UTF-8');
     echo "<div data-side=\"crossSection".$uid."\" data-params=\"";
     echo $resultstring;
     echo "\" style=\"display:flex\"></div>";
