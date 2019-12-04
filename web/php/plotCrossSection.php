@@ -39,12 +39,18 @@ if ($zmode == 'e') {
 if ($zmode == 'd') { 
      $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_cross_section.py".$qstub.$lstr;
 }
-
 $result = exec(escapeshellcmd($query), $retval, $status);
 
-if ( $status == 0 && file_exists($file)) {
+$resultarray = new \stdClass();
+$resultarray->uid= $uid;
+$resultarray->plot= $uid."cross.png";
+$resultarray->query= $query;
+$resultarray->meta= $uid."cross_meta.json";
+$resultarray->data= $uid."cross_data.bin";
 
-    $resultstring = htmlspecialchars($uid."cross.png", ENT_QUOTES, 'UTF-8');
+
+if ( $status == 0 && file_exists($file)) {
+    $resultstring = htmlspecialchars(json_encode($resultarray), ENT_QUOTES, 'UTF-8');
     echo "<div data-side=\"crossSection".$uid."\" data-params=\"";
     echo $resultstring;
     echo "\" style=\"display:flex\"></div>";

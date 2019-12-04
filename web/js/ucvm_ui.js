@@ -6,9 +6,17 @@
    tracking download handles
 ***/
 
-// png is a filename to the png file
-// metablob could be multiple filenames to different metadata files 
-// [ {"uid":uid, "plot":png, "meta":metablob, "mp":mplist } ]
+// tracking the result blob coming in from the server
+// blob can include plot name, mp file etc in an array form
+/**** 
+    $resultarray = new \stdClass();
+    $resultarray->uid= $uid;
+    $resultarray->plot= $uid."cross.png";
+    $resultarray->query= $query;
+    $resultarray->meta= $uid."cross_meta.json";
+    $resultarray->data= $uid."cross_data.bin";
+****/
+// [ {"uid":uid, "blob":blob } ]
 var ucvm_metaplottb_list=[];
 
 function setup_model() {
@@ -59,15 +67,22 @@ function clearSearchResult() {
     refreshMPTable();
 }
 
-function plotPNG(str) {
+// create a links to png, metadata, data file if exist
+function makeDownloadLinks(str) {
     var html="";
+
     // just one
     if( typeof str === 'string') { 
-       html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-eye-open\"></span></a></div>";
+       // if the file ends with png 
+       if(str.endsWith(".png")) {
+          html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-eye-open\"></span></a></div>";
+         } else {
+            html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a></div>";
+       }
        return html;
     }
 
-    // a set of them,  obj['first'] and obj['second']
+    // a set of them,  obj['key1'] and obj['key2']
     var keys=Object.keys(str);
     var sz=(Object.keys(str).length);
     var i;
@@ -75,7 +90,29 @@ function plotPNG(str) {
     html="<div class=\"links\" style=\"display:inline-block\">";
     for(i=0;i<sz;i++) {
        var val=str[keys[i]]; 
-       html=html+"<a class=\"openpop\" href=\"result/"+val+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>";
+       switch(keys[i]) {
+          case 'plot':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>PNG plot</div>";
+              break;
+          case 'meta':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>plot metadata file</div>";
+              break;
+          case 'data':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>plot data file</div>";
+              break;
+          case 'materialproperty':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>material property file</div>";
+              break;
+          case 'query':
+              window.console.log("QUERY:",val);
+              break; 
+          case 'uid':
+              window.console.log("QUERY:",val);
+              break;
+          default:
+              window.console.log("HUM...This key is skipped:",keys[i]);
+              break;
+       }
     }
     html=html+"</div>";
 
@@ -83,18 +120,14 @@ function plotPNG(str) {
     
 }
 
+// plot + various datafiles
 function insertMetaPlotResultTable(note,uid,str) {
-    var plothtml=plotPNG(str);
-    ucvm_metaplottb_list.push( { uid:uid, plot:str, meta:'', mp:'' });
-    makeMetaPlotResultTable(note,uid,plothtml);
+    ucvm_metaplottb_list.push( { uid:uid, blob:str });
+//    var plothtml=plotPNG(str);
+    var html=makeDownloadLinks(str);
+    makeMetaPlotResultTable(note,uid,html);
 }
 
-function insertMetaPlotResultTable_mp(note,uid,str) {
-    var dloadhtml=linkDownload(uid+"point_matprops.json");
-    ucvm_metaplottb_list.push( { uid:uid, plot:str, meta:'', mp:'' });
-    makeMetaPlotResultTable(note,uid,dloadhtml);
-}
-    
 function makeMetaPlotResultTable(note,uid,html) {
     
     var table=document.getElementById("metadataPlotTable");
@@ -268,6 +301,7 @@ function saveAsCSVBlobFile(data, timestamp)
     saveAs(blob, fname);
 }
 
+// make link to result/  directory
 function linkDownload(str)
 {
     var html="";

@@ -74,7 +74,7 @@ function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_
             }
             if(current_chunk==(total_chunks-1)) { // last one
 // create a download link to the actual data file
-               insertMetaPlotResultTable_mp("material property",uid,str);
+               insertMetaPlotResultTable("material property",uid, {"materialproperty":uid+"point_matprops.json"});
                document.getElementById('spinIconForListProperty').style.display = "none";
                reset_point_UID();
             }

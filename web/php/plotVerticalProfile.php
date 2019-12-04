@@ -19,8 +19,6 @@ $uid = ($_GET['uid']);
 $np="/usr/local/share/anaconda2/bin:/usr/local/share/anaconda2/condabin:".getenv("PATH");
 putenv("PATH=".$np);
 
-$itemlist = new \stdClass();
-
 $file="../result/".$uid."vertical.png";
 
 $envstr=makeEnvString();
@@ -37,14 +35,20 @@ if ($zmode == 'd') {
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
-if ( $status == 0 && file_exists($file)) {
-    $itemlist->first=$uid."vertical.png";
-}
+$resultarray = new \stdClass();
+$resultarray->uid= $uid;
+$resultarray->plot= $uid."vertical.png";
+$resultarray->query= $query;
+$resultarray->meta= $uid."vertical_meta.json";
+$resultarray->materialproperty= $uid."vertical_matprops.json";
 
-$resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
+if ( $status == 0 && file_exists($file)) {
+
+$resultstring = htmlspecialchars(json_encode($resultarray), ENT_QUOTES, 'UTF-8');
 echo "<div data-side=\"verticalProfile".$uid."\" data-params=\""; 
 echo $resultstring;
 echo "\" style=\"display:flex\"></div>";
+}
 ?>
 </body>
 </html>

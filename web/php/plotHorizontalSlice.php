@@ -50,8 +50,15 @@ if( $zmode == 'e') {
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+$resultarray = new \stdClass();
+$resultarray->uid= $uid;
+$resultarray->plot= $uid."horizontal.png";
+$resultarray->query= $query;
+$resultarray->meta= $uid."horizontal_meta.json";
+$resultarray->data= $uid."horizontal_data.bin";
+
 if ( $status == 0 && file_exists($file)) {
-    $resultstring = htmlspecialchars($uid."horizontal.png", ENT_QUOTES, 'UTF-8');
+    $resultstring = htmlspecialchars(json_encode($resultarray), ENT_QUOTES, 'UTF-8');
     echo "<div data-side=\"horizontalSlice".$uid."\" data-params=\"";
     echo $resultstring;
     echo "\" style=\"display:flex\"></div>";
