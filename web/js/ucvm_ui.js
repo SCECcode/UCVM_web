@@ -163,7 +163,6 @@ function makeHorizontalResultTable(uid,str)
     row.innerHTML=labelline;
 
     // now adding the data part..
-    var mpline="";
     for(j=0; j< dsz; j++) {
         var datablob=blob[dkeys[j]];
         if(datablob == "")
@@ -171,6 +170,7 @@ function makeHorizontalResultTable(uid,str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
+        var mpline="";
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
@@ -218,8 +218,6 @@ function makeHorizontalResultTable_row(uid,str)
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
-    labelline="<tr>";
- 
     var zkeyidx=0; // look for Z entry
     for(i=0; i<sz; i++) {
         key=datakeys[i];
@@ -231,8 +229,10 @@ function makeHorizontalResultTable_row(uid,str)
     }
 
     // the data part..
-    var mpline="";
+    var table=document.getElementById("materialPropertyTable");
+    var row=table.insertRow(-1);
     for(j=0; j< dsz; j++) {
+        var mpline="";
         var datablob=blob[dkeys[j]];
         if(datablob == "")
            continue;
@@ -249,142 +249,6 @@ function makeHorizontalResultTable_row(uid,str)
               else
                 val2=val2+" (by<br>depth)";
             } 
-            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
-         }
-    }
-
-    /* look for the table stub.. */
-
-    var table=document.getElementById("materialPropertyTable");
-    var row=table.insertRow(-1);
-    row.innerHTML=mpline;
-}
-
-
-// takes 1 or more sets of result
-// of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable_start(uid,str)
-{
-    var i;
-    var blob;
-    if( str == undefined || str == "" ) {
-       window.console.log("ERROR: no return result");
-       return "";
-    }
-    if( typeof str === 'string') { 
-       blob=JSON.parse(str);
-       } else {
-         blob=str;
-    }
-
-    var dkeys=Object.keys(blob); // dkeys: first, second
-    var dsz=(Object.keys(blob).length); // 2
-
-    if(dsz < 1) {
-       window.console.log("ERROR: expecting at least 1 set of material properties");
-       return;
-    }
-
-
-    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
-    if( typeof datablob === 'string') { 
-       datablob=JSON.parse(datablob);
-    }
-
-    // create the key first
-    var labelline="";
-    var key;
-    
-    var datakeys=Object.keys(datablob);
-    var sz=(Object.keys(datablob).length);
-
-    for(i=0; i<sz; i++) {
-        key=datakeys[i];
-        // special case
-        if(key == 'Z') { 
-          var zmodestr=document.getElementById("zModeType").value;
-          if(zmodestr == "e")
-              key=key+" (by<br>elevation)";
-          else
-              key=key+" (by<br>depth)";
- 
-        }
-        labelline=labelline+"<td style=\"width:24vw\"><b>"+key+"</b></td>";
-    }
-
-    var table=document.getElementById("materialPropertyTable");
-    var header = table.createTHead();
-    header.innerHTML="<title><b>Material Property</b></title>";
-
-    table.deleteRow(0); // delete the holdover
-
-    row=table.insertRow(-1);
-    row.innerHTML=labelline;
-
-
-    // now adding the data part..
-    var mpline="";
-    for(j=0; j< dsz; j++) {
-        mpline="";
-        var datablob=blob[dkeys[j]];
-        if(datablob == "")
-           continue;
-        if( typeof datablob === 'string') { 
-           datablob=JSON.parse(datablob);
-        }
-        for(i=0; i<sz; i++) {
-            var key2=datakeys[i];
-            var val2=datablob[key2];
-            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
-         }
-         row=table.insertRow(-1);
-         row.innerHTML=mpline;
-    }
-}
-
-// make rows of the table
-function makeHorizontalResultTable_next(uid,str)
-{
-    var htmlstr="";
-
-    if (str == undefined )
-      return htmlstr;
-
-    if( typeof str === 'string') { 
-       blob=JSON.parse(str);
-       } else {
-         blob=str;
-    }
-
-    var dkeys=Object.keys(blob); // dkeys: first, second
-    var dsz=(Object.keys(blob).length); // 2
-
-    if(dsz < 1) {
-       window.console.log("ERROR: expecting at least 1 set of material properties");
-       return;
-    }
-
-    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
-    if( typeof datablob === 'string') {
-       datablob=JSON.parse(datablob);
-    }
-
-    var datakeys=Object.keys(datablob);
-    var sz=(Object.keys(datablob).length);
-
-    var table=document.getElementById("materialPropertyTable");
-    // now adding the data part..
-    var mpline="";
-    for(j=0; j< dsz; j++) {
-        var datablob=blob[dkeys[j]];
-        if(datablob == "")
-           continue;
-        if( typeof datablob === 'string') { 
-           datablob=JSON.parse(datablob);
-        }
-        for(i=0; i<sz; i++) {
-            var key2=datakeys[i];
-            var val2=datablob[key2];
             mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
          }
          var row=table.insertRow(-1);

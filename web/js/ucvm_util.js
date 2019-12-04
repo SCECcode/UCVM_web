@@ -297,7 +297,9 @@ function readAndProcessLocalFile(fobj) {
 
     var uid=getRnd();
      
+    add_file_of_point(uid,fobj);
     getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
+
   };
   reader.readAsText(fobj);
   

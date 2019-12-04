@@ -31,7 +31,6 @@ function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chun
         dataset.push(dataarray[i]);
     }
     var datastr=dataset.toString();
-    window.console.log(datastr);
 
     var skip=0; // skip the transfer of the result
     if( current_chunk >= MAX_CHUNKS_TO_DISPLAY)
@@ -43,8 +42,6 @@ function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chun
 
 // to be called by getMaterialPropertyByLatlonList
 function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
-    if(current_chunk == 0)
-        clearSearchResult();
     // extract content of a file
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
@@ -62,12 +59,16 @@ function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_
             var str=processSearchResult("getMaterialPropertyByLatlonChunk",uid);
            
             if(current_chunk==0) { // first one
-               makeHorizontalResultTable_start(uid,str);
+               if(get_points_mp() == 1) {
+                 makeHorizontalResultTable(uid,str);
+                 } else {
+                   makeHorizontalResultTable_row(uid,str);
+               }
                getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
             } else {
 // try to limit the size of the table..
                if(current_chunk < MAX_CHUNKS_TO_DISPLAY) {
-                  makeHorizontalResultTable_next(uid,str);
+                 makeHorizontalResultTable_row(uid,str);
                } 
                getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
             }

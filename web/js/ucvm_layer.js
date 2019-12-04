@@ -40,6 +40,8 @@ var ucvm_area_list=[];
 
 // { { "uid":uid, "latlngs":[{"lat":a,"lon":b}]}
 var ucvm_point_list=[];
+// { { "uid":uid, "filename":filename}]}
+var ucvm_point_file_list=[];
 
 // { { "uid":uid, "latlngs":[{"lat":a,"lon":b}]}
 var ucvm_profile_list=[];
@@ -112,7 +114,9 @@ function make_all_model_layer() {
 
 // see how many mp from points is there right now
 function get_points_mp() {
-  return ucvm_point_list.length;
+  var len1=ucvm_point_list.length;
+  var len2=ucvm_point_file_list.length;
+  return len1+len2;
 }
 
 var ucvm_point_list=[];
@@ -228,6 +232,11 @@ function add_bounding_area_layer(layer,a,b,c,d) {
   viewermap.addLayer(layer);
   dirty_layer_uid=uid;
 }
+/*** special handle for a file of points ***/
+function add_file_of_point(uid, fobj) {
+  var tmp={"uid":uid,"file":fobj.name};
+  ucvm_point_file_list.push(tmp);
+}
 
 function add_bounding_point(uid,a,b) {
   var layer=addPointLayer(a,b);
@@ -281,7 +290,7 @@ function add_bounding_line(uid,a,b,c,d) {
   var layer=addLineLayer(a,b,c,d);
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   ucvm_line_list.push(tmp);
-  load_a_layer(uid,LINE_NEUM,layer);
+  load_a_layer(uid,LINE_ENUM,layer);
 }
 
 function remove_bounding_line_layer(uid) {

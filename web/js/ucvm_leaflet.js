@@ -265,7 +265,7 @@ function addProfileLayer(lat,lon) {
 
 function addLineLayer(latA,lonA,latB,lonB) {
   var bounds = [[latA, lonA], [latB, lonB]];
-  var layer=L.polyline(bounds,line_option).addTo(viewermap);
+  var layer=L.polyline(bounds,line_options).addTo(viewermap);
   mymap.addLayer(layer);
   return layer;
 }
