@@ -124,15 +124,6 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
     <div class="row" style="display:none;">
         <div class="col justify-content-end custom-control-inline">
             <div style="display:none;" id="external_leaflet_control"></div>
-            <button id="colorBtn" class="btn ucvm-top-small-btn" onMouseEnter="expandColorsControl()">
-                <span class="glyphicon glyphicon-star"></span></button>
-            <div id="colorSelect" class="ucvm-control-colors" onMouseLeave="removeColorsControl()"></div>
-
-            <button id="basketBtn" class="btn ucvm-top-small-btn" title="download selected faults metadata"
-                    onMouseEnter="expandDownloadControl()">
-                <span class="glyphicon glyphicon-download-alt"></span></button>
-            <div id="itemCount"></div>
-            <div id="downloadSelect" class="ucvm-control-download" onMouseLeave="removeDownloadControl()"></div>
         </div>
     </div>
 
@@ -144,16 +135,16 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="modelType" >Select Model Type</label>
                 </div>
-                <select id="modelType" class="custom-select"></select>
+                <select id="modelType" class="custom-select"></select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalmt"><span class="glyphicon glyphicon-info-sign"></span></button>
             </div>
             <div class="row input-group filters mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="zType" >Select Z Mode</label>
+                    <label class="input-group-text" for="zModeType" >Select Z Mode</label>
                 </div>
                 <select id="zModeType" class="custom-select">
                     <option value="d">Depth</option>
                     <option value="e">Elevation</option>
-                </select>
+                </select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalzm"><span class="glyphicon glyphicon-info-sign"></span></button>
             </div>
             <div class="row input-group filters">
                 <select id="search-type" class="custom-select">
@@ -483,7 +474,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
             <table id="metaHeaderTable" style="border:none">
                 <tbody>
                 <tr>
-                    <td colspan="12" style="border:none"><b>Result and Metadata</b></td>
+                    <td colspan="12" style="border:none"><b>Result and Metadata</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                 </tr>
                 </tbody>
             </table>
@@ -498,15 +489,74 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
           </table>
         </div>
     </div>
-    <div class="row col-12 mb-4" style="overflow:scroll;">
-        <div class="col-12" id="fileFormatTable-container"></div>
-    </div>
+<!---- suppress for now..
     <div class="row col-12 mb-4" style="overflow:scroll;">
         <div class="col-12" id="modelTable-container"></div>
     </div>
+--->
     <div id="phpResponseTxt"></div>
     <div id='queryBlock' class="col-6" style="overflow:hidden;display:none;"></div> 
 </div>
+
+<!--Modal: FileFormat -->
+<div class="modal" id="modalff" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalffDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalffContent">
+      <!--Body-->
+      <div class="modal-body" id="modalffBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="fileFormatTable-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: ModelType -->
+<div class="modal" id="modalmt" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalmtDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalmtContent">
+      <!--Body-->
+      <div class="modal-body" id="modalmtBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="modelTable-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: ZMode -->
+<div class="modal" id="modalzm" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalzmDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalzmContent">
+      <!--Body-->
+      <div class="modal-body" id="modalzmBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="ZModeTable-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
 
 </body>
 </html>

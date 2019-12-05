@@ -33,6 +33,12 @@ function setup_fileFormat() {
    html.innerHTML=tb;
 }
 
+function setup_ZMode() {
+   var tb=makeZModeTable();
+   var html=document.getElementById('ZModeTable-container');
+   html.innerHTML=tb;
+}
+
 function processByLatlonForPoint() {
     document.getElementById('spinIconForProperty').style.display = "block";    
     getMaterialPropertyByLatlon();

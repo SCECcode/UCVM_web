@@ -37,10 +37,17 @@ th {text-align: left;}
           padding: 6px 6px;
           font-size: 14px;
           color: black;
-          width: 3vw;
-          height: 3vh;
           display: inline-block;
-          border-radius: 2px;
+
+          outline: none;
+          -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+          border: none !important;
+          }
+
+.ucvm-top-small-btn:hover {
+          color: #990000;
+          display: inline-block;
           }
 
 .ucvm-small-btn {

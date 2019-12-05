@@ -78,6 +78,16 @@ var UCVM_tb={
      'format name':'material property data',
      'suffix':'json',
      'description':'material property'}
+    ],
+"zmodes": [
+    {'id':1,
+     'mode name':'Depth',
+     'value':'d',
+     'description':'0 at surface and positive depth value'},
+    {'id':2,
+     'mode name':'Elevation',
+     'value':'e',
+     'description':'0 at sealevel and positive value toward the air and negative value toward the center of the earth'}
     ]
 };
 
@@ -226,6 +236,25 @@ function makeFileFormatTable() {
      var suffix=item['suffix'];
      var descript=item['description'];
      var t="<tr><td style=\"width:12vw\">"+fname+"</td><td style=\"width:4vw\">"+suffix+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
+     tbhtml=tbhtml+t;
+   }
+   tbhtml=tbhtml+"</tbody></table></div>";
+   return tbhtml;
+}
+
+function makeZModeTable() {
+   var tb=UCVM_tb['zmodes'];
+   var cnt=tb.length;
+   var i;
+   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">Z Mode Table</th></tr></tbody></table>";
+   tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
+   tbhtml=tbhtml+"<tr><td style=\"width:8vw\"><b>Mode</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
+
+   for( i=0; i<cnt; i++) {
+     var item=tb[i];
+     var mname=item['mode name'];
+     var descript=item['description'];
+     var t="<tr><td style=\"width:6vw\">"+mname+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
      tbhtml=tbhtml+t;
    }
    tbhtml=tbhtml+"</tbody></table></div>";
