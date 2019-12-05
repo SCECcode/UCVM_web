@@ -56,6 +56,28 @@ var UCVM_tb={
           { 'lon':-118.9475, 'lat':38.3035 },
           { 'lon':-112.5182, 'lat':33.7819 } ],
      'color':'#FFA726'},
+    ],
+"fileformats": [
+    {'id':1,
+     'format name':'image',
+     'suffix':'png',
+     'description':'plot image in fixed discrete color scale'},
+    {'id':2,
+     'format name':'metadata',
+     'suffix':'json',
+     'description':'metadata describing the image and the binary image data'},
+    {'id':3,
+     'format name':'data',
+     'suffix':'bin',
+     'description':'plot image\'s data'},
+    {'id':4,
+     'format name':'dataset',
+     'suffix':'json',
+     'description':'plot\'s set of data'},
+    {'id':5,
+     'format name':'material property data',
+     'suffix':'json',
+     'description':'material property'}
     ]
 };
 
@@ -68,9 +90,10 @@ function makeModelSelection()
      var item=tb[i];
      var color=item['color'];
      var aname=item['abb name'];
+     var mname=item['model name'];
      var sel=document.getElementById('modelType');
      var option = document.createElement("option");
-     option.text = aname;
+     option.text = mname;
      option.value= aname;
      sel.add(option);
    } 
@@ -187,4 +210,24 @@ function getAllModelNames() {
      ret.push(aname);
    }
    return ret;
+}
+
+function makeFileFormatTable() {
+   var tb=UCVM_tb['fileformats'];
+   var cnt=tb.length;
+   var i;
+   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">File Format Table</th></tr></tbody></table>";
+   tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
+   tbhtml=tbhtml+"<tr><td style=\"width:12vw\"><b>Format</b></td><td style=\"width:4vw\"><b>suffix</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
+
+   for( i=0; i<cnt; i++) {
+     var item=tb[i];
+     var fname=item['format name'];
+     var suffix=item['suffix'];
+     var descript=item['description'];
+     var t="<tr><td style=\"width:12vw\">"+fname+"</td><td style=\"width:4vw\">"+suffix+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
+     tbhtml=tbhtml+t;
+   }
+   tbhtml=tbhtml+"</tbody></table></div>";
+   return tbhtml;
 }

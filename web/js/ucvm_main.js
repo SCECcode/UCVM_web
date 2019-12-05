@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
 
   viewermap=setup_viewer();
   setup_model();
+  setup_fileFormat();
 
   $(".popup").hide();
 

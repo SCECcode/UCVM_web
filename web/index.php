@@ -8,21 +8,24 @@ $header = getHeader("Viewer");
     <title>UCVM Viewer</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/vendor/font-awesome.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/vendor/leaflet.css">
+    <link rel="stylesheet" href="css/vendor/font-awesome.min.css">
     <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/vendor/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="css/vendor/leaflet.css">
+
     <link rel="stylesheet" href="css/vendor/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/vendor/jquery-ui.css">
+
     <link rel="stylesheet" href="css/vendor/glyphicons.css">
-    <link rel="stylesheet" href="css/vendor/leaflet.awesome-markers.css">
     <link rel="stylesheet" href="css/vendor/animation.css">
-    <link rel="stylesheet" href="css/vendor/fontello.css">
+
     <link rel="stylesheet" href="css/ucvm-ui.css">
     <link rel="stylesheet" href="css/sidebar.css">
 
+    <script type="text/javascript" src="js/vendor/leaflet.js"></script>
+    <script type='text/javascript' src='js/vendor/leaflet.awesome-markers.js'></script>
     <script type='text/javascript' src='js/vendor/popper.min.js'></script>
-    <script type="text/javascript" src="js/vendor/leaflet-src.js"></script>
     <script type='text/javascript' src='js/vendor/jquery.min.js'></script>
     <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
     <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
@@ -30,8 +33,6 @@ $header = getHeader("Viewer");
     <script type='text/javascript' src='js/vendor/FileSaver.js'></script>
     <script type='text/javascript' src='js/vendor/jszip.js'></script>
     <script type='text/javascript' src='js/vendor/jquery.floatThead.min.js'></script>
-    <script type='text/javascript' src='js/vendor/leaflet.awesome-markers.js'></script>
-
     <!--
     https://leaflet.github.io/Leaflet.draw/docs/Leaflet.draw-latest.html#l-draw
     this is for including the Leaflet.draw plugin
@@ -197,7 +198,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
       <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
       <button id="fileSelectBtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
       <span class="glyphicon glyphicon-file"></span> Select file to use</button>
-      <div id="spinIconForListProperty" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+      <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                     <div class="col-4 pr-0 ml-2">
                                         <input type="text" 
@@ -221,7 +222,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                         </button>
                                     </div>
                                     <div class="col-2 pr-0">
-                                        <div id="spinIconForProperty" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+                                        <div id="spinIconForProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -282,7 +283,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                         </button>
                                     </div>
                                     <div class="col-2 pr-0">
-                                        <div id="spinIconForProfile" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+                                        <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -321,12 +322,13 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                                title="lineZTxt"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <input type="text" 
-                                               id="lineDataTypeTxt" 
-                                               placeholder="Datatype" 
-                                               title="DataType"
-                                               onfocus="this.value=''" 
-                                               class="form-control mt-1">
+                                        <select title="Datatype" id="lineDataTypeTxt" class="my-custom-select custom-select mt-1">
+                                               <option value="">DataType</option>
+                                               <option value="vs">vs</option>
+                                               <option value="vp">vp</option>
+                                               <option value="density">density</option>
+                                               <option value="poisson">poisson</option>
+                                        </select>
                                     </div>
                                     <div class="col-4 pr-0 ml-2">
                                         <input type="text"
@@ -355,7 +357,8 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                         </button>
                                     </div>
                                     <div class="col-2 pr-0">
-                                        <div id="spinIconForLine" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+                                        <div id="spinIconForLine" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i>
+</div>
                                     </div>
                                 </div>
                             </div>
@@ -387,12 +390,13 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                                title="areaZTxt"
                                                onfocus="this.value=''"
                                                class="form-control mt-1">
-                                        <input type="text"
-                                               id="areaDataTypeTxt"
-                                               placeholder="Datatype"
-                                               title="DataType"
-                                               onfocus="this.value=''"
-                                               class="form-control mt-1">
+                                        <select title="Datatype" id="areaDataTypeTxt" class="my-custom-select custom-select mt-1">
+                                               <option value="">DataType</option>
+                                               <option value="vs">vs</option>
+                                               <option value="vp">vp</option>
+                                               <option value="density">density</option>
+                                               <option value="poisson">poisson</option>
+                                        </select>
                                     </div>
                                     <div class="col-4 pr-0 ml-2">
                                         <input type="text"
@@ -421,7 +425,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                         </button>
                                     </div>
                                     <div class="col-2 pr-0">
-                                        <div id="spinIconForArea" align="center" class="the-spin-icons" title="Code: 0xe839" style="display:none;"><i class="spin-icon animate-spin">&#xe839;</i></div>
+                                        <div id="spinIconForArea" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
 
                                 </div>

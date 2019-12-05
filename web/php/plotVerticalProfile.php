@@ -40,7 +40,7 @@ $resultarray->uid= $uid;
 $resultarray->plot= $uid."vertical.png";
 $resultarray->query= $query;
 $resultarray->meta= $uid."vertical_meta.json";
-$resultarray->materialproperty= $uid."vertical_matprops.json";
+$resultarray->dataset= $uid."vertical_matprops.json";
 
 if ( $status == 0 && file_exists($file)) {
 

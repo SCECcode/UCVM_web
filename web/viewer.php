@@ -158,11 +158,11 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
             <div class="row input-group filters">
                 <select id="search-type" class="custom-select">
                     <option value="freezeClick">Select</option>
-                    <option value="pointClick">point</option>
+                    <option value="pointClick">0D Point</option>
                     <option disabled>-- Advanced --</option>
-                    <option value="profileClick">profile</option>
-                    <option value="lineClick">line</option>
-                    <option value="areaClick">area</option>
+                    <option value="profileClick">1D Vertical Profile</option>
+                    <option value="lineClick">2D Vertical Cross Section</option>
+                    <option value="areaClick">2D Horizontal Slice</option>
                 </select>
                 <div class="input-group-append">
                     <button onclick="refreshAll();" class="btn btn-dark pl-4 pr-4" type="button">Reset</button>
@@ -497,6 +497,9 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                 </tbody>
           </table>
         </div>
+    </div>
+    <div class="row col-12 mb-4" style="overflow:scroll;">
+        <div class="col-12" id="fileFormatTable-container"></div>
     </div>
     <div class="row col-12 mb-4" style="overflow:scroll;">
         <div class="col-12" id="modelTable-container"></div>

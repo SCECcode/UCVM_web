@@ -27,6 +27,12 @@ function setup_model() {
    make_all_model_layer();
 }
 
+function setup_fileFormat() {
+   var tb=makeFileFormatTable();
+   var html=document.getElementById('fileFormatTable-container');
+   html.innerHTML=tb;
+}
+
 function processByLatlonForPoint() {
     document.getElementById('spinIconForProperty').style.display = "block";    
     getMaterialPropertyByLatlon();
@@ -99,6 +105,9 @@ function makeDownloadLinks(str) {
               break;
           case 'data':
               html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;plot data file</div>";
+              break;
+          case 'dataset':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;plot dataset file</div>";
               break;
           case 'materialproperty':
               html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;material property file</div>";
