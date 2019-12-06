@@ -226,7 +226,7 @@ function loadAndProcessBinfromFile(urls) {
 }
 
 
-var CHUNK_SIZE=20;
+var CHUNK_SIZE=100;
 
 //https://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects-by-property
 /* sorting json blobs
