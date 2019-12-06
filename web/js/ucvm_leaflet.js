@@ -5,10 +5,10 @@ var rectangle_options = {
               stroke: true,
               color: "blue",
               weight: 2,
-              opacity: 0.4,
+              opacity: 0.5,
               fill: true,
               fillColor: null, //same as color by default
-              fillOpacity: 0.05,
+              fillOpacity: 0.02,
               clickable: false
          }
 };
@@ -32,10 +32,7 @@ var line_options = {
               stroke: true,
               color: "blue",
               weight: 3,
-              opacity: 0.5,
-              fill: true,
-              fillColor: null, //same as color by default
-              fillOpacity: 0.1,
+              opacity: 0.6,
               clickable: false
          }
 };
