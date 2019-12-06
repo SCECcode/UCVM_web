@@ -73,6 +73,9 @@ function selectLocalFiles(_urls) {
     } else {
       throw new Error("local file must be a File object type!");
     }
+
+    // clear the the btn
+    document.getElementById("fileBtn").value="";
 }
 
 function clearSearchResult() {
