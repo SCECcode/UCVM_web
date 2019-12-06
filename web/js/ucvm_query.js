@@ -13,7 +13,6 @@ var hold_htmlstr="";
 // get the material properties of the latlon locations
 //
 
-var MAX_CHUNKS_TO_DISPLAY=1;
 function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chunks, chunk_step) {
     if(current_chunk == total_chunks) 
         return;
@@ -32,16 +31,12 @@ function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chun
     }
     var datastr=dataset.toString();
 
-    var skip=0; // skip the transfer of the result
-    if( current_chunk >= MAX_CHUNKS_TO_DISPLAY)
-      skip=1;
-
-    _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
+    _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk, total_chunks,chunk_step);
            
 }
 
 // to be called by getMaterialPropertyByLatlonList
-function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
+function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
     // extract content of a file
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
@@ -57,30 +52,18 @@ function _getMaterialPropertyByLatlonChunk(skip,uid,datastr, dataarray, current_
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             var str=processSearchResult("getMaterialPropertyByLatlonChunk",uid);
-           
-            if(current_chunk==0) { // first one
-               if(get_points_mp() == 1) {
-                 makeHorizontalResultTable(uid,str);
-                 } else {
-                   makeHorizontalResultTable_row(uid,str);
-               }
-               getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
-            } else {
-// try to limit the size of the table..
-               if(current_chunk < MAX_CHUNKS_TO_DISPLAY) {
-                 makeHorizontalResultTable_row(uid,str);
-               } 
-               getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
-            }
+
+            getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
             if(current_chunk==(total_chunks-1)) { // last one
+               var mpname=str['mp'];
 // create a download link to the actual data file
-               insertMetaPlotResultTable("material property",uid, {"materialproperty":uid+"point_matprops.json"});
+               insertMetaPlotResultTable("material property",uid, {"materialproperty":mpname});
                document.getElementById('spinIconForListProperty').style.display = "none";
                reset_point_UID();
             }
        }
     }
-    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&chunks="+total_chunks+"&model="+modelstr+"&skip="+skip+"&uid="+uid, true);
+    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&chunks="+total_chunks+"&model="+modelstr+"&uid="+uid, true);
     xmlhttp.send();
 }
 

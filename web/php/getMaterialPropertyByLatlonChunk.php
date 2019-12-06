@@ -12,24 +12,25 @@ $model = ($_GET['model']);
 $chunkid = intVal($_GET['chunkid']);
 $uid = ($_GET['uid']);
 $lastchunks = intVal($_GET['chunks'])-1;
-$skip = intVal($_GET['skip']);
 
 /* if chunkid == 0, it is first chunk, create 
    the .json file in result/UCVM_uidpoint_matprops.json, 
    other ones, just 'append'               */
 
 $fname="../result/".$uid."point_matprops.json";
+
+// setup the start
 if ($chunkid == 0) {
    $fp= fopen($fname,"w") or die("Unable to open file!");
    $start=" { \"".$uid."\": [";
    fwrite($fp,$start); fwrite($fp,"\n");
-   } else {
-      $fp= fopen($fname,"a") or die("Unable to open file to append!");
+   fclose($fp);
 }
 
-$itemlist = new \stdClass();
-
 $datalist=explode(",",$datastr);
+
+$tmpname="../result/".$uid."-".$chunkid.".txt";
+$tmpfp= fopen($tmpname,"w") or die("Unable to open file!");
 
 $cnt=count($datalist);
 $set= intval($cnt/3);
@@ -41,37 +42,31 @@ for($i=0; $i< $set; $i++) {
   $lat=$datalist[$idx+1];
   $z=$datalist[$idx+2];
 
-  $estr = " -l ".$lat.",".$lon.",".$z." ";
-  $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf -c gd -b ".$estr;
-  if ($zmode == 'e')
-	$query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf -c ge -b ".$estr;
-
-  $result = exec(escapeshellcmd($query), $retval, $status);
-
-/*  echo $result; */
-  fwrite($fp,$result); 
-  if($i != ($set-1)) {
-    fwrite($fp,",\n");
-    } else { 
-      if($chunk == $lastchunk) {
-       fwrite($fp,"\n] }\n");
-      }
-  }
-
-/* cap the max at 10 */
-  if($i < 10) {
-     $itemlist->$i=$result;
-  }
+  $line=$lon." ".$lat." ".$z."\n";
+  fwrite($tmpfp,$line); 
 }
 
-fclose($fp);
+
+$estr = " -I ".$tmpname." -O ".$fname;
+$query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf -c gd -b ".$estr;
+if ($zmode == 'e')
+  $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf -c ge -b ".$estr;
+
+$result = exec(escapeshellcmd($query), $retval, $status);
+
+if($chunkid == $lastchunks) {
+  $fp= fopen($fname,"a+") or die("Unable to open file!");
+  fwrite($fp,"\n] }\n");
+  fclose($fp);
+}
 
 // don't transfer back the material property..
-if($skip) {
-   $resultstring="";
-} else {
-  $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
-}
+$resultarray = new \stdClass();
+$resultarray->uid= $uid;
+$resultarray->mp= $uid."point_matprops.json";
+$resultarray->query= $query;
+
+$resultstring = htmlspecialchars(json_encode($resultarray), ENT_QUOTES, 'UTF-8');
 
 echo "<div data-side=\"materialPropertyByLatlonChunk".$uid."\" data-params=\""; 
 echo $resultstring;
