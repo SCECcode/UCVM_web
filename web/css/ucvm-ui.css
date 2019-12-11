@@ -30,7 +30,7 @@ hr {
 
 table { width: 100%; border-collapse: collapse;}
 table, td, th { border: 1px solid grey; padding: 2px;}
-th {text-align: left;}
+th {text-align: left; background: #D5D5D5;}
 
 .ucvm-top-small-btn {
           background: transparent; 
@@ -50,8 +50,15 @@ th {text-align: left;}
           display: inline-block;
           }
 
+.ucvm-active {
+        color: #990000;
+        }
+
 .ucvm-small-btn {
+/*
           background: #D5D5D5; 
+*/
+          background: transparent; 
           color: black;
           border: none; 
           display: inline-block;

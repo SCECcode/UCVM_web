@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
   $("#modelType").change(function () {
       var model = $(this).val();
       remove_all_models();
-      load_a_model(model);
+      load_selected_model(model);
   });
 
 }) // end of MAIN

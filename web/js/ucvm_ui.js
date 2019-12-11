@@ -90,7 +90,7 @@ function makeDownloadLinks(str) {
     if( typeof str === 'string') { 
        // if the file ends with png 
        if(str.endsWith(".png")) {
-          html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-eye-open\"></span></a></div>";
+          html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-picture\"></span></a></div>";
          } else {
             html="<div class=\"links\"><a class=\"openpop\" href=\"result/"+str+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a></div>";
        }
@@ -107,7 +107,7 @@ function makeDownloadLinks(str) {
        var val=str[keys[i]]; 
        switch(keys[i]) {
           case 'plot':
-              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-eye-open\"></span></a>&nbsp;&nbsp;PNG plot</div>";
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-picture\"></span></a>&nbsp;&nbsp;PNG plot</div>";
               break;
           case 'meta':
               html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;plot metadata file</div>";
@@ -141,7 +141,6 @@ function makeDownloadLinks(str) {
 // plot + various datafiles
 function insertMetaPlotResultTable(note,uid,str) {
     ucvm_metaplottb_list.push( { uid:uid, blob:str });
-//    var plothtml=plotPNG(str);
     var html=makeDownloadLinks(str);
     makeMetaPlotResultTable(note,uid,html);
 }
@@ -149,15 +148,20 @@ function insertMetaPlotResultTable(note,uid,str) {
 function makeMetaPlotResultTable(note,uid,html) {
     
     var table=document.getElementById("metadataPlotTable");
+    var hasLayer=find_layer_from_list(uid);
     if (ucvm_metaplottb_list.length == 1) {
       table.deleteRow(0); // delete the holdover
 //label
-      row=table.insertRow(-1);
-      row.innerHTML="<td style=\"width:10vw\"><b>UID</b></td><td style=\"width:24vw\"><b>LINKS</b></td><td style=\"width:24vw\"><b>Description</b></td>";
+      var row=table.insertRow(-1);
+      row.innerHTML="<th style=\"width:10vw\"><b>UID</b></th><th style=\"width:4vw\"></th><th style=\"width:24vw\"><b>Links</b></th><th style=\"width:24vw\"><b>Description</b></th>";
 //
     }
     row=table.insertRow(-1);
-    row.innerHTML="<td style=\"width:10vw\">"+uid+"</td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
+    if(hasLayer!=0) {
+        row.innerHTML="<td style=\"width:10vw\">"+uid+"<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" id=\"ucvm_layer_"+uid+"\" title=\"toggle the layer\" onclick=toggle_a_layer(\""+uid+"\");><span class=\"glyphicon glyphicon-eye-open\"></span></button></td></td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
+      } else {
+        row.innerHTML="<td style=\"width:10vw\">"+uid+"<td style=\"width:4px\"></td></td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
+    }
 
 }
 
@@ -191,20 +195,23 @@ function makeHorizontalResultTable(uid,str)
     }
 
     // create the key first
-    var labelline="";
+    var labelline="<th style=\"width:4vw\"></th>";
     var key;
     
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
     var zkeyidx=0;
+    var tmp;
     for(i=0; i<sz; i++) {
         key=datakeys[i];
         // special case
         if(key == 'Z') { 
           zkeyidx=i;
+          labelline=labelline+"<th style=\"width:48vw\"><b>"+key+"</b></th>";
+          } else {
+            labelline=labelline+"<th style=\"width:24vw\"><b>"+key+"</b></th>";
         }
-        labelline=labelline+"<td style=\"width:24vw\"><b>"+key+"</b></td>";
     }
 
     var table=document.getElementById("materialPropertyTable");
@@ -221,18 +228,23 @@ function makeHorizontalResultTable(uid,str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        var mpline="";
+        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layer(\""+uid+"\");><span id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
+
+        var tmp;
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
             if(i == zkeyidx) {
               var zmodestr=document.getElementById("zModeType").value;
               if(zmodestr == "e")
-                val2=val2+" (by<br>elevation)";
+                val2=val2+"(by&nbsp;elevation)";
               else
-                val2=val2+" (by<br>depth)";
-            } 
-            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+                val2=val2+"(by&nbsp;depth)";
+              tmp="<td style=\"width:24vw\">"+val2+"</td>";
+              } else { 
+                  tmp="<td style=\"width:24vw\">"+val2+"</td>";
+            }
+            mpline=mpline+tmp;
          }
          row=table.insertRow(-1);
          row.innerHTML=mpline;
@@ -283,24 +295,28 @@ function makeHorizontalResultTable_row(uid,str)
     var table=document.getElementById("materialPropertyTable");
     var row=table.insertRow(-1);
     for(j=0; j< dsz; j++) {
-        var mpline="";
+        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layer(\""+uid+"\");><span id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
         var datablob=blob[dkeys[j]];
         if(datablob == "")
            continue;
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
+        var tmp;
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
             if(i == zkeyidx) {
               var zmodestr=document.getElementById("zModeType").value;
               if(zmodestr == "e")
-                val2=val2+" (by<br>elevation)";
+                val2=val2+"(by&nbsp;elevation)";
               else
-                val2=val2+" (by<br>depth)";
-            } 
-            mpline=mpline+"<td style=\"width:24vw\">"+val2+"</td>";
+                val2=val2+"(by&nbsp;depth)";
+              tmp="<td style=\"width:24vw\">"+val2+"</td>";
+              } else {
+                tmp="<td style=\"width:24vw\">"+val2+"</td>";
+            }
+            mpline=mpline+tmp;
          }
          var row=table.insertRow(-1);
          row.innerHTML=mpline;
@@ -357,3 +373,28 @@ function saveAsURLFile(gid,url) {
   delete dload;
 }
 
+function toggle_collapse_mp_table()
+{
+   var elm=document.getElementById('materialProperty-viewer-container');
+   var v=elm.style.display;
+   if(v=="none") {
+     elm.style.display='block';
+     $('#ucvm_collapse_mp_btn').removeClass('ucvm-active');
+     } else {
+       elm.style.display='none';
+       $('#ucvm_collapse_mp_btn').addClass('ucvm-active');
+   }
+}
+
+function toggle_collapse_result_table()
+{
+   var elm=document.getElementById('metadataplotTable-container');
+   var v=elm.style.display;
+   if(v=="none") {
+     elm.style.display='block';
+     $('#ucvm_collapse_result_btn').removeClass('ucvm-active');
+     } else {
+       elm.style.display='none';
+       $('#ucvm_collapse_result_btn').addClass('ucvm-active');
+   }
+}

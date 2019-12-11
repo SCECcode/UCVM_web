@@ -100,6 +100,7 @@ function getMaterialPropertyByLatlon() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("getMaterialPropertyByLatlon",uid);
+                var tmp=get_points_mp();
                 if(get_points_mp() == 1) {
                   makeHorizontalResultTable(uid,str);
                   } else {

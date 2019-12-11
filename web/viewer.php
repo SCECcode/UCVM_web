@@ -21,6 +21,7 @@ $header = getHeader("Viewer");
     <link rel="stylesheet" href="css/vendor/animation.css">
 
     <link rel="stylesheet" href="css/ucvm-ui.css">
+    <link rel="stylesheet" href="css/scec-ui.css">
     <link rel="stylesheet" href="css/sidebar.css">
 
     <script type="text/javascript" src="js/vendor/leaflet.js"></script>
@@ -116,8 +117,7 @@ TODO: need a new id
 <div class="container main">
     <div class="row">
         <div class="col-12">
-            <p>
-The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows user query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.  See the <a href="guide">user guide</a> for more details and site usage instructions.</p>
+            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows user query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.  See the <a href="guide">user guide</a> for more details and site usage instructions.</p>
         </div>
     </div>
 
@@ -127,17 +127,15 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
         </div>
     </div>
 
-<div id="outside-container" class="row col-12">
-    <div id="controls-container" class="col-5">
-        <div class="row">
-          <div class="col">
-            <div class="row input-group filters mb-1">
+    <div id="content-container" class="row">
+        <div id="control-container" class="col-5">
+            <div class="input-group filters mb-1">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="modelType" >Select Model Type</label>
                 </div>
                 <select id="modelType" class="custom-select"></select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalmt"><span class="glyphicon glyphicon-info-sign"></span></button>
             </div>
-            <div class="row input-group filters mb-3">
+            <div class="input-group filters mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="zModeType" >Select Z Mode</label>
                 </div>
@@ -146,7 +144,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                     <option value="e">Elevation</option>
                 </select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalzm"><span class="glyphicon glyphicon-info-sign"></span></button>
             </div>
-            <div class="row input-group filters">
+            <div class="input-group filters">
                 <select id="search-type" class="custom-select">
                     <option value="freezeClick">Select</option>
                     <option value="pointClick">0D Point</option>
@@ -159,8 +157,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                     <button onclick="refreshAll();" class="btn btn-dark pl-4 pr-4" type="button">Reset</button>
                 </div>
             </div>
-          </div> 
-            <div class="row">
+            <div class="row"> <!-- pull-out -->
                 <div class="col input-group">
                     <ul id="sidebar" class="navigation">
 
@@ -185,11 +182,11 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                                title="lon"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-      <div class="mt-2"></div>
-      <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
-      <button id="fileSelectBtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
-      <span class="glyphicon glyphicon-file"></span> Select file to use</button>
-      <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+                                        <div class="mt-2"></div>
+                                        <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
+                                        <button id="fileSelectBtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
+                                        <span class="glyphicon glyphicon-file"></span> Select file to use</button>
+                                        <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                     <div class="col-4 pr-0 ml-2">
                                         <input type="text" 
@@ -348,8 +345,7 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                         </button>
                                     </div>
                                     <div class="col-2 pr-0">
-                                        <div id="spinIconForLine" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i>
-</div>
+                                        <div id="spinIconForLine" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i> </div>
                                     </div>
                                 </div>
                             </div>
@@ -422,81 +418,79 @@ The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity
                                 </div>
                             </div>
                         </li>
-                    </ul> <!-- pull-out -->
+                    </ul> 
+                </div>
+            </div> <!-- pull-out -->
+        </div> <!-- control-container -->
+        <div id="map-container" class="col-7">
+            <div class="col-8 d-flex offset-4 align-items-end mb-1">
+                <div class="input-group input-group-sm" id="map-controls">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="mapLayer">Select Map Type</label>
+                    </div>
+                    <select id="mapLayer" class="custom-select custom-select-sm" onchange="switchBaseLayer(this.value);">
+                        <option selected value="esri topo">ESRI Topographic</option>
+                        <option value="esri NG">ESRI National Geographic</option>
+                        <option value="esri imagery">ESRI Imagery</option>
+                        <option value="otm topo">OTM Topographic</option>
+                        <option value="osm street">OSM Street</option>
+                    </select>
                 </div>
             </div>
-        </div>
-    </div>
-    <div id="map-container" class="col-7">
-        <div class="row col-8 d-flex offset-4 align-items-end mb-0 mt-2">
-            <div class="input-group input-group-sm mb-0" id="map-controls">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="mapLayer">Select Map Type</label>
+            <div class="row mapData">
+                <div class="col-12 pr-0 pl-2 pt-1 ">
+                    <div class="row w-100 mb-1" id='UCVM_plot'
+                         style="position:relative;border:solid 1px #ced4da; height:576px;"></div>
                 </div>
-                <select id="mapLayer" class="custom-select custom-select-sm" onchange="switchBaseLayer(this.value);">
-                    <option selected value="esri topo">ESRI Topographic</option>
-                    <option value="esri NG">ESRI National Geographic</option>
-                    <option value="esri imagery">ESRI Imagery</option>
-                    <option value="otm topo">OTM Topographic</option>
-                    <option value="osm street">OSM Street</option>
-                </select>
             </div>
-        </div>
-        <div class="row mapData">
-            <div class="col-12 pr-0 pl-2 pt-1 ">
-                <div class="row w-100 mb-1" id='UCVM_plot'
-                     style="position:relative;border:solid 1px #ced4da; height:576px;"></div>
+        </div> <!-- map-container -->
+        <div id="result-container" class="col-12">
+            <div class="row" id="mp-table">
+                <div class="col-12" id="materialProperty-header-container">
+                    <table id="mpHeaderTable" style="border:none">
+                        <tbody>
+                        <tr>
+                            <td colspan="12" style="border:none"><b>Material Property</b></td>
+                            <td colspan="1" align="right" style="border:none" title="Collapse table"><button onclick="toggle_collapse_mp_table()" class="btn ucvm-top-small-btn"><span id="ucvm_collapse_mp_btn" class="glyphicon glyphicon-collapse-down"></span></button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12" id="materialProperty-viewer-container" style="overflow:scroll;max-height:20vh">
+                    <table id="materialPropertyTable">
+                        <tbody>
+                        <tr id="mp_placeholder-row">
+                            <td colspan="12">Material Property for selected locations will appear here. </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </div> <!-- map-container -->
-    <div class="row col-12" style="overflow:scroll;">
-        <div class="col-12" id="materialProperty-header-container">
-            <table id="mpHeaderTable" style="border:none">
-                <tbody>
-                <tr>
-                    <td colspan="12" style="border:none"><b>Material Property</b></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-12" id="materialProperty-viewer-container">
-            <table id="materialPropertyTable">
-                <tbody>
-                <tr id="mp_placeholder-row">
-                    <td colspan="12">Material Property for selected locations will appear here. </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row col-12 mt-2 mb-4" style="overflow:scroll;">
-        <div class="col-12" id="metadata-header-container">
-            <table id="metaHeaderTable" style="border:none">
-                <tbody>
-                <tr>
-                    <td colspan="12" style="border:none"><b>Result and Metadata</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-12" id="metadataplotTable-container">
-            <table id="metadataPlotTable">
-                <tbody>
-                <tr id="placeholder-row">
-                    <td colspan="12">Result, Plot and Metadata will appear here. </td>
-                </tr>
-                </tbody>
-          </table>
-        </div>
-    </div>
-<!---- suppress for now..
-    <div class="row col-12 mb-4" style="overflow:scroll;">
-        <div class="col-12" id="modelTable-container"></div>
-    </div>
---->
-    <div id="phpResponseTxt"></div>
-    <div id='queryBlock' class="col-6" style="overflow:hidden;display:none;"></div> 
-</div>
+            <div class="row mt-2 mb-4">
+                <div class="col-12" id="metadata-header-container">
+                    <table id="metaHeaderTable" style="border:none">
+                        <tbody>
+                        <tr>
+                            <td colspan="12" style="border:none"><b>Result and Metadata</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+                            <td colspan="1" align="right" style="border:none" title="Collapse table"><button onclick="toggle_collapse_result_table()" class="btn ucvm-top-small-btn"><span id="ucvm_collapse_result_btn" class="glyphicon glyphicon-collapse-down"></span></button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12" id="metadataplotTable-container" style="overflow:scroll;max-height:20vh">
+                    <table id="metadataPlotTable">
+                        <tbody>
+                        <tr id="placeholder-row">
+                            <td colspan="12">Result, Plot and Metadata will appear here. </td>
+                        </tr>
+                        </tbody> </table>
+                </div>
+            </div>
+
+            <div id="phpResponseTxt"></div>
+        </div> <!-- result-container -->
+    </div> <!-- content-container -->
+</div> <!-- container main -->
 
 <!--Modal: FileFormat -->
 <div class="modal" id="modalff" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

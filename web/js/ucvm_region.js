@@ -88,6 +88,20 @@ var UCVM_tb={
      'mode name':'Elevation',
      'value':'e',
      'description':'0 at sealevel and positive value toward the air and negative value toward the center of the earth'}
+    ],
+"Products": [
+    {'id': 1,
+     'product name': '0D Point',
+     'description':'Material Properties are returned for the selected location'},
+    {'id': 2,
+     'product name': '1D Vertical Profile',
+     'description':'3 Vertical profile(Vp, Vs, Rho) plots are produced for the selected location. The plot starts at Z start, ends at Z ends, and in Z step interval'},
+    {'id': 3,
+     'product name': '2D Vertical Cross Section',
+     'description':'A Cross section of a selected property is produced between two selected points. The plot starts at Z start, ends at Z ends, and the interval is determined by the web service'},
+    {'id': 3,
+     'product name': '2D Horizontal Slice',
+     'description':'A Horizontal slice of a selected property is produced in a area marked by the rectangle drawn with the depth or elevation supplied as Z, and the interval is determined by the web service.'},
     ]
 };
 
@@ -107,6 +121,19 @@ function makeModelSelection()
      option.value= aname;
      sel.add(option);
    } 
+   // special case
+   var option = document.createElement("option");
+   option.text = "-- Advanced --";
+   option.setAttribute("disabled", true);
+   option.value= "disabled";
+   sel.add(option);
+
+   option = document.createElement("option");
+   option.text = "CVM-S4.26.M01,CVM-H v15.1";
+   option.value= "cvmsi,cvmh"; 
+   sel.add(option);
+
+// put in the default region on the map
    makeLatlngs('cvmh');
 }
 

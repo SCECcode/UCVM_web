@@ -12,17 +12,31 @@ var rectangle_options = {
               clickable: false
          }
 };
+var rectangle_options = {
+       showArea: false,
+         shapeOptions: {
+              stroke: true,
+              color: "red",
+              weight: 2,
+              opacity: 0.5,
+              fill: true,
+              fillColor: null, //same as color by default
+              fillOpacity: 0.02,
+              clickable: false
+         }
+};
 var rectangleDrawer;
 
-var point_options = {
-       title: "a point marker",
-};
+var point_icon = L.AwesomeMarkers.icon({ icon: 'record', markerColor: 'blue'});
+var point_options = { icon : point_icon };
+var hpoint_icon = L.AwesomeMarkers.icon({ icon: 'record', markerColor: 'red'});
+var hpoint_options = { icon : hpoint_icon };
 var pointDrawer;
-
-var redMarker= L.AwesomeMarkers.icon({ icon:'home',markerColor:'red'});
 
 var profile_icon = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'orange'});
 var profile_options = { icon: profile_icon };
+var hprofile_icon = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'red'});
+var hprofile_options = { icon: hprofile_icon };
 
 var profileDrawer; //profile drawer is the same as point drawer
 
@@ -31,6 +45,16 @@ var line_options = {
          shapeOptions: {
               stroke: true,
               color: "blue",
+              weight: 3,
+              opacity: 0.6,
+              clickable: false
+         }
+};
+var hline_options = {
+       showLength: true,
+         shapeOptions: {
+              stroke: true,
+              color: "red",
               weight: 3,
               opacity: 0.6,
               clickable: false
@@ -48,7 +72,6 @@ var polygon_options = {
 };
 
 var mymap, baseLayers, layerControl, currentLayer;
-var visibleFaults = new L.FeatureGroup();
 
 function clear_popup()
 {
@@ -239,39 +262,75 @@ function makeModelLayer(latlngs,color) {
   return layer;
 }
 
+function addBareAreaLayer(highlight,latA,lonA,latB,lonB) {
+  var bounds = [[latA, lonA], [latB, lonB]];
+  if(highlight) { 
+    return L.rectangle(bounds,hrectangle_options);
+    } else {
+      return L.rectangle(bounds,rectangle_options);
+  }
+}
+
 function addAreaLayer(latA,lonA,latB,lonB) {
   var bounds = [[latA, lonA], [latB, lonB]];
-  var layer=L.rectangle(bounds,rectangle_options).addTo(viewermap);
+  var layer=addBareAreaLayer(0,latA,lonA,latB,lonB);
+  var hlayer=addBareAreaLayer(1,latA,lonA,latB,lonB);
   mymap.addLayer(layer);
-  return layer;
+  return [layer,hlayer];
+}
+
+function addBarePointLayer(highlight,lat,lon) {
+  var bounds = [lat, lon];
+  if(highlight) {
+    return new L.marker(bounds,hpoint_options);
+    } else {
+      return new L.marker(bounds,point_options);
+  }
 }
 
 function addPointLayer(lat,lon) {
-  var bounds = [lat, lon];
-  var layer = new L.marker(bounds,point_options).addTo(viewermap);
+  var layer = addBarePointLayer(0,lat,lon);
+  var hlayer = addBarePointLayer(1,lat,lon);
   mymap.addLayer(layer);
-  return layer;
+  return [layer,hlayer];
+}
+
+function addBareProfileLayer(highlight,lat,lon) {
+  var bounds = [lat, lon];
+  if(highlight) {
+    return new L.marker(bounds,hprofile_options);
+    } else {
+      return new L.marker(bounds,profile_options);
+  }
 }
 
 function addProfileLayer(lat,lon) {
-  var bounds = [lat, lon];
-  var layer = new L.marker(bounds,profile_options).addTo(viewermap);
+  var layer = addBareProfileLayer(0,lat,lon);
+  var hlayer = addBareProfileLayer(1,lat,lon);
   mymap.addLayer(layer);
-  return layer;
+  return [layer,hlayer];
+}
+
+function addBareLineLayer(highlight,latA,lonA,latB,lonB) {
+  var bounds = [[latA, lonA], [latB, lonB]];
+  if(highlight) {
+   return L.polyline(bounds,hline_options);
+   } else {
+     return L.polyline(bounds,line_options);
+  }
 }
 
 function addLineLayer(latA,lonA,latB,lonB) {
-  var bounds = [[latA, lonA], [latB, lonB]];
-  var layer=L.polyline(bounds,line_options).addTo(viewermap);
+  var layer= addBareLineLayer(0,latA,lonA,latB,lonB);
+  var hlayer= addBareLineLayer(1,latA,lonA,latB,lonB);
   mymap.addLayer(layer);
-  return layer;
+  return [layer, hlayer];
 }
 
 function switchBaseLayer(layerString) {
     mymap.removeLayer(currentLayer);
     mymap.addLayer(baseLayers[layerString]);
     currentLayer = baseLayers[layerString];
-
 }
 
 

@@ -138,9 +138,11 @@ ul li {
     color: white;
 }
 
+/* --- not for ucvm_web
 .input-group {
     max-width: 269px;
 }
+---*/
 
 .info-page-container {
     border:1px solid gray;
