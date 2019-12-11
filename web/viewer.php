@@ -129,6 +129,7 @@ TODO: need a new id
 
     <div id="content-container" class="row">
         <div id="control-container" class="col-5">
+          <div class="col-12">
             <div class="input-group filters mb-1">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="modelType" >Select Model Type</label>
@@ -421,6 +422,7 @@ TODO: need a new id
                     </ul> 
                 </div>
             </div> <!-- pull-out -->
+          </div>
         </div> <!-- control-container -->
         <div id="map-container" class="col-7">
             <div class="col-8 d-flex offset-4 align-items-end mb-1">
