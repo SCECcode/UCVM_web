@@ -12,7 +12,7 @@ var rectangle_options = {
               clickable: false
          }
 };
-var rectangle_options = {
+var hrectangle_options = {
        showArea: false,
          shapeOptions: {
               stroke: true,

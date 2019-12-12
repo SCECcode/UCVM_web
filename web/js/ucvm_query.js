@@ -248,7 +248,6 @@ function plotHorizontalSlice() {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-window.console.log(this.responseText);
                 var str=processSearchResult("plotHorizontalSlice",uid);
 
 		if (str != undefined) 
