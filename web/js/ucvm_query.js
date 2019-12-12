@@ -126,6 +126,7 @@ function plotCrossSection() {
 
     var secondlatstr=document.getElementById("lineSecondLatTxt").value;
     var secondlonstr=document.getElementById("lineSecondLonTxt").value;
+
     var uid=document.getElementById("lineUIDTxt").value;
     if(uid == '') {
       uid=getRnd();

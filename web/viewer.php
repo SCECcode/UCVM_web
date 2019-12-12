@@ -189,7 +189,7 @@ TODO: need a new id
                                         <span class="glyphicon glyphicon-file"></span> Select file to use</button>
                                         <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
-                                    <div class="col-4 pr-0 ml-2">
+                                    <div class="col-4 pr-0 ml-3">
                                         <input type="text" 
                                                id="pointZTxt" 
                                                placeholder="Z" 
@@ -210,7 +210,7 @@ TODO: need a new id
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-2 pr-0">
+                                    <div class="col-1 pr-0">
                                         <div id="spinIconForProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                 </div>
@@ -239,7 +239,7 @@ TODO: need a new id
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
                                     </div>
-                                    <div class="col-4 pr-0 ml-2">
+                                    <div class="col-4 pr-0 ml-3">
                                         <input type="text" 
                                                id="profileZStartTxt" 
                                                placeholder="Z start" 
@@ -271,7 +271,7 @@ TODO: need a new id
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-2 pr-0">
+                                    <div class="col-1 pr-0">
                                         <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                 </div>
@@ -319,7 +319,7 @@ TODO: need a new id
                                                <option value="poisson">poisson</option>
                                         </select>
                                     </div>
-                                    <div class="col-4 pr-0 ml-2">
+                                    <div class="col-4 pr-0 ml-3">
                                         <input type="text"
                                                id="lineSecondLatTxt"
                                                title="second lat"
@@ -345,7 +345,7 @@ TODO: need a new id
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-2 pr-0">
+                                    <div class="col-1 pr-0">
                                         <div id="spinIconForLine" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i> </div>
                                     </div>
                                 </div>
@@ -386,7 +386,7 @@ TODO: need a new id
                                                <option value="poisson">poisson</option>
                                         </select>
                                     </div>
-                                    <div class="col-4 pr-0 ml-2">
+                                    <div class="col-4 pr-0 ml-3">
                                         <input type="text"
                                                id="areaSecondLatTxt"
                                                title="second lat"
@@ -412,7 +412,7 @@ TODO: need a new id
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-2 pr-0">
+                                    <div class="col-1 pr-0">
                                         <div id="spinIconForArea" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
 
@@ -479,7 +479,7 @@ TODO: need a new id
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="metadataplotTable-container" style="overflow:scroll;max-height:20vh">
+                <div class="col-12" id="metadataplotTable-container" style="overflow:scroll;max-height:30vh">
                     <table id="metadataPlotTable">
                         <tbody>
                         <tr id="placeholder-row">
