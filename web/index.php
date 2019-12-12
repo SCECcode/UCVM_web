@@ -164,13 +164,13 @@ TODO: need a new id
 
                         <li id='point' class='navigationLi' style="display:none">
                             <div id='pointMenu' class='menu'>
-                                <div class="row col-12 mt-2">
+                                <div class="row mt-2">
                                     <div class="col-12">
                                        <p>Pick a point on the map, or enter latitudes and longitudes below and the Z value or upload a file with latlongs and matching Z values.</p>
                                     </div>
                                 </div>
-                                <div class="row col-12 d-flex">
-                                    <div class="col-4 pr-0">
+                                <div class="row d-flex">
+                                    <div class="col-5 pr-0">
                                         <input type="text"
                                                id="pointFirstLatTxt"
                                                placeholder="Latitude"
@@ -183,20 +183,15 @@ TODO: need a new id
                                                title="lon"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <div class="mt-2"></div>
-                                        <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
-                                        <button id="fileSelectBtn" class="btn gfm-top-btn" style="width:20vw" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
-                                        <span class="glyphicon glyphicon-file"></span> Select file to use</button>
-                                        <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
-                                    <div class="col-4 pr-0 ml-2">
+                                    <div class="col-5 pr-0">
                                         <input type="text" 
                                                id="pointZTxt" 
                                                placeholder="Z" 
                                                title="Z"
                                                onfocus="this.value=''" 
-                                               class="form-control">
-                                        <input type="text" 
+                                               class=" form-control">
+                                        <input type="text"
                                                id="pointUIDTxt" 
                                                placeholder="UID" 
                                                title="Uniqued ID"
@@ -204,74 +199,80 @@ TODO: need a new id
                                                class="form-control mt-1" style="display:none">
 
                                     </div>
-                                    <div class="col-1 pr-0 ml-3 align-items-center">
+                                    <div class="col-1 pr-0">
                                         <button id="pointBtn" type="button" title="query with latlon"
                                                 class="btn btn-default ucvm-small-btn " onclick="processByLatlonForPoint()">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-2 pr-0">
+                                    <div class="col-1 pr-0">
                                         <div id="spinIconForProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
+                                </div>
+                                <div class="mt-2">
+                                     <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
+                                     <button id="fileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
+                                     <span class="glyphicon glyphicon-file"></span> Select file to use</button>
+                                     <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                 </div>
                             </div>
                         </li>
 
                         <li id='profile' class='navigationLi' style="display:none">
                             <div id='profileMenu' class='menu'>
-                                <div class="row col-12 mt-2">
+                                <div class="row mt-2">
                                     <div class="col-12">
                                         <p>Pick a profile point on the map or enter latitudes and longitudes below.</p>
                                     </div>
                                 </div>
-                                <div class="row col-12 d-flex">
-                                    <div class="col-4 pr-0">
+                                <div class="row d-flex">
+                                    <div class="col-5 pr-0">
                                         <input type="text"
                                                id="profileFirstLatTxt"
                                                placeholder="Latitude"
                                                title="lat"
                                                onfocus="this.value=''"
                                                class="form-control">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="profileFirstLonTxt" 
                                                placeholder="Longitude" 
                                                title="lon"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
                                     </div>
-                                    <div class="col-4 pr-0 ml-2">
-                                        <input type="text" 
+                                    <div class="col-5 pr-0">
+                                        <input type="text"
                                                id="profileZStartTxt" 
                                                placeholder="Z start" 
                                                title="Z start"
                                                onfocus="this.value=''" 
                                                class="form-control">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="profileZTxt" 
                                                placeholder="Z ends" 
                                                title="Z ends"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="profileZStepTxt" 
                                                placeholder="Z step" 
                                                title="Z start"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="profileUIDTxt" 
                                                placeholder="UID" 
                                                title="Uniqued ID"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1" style="display:none">
                                     </div>
-                                    <div class="col-1 pr-0 ml-3 align-items-center">
+                                    <div class="col-1 pr-0">
                                         <button id="profileBtn" type="button" title="query with latlon"
                                                 class="btn btn-default ucvm-small-btn " onclick="processByLatlonForProfile()">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-2 pr-0">
+                                    <div class="col-1 pr-0">
                                         <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                 </div>
@@ -280,38 +281,38 @@ TODO: need a new id
 
                         <li id='line' class='navigationLi ' style="display:none">
                             <div id='lineMenu' class='menu'>
-                                <div class="row col-12 mt-2">
+                                <div class="row mt-2">
                                     <div class="col-12">
                                         <p>Draw a line on the map or enter latitudes and longitudes below.</p>
                                     </div>
                                 </div>
-                                <div class="row col-12 d-flex ">
-                                    <div class="col-4 pr-0">
+                                <div class="row d-flex ">
+                                    <div class="col-5 pr-0">
                                         <input type="text"
                                                placeholder="Latitude"
                                                id="lineFirstLatTxt"
                                                title="first lat"
                                                onfocus="this.value=''"
                                                class="form-control">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="lineFirstLonTxt" 
                                                placeholder='Longitude'
                                                title="first lon"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="lineZStartTxt" 
                                                placeholder="Z start" 
                                                title="lineZStartTxt"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="lineZTxt" 
                                                placeholder="Z ends" 
                                                title="lineZTxt"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <select title="Datatype" id="lineDataTypeTxt" class="my-custom-select custom-select mt-1">
+                                        <select title="Datatype" id="lineDataTypeTxt" class="custom-select my-custom-select mt-1">
                                                <option value="">DataType</option>
                                                <option value="vs">vs</option>
                                                <option value="vp">vp</option>
@@ -319,7 +320,7 @@ TODO: need a new id
                                                <option value="poisson">poisson</option>
                                         </select>
                                     </div>
-                                    <div class="col-4 pr-0 ml-2">
+                                    <div class="col-5 pr-0">
                                         <input type="text"
                                                id="lineSecondLatTxt"
                                                title="second lat"
@@ -332,20 +333,20 @@ TODO: need a new id
                                                placeholder='2nd Longitude'
                                                onfocus="this.value=''"
                                                class="form-control mt-1">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="lineUIDTxt" 
                                                placeholder="UID" 
                                                title="Uniqued ID"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1" style="display:none">
                                     </div>
-                                    <div class="col-1 pr-0 ml-3 align-items-center">
+                                    <div class="col-1 pr-0">
                                         <button id="areaBtn" type="button" title="query with latlon"
                                                 class="btn btn-default ucvm-small-btn " onclick="processByLatlonForLine()">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-2 pr-0">
+                                    <div class="col-1 pr-0">
                                         <div id="spinIconForLine" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i> </div>
                                     </div>
                                 </div>
@@ -353,20 +354,20 @@ TODO: need a new id
                         </li>
                         <li id='area' class='navigationLi ' style="display:none">
                             <div id='areaMenu' class='menu'>
-                                <div class="row col-12 mt-2">
+                                <div class="row mt-2">
                                     <div class="col-12">
                                         <p>Draw a rectangle on the map or enter latitudes and longitudes below.</p>
                                     </div>
                                 </div>
-                                <div class="row col-12 d-flex ">
-                                    <div class="col-4 pr-0">
+                                <div class="row d-flex ">
+                                    <div class="col-5 pr-0">
                                         <input type="text"
                                                placeholder="Latitude"
                                                id="areaFirstLatTxt"
                                                title="first lat"
                                                onfocus="this.value=''"
                                                class="form-control">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="areaFirstLonTxt" 
                                                placeholder='Longitude'
                                                title="first lon"
@@ -386,7 +387,7 @@ TODO: need a new id
                                                <option value="poisson">poisson</option>
                                         </select>
                                     </div>
-                                    <div class="col-4 pr-0 ml-2">
+                                    <div class="col-5 pr-0">
                                         <input type="text"
                                                id="areaSecondLatTxt"
                                                title="second lat"
@@ -399,20 +400,20 @@ TODO: need a new id
                                                placeholder='2nd Longitude'
                                                onfocus="this.value=''"
                                                class="form-control mt-1">
-                                        <input type="text" 
+                                        <input type="text"
                                                id="areaUIDTxt" 
                                                placeholder="UID" 
                                                title="Uniqued ID"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1" style="display:none">
                                     </div>
-                                    <div class="col-1 pr-0 ml-3 align-items-center">
+                                    <div class="col-1 pr-0">
                                         <button id="areaBtn" type="button" title="query with latlon"
                                                 class="btn btn-default ucvm-small-btn " onclick="processByLatlonForArea()">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-2 pr-0">
+                                    <div class="col-1 pr-0">
                                         <div id="spinIconForArea" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
 
@@ -479,7 +480,7 @@ TODO: need a new id
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="metadataplotTable-container" style="overflow:scroll;max-height:20vh">
+                <div class="col-12" id="metadataplotTable-container" style="overflow:scroll;max-height:30vh">
                     <table id="metadataPlotTable">
                         <tbody>
                         <tr id="placeholder-row">
