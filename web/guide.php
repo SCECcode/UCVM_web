@@ -52,13 +52,12 @@ $header = getHeader("User Guide");
 
             <p>Both material properties and downloadable results are populated into two tables at the bottom of the interface page. Click on the eye icon (<span class="glyphicon glyphicon-eye-open"></span>) to highlight related location on the map.  To return to non map select mode, return the selection dropdown to 'Select' mode. To return to the initial view, click the "RESET" button. </p>
 
-            <h4>Common..</h4>
+            <h4>Model selection..</h4>
+            <h4>Z mode selection..</h4>
 
-            <p>Model selection..</p>
-            <p>Z mode selection..</p>
-            <p>To return to the initial view showing all the faults, click the "RESET" button.</p>
+            <p>To return to the initial view with no selection, click the "RESET" button.</p>
 
-            <h4>Material Property Search</h4>
+            <h4>Material Property Search..</h4>
             <p> When performing with latitude/longitude search, there are two search methods. The first method is to
                 enter the latitude/longitude values of the location into the text boxes, then clicking 
                 the search icon <span style="white-space: nowrap;">(<span
@@ -67,15 +66,9 @@ $header = getHeader("User Guide");
             <p>User can also upload a local file composed of latlongs and Z values... </p>
             <p>Downloadable result is placed in the result table at the bottom of the view page </p>
 
-            <h4>1D Vertical Profile</h4>
-            <h4>2D Vertical Cross Section</h4>
-            <h4>2D Horizontal Slice</h4>
-
-            <h4>Notes</h4>
-            <ul>
-                <li>
-                </li>
-            </ul>
+            <h4>1D Vertical Profile..</h4>
+            <h4>2D Vertical Cross Section..</h4>
+            <h4>2D Horizontal Slice..</h4>
 
             <h4>Browser Requirements</h4>
             <p>This site supports the latest versions of <a href="https://www.mozilla.org/en-US/firefox/">Firefox</a>, <a href="https://www.google.com/chrome/">Chrome</a>, <a href="https://www.apple.com/safari/">Safari</a>, and <a href="https://www.microsoft.com/en-us/windows/microsoft-edge">Microsoft Edge</a>.</p>
