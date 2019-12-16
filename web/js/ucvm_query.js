@@ -2,7 +2,6 @@
    ucvm_query.js
 
 ***/
-var hold_htmlstr="";
 //
 // get a data array
 //    [[lat1,lon1,z1],...,[latn,lonn,zn]]
@@ -154,8 +153,12 @@ function plotCrossSection() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("plotCrossSection",uid);
 
-		if (str != undefined) 
-                  insertMetaPlotResultTable("cross section",uid,str);
+		if (str != undefined) { 
+                    var zstr=getZModeNameWithType(zmodestr);
+                    var mstr=getModelNameWithType(modelstr);
+                    var note="Vertical "+zstr+" Cross Section with "+mstr;
+                    insertMetaPlotResultTable(note,uid,str);
+                }
 
                 document.getElementById('spinIconForLine').style.display = "none";
                 reset_line_UID();
@@ -201,7 +204,10 @@ function plotVerticalProfile() {
                 var str=processSearchResult("plotVerticalProfile",uid);
 
 		if (str != undefined) {
-                  insertMetaPlotResultTable("vertical profile", uid,str);
+                    var zstr=getZModeNameWithType(zmodestr);
+                    var mstr=getModelNameWithType(modelstr);
+                    var note="Vertical "+zstr+" Profile "+"with "+mstr;
+                    insertMetaPlotResultTable(note, uid,str);
                 }
                 document.getElementById('spinIconForProfile').style.display = "none";
                 reset_profile_UID();
@@ -250,8 +256,13 @@ function plotHorizontalSlice() {
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("plotHorizontalSlice",uid);
 
-		if (str != undefined) 
-                  insertMetaPlotResultTable("horizontal slice",uid,str);
+		if (str != undefined) { 
+                    var zstr=getZModeNameWithType(zmodestr);
+                    var mstr=getModelNameWithType(modelstr);
+                    var note="Horizontal Slice by "+zstr+" with "+mstr;
+window.console.log("HERE..");
+                    insertMetaPlotResultTable(note,uid,str);
+                }
 
                 document.getElementById('spinIconForArea').style.display = "none";
                 reset_area_UID();

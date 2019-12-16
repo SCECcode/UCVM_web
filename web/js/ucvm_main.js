@@ -43,6 +43,10 @@ jQuery(document).ready(function() {
       load_selected_model(model);
   });
 
+  $("#zModeType").change(function () {
+      reset_presets();
+  });
+
 }) // end of MAIN
 
 

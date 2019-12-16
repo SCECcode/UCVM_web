@@ -55,6 +55,15 @@ function areaClick() {
   }
 }
 
+function set_area_latlons_preset() {
+   var t= document.getElementById("zModeType").value;
+   if(t == "d") {
+      $( "#areaZTxt" ).val(1000);
+      } else {
+          $( "#areaZTxt" ).val(-1000);
+   }
+}
+
 function set_area_latlons(uid, firstlat,firstlon,secondlat,secondlon) {
    // need to capture the lat lon and draw a area
    if(area_sidebar && drawing_area) {
@@ -62,12 +71,7 @@ function set_area_latlons(uid, firstlat,firstlon,secondlat,secondlon) {
        $( "#areaFirstLonTxt" ).val(round2Four(firstlon));
        $( "#areaSecondLatTxt" ).val(round2Four(secondlat));
        $( "#areaSecondLonTxt" ).val(round2Four(secondlon));
-       var t= document.getElementById("zModeType").value;
-       if(t == "d") {
-          $( "#areaZTxt" ).val(1000);
-          } else {
-          $( "#areaZTxt" ).val(-1000);
-       }
+       set_area_latlons_preset();
        $( "#areaDataTypeTxt" ).val("vs"); 
        $( "#areaUIDTxt" ).val(uid);
    }
@@ -197,13 +201,18 @@ function pointClick() {
   }
 }
 
+function set_point_latlons_preset()
+{
+    $( "#pointZTxt" ).val(0);
+}
+
 function set_point_latlons(uid,lat,lon) {
    // need to capture the lat lon and draw a point
    if(point_sidebar && drawing_point) {
        $( "#pointFirstLatTxt" ).val(round2Four(lat));
        $( "#pointFirstLonTxt" ).val(round2Four(lon));
        $( "#pointUIDTxt" ).val(uid);
-       $( "#pointZTxt" ).val(0);
+       set_point_latlons_preset();
    }
 }
 function reset_point_latlons() {
@@ -309,6 +318,17 @@ function lineClick() {
   }
 }
 
+function set_line_latlons_preset() {
+   var t= document.getElementById("zModeType").value;
+   if(t == "d") {
+      $( "#lineZTxt" ).val(5000);
+      $( "#lineZStartTxt" ).val(0);
+      } else {
+          $( "#lineZTxt" ).val(-4000);
+          $( "#lineZStartTxt" ).val(300);
+   }
+}
+
 function set_line_latlons(uid,firstlat,firstlon,secondlat,secondlon) {
    // need to capture the lat lon and draw a line
    if(line_sidebar && drawing_line) {
@@ -316,14 +336,7 @@ function set_line_latlons(uid,firstlat,firstlon,secondlat,secondlon) {
        $( "#lineFirstLonTxt" ).val(round2Four(firstlon));
        $( "#lineSecondLatTxt" ).val(round2Four(secondlat));
        $( "#lineSecondLonTxt" ).val(round2Four(secondlon));
-       var t= document.getElementById("zModeType").value;
-       if(t == "d") {
-          $( "#lineZTxt" ).val(5000);
-          $( "#lineZStartTxt" ).val(0);
-          } else {
-          $( "#lineZTxt" ).val(-4000);
-          $( "#lineZStartTxt" ).val(300);
-       }
+       set_line_latlons_preset();
        $( "#lineDataTypeTxt" ).val("vs"); 
        $( "#lineUIDTxt" ).val(uid);
    }
@@ -453,6 +466,20 @@ function profileClick() {
   }
 }
 
+function set_profile_latlons_preset()
+{
+   var t= document.getElementById("zModeType").value;
+   if( t == 'd' ) {
+       $( "#profileZTxt" ).val(30000);
+       $( "#profileZStartTxt" ).val(0);
+       $( "#profileZStepTxt" ).val(100);
+       } else {
+           $( "#profileZTxt" ).val(-25000);
+           $( "#profileZStartTxt" ).val(500);
+           $( "#profileZStepTxt" ).val(-100);
+   }
+}
+
 function set_profile_latlons(uid,lat,lon) {
    // need to capture the lat lon and draw a profile
    if(profile_sidebar && drawing_profile) {
@@ -460,18 +487,7 @@ function set_profile_latlons(uid,lat,lon) {
        $( "#profileFirstLonTxt" ).val(round2Four(lon));
        $( "#profileUIDTxt" ).val(uid);
 // should put in some default values for Z start, Z end, Z step
-
-       var t= document.getElementById("zModeType").value;
-
-       if( t == 'd' ) {
-           $( "#profileZTxt" ).val(30000);
-           $( "#profileZStartTxt" ).val(0);
-           $( "#profileZStepTxt" ).val(100);
-           } else {
-               $( "#profileZTxt" ).val(-25000);
-               $( "#profileZStartTxt" ).val(500);
-               $( "#profileZStepTxt" ).val(-100);
-       }
+       set_profile_latlons_preset();
    }
 }
 
@@ -557,4 +573,21 @@ function sidebar_profile_slideIn() {
   panelptr.removeClass('fade-in').addClass('fade-out');
   panelptr.css("display","none");
   reset_markProfileLatlon();
+}
+
+/****************************************************************/
+function reset_presets()
+{
+  if(point_sidebar) {
+    set_point_latlons_preset();
+  }
+  if(profile_sidebar) {
+    set_profile_latlons_preset();
+  }
+  if(line_sidebar) {
+    set_line_latlons_preset();
+  }
+  if(area_sidebar) {
+    set_area_latlons_preset();
+  }
 }
