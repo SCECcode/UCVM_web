@@ -3,7 +3,7 @@ var rectangle_options = {
        showArea: false,
          shapeOptions: {
               stroke: true,
-              color: "blue",
+              color: "green",
               weight: 2,
               opacity: 0.5,
               fill: true,
@@ -44,7 +44,7 @@ var line_options = {
        showLength: true,
          shapeOptions: {
               stroke: true,
-              color: "blue",
+              color: "green",
               weight: 3,
               opacity: 0.6,
               clickable: false
@@ -323,6 +323,7 @@ function addBareLineLayer(highlight,latA,lonA,latB,lonB) {
 function addLineLayer(latA,lonA,latB,lonB) {
   var layer= addBareLineLayer(0,latA,lonA,latB,lonB);
   var hlayer= addBareLineLayer(1,latA,lonA,latB,lonB);
+window.console.log("addLineLayer..");
   mymap.addLayer(layer);
   return [layer, hlayer];
 }

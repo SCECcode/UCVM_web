@@ -75,6 +75,10 @@ function getMaterialPropertyByLatlon() {
     var modelstr=document.getElementById("modelType").value;
     var uid=document.getElementById("pointUIDTxt").value;
 
+    if (latstr == "" || lonstr=="" || zstr=="" ) {
+        return;
+    }
+
     if(uid == '') {
       uid=getRnd();
       set_point_UID(uid);    
@@ -84,34 +88,30 @@ function getMaterialPropertyByLatlon() {
       reset_dirty_uid();
     }
 
-    if (latstr == "" || lonstr=="") {
-        return;
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
     } else {
-
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-                var str=processSearchResult("getMaterialPropertyByLatlon",uid);
-                var tmp=get_points_mp();
-                if(get_points_mp() == 1) {
-                  makeHorizontalResultTable(uid,str);
-                  } else {
-                    makeHorizontalResultTable_row(uid,str);
-                }
-                document.getElementById('spinIconForProperty').style.display = "none";
-                reset_point_UID();
-            }
-        }
-        xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&uid="+uid, true);
-        xmlhttp.send();
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("getMaterialPropertyByLatlon",uid);
+            var tmp=get_points_mp();
+            if(get_points_mp() == 1) {
+              makeHorizontalResultTable(uid,str);
+              } else {
+                makeHorizontalResultTable_row(uid,str);
+            }
+            document.getElementById('spinIconForProperty').style.display = "none";
+            reset_point_UID();
+        }
+    }
+    xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&uid="+uid, true);
+    xmlhttp.send();
 }
 
 function plotCrossSection() {
@@ -126,6 +126,11 @@ function plotCrossSection() {
     var secondlatstr=document.getElementById("lineSecondLatTxt").value;
     var secondlonstr=document.getElementById("lineSecondLonTxt").value;
 
+    if (firstlatstr == "" || firstlonstr=="" ||
+              secondlatstr == "" || secondlonstr=="" || zstr=="" || zstartstr=="" ) {
+        return;
+    }
+
     var uid=document.getElementById("lineUIDTxt").value;
     if(uid == '') {
       uid=getRnd();
@@ -135,38 +140,31 @@ function plotCrossSection() {
         reset_dirty_uid();
     }
 
-    if (firstlatstr == "" || firstlonstr=="" ||
-              secondlatstr == "" || secondlonstr=="" ) {
-        clearSearchResult();
-        return;
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
     } else {
-
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-                var str=processSearchResult("plotCrossSection",uid);
-
-		if (str != undefined) { 
-                    var zstr=getZModeNameWithType(zmodestr);
-                    var mstr=getModelNameWithType(modelstr);
-                    var note="Vertical "+zstr+" Cross Section with "+mstr;
-                    insertMetaPlotResultTable(note,uid,str);
-                }
-
-                document.getElementById('spinIconForLine').style.display = "none";
-                reset_line_UID();
-            }
-        }
-        xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&datatype="+datatypestr+"&uid="+uid,true);
-        xmlhttp.send();
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("plotCrossSection",uid);
+
+	    if (str != undefined) { 
+                var zstr=getZModeNameWithType(zmodestr);
+                var mstr=getModelNameWithType(modelstr);
+                var note="Vertical "+zstr+" Cross Section with "+mstr;
+                insertMetaPlotResultTable(note,uid,str);
+            }
+
+            document.getElementById('spinIconForLine').style.display = "none";
+            reset_line_UID();
+            }
+    }
+    xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&datatype="+datatypestr+"&uid="+uid,true);
+    xmlhttp.send();
 }
 
 function plotVerticalProfile() {
@@ -178,6 +176,11 @@ function plotVerticalProfile() {
     var uid=document.getElementById("profileUIDTxt").value;
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
+
+    if (latstr == "" || lonstr=="" || zstr=="" || zstartstr=="" || zstepstr=="" ) {
+        return;
+    }
+
     if(uid == '') {
       uid=getRnd();
       set_profile_UID(uid);
@@ -186,36 +189,30 @@ function plotVerticalProfile() {
         reset_dirty_uid();
     }
 
-    if (latstr == "" || lonstr=="" ) {
-        clearSearchResult();
-        return;
-    } else {
-
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
         } else {
-            // code for IE6, IE5
+        // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-                var str=processSearchResult("plotVerticalProfile",uid);
-
-		if (str != undefined) {
-                    var zstr=getZModeNameWithType(zmodestr);
-                    var mstr=getModelNameWithType(modelstr);
-                    var note="Vertical "+zstr+" Profile "+"with "+mstr;
-                    insertMetaPlotResultTable(note, uid,str);
-                }
-                document.getElementById('spinIconForProfile').style.display = "none";
-                reset_profile_UID();
-            }
-        }
-        xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
-        xmlhttp.send();
     }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("plotVerticalProfile",uid);
+
+            if (str != undefined) {
+                var zstr=getZModeNameWithType(zmodestr);
+                var mstr=getModelNameWithType(modelstr);
+                var note="Vertical "+zstr+" Profile "+"with "+mstr;
+                insertMetaPlotResultTable(note, uid,str);
+            }
+            document.getElementById('spinIconForProfile').style.display = "none";
+            reset_profile_UID();
+        }
+    }
+    xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
+    xmlhttp.send();
 }
 
 
@@ -230,6 +227,12 @@ function plotHorizontalSlice() {
 
     var secondlatstr=document.getElementById("areaSecondLatTxt").value;
     var secondlonstr=document.getElementById("areaSecondLonTxt").value;
+
+    if (firstlatstr == "" || firstlonstr=="" ||
+              secondlatstr == "" || secondlonstr=="" ) {
+        return;
+    }
+
     if(uid == '') {
       uid=getRnd();
       set_area_UID(uid);
@@ -238,37 +241,30 @@ function plotHorizontalSlice() {
         reset_dirty_uid();
     }
 
-    if (firstlatstr == "" || firstlonstr=="" ||
-              secondlatstr == "" || secondlonstr=="" ) {
-        clearSearchResult();
-        return;
-    } else {
-
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
         } else {
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-                var str=processSearchResult("plotHorizontalSlice",uid);
-
-		if (str != undefined) { 
-                    var zstr=getZModeNameWithType(zmodestr);
-                    var mstr=getModelNameWithType(modelstr);
-                    var note="Horizontal Slice by "+zstr+" with "+mstr;
-window.console.log("HERE..");
-                    insertMetaPlotResultTable(note,uid,str);
-                }
-
-                document.getElementById('spinIconForArea').style.display = "none";
-                reset_area_UID();
-            }
-        }
-        xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&datatype="+datatypestr+"&uid="+uid,true);
-        xmlhttp.send();
     }
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("plotHorizontalSlice",uid);
+
+            if (str != undefined) { 
+                var zstr=getZModeNameWithType(zmodestr);
+                var mstr=getModelNameWithType(modelstr);
+                var note="Horizontal Slice by "+zstr+" with "+mstr;
+                insertMetaPlotResultTable(note,uid,str);
+            }
+
+            document.getElementById('spinIconForArea').style.display = "none";
+            reset_area_UID();
+        }
+    }
+    xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&datatype="+datatypestr+"&uid="+uid,true);
+    xmlhttp.send();
 }
