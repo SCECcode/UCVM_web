@@ -76,6 +76,8 @@ function getMaterialPropertyByLatlon() {
     var uid=document.getElementById("pointUIDTxt").value;
 
     if (latstr == "" || lonstr=="" || zstr=="" ) {
+        document.getElementById('spinIconForProperty').style.display = "none";
+        reset_point_UID();
         return;
     }
 
@@ -128,6 +130,8 @@ function plotCrossSection() {
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" || zstr=="" || zstartstr=="" ) {
+        document.getElementById('spinIconForLine').style.display = "none";
+        reset_line_UID();
         return;
     }
 
@@ -178,6 +182,8 @@ function plotVerticalProfile() {
     var modelstr=document.getElementById("modelType").value;
 
     if (latstr == "" || lonstr=="" || zstr=="" || zstartstr=="" || zstepstr=="" ) {
+        document.getElementById('spinIconForProfile').style.display = "none";
+        reset_profile_UID();
         return;
     }
 
@@ -230,6 +236,8 @@ function plotHorizontalSlice() {
 
     if (firstlatstr == "" || firstlonstr=="" ||
               secondlatstr == "" || secondlonstr=="" ) {
+        document.getElementById('spinIconForArea').style.display = "none";
+        reset_area_UID();
         return;
     }
 
