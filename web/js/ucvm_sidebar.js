@@ -591,3 +591,41 @@ function reset_presets()
     set_area_latlons_preset();
   }
 }
+
+// this is when either lat or lon or z for point gets altered
+// and if there is a dirty uid, clear it
+function reset_area_presets()
+{
+  if(dirty_layer_uid) {
+    remove_a_layer(dirty_layer_uid);
+    reset_dirty_uid();
+  }
+  reset_area_UID();
+}
+
+function reset_line_presets()
+{
+  if(dirty_layer_uid) {
+    remove_a_layer(dirty_layer_uid);
+    reset_dirty_uid();
+  }
+  reset_line_UID();
+}
+
+function reset_profile_presets()
+{
+  if(dirty_layer_uid) {
+    remove_a_layer(dirty_layer_uid);
+    reset_dirty_uid();
+  }
+  reset_profile_UID();
+}
+
+function reset_point_presets()
+{
+  if(dirty_layer_uid) {
+    remove_a_layer(dirty_layer_uid);
+    reset_dirty_uid();
+  }
+  reset_point_UID();
+}

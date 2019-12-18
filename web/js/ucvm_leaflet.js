@@ -1,23 +1,14 @@
+/***
+   ucvm_leaflet.js
+***/
+
 // This is leaflet specific utilities
 var rectangle_options = {
        showArea: false,
          shapeOptions: {
               stroke: true,
-              color: "green",
-              weight: 2,
-              opacity: 0.5,
-              fill: true,
-              fillColor: null, //same as color by default
-              fillOpacity: 0.02,
-              clickable: false
-         }
-};
-var hrectangle_options = {
-       showArea: false,
-         shapeOptions: {
-              stroke: true,
-              color: "red",
-              weight: 2,
+              color: "blue",
+              weight: 3,
               opacity: 0.5,
               fill: true,
               fillColor: null, //same as color by default
@@ -29,32 +20,17 @@ var rectangleDrawer;
 
 var point_icon = L.AwesomeMarkers.icon({ icon: 'record', markerColor: 'blue'});
 var point_options = { icon : point_icon };
-var hpoint_icon = L.AwesomeMarkers.icon({ icon: 'record', markerColor: 'red'});
-var hpoint_options = { icon : hpoint_icon };
 var pointDrawer;
 
-var profile_icon = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'orange'});
+var profile_icon = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'blue'});
 var profile_options = { icon: profile_icon };
-var hprofile_icon = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'red'});
-var hprofile_options = { icon: hprofile_icon };
-
 var profileDrawer; //profile drawer is the same as point drawer
 
 var line_options = {
        showLength: true,
          shapeOptions: {
               stroke: true,
-              color: "green",
-              weight: 3,
-              opacity: 0.6,
-              clickable: false
-         }
-};
-var hline_options = {
-       showLength: true,
-         shapeOptions: {
-              stroke: true,
-              color: "red",
+              color: "blue",
               weight: 3,
               opacity: 0.6,
               clickable: false
@@ -258,74 +234,36 @@ function unbindPopupEachFeature(layer) {
 function makeModelLayer(latlngs,color) {
   var mypoly=polygon_options;
   mypoly['color']=color;
-  var layer = L.polygon(latlngs, mypoly);
+  var layer = new L.polygon(latlngs, mypoly);
   return layer;
-}
-
-function addBareAreaLayer(highlight,latA,lonA,latB,lonB) {
-  var bounds = [[latA, lonA], [latB, lonB]];
-  if(highlight) { 
-    return L.rectangle(bounds,hrectangle_options);
-    } else {
-      return L.rectangle(bounds,rectangle_options);
-  }
 }
 
 function addAreaLayer(latA,lonA,latB,lonB) {
   var bounds = [[latA, lonA], [latB, lonB]];
-  var layer=addBareAreaLayer(0,latA,lonA,latB,lonB);
-  var hlayer=addBareAreaLayer(1,latA,lonA,latB,lonB);
+  var layer =new L.rectangle(bounds,rectangle_options);
   mymap.addLayer(layer);
-  return [layer,hlayer];
-}
-
-function addBarePointLayer(highlight,lat,lon) {
-  var bounds = [lat, lon];
-  if(highlight) {
-    return new L.marker(bounds,hpoint_options);
-    } else {
-      return new L.marker(bounds,point_options);
-  }
+  return layer;
 }
 
 function addPointLayer(lat,lon) {
-  var layer = addBarePointLayer(0,lat,lon);
-  var hlayer = addBarePointLayer(1,lat,lon);
-  mymap.addLayer(layer);
-  return [layer,hlayer];
-}
-
-function addBareProfileLayer(highlight,lat,lon) {
   var bounds = [lat, lon];
-  if(highlight) {
-    return new L.marker(bounds,hprofile_options);
-    } else {
-      return new L.marker(bounds,profile_options);
-  }
+  var layer = L.marker(bounds,point_options);
+  mymap.addLayer(layer);
+  return layer;
 }
 
 function addProfileLayer(lat,lon) {
-  var layer = addBareProfileLayer(0,lat,lon);
-  var hlayer = addBareProfileLayer(1,lat,lon);
+  var bounds = [lat, lon];
+  var layer = new L.marker(bounds,profile_options);
   mymap.addLayer(layer);
-  return [layer,hlayer];
-}
-
-function addBareLineLayer(highlight,latA,lonA,latB,lonB) {
-  var bounds = [[latA, lonA], [latB, lonB]];
-  if(highlight) {
-   return L.polyline(bounds,hline_options);
-   } else {
-     return L.polyline(bounds,line_options);
-  }
+  return layer;
 }
 
 function addLineLayer(latA,lonA,latB,lonB) {
-  var layer= addBareLineLayer(0,latA,lonA,latB,lonB);
-  var hlayer= addBareLineLayer(1,latA,lonA,latB,lonB);
-window.console.log("addLineLayer..");
+  var bounds = [[latA, lonA], [latB, lonB]];
+  var layer = new L.polyline(bounds,line_options);
   mymap.addLayer(layer);
-  return [layer, hlayer];
+  return layer;
 }
 
 function switchBaseLayer(layerString) {
@@ -333,5 +271,4 @@ function switchBaseLayer(layerString) {
     mymap.addLayer(baseLayers[layerString]);
     currentLayer = baseLayers[layerString];
 }
-
 

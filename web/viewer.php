@@ -176,12 +176,14 @@ TODO: need a new id
                                                placeholder="Latitude"
                                                title="lat"
                                                onfocus="this.value=''"
+                                               onchange="reset_point_presets()"
                                                class="form-control">
                                         <input type="text" 
                                                id="pointFirstLonTxt" 
                                                placeholder="Longitude" 
                                                title="lon"
                                                onfocus="this.value=''" 
+                                               onchange="reset_point_presets()"
                                                class="form-control mt-1">
                                     </div>
                                     <div class="col-5 pr-0">
@@ -232,12 +234,14 @@ TODO: need a new id
                                                placeholder="Latitude"
                                                title="lat"
                                                onfocus="this.value=''"
+                                               onchange="reset_profile_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="profileFirstLonTxt" 
                                                placeholder="Longitude" 
                                                title="lon"
                                                onfocus="this.value=''" 
+                                               onchange="reset_profile_presets()"
                                                class="form-control mt-1">
                                     </div>
                                     <div class="col-5 pr-0">
@@ -293,12 +297,14 @@ TODO: need a new id
                                                id="lineFirstLatTxt"
                                                title="first lat"
                                                onfocus="this.value=''"
+                                               onchange="reset_line_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="lineFirstLonTxt" 
                                                placeholder='Longitude'
                                                title="first lon"
                                                onfocus="this.value=''" 
+                                               onchange="reset_line_presets()"
                                                class="form-control mt-1">
                                         <input type="text"
                                                id="lineZStartTxt" 
@@ -326,12 +332,14 @@ TODO: need a new id
                                                title="second lat"
                                                placeholder='2nd Latitude'
                                                onfocus="this.value=''"
+                                               onchange="reset_line_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="lineSecondLonTxt"
                                                title="second lon"
                                                placeholder='2nd Longitude'
                                                onfocus="this.value=''"
+                                               onchange="reset_line_presets()"
                                                class="form-control mt-1">
                                         <input type="text"
                                                id="lineUIDTxt" 
@@ -366,12 +374,14 @@ TODO: need a new id
                                                id="areaFirstLatTxt"
                                                title="first lat"
                                                onfocus="this.value=''"
+                                               onchange="reset_area_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="areaFirstLonTxt" 
                                                placeholder='Longitude'
                                                title="first lon"
                                                onfocus="this.value=''" 
+                                               onchange="reset_area_presets()"
                                                class="form-control mt-1">
                                         <input type="text"
                                                id="areaZTxt"
@@ -393,12 +403,14 @@ TODO: need a new id
                                                title="second lat"
                                                placeholder='2nd Latitude'
                                                onfocus="this.value=''"
+                                               onchange="reset_area_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="areaSecondLonTxt"
                                                title="second lon"
                                                placeholder='2nd Longitude'
                                                onfocus="this.value=''"
+                                               onchange="reset_area_presets()"
                                                class="form-control mt-1">
                                         <input type="text"
                                                id="areaUIDTxt" 

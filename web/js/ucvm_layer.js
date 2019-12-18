@@ -32,9 +32,9 @@ const POINT_ENUM=1,
       PROFILE_ENUM=2,
       LINE_ENUM=3,
       AREA_ENUM=4;
-// leaflet layer for query, layer=layer, hlayer is the highlighted version of layer
+// leaflet layer for query, layer={layer,...}
 // can have more than 1 layer for a query
-// [ { "uid": uid, "type": type_enum, "layer": [layer,...], "hlayer":[hlayer,...], 'highlight':1 }, ... ]
+// [ { "uid": uid, "type": type_enum, "layer": [layer,...], 'highlight':1 }, ... ]
 var ucvm_layer_list =[];
 
 // area  list, 
@@ -180,7 +180,6 @@ function remove_all_layers() {
      var uid=element['uid'];
      var type=element['type'];
      var layers=element['layer'];
-     var hlayers=element['hlayer'];
      switch (type)  {
        case POINT_ENUM: removeFromList(ucvm_point_list,uid); break;
        case LINE_ENUM: removeFromList(ucvm_line_list,uid); break;
@@ -189,18 +188,9 @@ function remove_all_layers() {
      }
      var i;
      var cnt=layers.length;
-     if(element['highlight']) {
-       var hlayer;
-       for(i=0;i<cnt;i++) {
-         hlayer=hlayers[i];
-         viewermap.removeLayer(hlayer);
-       }
-       } else {
-         var layer;
-         for(i=0;i<cnt;i++) {
-           layer=layers[i];
-           viewermap.removeLayer(layer);
-         }
+     for(i=0;i<cnt;i++) {
+         layer=layers[i];
+         viewermap.removeLayer(layer);
      }
    });
    ucvm_layer_list=[];
@@ -220,22 +210,12 @@ function remove_a_layer(uid) {
        case PROFILE_ENUM: removeFromList(ucvm_profile_list,uid); break;
        case AREA_ENUM: removeFromList(ucvm_area_list,uid); break;
      }
-     var hlayers=t['hlayer'];
      var layers=t['layer'];
      var i;
      var cnt=layers.length;
-     if( t["highlight"]) {
-       var hlayer;
-       for(i=0;i<cnt;i++) {
-         hlayer=hlayers[i];
-         viewermap.removeLayer("hlayer");
-       }
-       } else {
-         var layer;
-         for(i=0;i<cnt;i++) {
-           layer=layers[i];
-           viewermap.removeLayer(t["layer"]);
-         }
+     for(i=0;i<cnt;i++) {
+        layer=layers[i];
+        viewermap.removeLayer(layer);
      }
      var idx = ucvm_layer_list.indexOf(t);
      if (idx > -1) {
@@ -244,49 +224,67 @@ function remove_a_layer(uid) {
   }
 }
 
-function load_a_layer(uid,type,layer,hlayer) {
+function load_a_layer(uid,type,layer) {
    var t=find_layer_from_list(uid);
    if(t) {
      window.console.log("already plotted this layer ",uid);
      return;
    }
-   ucvm_layer_list.push({"uid":uid, "type":type, "layer": [layer], "hlayer":[hlayer], "highlight":0});
+   ucvm_layer_list.push({"uid":uid, "type":type, "layer": [layer], "highlight":0});
 }
 
-function add_a_layer(uid,layer,hlayer) {
+function add_a_layer(uid,layer) {
    var t=find_layer_from_list(uid);
    if(!t) {
      window.console.log("should have a related layer already ",uid);
      return;
    }
    t["layer"].push(layer); 
-   t["hlayer"].push(hlayer); 
 }
+
+function highlight_layer(layer) {
+    viewermap.removeLayer(layer);
+    var op=layer.options;
+    if(op.icon != undefined) {
+      var iop=op.icon.options;
+      iop.markerColor="red";
+      } else {
+        op.color="red";
+    }
+    viewermap.addLayer(layer);
+}
+
+function unhighlight_layer(layer) {
+    viewermap.removeLayer(layer);
+    var op=layer.options;
+    if(op.icon != undefined) {
+      var iop=op.icon.options;
+      iop.markerColor="blue";
+      } else {
+        op.color="blue";
+    }
+    viewermap.addLayer(layer);
+}
+
 
 function toggle_a_layer(uid) {
    var i;
    var found=find_layer_from_list(uid);
    if(found) {
       var layers=found['layer'];
-      var hlayers=found['hlayer'];
       var cnt=layers.length;
-      var hlayer;
       var layer;
       if(found['highlight']) {
         for(i=0;i<cnt;i++) {
-          hlayer=hlayers[i];
           layer=layers[i];
-          viewermap.removeLayer(hlayer);
-          viewermap.addLayer(layer);
+          unhighlight_layer(layer);
         }
         found['highlight']=0;
         $('#ucvm_layer_'+uid).removeClass('ucvm-active');
         } else {
           for(i=0;i<cnt;i++) {
-            hlayer=hlayers[i];
             layer=layers[i];
-            viewermap.removeLayer(layer);
-            viewermap.addLayer(hlayer);
+            highlight_layer(layer);
           }
           found['highlight']=1;
           $('#ucvm_layer_'+uid).addClass('ucvm-active');
@@ -297,11 +295,10 @@ function toggle_a_layer(uid) {
 
 // this one come from the user interactive mode
 function add_bounding_area(uid, a,b,c,d) {
-  var layer, hlayer;
-  [layer,hlayer]=addAreaLayer(a,b,c,d);
+  var layer=addAreaLayer(a,b,c,d);
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   ucvm_area_list.push(tmp);
-  load_a_layer(uid, AREA_ENUM, layer, hlayer);
+  load_a_layer(uid, AREA_ENUM, layer);
 }
 
 function remove_bounding_area_layer(uid) {
@@ -317,10 +314,9 @@ function add_bounding_area_layer(layer,a,b,c,d) {
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   set_area_latlons(uid,a,b,c,d);
   ucvm_area_list.push(tmp);
-  // create the highlight layer
-  var hlayer=addBareAreaLayer(1,a,b,c,d);
-  load_a_layer(uid,AREA_ENUM,layer,hlayer);
   viewermap.addLayer(layer);
+
+  load_a_layer(uid,AREA_ENUM,layer);
   dirty_layer_uid=uid;
 }
 /*** special handle for a file of points ***/
@@ -330,11 +326,13 @@ function add_file_of_point(uid, fobj) {
 }
 
 function add_bounding_point(uid,a,b) {
-  var layer,hlayer;
-  [layer,hlayer]=addPointLayer(a,b);
+  if(dirty_layer_uid) {
+    remove_a_layer(dirty_layer_uid);
+  }
+  var layer=addPointLayer(a,b);
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b}]};
   ucvm_point_list.push(tmp);
-  load_a_layer(uid,POINT_ENUM,layer,hlayer);
+  load_a_layer(uid,POINT_ENUM,layer);
 }
 
 function add_bounding_point_layer(layer,a,b) {
@@ -346,8 +344,8 @@ function add_bounding_point_layer(layer,a,b) {
   set_point_latlons(uid,a,b);
   ucvm_point_list.push(tmp);
   viewermap.addLayer(layer);
-  var hlayer=addBarePointLayer(1,a,b);
-  load_a_layer(uid,POINT_ENUM,layer,hlayer);
+
+  load_a_layer(uid,POINT_ENUM,layer);
   dirty_layer_uid=uid;
 }
 
@@ -356,11 +354,10 @@ function remove_bounding_point_layer(uid) {
 }
 
 function add_bounding_profile(uid,a,b) {
-  var layer,hlayer;
-  [layer,hlayer]=addProfileLayer(a,b);
+  var layer=addProfileLayer(a,b);
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b}]};
   ucvm_profile_list.push(tmp);
-  load_a_layer(uid,PROFILE_ENUM,layer,hlayer);
+  load_a_layer(uid,PROFILE_ENUM,layer);
 }
 
 function add_bounding_profile_layer(layer,a,b) {
@@ -372,8 +369,8 @@ function add_bounding_profile_layer(layer,a,b) {
   set_profile_latlons(uid,a,b);
   ucvm_profile_list.push(tmp);
   viewermap.addLayer(layer);
-  var hlayer=addBareProfileLayer(1,a,b);
-  load_a_layer(uid,PROFILE_ENUM,layer,hlayer);
+
+  load_a_layer(uid,PROFILE_ENUM,layer);
   dirty_layer_uid=uid;
 }
 
@@ -384,11 +381,10 @@ function remove_bounding_profile_layer(uid) {
 // TODO: this is future special case when we allow mulitple segments
 // in the polyline drawing.. 
 function add_bounding_line(uid,a,b,c,d) {
-  var layer,hlayer;
-  [layer,hlayer]=addLineLayer(a,b,c,d);
+  var layer =addLineLayer(a,b,c,d);
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   ucvm_line_list.push(tmp);
-  load_a_layer(uid,LINE_ENUM,layer,hlayer);
+  load_a_layer(uid,LINE_ENUM,layer);
 }
 
 function remove_bounding_line_layer(uid) {
@@ -404,8 +400,7 @@ function add_bounding_line_layer(layer,a,b,c,d) {
   set_line_latlons(uid,a,b,c,d);
   ucvm_line_list.push(tmp);
   viewermap.addLayer(layer);
-  window.console.log("add bounding line layer..");
-  var hlayer=addBareLineLayer(1,a,b,c,d);
-  load_a_layer(uid,LINE_ENUM,layer,hlayer);
+
+  load_a_layer(uid,LINE_ENUM,layer);
   dirty_layer_uid=uid;
 }
