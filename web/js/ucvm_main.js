@@ -47,6 +47,16 @@ jQuery(document).ready(function() {
       reset_presets();
   });
 
+  $('#processMPTableList li').click(function() {
+      var v=$(this).data('id');
+      processMPTable(v);
+  });
+
+  $('#processMetaPlotResultTableList li').click(function() {
+      var v=$(this).data('id');
+      processMetaPlotResultTable(v);
+  });
+
 }) // end of MAIN
 
 

@@ -247,11 +247,16 @@ function highlight_layer(layer) {
     var op=layer.options;
     if(op.icon != undefined) {
       var iop=op.icon.options;
+
       iop.markerColor="red";
+// set it when adding this one and then reset to default
+      viewermap.addLayer(layer);
+      iop.markerColor="blue";
+
       } else {
         op.color="red";
+        viewermap.addLayer(layer);
     }
-    viewermap.addLayer(layer);
 }
 
 function unhighlight_layer(layer) {

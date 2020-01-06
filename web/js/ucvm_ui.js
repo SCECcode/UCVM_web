@@ -373,8 +373,36 @@ function saveAsURLFile(gid,url) {
   delete dload;
 }
 
-function toggle_collapse_mp_table()
+function processMPTable(v)
 {
+  switch(v) {
+    case 'e':
+      edit_mp_table();
+      break;
+    case 'c':
+      collapse_mp_table();
+      break;
+    case 's':
+      save_mp_table();
+      break;
+  }
+}
+
+function edit_mp_table()
+{
+//XXX
+   window.console.log("calling edit_mp_table");
+}
+
+function save_mp_table()
+{
+   window.console.log("calling save_mp_table");
+   makeMPStateBlob();
+}
+
+function collapse_mp_table()
+{
+   window.console.log("calling collapse_mp_table");
    var elm=document.getElementById('materialProperty-viewer-container');
    var v=elm.style.display;
    if(v=="none") {
@@ -386,9 +414,36 @@ function toggle_collapse_mp_table()
    }
 }
 
-function toggle_collapse_result_table()
+function processMetaPlotResultTable(v)
 {
-   var elm=document.getElementById('metadataplotTable-container');
+  switch(v) {
+    case 'e':
+      edit_mpr_table();
+      break;
+    case 'c':
+      collapse_mpr_table();
+      break;
+    case 's':
+      save_mpr_table();
+      break;
+  }
+}
+
+function edit_mpr_table()
+{
+//XXX
+   window.console.log("calling edit_mpr_table");
+}
+
+function save_mpr_table()
+{
+    window.console.log("calling save_mpr_table");
+    makeMetaPlotResultStateBlob(); 
+}
+
+function collapse_mpr_table()
+{
+   var elm=document.getElementById('metadataPlotTable-container');
    var v=elm.style.display;
    if(v=="none") {
      elm.style.display='block';

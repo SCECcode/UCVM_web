@@ -34,6 +34,7 @@ $header = getHeader("Viewer");
     <script type='text/javascript' src='js/vendor/FileSaver.js'></script>
     <script type='text/javascript' src='js/vendor/jszip.js'></script>
     <script type='text/javascript' src='js/vendor/jquery.floatThead.min.js'></script>
+    <script type='text/javascript' src='js/vendor/jquery.tabletojson.min.js'></script>
     <!--
     https://leaflet.github.io/Leaflet.draw/docs/Leaflet.draw-latest.html#l-draw
     this is for including the Leaflet.draw plugin
@@ -79,6 +80,7 @@ $header = getHeader("Viewer");
     <script type="text/javascript" src="js/ucvm_main.js"></script>
     <script type="text/javascript" src="js/ucvm_query.js"></script>
     <script type="text/javascript" src="js/ucvm_sidebar.js"></script>
+    <script type="text/javascript" src="js/ucvm_state.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics o
 TODO: need a new id
@@ -99,10 +101,10 @@ TODO: need a new id
 
         $(document).on("tableLoadCompleted", function () {
             tableLoadCompleted = true;
-            var $download_queue_table = $('#metadataplotTable');
+            var $download_queue_table = $('#metadataPlotTable');
             $download_queue_table.floatThead({
                 scrollContainer: function ($table) {
-                    return $table.closest('div#metadataplotTable-container');
+                    return $table.closest('div#metadataPlotTable-container');
                 },
             });
 
@@ -318,7 +320,7 @@ TODO: need a new id
                                                title="lineZTxt"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <select title="Datatype" id="lineDataTypeTxt" class="custom-select my-custom-select mt-1">
+                                        <select title="Datatype" id="lineDataTypeTxt" class="my-custom-select custom-select mt-1">
                                                <option value="">DataType</option>
                                                <option value="vs">vs</option>
                                                <option value="vp">vp</option>
@@ -465,8 +467,15 @@ TODO: need a new id
                     <table id="mpHeaderTable" style="border:none">
                         <tbody>
                         <tr>
-                            <td colspan="12" style="border:none"><b>Material Property</b></td>
-                            <td colspan="1" align="right" style="border:none" title="Collapse table"><button onclick="toggle_collapse_mp_table()" class="btn ucvm-top-small-btn"><span id="ucvm_collapse_mp_btn" class="glyphicon glyphicon-collapse-down"></span></button></td>
+                            <td style="border:none"><b>Material Property</b></td>
+                            <td align="right" style="border:none" title="process mp table">
+                              <div>
+                                <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
+                                    <ul id='processMPTableList' class="dropdown-menu list-inline" role="menu">
+                                        <li data-id='s'>Save All</li>
+                                        <li data-id='c'>Collapse</li>
+                                    </ul>
+                              </div></td>
                         </tr>
                         </tbody>
                     </table>
@@ -486,13 +495,21 @@ TODO: need a new id
                     <table id="metaHeaderTable" style="border:none">
                         <tbody>
                         <tr>
-                            <td colspan="12" style="border:none"><b>Result and Metadata</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
-                            <td colspan="1" align="right" style="border:none" title="Collapse table"><button onclick="toggle_collapse_result_table()" class="btn ucvm-top-small-btn"><span id="ucvm_collapse_result_btn" class="glyphicon glyphicon-collapse-down"></span></button></td>
+                            <td style="border:none"><b>Result and Metadata</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+
+                            <td align="right" style="border:none" title="process result table">
+                              <div>
+                                <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
+                                    <ul id='processMetaPlotResultTableList' class="dropdown-menu list-inline" role="menu">
+                                        <li data-id='s'>Save All</li>
+                                        <li data-id='c'>Collapse</li>
+                                    </ul>
+                              </div></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="metadataplotTable-container" style="overflow:scroll;max-height:30vh">
+                <div class="col-12" id="metadataPlotTable-container" style="overflow:scroll;max-height:30vh">
                     <table id="metadataPlotTable">
                         <tbody>
                         <tr id="placeholder-row">
