@@ -119,7 +119,7 @@ TODO: need a new id
 <div class="container main">
     <div class="row">
         <div class="col-12">
-            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows user query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.  See the <a href="guide">user guide</a> for more details and site usage instructions.</p>
+            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows user query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.  See the <a href="guide.php">user guide</a> for more details and site usage instructions.</p>
         </div>
     </div>
 
