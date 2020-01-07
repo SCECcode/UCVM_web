@@ -408,9 +408,11 @@ function collapse_mp_table()
    if(v=="none") {
      elm.style.display='block';
      $('#ucvm_collapse_mp_btn').removeClass('ucvm-active');
+     $('#mpCollapseLi').text("Collapse");
      } else {
        elm.style.display='none';
        $('#ucvm_collapse_mp_btn').addClass('ucvm-active');
+       $('#mpCollapseLi').text("Expand");
    }
 }
 
@@ -448,8 +450,10 @@ function collapse_mpr_table()
    if(v=="none") {
      elm.style.display='block';
      $('#ucvm_collapse_result_btn').removeClass('ucvm-active');
+      $('#mprCollapseLi').text("Collapse");
      } else {
        elm.style.display='none';
        $('#ucvm_collapse_result_btn').addClass('ucvm-active');
+       $('#mprCollapseLi').text("Expand");
    }
 }

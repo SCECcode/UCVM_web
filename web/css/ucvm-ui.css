@@ -149,17 +149,40 @@ input:hover {
     background-color: #D9D9D9;
     }
 
-#processMPTableList li:hover {
-    background-color: #D9D9D9;
-    }
+#processMPTableList[class*="show"] {
+    background: #e9ecef;
+    border: 1px solid #ced4da;
+    min-width: 6rem;
+}
 
+#processMPTableList li {
+    padding-left: 10px;
+    text-align: left;
+}
+
+#processMPTableList li:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+#processMetaPlotResultTableList li {
+    padding-left: 10px;
+    text-align: left;
+}
 #processMetaPlotResultTableList li:hover {
-    background-color: #D9D9D9;
-    }
+    background-color: #007bff;
+    color: white;
+}
+
+#processMetaPlotResultTableList[class*="show"] {
+    background: #e9ecef;
+    border: 1px solid #ced4da;
+    min-width: 6rem;
+}
 
 #fileSelectBtn:hover {
-          background: #D9D9D9;
-          color: #990000;
-          border: 0;
-          display: inline-block;
+    background: #D9D9D9;
+    color: #990000;
+    border: 0;
+    display: inline-block;
 }

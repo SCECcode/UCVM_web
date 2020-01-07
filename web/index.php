@@ -34,6 +34,7 @@ $header = getHeader("Viewer");
     <script type='text/javascript' src='js/vendor/FileSaver.js'></script>
     <script type='text/javascript' src='js/vendor/jszip.js'></script>
     <script type='text/javascript' src='js/vendor/jquery.floatThead.min.js'></script>
+    <script type='text/javascript' src='js/vendor/jquery.tabletojson.min.js'></script>
     <!--
     https://leaflet.github.io/Leaflet.draw/docs/Leaflet.draw-latest.html#l-draw
     this is for including the Leaflet.draw plugin
@@ -79,6 +80,7 @@ $header = getHeader("Viewer");
     <script type="text/javascript" src="js/ucvm_main.js"></script>
     <script type="text/javascript" src="js/ucvm_query.js"></script>
     <script type="text/javascript" src="js/ucvm_sidebar.js"></script>
+    <script type="text/javascript" src="js/ucvm_state.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics o
 TODO: need a new id
@@ -99,10 +101,10 @@ TODO: need a new id
 
         $(document).on("tableLoadCompleted", function () {
             tableLoadCompleted = true;
-            var $download_queue_table = $('#metadataplotTable');
+            var $download_queue_table = $('#metadataPlotTable');
             $download_queue_table.floatThead({
                 scrollContainer: function ($table) {
-                    return $table.closest('div#metadataplotTable-container');
+                    return $table.closest('div#metadataPlotTable-container');
                 },
             });
 
@@ -176,12 +178,14 @@ TODO: need a new id
                                                placeholder="Latitude"
                                                title="lat"
                                                onfocus="this.value=''"
+                                               onchange="reset_point_presets()"
                                                class="form-control">
                                         <input type="text" 
                                                id="pointFirstLonTxt" 
                                                placeholder="Longitude" 
                                                title="lon"
                                                onfocus="this.value=''" 
+                                               onchange="reset_point_presets()"
                                                class="form-control mt-1">
                                     </div>
                                     <div class="col-5 pr-0">
@@ -232,12 +236,14 @@ TODO: need a new id
                                                placeholder="Latitude"
                                                title="lat"
                                                onfocus="this.value=''"
+                                               onchange="reset_profile_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="profileFirstLonTxt" 
                                                placeholder="Longitude" 
                                                title="lon"
                                                onfocus="this.value=''" 
+                                               onchange="reset_profile_presets()"
                                                class="form-control mt-1">
                                     </div>
                                     <div class="col-5 pr-0">
@@ -293,12 +299,14 @@ TODO: need a new id
                                                id="lineFirstLatTxt"
                                                title="first lat"
                                                onfocus="this.value=''"
+                                               onchange="reset_line_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="lineFirstLonTxt" 
                                                placeholder='Longitude'
                                                title="first lon"
                                                onfocus="this.value=''" 
+                                               onchange="reset_line_presets()"
                                                class="form-control mt-1">
                                         <input type="text"
                                                id="lineZStartTxt" 
@@ -312,7 +320,7 @@ TODO: need a new id
                                                title="lineZTxt"
                                                onfocus="this.value=''" 
                                                class="form-control mt-1">
-                                        <select title="Datatype" id="lineDataTypeTxt" class="custom-select my-custom-select mt-1">
+                                        <select title="Datatype" id="lineDataTypeTxt" class="my-custom-select custom-select mt-1">
                                                <option value="">DataType</option>
                                                <option value="vs">vs</option>
                                                <option value="vp">vp</option>
@@ -326,12 +334,14 @@ TODO: need a new id
                                                title="second lat"
                                                placeholder='2nd Latitude'
                                                onfocus="this.value=''"
+                                               onchange="reset_line_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="lineSecondLonTxt"
                                                title="second lon"
                                                placeholder='2nd Longitude'
                                                onfocus="this.value=''"
+                                               onchange="reset_line_presets()"
                                                class="form-control mt-1">
                                         <input type="text"
                                                id="lineUIDTxt" 
@@ -366,12 +376,14 @@ TODO: need a new id
                                                id="areaFirstLatTxt"
                                                title="first lat"
                                                onfocus="this.value=''"
+                                               onchange="reset_area_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="areaFirstLonTxt" 
                                                placeholder='Longitude'
                                                title="first lon"
                                                onfocus="this.value=''" 
+                                               onchange="reset_area_presets()"
                                                class="form-control mt-1">
                                         <input type="text"
                                                id="areaZTxt"
@@ -393,12 +405,14 @@ TODO: need a new id
                                                title="second lat"
                                                placeholder='2nd Latitude'
                                                onfocus="this.value=''"
+                                               onchange="reset_area_presets()"
                                                class="form-control">
                                         <input type="text"
                                                id="areaSecondLonTxt"
                                                title="second lon"
                                                placeholder='2nd Longitude'
                                                onfocus="this.value=''"
+                                               onchange="reset_area_presets()"
                                                class="form-control mt-1">
                                         <input type="text"
                                                id="areaUIDTxt" 
@@ -453,8 +467,15 @@ TODO: need a new id
                     <table id="mpHeaderTable" style="border:none">
                         <tbody>
                         <tr>
-                            <td colspan="12" style="border:none"><b>Material Property</b></td>
-                            <td colspan="1" align="right" style="border:none" title="Collapse table"><button onclick="toggle_collapse_mp_table()" class="btn ucvm-top-small-btn"><span id="ucvm_collapse_mp_btn" class="glyphicon glyphicon-collapse-down"></span></button></td>
+                            <td style="border:none"><b>Material Property</b></td>
+                            <td align="right" style="border:none" title="process mp table">
+                              <div>
+                                <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
+                                    <ul id='processMPTableList' class="dropdown-menu list-inline" role="menu">
+                                        <li data-id='s'>Save All</li>
+                                        <li id='mpCollapseLi' data-id='c'>Collapse</li>
+                                    </ul>
+                              </div></td>
                         </tr>
                         </tbody>
                     </table>
@@ -474,13 +495,21 @@ TODO: need a new id
                     <table id="metaHeaderTable" style="border:none">
                         <tbody>
                         <tr>
-                            <td colspan="12" style="border:none"><b>Result and Metadata</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
-                            <td colspan="1" align="right" style="border:none" title="Collapse table"><button onclick="toggle_collapse_result_table()" class="btn ucvm-top-small-btn"><span id="ucvm_collapse_result_btn" class="glyphicon glyphicon-collapse-down"></span></button></td>
+                            <td style="border:none"><b>Result and Metadata</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+
+                            <td align="right" style="border:none" title="process result table">
+                              <div>
+                                <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
+                                    <ul id='processMetaPlotResultTableList' class="dropdown-menu list-inline" role="menu">
+                                        <li data-id='s'>Save All</li>
+                                        <li id='mprCollapseLi' data-id='c'>Collapse</li>
+                                    </ul>
+                              </div></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="metadataplotTable-container" style="overflow:scroll;max-height:30vh">
+                <div class="col-12" id="metadataPlotTable-container" style="overflow:scroll;max-height:30vh">
                     <table id="metadataPlotTable">
                         <tbody>
                         <tr id="placeholder-row">
