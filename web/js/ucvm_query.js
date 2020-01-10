@@ -85,6 +85,7 @@ function getMaterialPropertyByLatlon() {
     var zstr=document.getElementById("pointZTxt").value;
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
+    var zrangestr=_getZrange(modelstr);
     var uid=document.getElementById("pointUIDTxt").value;
 
     if (latstr == "" || lonstr=="" || zstr=="" ) {
