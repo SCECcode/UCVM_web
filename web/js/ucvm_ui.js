@@ -464,7 +464,7 @@ function collapse_mpr_table()
    }
 }
 
-function set_zrange_preset()
+function set_zrange_presets()
 {
    var t= document.getElementById("zModeType").value;
    if( t == 'd' ) {

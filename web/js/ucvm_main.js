@@ -55,6 +55,7 @@ jQuery(document).ready(function() {
   });
 
   $("#zModeType").change(function () {
+      set_zrange_presets();
       reset_presets();
   });
 
