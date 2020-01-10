@@ -6,10 +6,12 @@
 function _getZrange(modelstr)
 {
     var ret="";
-    if(modelstr.contains("elygtl:ely")) {
-        var zstartstr=document.getElementById("zrangeStartTxt").value;
-        var zstopstr=document.getElementById("zrangeStopTxt").value;
-        ret=zstartstr+","+zstopstr;
+    if( typeof modelstr === 'string') {
+        if(modelstr.endsWith("elygtl:ely")) {
+            var zstartstr=document.getElementById("zrangeStartTxt").value;
+            var zstopstr=document.getElementById("zrangeStopTxt").value;
+            ret=zstartstr+","+zstopstr;
+        }
     }
     return ret;
 }
