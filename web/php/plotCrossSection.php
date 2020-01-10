@@ -34,7 +34,7 @@ $hval=intval(($dval/200)*1000);
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$z;
 
 if ($zrange != 'none') {
-    $lstr= ' -Z '.$zrange.$lstr;
+    $lstr= ' -z '.$zrange.$lstr;
 }
 
 $qstub=" -s ".$zstart." -h ".$hval." -d ".$datatype." -c ".$model." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;

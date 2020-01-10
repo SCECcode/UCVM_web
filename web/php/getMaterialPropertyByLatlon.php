@@ -21,7 +21,7 @@ if ($zmode == 'e') {
     $estr=" -c gd".$estr;
 }
 if ($zrange != 'none') {
-  $estr=" -Z ".$zrange.$estr;
+  $estr=" -z ".$zrange.$estr;
 }
 
 $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf ".$estr;

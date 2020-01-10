@@ -41,7 +41,7 @@ $file="../result/".$uid."horizontal.png";
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
 if ($zrange != 'none') {
-   $lstr=" -Z ".$ztrange.$lstr;
+   $lstr=" -z ".$ztrange.$lstr;
 }
 
 $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";

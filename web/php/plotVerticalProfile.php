@@ -27,7 +27,7 @@ $envstr=makeEnvString();
 $lstr = " -v ".$zstep." -b ".$zstart." -s ".$lat.",".$lon." -e ".$z;
 
 if ($zrange != 'none') {
-  $lstr = " -Z ".$zrange.$lstr;
+  $lstr = " -z ".$zrange.$lstr;
 }
 
 $qstub=" -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET -d vs,vp,density -c ".$model." -o ".$file;
