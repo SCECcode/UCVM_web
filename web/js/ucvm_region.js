@@ -133,6 +133,11 @@ function makeModelSelection()
    option.value= "cvmsi,cvmh"; 
    sel.add(option);
 
+   option = document.createElement("option");
+   option.text = "CVM-S4.26,elygtl:ely";
+   option.value= "cvms5,elygtl:ely"; 
+   sel.add(option);
+
 // put in the default region on the map
    makeLatlngs('cvmh');
 }
