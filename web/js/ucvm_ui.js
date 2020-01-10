@@ -464,8 +464,21 @@ function collapse_mpr_table()
    }
 }
 
+function set_zrange_preset()
+{
+   var t= document.getElementById("zModeType").value;
+   if( t == 'd' ) {
+       $( "#zrangeStartTxt" ).val('0');
+       $( "#zrangeStopTxt" ).val('350');
+       } else {
+         $( "#zrangeStartTxt" ).val('0');
+         $( "#zrangeStopTxt" ).val('-350');
+   }
+}
+  
+
 function reset_zrange_presets()
 {
-   $( "#zrangeStartTxt" ).val('0');
-   $( "#zrangeStopTxt" ).val('350');
+   $( "#zrangeStartTxt" ).val('');
+   $( "#zrangeStopTxt" ).val('');
 }

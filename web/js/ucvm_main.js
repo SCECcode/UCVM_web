@@ -46,11 +46,11 @@ jQuery(document).ready(function() {
       var ely=model.includes("elygtl:ely");
       if(v=="none" && ely) {
          document.getElementById('zrange').style.display="block";
+         set_zrange_presets();
          return;
       }
       if(v=="block" && !ely) {
          document.getElementById('zrange').style.display="none";
-         reset_zrange_presets();
       }
   });
 

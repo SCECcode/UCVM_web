@@ -145,7 +145,7 @@ TODO: need a new id
                 <div class="col-4 pr-0">
                     <input type="text"
                         id="zrangeStartTxt"
-                        placeholder="0"
+                        placeholder="Start"
                         title="zrange start"
                         onfocus="this.value=''"
                         onchange="reset_zrange_presets()"
@@ -154,7 +154,7 @@ TODO: need a new id
                 <div class="col-4 pr-0">
                     <input type="text"
                         id="zrangeStopTxt"
-                        placeholder="350"
+                        placeholder="Stop"
                         title="zrange stop"
                         onfocus="this.value=''"
                         onchange="reset_zrange_presets()"
