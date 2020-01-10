@@ -457,3 +457,9 @@ function collapse_mpr_table()
        $('#mprCollapseLi').text("Expand");
    }
 }
+
+function reset_zrange_presets()
+{
+   $( "#zrangeStartTxt" ).val('0');
+   $( "#zrangeStopTxt" ).val('350');
+}

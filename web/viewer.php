@@ -138,7 +138,31 @@ TODO: need a new id
                 </div>
                 <select id="modelType" class="custom-select"></select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalmt"><span class="glyphicon glyphicon-info-sign"></span></button>
             </div>
-            <div class="input-group filters mb-3">
+<!-- special pull-out for elygtl -->
+            <div id="zrange" class="input-group mt-1" style="display:none;"> 
+                <div class="row offset-2">
+                Z range:
+                <div class="col-4 pr-0">
+                    <input type="text"
+                        id="zrangeStartTxt"
+                        placeholder="0"
+                        title="zrange start"
+                        onfocus="this.value=''"
+                        onchange="reset_zrange_presets()"
+                        class="form-control">
+                </div>
+                <div class="col-4 pr-0">
+                    <input type="text"
+                        id="zrangeStopTxt"
+                        placeholder="350"
+                        title="zrange stop"
+                        onfocus="this.value=''"
+                        onchange="reset_zrange_presets()"
+                        class="form-control">
+                </div>
+                </div>
+            </div>
+            <div class="input-group filters mb-3 mt-1">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="zModeType" >Select Z Mode</label>
                 </div>

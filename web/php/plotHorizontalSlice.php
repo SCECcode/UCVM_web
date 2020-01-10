@@ -12,6 +12,7 @@ $firstlon = ($_GET['firstlon']);
 $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
+$zrange = ($_GET['zrange']);
 $datatype = ($_GET['datatype']);
 $uid = ($_GET['uid']);
 
@@ -39,13 +40,16 @@ $sval= round(sqrt(($lval*$lval) + ($llval*$llval))/100,3);
 $file="../result/".$uid."horizontal.png";
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
+if ($zrange != '') {
+   $lstr=" -Z ".$ztrange.$lstr;
+}
+
 $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
 
 if( $zmode == 'd') {
   $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_horizontal_slice.py ".$qstub.$lstr;
-}
-if( $zmode == 'e') {
-  $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_horizontal_slice.py ".$qstub.$lstr;
+  } else {
+    $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_horizontal_slice.py ".$qstub.$lstr;
 }
 
 $result = exec(escapeshellcmd($query), $retval, $status);

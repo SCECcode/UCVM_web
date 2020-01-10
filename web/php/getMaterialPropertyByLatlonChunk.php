@@ -9,6 +9,7 @@
 $datastr = ($_GET['datastr']); 
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
+$zrange = ($_GET['zrange']);
 $chunkid = intVal($_GET['chunkid']);
 $uid = ($_GET['uid']);
 $lastchunks = intVal($_GET['chunks'])-1;
@@ -46,11 +47,18 @@ for($i=0; $i< $set; $i++) {
   fwrite($tmpfp,$line); 
 }
 
+$estr = " -b -I ".$tmpname." -O ".$fname;
 
-$estr = " -I ".$tmpname." -O ".$fname;
-$query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf -c gd -b ".$estr;
-if ($zmode == 'e')
-  $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf -c ge -b ".$estr;
+if ($zmode == 'e') {
+  $estr=" -c ge".$estr;
+  } else {
+    $estr=" -c gd".$estr;
+}
+if ($zrange != '') {
+  $estr=' -Z '.$zrange.$estr;
+}
+
+$query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf ".$estr;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 

@@ -12,6 +12,7 @@ $firstlon = ($_GET['firstlon']);
 $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model= ($_GET['model']);
+$zrange = ($_GET['zrange']);
 $zstart = ($_GET['zstart']);
 $datatype = ($_GET['datatype']);
 $uid = ($_GET['uid']);
@@ -31,14 +32,19 @@ $dval=  round(sqrt(($hhval*$hhval) + ($hhhval*$hhhval)),3);
 $hval=intval(($dval/200)*1000);
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$z;
+
+if ($zrange != '') {
+    $lstr= ' -Z '.$zrange.$lstr;
+}
+
 $qstub=" -s ".$zstart." -h ".$hval." -d ".$datatype." -c ".$model." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;
 
 if ($zmode == 'e') {
-     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_cross_section.py".$qstub.$lstr;
+    $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_cross_section.py".$qstub.$lstr;
+    } else {
+        $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_cross_section.py".$qstub.$lstr;
 }
-if ($zmode == 'd') { 
-     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_cross_section.py".$qstub.$lstr;
-}
+
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 $resultarray = new \stdClass();

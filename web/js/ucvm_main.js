@@ -41,6 +41,17 @@ jQuery(document).ready(function() {
       var model = $(this).val();
       remove_all_models();
       load_selected_model(model);
+      // special case.. elygtl:ely
+      var v=document.getElementById('zrange').style.display;
+      var ely=model.includes("elygtl:ely");
+      if(v=="none" && ely) {
+         document.getElementById('zrange').style.display="block";
+         return;
+      }
+      if(v=="block" && !ely) {
+         document.getElementById('zrange').style.display="none";
+         reset_zrange_presets();
+      }
   });
 
   $("#zModeType").change(function () {
