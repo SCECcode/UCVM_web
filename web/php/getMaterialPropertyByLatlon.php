@@ -24,8 +24,6 @@ if ($zrange != 'none') {
   $estr=" -Z ".$zrange.$estr;
 }
 
-$estr = " -b -l ".$lat.",".$lon.",".$z." ";
-
 $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf ".$estr;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
