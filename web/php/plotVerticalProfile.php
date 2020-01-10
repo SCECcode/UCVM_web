@@ -26,7 +26,7 @@ $envstr=makeEnvString();
 
 $lstr = " -v ".$zstep." -b ".$zstart." -s ".$lat.",".$lon." -e ".$z;
 
-if ($zrange != '') {
+if ($zrange != 'none') {
   $lstr = " -Z ".$zrange.$lstr;
 }
 

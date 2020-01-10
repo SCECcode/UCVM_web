@@ -54,7 +54,7 @@ if ($zmode == 'e') {
   } else {
     $estr=" -c gd".$estr;
 }
-if ($zrange != '') {
+if ($zrange != 'none') {
   $estr=' -Z '.$zrange.$estr;
 }
 

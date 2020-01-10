@@ -33,7 +33,7 @@ $hval=intval(($dval/200)*1000);
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$z;
 
-if ($zrange != '') {
+if ($zrange != 'none') {
     $lstr= ' -Z '.$zrange.$lstr;
 }
 

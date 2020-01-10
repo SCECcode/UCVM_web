@@ -5,7 +5,7 @@
 
 function _getZrange(modelstr)
 {
-    var ret="";
+    var ret="none";
     if( typeof modelstr === 'string') {
         if(modelstr.endsWith("elygtl:ely")) {
             var zstartstr=document.getElementById("zrangeStartTxt").value;

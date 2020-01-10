@@ -40,7 +40,7 @@ $sval= round(sqrt(($lval*$lval) + ($llval*$llval))/100,3);
 $file="../result/".$uid."horizontal.png";
 
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
-if ($zrange != '') {
+if ($zrange != 'none') {
    $lstr=" -Z ".$ztrange.$lstr;
 }
 
