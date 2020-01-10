@@ -190,6 +190,12 @@ function makeHorizontalResultTable(uid,str)
     }
 
     var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
+
+    if( datablob == "" ) {
+       window.console.log("ERROR: no return result");
+       return "";
+    } 
+
     if( typeof datablob === 'string') { 
        datablob=JSON.parse(datablob);
     }
