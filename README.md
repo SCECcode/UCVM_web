@@ -1,2 +1,2 @@
 # UCVM
-Unifed Community Velocity Model
+Unified Community Velocity Model
