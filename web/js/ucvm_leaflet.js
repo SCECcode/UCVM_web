@@ -59,7 +59,7 @@ function refresh_map()
   if (viewermap == undefined) {
     window.console.log("refresh_map: BAD BAD BAD");
     } else {
-      viewermap.setView([34.3, -118.4], 7);
+      viewermap.setView([34.3, -118.4], 6);
   }
 }
 
