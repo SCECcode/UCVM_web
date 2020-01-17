@@ -95,7 +95,7 @@ function setup_viewer()
 
 // ==> mymap <==
   mymap = L.map('UCVM_plot', { drawControl:false, layers: [esri_topographic, basemap], zoomControl:true} );
-  mymap.setView([34.3, -118.4], 7);
+  mymap.setView([34.3, -118.4], 6);
 
 // basemap selection
   var ctrl_div=document.getElementById('external_leaflet_control');
