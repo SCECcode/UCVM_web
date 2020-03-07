@@ -56,7 +56,6 @@ var UCVM_tb={
           { 'lon':-118.9475, 'lat':38.3035 },
           { 'lon':-112.5182, 'lat':33.7819 } ],
      'color':'#FFA726'},
-    ],
     {'id':5,
      'model name':'ALBACORE',
      'abb name':'albacore',
