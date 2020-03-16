@@ -86,24 +86,6 @@ $header = getHeader("Viewer");
 TODO: need a new id
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-495056-12"></script>
 -->
-    <style>
-.blue-div-icon {
-  background:blue;
-  border:2px solid rgba(0,0,0,0.5);
-  font-weight:bold;
-  text-align:center;
-  border-radius:50%;
-  line-height:30px;
-}
-.red-div-icon {
-  background:red;
-  border:2px solid rgba(0,0,0,0.5);
-  font-weight:bold;
-  text-align:center;
-  border-radius:50%;
-  line-height:30px;
-}
-    </style>
     <script type="text/javascript">
         $ = jQuery;
         var tableLoadCompleted = false;

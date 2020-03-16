@@ -39,10 +39,6 @@ var small_icon = L.icon({
 */
 
 var myIcon = L.divIcon({className: 'blue-div-icon'});
-var small_point_icon = L.AwesomeMarkers.icon({ icon: 'arrow-down', 
-                                               markerColor: 'green'});
-//var small_point_options = { icon : small_point_icon };
-var small_point_options = { icon : myIcon };
 
 var profile_icon = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'blue'});
 var profile_options = { icon: profile_icon };
