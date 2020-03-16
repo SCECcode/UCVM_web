@@ -262,12 +262,14 @@ function highlight_layergroup(group) {
           var iop=op.icon.options;
           if(iop['className']=='blue-div-icon') {
             iop['className']='red-div-icon';
+            viewermap.addLayer(group);
             } else { 
 // set it when adding this one and then reset to default
 // this has to do the awesome marker problem..
             iop.markerColor="red";
+            viewermap.addLayer(group);
+            iop.markerColor="blue";
           }
-          viewermap.addLayer(group);
           } else {
             op.color="red";
             viewermap.addLayer(group);
