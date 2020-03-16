@@ -158,7 +158,7 @@ function makeMetaPlotResultTable(note,uid,html) {
     }
     row=table.insertRow(-1);
     if(hasLayer!=0) {
-        row.innerHTML="<td style=\"width:10vw\">"+uid+"<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" id=\"ucvm_layer_"+uid+"\" title=\"toggle the layer\" onclick=toggle_a_layer(\""+uid+"\");><span class=\"glyphicon glyphicon-eye-open\"></span></button></td></td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
+        row.innerHTML="<td style=\"width:10vw\">"+uid+"<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td></td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
       } else {
         row.innerHTML="<td style=\"width:10vw\">"+uid+"<td style=\"width:4px\"></td></td><td style=\"width:24vw\">"+html+"</td><td style=\"width:24vw\">"+note+"</td>";
     }
@@ -234,7 +234,7 @@ function makeHorizontalResultTable(uid,str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
-        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layer(\""+uid+"\");><span id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
+        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
 
         var tmp;
         for(i=0; i<sz; i++) {
@@ -307,7 +307,7 @@ function makeHorizontalResultTable_row(uid,str)
     var table=document.getElementById("materialPropertyTable");
     var row=table.insertRow(-1);
     for(j=0; j< dsz; j++) {
-        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layer(\""+uid+"\");><span id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
+        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
         var datablob=blob[dkeys[j]];
         if(datablob == "")
            continue;
@@ -402,7 +402,6 @@ function processMPTable(v)
 
 function edit_mp_table()
 {
-//XXX
    window.console.log("calling edit_mp_table");
 }
 
@@ -445,7 +444,6 @@ function processMetaPlotResultTable(v)
 
 function edit_mpr_table()
 {
-//XXX
    window.console.log("calling edit_mpr_table");
 }
 

@@ -174,7 +174,7 @@ function makeModelSelection()
 ****/
 
 // put in the default region on the map
-   makeLatlngs('cvmh');
+   makeLatlngsCoordinate('cvmh');
 }
 
 function getModelColor(target_nm) {
@@ -191,7 +191,7 @@ function getModelColor(target_nm) {
   return "black";
 }
 
-function makeLatlngs(target_nm) {
+function makeLatlngsCoordinate(target_nm) {
 
    var ret=[];
    var tb=UCVM_tb['models'];

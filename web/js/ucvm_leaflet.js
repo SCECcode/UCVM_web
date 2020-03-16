@@ -22,6 +22,28 @@ var point_icon = L.AwesomeMarkers.icon({ icon: 'record', markerColor: 'blue'});
 var point_options = { icon : point_icon };
 var pointDrawer;
 
+var myIcon = L.divIcon({className: 'leaflet-div-icon'});
+
+
+/*
+var small_icon = L.icon({
+    iconUrl: 'leaf-green.png',
+    shadowUrl: 'leaf-shadow.png',
+
+    iconSize:     [38, 95], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+*/
+
+var myIcon = L.divIcon({className: 'blue-div-icon'});
+var small_point_icon = L.AwesomeMarkers.icon({ icon: 'arrow-down', 
+                                               markerColor: 'green'});
+//var small_point_options = { icon : small_point_icon };
+var small_point_options = { icon : myIcon };
+
 var profile_icon = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'blue'});
 var profile_options = { icon: profile_icon };
 var profileDrawer; //profile drawer is the same as point drawer
@@ -121,11 +143,6 @@ function setup_viewer()
 // ==> scalebar <==
   L.control.scale({metric: 'false', imperial:'false', position: 'bottomleft'}).addTo(mymap);
 
-/*** TEST popup
-  var marker=L.marker([32, -118], {icon:redMarker}).addTo(mymap);
-  marker.on('mouseover', function () {marker.bindPopup('HI', {className: 'my-popup'}).openPopup();})
-***/
-
   function onMapMouseOver(e) {
     if( in_drawing_point() ) {
       drawPoint();
@@ -166,6 +183,8 @@ function setup_viewer()
   mymap.on('mouseover', onMapMouseOver);
   mymap.on('mouseout', onMapMouseOut);
 
+  L.marker([-120,32], {icon: myIcon}).addTo(mymap);
+
 
 // ==> point drawing control <==
   pointDrawer = new L.Draw.Marker(mymap, point_options);
@@ -188,17 +207,17 @@ function setup_viewer()
         var loclist=latlngs[0];
         var sw=loclist[0];
         var ne=loclist[2];
-        add_bounding_area_layer(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
-    }
-    if (type === 'marker') {  // can be a point or a profile
+        if(sw != undefined && ne != undefined) {
+          add_bounding_area_layer(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
+        }
+    } else if (type === 'marker') {  // can be a point or a profile
         var sw=layer.getLatLng();
         if( in_drawing_profile() ) {
           add_bounding_profile_layer(layer,sw['lat'],sw['lng']);
           } else {
             add_bounding_point_layer(layer,sw['lat'],sw['lng']);
         }
-    }
-    if (type === 'polyline') {  // tracks lines
+    } else if (type === 'polyline') {  // tracks lines
         var latlngs=layer.getLatLngs();
         var sw=latlngs[0];
         var ne=latlngs[1];
@@ -238,32 +257,59 @@ function makeModelLayer(latlngs,color) {
   return layer;
 }
 
-function addAreaLayer(latA,lonA,latB,lonB) {
+function addAreaLayerGroup(latA,lonA,latB,lonB) {
   var bounds = [[latA, lonA], [latB, lonB]];
   var layer =new L.rectangle(bounds,rectangle_options);
-  mymap.addLayer(layer);
-  return layer;
+  var group = L.layerGroup([layer]);
+  mymap.addLayer(group);
+  return group;
 }
 
-function addPointLayer(lat,lon) {
+function addPointsLayerGroup(latlngs) {
+  var cnt=latlngs.length;
+  if(cnt < 1)
+    return null;
+  var group = L.layerGroup();
+  var alatlngs=[];
+  var i;
+  for(i=0;i<cnt;i++) {
+     var item=latlngs[i];
+     var lat=parseFloat(item['lat']);
+     var lon=parseFloat(item['lon']);
+     var bounds = [lat,lon ];
+     alatlngs[alatlngs.length]=(bounds);
+     var layer = L.marker(bounds, small_point_options);
+     var icon = layer.options.icon;
+     icon.options.iconSize = [10, 10];
+     layer.setIcon(icon);
+     group.addLayer(layer);
+  }
+  mymap.addLayer(group);
+  return group;
+}
+
+function addPointLayerGroup(lat,lon) {
   var bounds = [lat, lon];
   var layer = L.marker(bounds,point_options);
-  mymap.addLayer(layer);
-  return layer;
+  var group = L.layerGroup([layer]);
+  mymap.addLayer(group);
+  return group;
 }
 
-function addProfileLayer(lat,lon) {
+function addProfileLayerGroup(lat,lon) {
   var bounds = [lat, lon];
   var layer = new L.marker(bounds,profile_options);
-  mymap.addLayer(layer);
-  return layer;
+  var group = L.layerGroup([layer]);
+  mymap.addLayer(group);
+  return group;
 }
 
-function addLineLayer(latA,lonA,latB,lonB) {
+function addLineLayerGroup(latA,lonA,latB,lonB) {
   var bounds = [[latA, lonA], [latB, lonB]];
   var layer = new L.polyline(bounds,line_options);
-  mymap.addLayer(layer);
-  return layer;
+  var group = L.layerGroup([layer]);
+  mymap.addLayer(group);
+  return group;
 }
 
 function switchBaseLayer(layerString) {

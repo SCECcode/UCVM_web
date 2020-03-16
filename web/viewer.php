@@ -86,6 +86,24 @@ $header = getHeader("Viewer");
 TODO: need a new id
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-495056-12"></script>
 -->
+    <style>
+.blue-div-icon {
+  background:blue;
+  border:2px solid rgba(0,0,0,0.5);
+  font-weight:bold;
+  text-align:center;
+  border-radius:50%;
+  line-height:30px;
+}
+.red-div-icon {
+  background:red;
+  border:2px solid rgba(0,0,0,0.5);
+  font-weight:bold;
+  text-align:center;
+  border-radius:50%;
+  line-height:30px;
+}
+    </style>
     <script type="text/javascript">
         $ = jQuery;
         var tableLoadCompleted = false;
@@ -186,13 +204,13 @@ TODO: need a new id
             </div>
             <div class="row"> <!-- pull-out -->
                 <div class="col input-group">
-                    <ul id="sidebar" class="navigation">
+                    <ul id="sidebar" class="navigation pl-2 pb-2 pr-1" style="background:whitesmoke">
 
                         <li id='point' class='navigationLi' style="display:none">
                             <div id='pointMenu' class='menu'>
                                 <div class="row mt-2">
                                     <div class="col-12">
-                                       <p>Pick a point on the map, or enter latitudes and longitudes below and the Z value or upload a file with latlongs and matching Z values.</p>
+                                       <p>Pick a point on the map, or enter latitude, longitude and Z value below or upload a file with LatLngs and matching Z values.</p>
                                     </div>
                                 </div>
                                 <div class="row d-flex">
@@ -241,6 +259,7 @@ TODO: need a new id
                                      <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
                                      <button id="fileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
                                      <span class="glyphicon glyphicon-file"></span> Select file to use</button>
+<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalfile"><span class="glyphicon glyphicon-info-sign"></span></button>
                                      <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                 </div>
                             </div>
@@ -250,7 +269,7 @@ TODO: need a new id
                             <div id='profileMenu' class='menu'>
                                 <div class="row mt-2">
                                     <div class="col-12">
-                                        <p>Pick a profile point on the map or enter latitudes and longitudes below.</p>
+                                        <p>Pick a profile point on the map or enter latitude and longitude below.</p>
                                     </div>
                                 </div>
                                 <div class="row d-flex">
@@ -598,6 +617,36 @@ TODO: need a new id
       <div class="modal-body" id="modalzmBody">
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
           <div class="col-12" id="ZModeTable-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: ModelType -->
+<div class="modal" id="modalfile" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalfileDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalfileContent">
+      <!--Body-->
+      <div class="modal-body" id="modalfileBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+
+          <div class="col-12" id="file-container">
+<p>
+Format of input file :
+<pre>
+      lon1  lat1  z1
+      lon2  lat2  z1
+</pre>
+
+</p>
+          </div>
         </div>
       </div>
       <div class="modal-footer justify-content-center">

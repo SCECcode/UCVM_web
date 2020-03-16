@@ -31,6 +31,25 @@ function getRnd() {
     return rnd;
 }
 
+// [[lon1,lat1,z1],...,[lonn,latn,zn]]
+// make sure it is unique
+function makeLatlngs(darray) {
+   var cnt=darray.length;
+   var latlngs=[];
+   var i;
+   for(i=0;i<cnt;i++) {
+      var item=darray[i];
+      var lon=item[0];
+      var lat=item[1];
+      var z=item[2];
+      var nitem= {"lat":lat,"lon":lon}
+      if(latlngs.indexOf(nitem) == -1) {
+        latlngs.push(nitem);
+      }
+   }
+   return latlngs;
+}
+
 /*
    first latlon has to be sw side 
    second latlons is the ne side of the rectangle

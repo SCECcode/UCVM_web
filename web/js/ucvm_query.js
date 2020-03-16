@@ -3,6 +3,9 @@
 
 ***/
 
+// if there are too many file points, do not generate the mp layer
+var MAX_FILEPOINTS=200;
+
 function _getZrange(modelstr)
 {
     var ret="none";
@@ -17,9 +20,7 @@ function _getZrange(modelstr)
 }
 //
 // get a data array
-//    [[lat1,lon1,z1],...,[latn,lonn,zn]]
-// compose a json structure:
-//    { "1": { "lat":latval1,"lon":lonval1; "z":z1 },
+//    [[lon1,lat1,z1],...,[lonn,latn,zn]]
 //     ...,
 //      "n": { "lat":latvaln,"lon":lonvaln; "z":zn } }
 // get the material properties of the latlon locations
@@ -67,12 +68,25 @@ function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk
             var str=processSearchResult("getMaterialPropertyByLatlonChunk",uid);
 
             getMaterialPropertyByLatlonList(uid,dataarray, current_chunk+1, total_chunks, chunk_step);
+            if(current_chunk==0) { // first one, must have uid
+              if( dataarray.length < MAX_FILEPOINTS) {
+                set_point_UID(uid);    
+                add_bounding_file_points(uid,dataarray);
+              }
+            }
+
             if(current_chunk==(total_chunks-1)) { // last one
-               var mpname=str['mp'];
+              var mpname=str['mp'];
 // create a download link to the actual data file
-               insertMetaPlotResultTable("material property",uid, {"materialproperty":mpname});
-               document.getElementById('spinIconForListProperty').style.display = "none";
-               reset_point_UID();
+              var zstr=getZModeNameWithType(zmodestr);
+              var mstr=getModelNameWithType(modelstr);
+              var note="Material Property with "+mstr + " search by "+zstr;
+              insertMetaPlotResultTable(note,uid, {"materialproperty":mpname});
+              document.getElementById('spinIconForListProperty').style.display = "none";
+              if( dataarray.length < MAX_FILEPOINTS) {
+                reset_point_UID();
+                toggle_a_layergroup(uid);
+              }
             }
        }
     }

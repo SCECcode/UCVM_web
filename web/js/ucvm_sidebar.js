@@ -150,6 +150,7 @@ function sidebar_area_slideOut() {
 }
 
 function markAreaLatlon() {
+  window.console.log("in markArea..");
   if(skipPopup == false) { // enable marking
     clear_popup();
     skipPopup = true;
@@ -162,6 +163,7 @@ function markAreaLatlon() {
 }
 
 function reset_markAreaLatlon() {
+  window.console.log("in reset markArea..");
   skipPopup = false;
   drawing_area=false;
   skipArea();
