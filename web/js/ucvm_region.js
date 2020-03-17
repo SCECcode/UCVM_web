@@ -272,7 +272,7 @@ function getModelNameWithType(t) {
          var target=tlist[j];
          if(target['abb name'] == mlist[i]) {
             rt=rt+target['model name'];
-            if(i>0 && i<mcnt)
+            if(mcnt>1 && i!=(mcnt-1))
                rt=", "+rt;
             break;
          }
