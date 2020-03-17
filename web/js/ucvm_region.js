@@ -259,17 +259,26 @@ function getModelNameWithID(id) {
 }
 
 function getModelNameWithType(t) {
-   var tb=UCVM_tb['models'];
-   var cnt=tb.length;
-   var i;
-   for(i=0; i<cnt;i++) {
-      var model=tb[i];
-      if(model['abb name'] == t) {
-        return model['model name'];
+   // t could be multiple, "albacore,cvms"
+   var t="";
+   var mlist=t.split(',');
+   var mcnt=mlist.length;
+   var tlist=UCVM_tb['models'];
+   var tcnt=tlist.length;
+   var i,j;
+
+   for(i=0;i<mcnt;i++) {
+      for(j=0; j<tcnt;j++) {
+         var target=tb[j];
+         if(target['abb name'] == mlist[i]) {
+            t=t+target['model name'];
+            break;
+         }
       }
    }
-   return undefined;
-
+   if(t=="")
+       t=undefined;
+   return t;
 }
 function getZModeNameWithType(t) {
    var tb=UCVM_tb['zmodes'];

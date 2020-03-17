@@ -117,6 +117,15 @@ TODO: need a new id
 
 
 <div class="container main">
+
+    <div class="spinDialog" style="position:absolute;top:50%;left:50%; z-index:9999;">
+        <div id="spinIconForProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+        <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+        <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+        <div id="spinIconForLine" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i> </div>
+        <div id="spinIconForArea" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+    </div>
+
     <div class="row">
         <div class="col-12">
             <p>The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows user query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.  See the <a href="guide.php">user guide</a> for more details and site usage instructions.</p>
@@ -186,7 +195,7 @@ TODO: need a new id
             </div>
             <div class="row"> <!-- pull-out -->
                 <div class="col input-group">
-                    <ul id="sidebar" class="navigation pl-2 pb-2 pr-1" style="background:whitesmoke">
+                    <ul id="sidebar" class="navigation pl-2 pb-2 pr-1" style="background:whitesmoke;">
 
                         <li id='point' class='navigationLi' style="display:none">
                             <div id='pointMenu' class='menu'>
@@ -227,13 +236,13 @@ TODO: need a new id
                                                class="form-control mt-1" style="display:none">
 
                                     </div>
-                                    <div class="col-1 pr-0">
+                                    <div class="col-0 pr-0">
                                         <button id="pointBtn" type="button" title="query with latlon"
                                                 class="btn btn-default ucvm-small-btn " onclick="processByLatlonForPoint()">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-1 pr-0">
+                                    <div class="col-0 pr-0">
                                         <div id="spinIconForProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                 </div>
@@ -297,7 +306,7 @@ TODO: need a new id
                                                onfocus="this.value=''" 
                                                class="form-control mt-1" style="display:none">
                                     </div>
-                                    <div class="col-1 pr-0">
+                                    <div class="col-0 pr-0">
                                         <button id="profileBtn" type="button" title="query with latlon"
                                                 class="btn btn-default ucvm-small-btn " onclick="processByLatlonForProfile()">
                                             <span class="glyphicon glyphicon-search"></span>
@@ -375,7 +384,7 @@ TODO: need a new id
                                                onfocus="this.value=''" 
                                                class="form-control mt-1" style="display:none">
                                     </div>
-                                    <div class="col-1 pr-0">
+                                    <div class="col-0 pr-0">
                                         <button id="areaBtn" type="button" title="query with latlon"
                                                 class="btn btn-default ucvm-small-btn " onclick="processByLatlonForLine()">
                                             <span class="glyphicon glyphicon-search"></span>
@@ -446,7 +455,7 @@ TODO: need a new id
                                                onfocus="this.value=''" 
                                                class="form-control mt-1" style="display:none">
                                     </div>
-                                    <div class="col-1 pr-0">
+                                    <div class="col-0 pr-0">
                                         <button id="areaBtn" type="button" title="query with latlon"
                                                 class="btn btn-default ucvm-small-btn " onclick="processByLatlonForArea()">
                                             <span class="glyphicon glyphicon-search"></span>

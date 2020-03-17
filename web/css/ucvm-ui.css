@@ -1,5 +1,11 @@
 /* required styles */
 
+@keyframes glowing {
+0% { color: #990000; box-shadow: 0 0 3px #D5D5D5; }
+50% { color: #D5D5D5; box-shadow: 0 0 10px #99000; }
+100% { color: #990000; box-shadow: 0 0 3px #D5D5D5; }
+}
+
 .blue-div-icon {
   background:#007bff;
   border:2px solid rgba(0,0,0,0.5);
@@ -72,15 +78,26 @@ th {text-align: left; background: #D5D5D5;}
         color: #DC3545;
         }
 
+.glyphicon.glyphicon-search {
+    font-size: 28px;
+}
+
+.glyphicon.glyphicon-cog {
+    font-size: 40px;
+}
+
+.pick-btn {
+       animation: glowing 5000ms infinite;
+      }
+
 .ucvm-small-btn {
           background: transparent; 
-          color: #990000;
+          color: #DC3545;
           border: none; 
           display: inline-block;
           }
 
 .ucvm-small-btn:hover {
-          background: #D5D5D5; 
           color: #990000;
           border: none;
           display: inline-block;
