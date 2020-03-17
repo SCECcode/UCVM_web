@@ -260,7 +260,7 @@ function getModelNameWithID(id) {
 
 function getModelNameWithType(t) {
    // t could be multiple, "albacore,cvms"
-   var t="";
+   var rt="";
    var mlist=t.split(',');
    var mcnt=mlist.length;
    var tlist=UCVM_tb['models'];
@@ -271,14 +271,17 @@ function getModelNameWithType(t) {
       for(j=0; j<tcnt;j++) {
          var target=tlist[j];
          if(target['abb name'] == mlist[i]) {
-            t=t+target['model name'];
+            rt=rt+target['model name'];
             break;
+         }
+         if(mcnt > i) {
+             rt=rt+", ";
          }
       }
    }
-   if(t=="")
-       t=undefined;
-   return t;
+   if(rt=="")
+       rt=undefined;
+   return rt;
 }
 function getZModeNameWithType(t) {
    var tb=UCVM_tb['zmodes'];

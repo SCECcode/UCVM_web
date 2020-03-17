@@ -153,7 +153,7 @@ function makeMetaPlotResultTable(note,uid,html) {
       table.deleteRow(0); // delete the holdover
 //label
       var row=table.insertRow(-1);
-      row.innerHTML="<th style=\"width:10vw\"><b>UID</b></th><th style=\"width:4vw\"></th><th style=\"width:24vw\"><b>Links</b></th><th style=\"width:24vw\"><b>Description</b></th>";
+      row.innerHTML="<th style=\"width:10vw\"><b>UID</b></th><th style=\"width:2vw\"></th><th style=\"width:24vw\"><b>Links</b></th><th style=\"width:24vw\"><b>Description</b></th>";
 //
     }
     row=table.insertRow(-1);
