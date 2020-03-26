@@ -538,7 +538,7 @@ TODO: need a new id
                               <div>
                                 <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
                                     <ul id='processMPTableList' class="dropdown-menu list-inline" role="menu">
-                                        <li data-id='s'>Save All</li>
+                                        <li data-id='s' hidden >Save All</li>
                                         <li id='mpCollapseLi' data-id='c'>Collapse</li>
                                     </ul>
                               </div></td>
@@ -567,7 +567,7 @@ TODO: need a new id
                               <div>
                                 <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
                                     <ul id='processMetaPlotResultTableList' class="dropdown-menu list-inline" role="menu">
-                                        <li data-id='s'>Save All</li>
+                                        <li data-id='s' hidden >Save All</li>
                                         <li id='mprCollapseLi' data-id='c'>Collapse</li>
                                         <li data-id='p'>plot Depth Profile</li>
                                     </ul>
