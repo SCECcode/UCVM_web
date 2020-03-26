@@ -444,6 +444,9 @@ function processMetaPlotResultTable(v)
     case 's':
       save_mpr_table();
       break;
+    case 'p':
+      $("#profileBtn").click();
+      break;
   }
 }
 

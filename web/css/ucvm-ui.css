@@ -70,7 +70,7 @@ th {text-align: left; background: #D5D5D5;}
           }
 
 .ucvm-top-small-btn:hover {
-          color: #990000;
+          color: #DC3545;
           display: inline-block;
           }
 
@@ -79,11 +79,11 @@ th {text-align: left; background: #D5D5D5;}
         }
 
 .glyphicon.glyphicon-search {
-    font-size: 28px;
+    font-size: 25px;
 }
 
 .glyphicon.glyphicon-cog {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .pick-btn {
@@ -92,13 +92,13 @@ th {text-align: left; background: #D5D5D5;}
 
 .ucvm-small-btn {
           background: transparent; 
-          color: #DC3545;
+          color: #990000;
           border: none; 
           display: inline-block;
           }
 
 .ucvm-small-btn:hover {
-          color: #990000;
+          color: #DC3545;
           border: none;
           display: inline-block;
           }

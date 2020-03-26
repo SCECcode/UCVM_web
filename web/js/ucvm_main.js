@@ -69,6 +69,11 @@ jQuery(document).ready(function() {
       processMetaPlotResultTable(v);
   });
 
+  // setup the iframe for profile pageh
+  $("#profileBtn").click(function(e) {
+      plotly_profile_run();
+  });
+
 }) // end of MAIN
 
 

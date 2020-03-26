@@ -22,6 +22,9 @@ function dismiss_sidebar() {
   if(profile_sidebar) profileClick();
   if(line_sidebar) lineClick();
   if(area_sidebar) areaClick();
+
+  var sidebarptr=$('#sidebar');
+  sidebarptr.css("display","none");
 }
 
 function refresh_sidebar() {
@@ -30,6 +33,9 @@ function refresh_sidebar() {
   reset_profile_latlons();
   reset_line_latlons();
   reset_area_latlons();
+
+  var sidebarptr=$('#sidebar');
+  sidebarptr.css("display","none");
 }
 
 /***********************************************************/
@@ -146,6 +152,7 @@ function sidebar_area_slideOut() {
   var sidebarptr=$('#sidebar');
   panelptr.css("display","");
   sidebarptr.css("display","");
+  sidebarptr.css("background","whitesmoke");
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
 
@@ -266,6 +273,7 @@ function sidebar_point_slideOut() {
   var sidebarptr=$('#sidebar');
   panelptr.css("display","");
   sidebarptr.css("display","");
+  sidebarptr.css("background","whitesmoke");
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
 
@@ -414,6 +422,7 @@ function sidebar_line_slideOut() {
   var sidebarptr=$('#sidebar');
   panelptr.css("display","");
   sidebarptr.css("display","");
+  sidebarptr.css("background","whitesmoke");
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
 
@@ -543,6 +552,7 @@ function sidebar_profile_slideOut() {
   var sidebarptr=$('#sidebar');
   panelptr.css("display","");
   sidebarptr.css("display","");
+  sidebarptr.css("background","whitesmoke");
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
 

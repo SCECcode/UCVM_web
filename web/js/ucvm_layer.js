@@ -52,7 +52,7 @@ var ucvm_point_list=[];
 // { { "uid":uid, "latlngs":[{"lat":a,"lon":b},...,{"lat":c,"lon":d}]}
 var ucvm_file_points_list=[];
 
-// depth profile 
+// depth profile, also track the material property blob 
 // { { "uid":uid, "latlngs":[{"lat":a,"lon":b}]}
 var ucvm_profile_list=[];
 
@@ -303,6 +303,17 @@ function hide_layergroup(group) {
     }
 }
 
+function isLayergroupHigh(uid) {
+   var found=find_layer_from_list(uid);
+   if(found) {
+      var h=found['highlight'];
+      if(h==EYE_HIGHLIGHT) {
+        return 1;
+      }
+   }
+   return 0;
+}
+
 // highlight = 0, 1, 2, => normal, highlight, hide
 function toggle_a_layergroup(uid) {
    var i;
@@ -401,7 +412,6 @@ function remove_bounding_point_layer(uid) {
 }
 
 function add_bounding_profile(uid,a,b) {
-  window.console.log("adding. bounding profile...\n");
   var group=addProfileLayerGroup(a,b);
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b}]};
   ucvm_profile_list.push(tmp);

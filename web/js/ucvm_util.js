@@ -134,9 +134,14 @@ function ckExist(url) {
   }
 }
 
-function makeMetaFname(url) {
-//  var s=url.split('/').pop();
-//  return s+"_meta.json";
+function makeVProfileMetaFname(uid) {
+  var s=uid+"vertical_meta.json";
+  return s;
+}
+
+function makeVProfileMPFname(uid) {
+  var s=uid+"vertical_matprops.json";
+  return s;
 }
 //
 // allow multiple bin files from ucvmc's plotting utilities

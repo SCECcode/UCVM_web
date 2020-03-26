@@ -6,6 +6,18 @@
 // if there are too many file points, do not generate the mp layer
 var MAX_FILEPOINTS=200;
 
+//
+function getTextFile(url) {
+  var result = null;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", url, false);
+  xmlhttp.send();
+  if (xmlhttp.status==200) {
+    result = xmlhttp.responseText;
+  }
+  return result;
+}
+
 function _getZrange(modelstr)
 {
     var ret="none";

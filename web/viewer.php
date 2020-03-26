@@ -82,6 +82,9 @@ $header = getHeader("Viewer");
     <script type="text/javascript" src="js/ucvm_sidebar.js"></script>
     <script type="text/javascript" src="js/ucvm_state.js"></script>
 
+    <!-- plotly profile -->
+    <script type="text/javascript" src="js/ucvm_profile_util.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics o
 TODO: need a new id
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-495056-12"></script>
@@ -111,6 +114,30 @@ TODO: need a new id
         });
 
     </script>
+<style>
+.full_modal-dialog {
+  width: 98%;
+  height: 92%;
+  min-width: 98%;
+  min-height: 92%;
+  max-width: 98%;
+  max-height: 92%;
+  padding: 0;
+}
+
+.full_modal-content {
+  height: 99%;
+  min-height: 99%;
+  max-height: 99%;
+}
+
+.full_modal-body {
+  height: 99%;
+  min-height: 99%;
+  max-height: 99%;
+}
+
+</style>
 </head>
 <body>
 <?php echo $header; ?>
@@ -137,6 +164,11 @@ TODO: need a new id
             <div style="display:none;" id="external_leaflet_control"></div>
         </div>
     </div>
+
+<div>
+<button id="profileBtn" onclick="" class="btn ucvm-small-btn" data-toggle="modal" data-target="#modalProfile" style="display:none"> </button>
+</div>
+
 
     <div id="content-container" class="row">
         <div id="control-container" class="col-5">
@@ -195,7 +227,7 @@ TODO: need a new id
             </div>
             <div class="row"> <!-- pull-out -->
                 <div class="col input-group">
-                    <ul id="sidebar" class="navigation pl-2 pb-2 pr-1" style="background:whitesmoke;">
+                    <ul id="sidebar" class="navigation pl-2 pb-2 pr-1" style="background:whitesmoke;display:none">
 
                         <li id='point' class='navigationLi' style="display:none">
                             <div id='pointMenu' class='menu'>
@@ -537,6 +569,7 @@ TODO: need a new id
                                     <ul id='processMetaPlotResultTableList' class="dropdown-menu list-inline" role="menu">
                                         <li data-id='s'>Save All</li>
                                         <li id='mprCollapseLi' data-id='c'>Collapse</li>
+                                        <li data-id='p'>plot Profile</li>
                                     </ul>
                               </div></td>
                         </tr>
@@ -648,5 +681,35 @@ Format of input file :
   </div>
 </div> <!--Modal: Name-->
 
+<!--Modal: profileIfram -->
+<div class="modal" id="modalProfile" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalProfileDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalProfileContent">
+      
+      <!--Body-->
+      <div class="modal-body" id="modalProfileBody">
+        <div id="profile-iframe-container" class="row col-12" style="overflow:hidden; border:2px solid green;">
+
+<iframe id="viewProfileIfram" src="" height="0" width=100% frameborder="2" allowfullscreen></iframe>
+
+        </div>
+      </div>
+
+<!--- other style
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal">Close</button>
+        <button id="expandProfileBtn" class="btn btn-outline-primary btn-md" type="button" onclick="toggleExpandProfileView(this)">Expand</button>
+      </div> 
+--->
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+    </div> <!--Content-->
+   </div>
+</div> <!--Modal: Name-->
 </body>
 </html>
