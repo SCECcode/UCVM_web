@@ -569,7 +569,7 @@ TODO: need a new id
                                     <ul id='processMetaPlotResultTableList' class="dropdown-menu list-inline" role="menu">
                                         <li data-id='s'>Save All</li>
                                         <li id='mprCollapseLi' data-id='c'>Collapse</li>
-                                        <li data-id='p'>plot Profile</li>
+                                        <li data-id='p'>plot Depth Profile</li>
                                     </ul>
                               </div></td>
                         </tr>

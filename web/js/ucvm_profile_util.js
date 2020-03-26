@@ -8,7 +8,9 @@ function plotly_profile_run(){
 
    for(i=0;i<sz;i++) {
      var d=readVProfileDataFile(plist[i]);
-     data.push(d);
+     if(d) {
+       data.push(d);
+     }
    }
 
    var ulist=JSON.stringify(plist);
@@ -33,10 +35,9 @@ function get_all_highlight_profile_list() {
      for(i=0;i<cnt;i++) {
        item=ucvm_profile_list[i];
        uid=item['uid']; 
-       if (isLayergroupHigh(uid)) {
+       // it is highlighted 
+       if(isLayergroupHigh(uid)) {
          plist.push(uid);
-// XXX should be somewhere else
-         readVProfileDataFile(uid);
        }
      }
    }
@@ -54,9 +55,12 @@ function readVProfileDataFile(uid) {
   var metajson=JSON.parse(fmetablob);
   var fmpblob=getTextFile(fmp);
   var mpjson=JSON.parse(fmpblob);
-
-  var data= { uid:uid, mp:mpjson, meta:metajson };
-  return data;
+  if( "depth" in metajson ) {
+    var data= { uid:uid, mp:mpjson, meta:metajson };
+    return data;
+    } else {
+    return null;
+  }
 }
 
 function send_to_profileIfram(data) {
