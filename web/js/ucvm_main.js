@@ -59,6 +59,10 @@ jQuery(document).ready(function() {
       reset_presets();
   });
 
+  $("#areaDataTypeTxt").change(function () {
+      reset_presets();
+  });
+
   $('#processMPTableList li').click(function() {
       var v=$(this).data('id');
       processMPTable(v);

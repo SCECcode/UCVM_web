@@ -6,6 +6,25 @@
 // if there are too many file points, do not generate the mp layer
 var MAX_FILEPOINTS=200;
 
+function getInstallModelList() {
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("getInstallModelList");
+            makeInstallModelList(str);
+       }
+    }
+    xmlhttp.open("GET","php/getInstallModelList.php", true);
+    xmlhttp.send();
+}
 //
 function getTextFile(url) {
   var result = null;
@@ -62,6 +81,7 @@ function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chun
 
 // to be called by getMaterialPropertyByLatlonList
 function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk, total_chunks, chunk_step) {
+    var xmlhttp;
     // extract content of a file
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
@@ -108,6 +128,7 @@ function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk
 
 // get material property blob by lat lon z zmode
 function getMaterialPropertyByLatlon() {
+    var xmlhttp;
     var latstr=document.getElementById("pointFirstLatTxt").value;
     var lonstr=document.getElementById("pointFirstLonTxt").value;
     var zstr=document.getElementById("pointZTxt").value;
@@ -158,6 +179,7 @@ function getMaterialPropertyByLatlon() {
 }
 
 function plotCrossSection() {
+    var xmlhttp;
     var firstlatstr=document.getElementById("lineFirstLatTxt").value;
     var firstlonstr=document.getElementById("lineFirstLonTxt").value;
     var zstr=document.getElementById("lineZTxt").value;
@@ -201,7 +223,7 @@ function plotCrossSection() {
 	    if (str != undefined) { 
                 var zstr=getZModeNameWithType(zmodestr);
                 var mstr=getModelNameWithType(modelstr);
-                var note="Vertical "+zstr+" Cross Section with "+mstr;
+                var note="Vertical "+zstr+" Cross Section("+datatypestr+") with "+mstr;
                 insertMetaPlotResultTable(note,uid,str);
             }
 
@@ -214,6 +236,7 @@ function plotCrossSection() {
 }
 
 function plotVerticalProfile() {
+    var xmlhttp;
     var latstr=document.getElementById("profileFirstLatTxt").value;
     var lonstr=document.getElementById("profileFirstLonTxt").value;
     var zstr=document.getElementById("profileZTxt").value;
@@ -266,6 +289,7 @@ function plotVerticalProfile() {
 
 
 function plotHorizontalSlice() {
+    var xmlhttp;
     var firstlatstr=document.getElementById("areaFirstLatTxt").value;
     var firstlonstr=document.getElementById("areaFirstLonTxt").value;
     var zstr=document.getElementById("areaZTxt").value;
@@ -309,7 +333,7 @@ function plotHorizontalSlice() {
             if (str != undefined) { 
                 var zstr=getZModeNameWithType(zmodestr);
                 var mstr=getModelNameWithType(modelstr);
-                var note="Horizontal Slice by "+zstr+" with "+mstr;
+                var note="Horizontal Slice("+datatypestr+") by "+zstr+" with "+mstr;
                 insertMetaPlotResultTable(note,uid,str);
             }
 

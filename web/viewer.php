@@ -463,6 +463,7 @@ TODO: need a new id
                                                <option value="vp">vp</option>
                                                <option value="density">density</option>
                                                <option value="poisson">poisson</option>
+                                               <option value="vs30">vs30</option>
                                         </select>
                                     </div>
                                     <div class="col-5 pr-0">

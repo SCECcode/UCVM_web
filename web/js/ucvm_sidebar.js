@@ -63,10 +63,19 @@ function areaClick() {
 
 function set_area_latlons_preset() {
    var t= document.getElementById("zModeType").value;
+   var tt= document.getElementById("areaDataTypeTxt").value;
+   var areazptr=$('#areaZTxt');
+   if(tt == "vs30" ) {
+      areazptr.val(0);
+      areazptr.css("display","none");
+      return;
+   }
    if(t == "d") {
-      $( "#areaZTxt" ).val(1000);
+      areazptr.val(1000);
+      areazptr.css("display","");
       } else {
-          $( "#areaZTxt" ).val(-1000);
+        areazptr.val(-1000);
+        areazptr.css("display","");
    }
 }
 

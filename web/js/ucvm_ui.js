@@ -20,6 +20,10 @@
 var ucvm_metaplottb_list=[];
 
 function setup_model() {
+    getInstallModelList();
+}
+
+function setup_modeltype() {
    var tb=makeModelTable();
    var html=document.getElementById('modelTable-container');
    html.innerHTML=tb;

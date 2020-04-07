@@ -81,7 +81,7 @@ function fixLineOrdering(firstlat, firstlon, secondlat, secondlon) {
     return firstAreaOrdering(firstlat, firstlon, secondlat, secondlon);
 }
 
-function processSearchResult(rlist,uid) {
+function processSearchResult(rlist,uid=0) {
     if (rlist == 'plotHorizontalSlice') {
         dstr = '[data-side=\"'+"horizontalSlice"+uid+'\"]';
         str = $(dstr).data('params');
@@ -104,6 +104,11 @@ function processSearchResult(rlist,uid) {
     }
     if (rlist == 'getMaterialPropertyByLatlonList') {
         dstr = '[data-side=\"'+"materialPropertyByLatlonList"+uid+'\"]';
+        str = $(dstr).data('params');
+    }
+
+    if (rlist == 'getInstallModelList') {
+        dstr = '[data-side=\"'+"installModelList"+'\"]';
         str = $(dstr).data('params');
     }
 

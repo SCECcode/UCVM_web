@@ -5,6 +5,7 @@
 ****/
 
 // information on model 
+var UCVM_installed=[];
 
 var UCVM_tb={
 "models": [
@@ -88,6 +89,69 @@ var UCVM_tb={
                {'lon':-117.147200,'lat':33.600000},
                {'lon':-117.147200,'lat':33.300000},
                ],
+     'color':'#0000FF'},
+    {'id':6,
+     'model name':'CenCalVM',
+     'abb name':'cencal',
+     'path name':'cencal',
+     'model filename':'cencal080.tar.gz',
+     'description':'USGS Bay Area (CenCal) Velocity Model',
+     'coordinates': [
+        {'lon':-120.644051,'lat':37.050062},
+        {'lon':-121.922036,'lat':36.320331},
+        {'lon':-123.858493,'lat':38.424179},
+        {'lon':-122.562365,'lat':39.174505},
+        {'lon':-120.644051,'lat':37.050062}
+               ],
+     'color':'#FF00FF'},
+    {'id':7,
+     'model name':'1D',
+     'abb name':'1d',
+     'path name':'1d',
+     'model filename':'1d',
+     'description':'UCVM 1D Background Model (everywhere)',
+     'coordinates': [],
+     'color':'#FF000F'},
+    {'id':8,
+     'model name':'CCA',
+     'abb name':'cca',
+     'path name':'cca',
+     'model filename':'cca.tar.gz',
+     'description':'CCA-06 Central California Seismic Velocity Model',
+     'coordinates': [
+          { 'lon': -122.950, 'lat': 36.598 },
+          { 'lon':-118.296, 'lat':39.353 },
+          { 'lon':-115.445, 'lat':36.038 },
+          { 'lon':-120.000, 'lat':33.398 },
+               ],
+     'color':'#0000FF'},
+    {'id':9,
+     'model name':'CS173h',
+     'abb name':'cs173h',
+     'path name':'cs173h',
+     'model filename':'cs173h.tar.gz',
+     'description':'CS173-H CyberShake Study 17.3 Velocity Model with Harvard Basins',
+     'coordinates': [
+         { 'lon':-127.65648, 'lat':37.08416 },
+         { 'lon':-116.48562, 'lat':31.26643 },
+         { 'lon':-112.92896, 'lat':35.33518 },
+         { 'lon':-124.51032, 'lat':41.45284 },
+               ],
+     'color':'#00FFFF'},
+    ],
+"maps": [
+    {'id':1,
+     'map name':'UCVM',
+     'abb name':'ucvm',
+     'path name':'ucvm',
+     'map filename':'ucvm.e',
+     'description':'UCVM Topography and Vs30 Coverage Region',
+     'coordinates': [
+        {'lon':-129.25,'lat':41},
+        {'lon':-117.4199,'lat':28.0268},
+        {'lon':-110.3864,'lat':31.80259},
+        {'lon':-121.5606,'lat':45.4670}
+               ],
      'color':'#FF0000'},
     ],
 "fileformats": [
@@ -138,33 +202,89 @@ var UCVM_tb={
     ]
 };
 
+// str is a blob { 'models': ['cvmh','cvms5'] }
+function makeInstallModelList(str) {
+  var blob;
+  if( str == undefined || str == "" ) {
+     window.console.log("ERROR: no return result");
+     return "";
+  }
+  if( typeof str === 'string') {
+     blob=JSON.parse(str);
+     } else {
+       blob=str;
+  }
+  var mlist=blob['models'];
+  var cnt=mlist.length;
+  var i;
+  for(i=0;i<cnt;i++) {
+    var item=mlist[i];
+    UCVM_installed.push(item);
+  }
+  setup_modeltype();
+}
+
+function isModelInstalled(pname) {
+  var cnt=UCVM_installed.length;
+  var i=0;
+  for(i=0; i<cnt;i++) {
+     if(UCVM_installed[i]==pname) {
+        return 1;
+     }
+  }
+  return 0;
+}
+
 function makeModelSelection()
 {
    var tb=UCVM_tb['models'];
    var cnt=tb.length;
    var i;
+   var option;
    for(i=0; i<cnt; i++) {
      var item=tb[i];
      var color=item['color'];
      var aname=item['abb name'];
      var mname=item['model name'];
-     var sel=document.getElementById('modelType');
-     var option = document.createElement("option");
-     option.text = mname;
-     option.value= aname;
-     sel.add(option);
+     var pname=item['path name'];
+     // check the model directory to make sure it exists before adding 
+     // the option
+     if(isModelInstalled(pname)) {
+        var sel=document.getElementById('modelType');
+        option = document.createElement("option");
+        option.text = mname;
+        option.value= aname;
+        sel.add(option);
+     }
    } 
    // special case
-   var option = document.createElement("option");
+   var sel=document.getElementById('modelType');
+   option = document.createElement("option");
    option.text = "-- Advanced --";
    option.setAttribute("disabled", true);
    option.value= "disabled";
    sel.add(option);
 
-   option = document.createElement("option");
-   option.text = "CVM-S4.26.M01,CVM-H v15.1";
-   option.value= "cvmsi,cvmh"; 
-   sel.add(option);
+   if(isModelInstalled("cvms5") && isModelInstalled("cvmh1511")) {
+     option = document.createElement("option");
+     option.text = "CVM-S4.26,CVM-H v15.1";
+     option.value= "cvms5,cvmh"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvms5") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "CVM-S4.26,1D";
+     option.value= "cvms5,1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("albacore") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "ALBACORE,1D";
+     option.value= "albacore,1d"; 
+     sel.add(option);
+   }
 
 /****
    option = document.createElement("option");
@@ -228,9 +348,12 @@ function makeModelTable() {
      var item=tb[i];
      var mname=item['model name'];
      var aname=item['abb name'];
-     var descript=item['description'];
-     var t="<tr><td style=\"width:6vw\">"+mname+"</td><td style=\"width:6vw\">"+aname+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
-     tbhtml=tbhtml+t;
+     var pname=item['path name'];
+     if(isModelInstalled(pname)) {
+       var descript=item['description'];
+       var t="<tr><td style=\"width:6vw\">"+mname+"</td><td style=\"width:6vw\">"+aname+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
+       tbhtml=tbhtml+t;
+     }
    }
    tbhtml=tbhtml+"</tbody></table></div>";
    return tbhtml;
