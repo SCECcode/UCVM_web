@@ -443,7 +443,7 @@ function add_bounding_line(uid,a,b,c,d) {
   var group =addLineLayerGroup(a,b,c,d);
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   ucvm_line_list.push(tmp);
-  load_a_layer(uid,LINE_ENUM,group);
+  load_a_layergroup(uid,LINE_ENUM,group);
 }
 
 function remove_bounding_line_layer(uid) {

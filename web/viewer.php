@@ -165,10 +165,10 @@ TODO: need a new id
         </div>
     </div>
 
-<div>
-<button id="profileBtn" onclick="" class="btn ucvm-small-btn" data-toggle="modal" data-target="#modalProfile" style="display:none"> </button>
-</div>
-
+  <!-- hidden btn to do profile comparison -->
+    <div>
+        <button id="profileBtn" onclick="" class="btn ucvm-small-btn" data-toggle="modal" data-target="#modalProfile" style="display:none"></button>
+    </div>
 
     <div id="content-container" class="row">
         <div id="control-container" class="col-5">
