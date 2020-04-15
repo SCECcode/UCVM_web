@@ -67,10 +67,10 @@ function send_to_profileIfram(data) {
   var loc = location.hostname;
   var profileWindow = document.getElementById('viewProfileIfram').contentWindow;
   // postMessage arguments: data to send, target origin
-  if(loc=="localhost") {
-    profileWindow.postMessage(data, 'http://localhost');
+  if(loc=="moho.scec.org") {
+    profileWindow.postMessage(data, 'http://moho.scec.org');
     } else {
-      profileWindow.postMessage(data, 'http://moho.scec.org');
+      profileWindow.postMessage(data, 'http://localhost');
   }
 
 }
