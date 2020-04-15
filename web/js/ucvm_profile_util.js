@@ -64,9 +64,15 @@ function readVProfileDataFile(uid) {
 }
 
 function send_to_profileIfram(data) {
+  var loc = location.hostname;
   var profileWindow = document.getElementById('viewProfileIfram').contentWindow;
   // postMessage arguments: data to send, target origin
-  profileWindow.postMessage(data, 'http://localhost');
+  if(loc=="localhost") {
+    profileWindow.postMessage(data, 'http://localhost');
+    } else {
+      profileWindow.postMessage(data, 'http://moho.scec.org');
+  }
+
 }
 
 var track_profile_full=1; // 1 is on 0 is off
