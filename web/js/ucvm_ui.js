@@ -19,6 +19,16 @@
 // [ {"uid":uid, "blob":blob } ]
 var ucvm_metaplottb_list=[];
 
+// tracking the layer that contains CFM5.2 faults
+var ucvm_cfm_layer;
+var show_cfm=false;
+// tracking the layer that contains CRM latlon points 
+var ucvm_crm_layer;
+var show_crm=false;
+
+
+/******************************************/
+
 function setup_model() {
     getInstallModelList();
 }
@@ -42,6 +52,40 @@ function setup_ZMode() {
    var html=document.getElementById('ZModeTable-container');
    html.innerHTML=tb;
 }
+
+function setup_CFM() {
+   ucvm_cfm_layer=readLocalAndProcessActiveGeo();
+}
+
+function toggleShowCFM() {
+   show_cfm=!show_cfm;
+   if(show_cfm) {
+     viewermap.addLayer(ucvm_cfm_layer);
+     $('#ucvm_cfm_btn').removeClass('glyphicon-ok-sign');
+     $('#ucvm_cfm_btn').addClass('glyphicon-remove-sign');
+     } else {
+       viewermap.removeLayer(ucvm_cfm_layer); 
+       $('#ucvm_cfm_btn').addClass('glyphicon-ok-sign');
+       $('#ucvm_cfm_btn').removeClass('glyphicon-remove-sign');
+   }
+} 
+
+function setup_CRM() {
+   ucvm_crm_layer=readLocalAndProcessActiveLatlon();
+}
+
+function toggleShowCRM() {
+   show_crm=!show_crm;
+   if(show_crm) {
+     viewermap.addLayer(ucvm_crm_layer);
+     $('#ucvm_crm_btn').removeClass('glyphicon-ok-sign');
+     $('#ucvm_crm_btn').addClass('glyphicon-remove-sign');
+     } else {
+       viewermap.removeLayer(ucvm_crm_layer); 
+       $('#ucvm_crm_btn').addClass('glyphicon-ok-sign');
+       $('#ucvm_crm_btn').removeClass('glyphicon-remove-sign');
+   }
+} 
 
 function processByLatlonForPoint() {
     document.getElementById('spinIconForProperty').style.display = "block";    

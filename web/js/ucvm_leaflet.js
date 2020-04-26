@@ -5,7 +5,7 @@
 // This is leaflet specific utilities
 var rectangle_options = {
        showArea: false,
-         shapeOptions: {
+       shapeOptions: {
               stroke: true,
               color: "blue",
               weight: 3,
@@ -14,7 +14,7 @@ var rectangle_options = {
               fillColor: null, //same as color by default
               fillOpacity: 0.02,
               clickable: false
-         }
+       }
 };
 var rectangleDrawer;
 
@@ -31,13 +31,13 @@ var profileDrawer; //profile drawer is the same as point drawer
 
 var line_options = {
        showLength: true,
-         shapeOptions: {
+       shapeOptions: {
               stroke: true,
               color: "blue",
               weight: 3,
               opacity: 0.6,
               clickable: false
-         }
+       }
 };
 var lineDrawer;
 
@@ -47,9 +47,11 @@ var polygon_options = {
     fillOpacity:0.04,
     opacity:0.7,
     weight:1,
-  
+    shapeOptions: {
+              clickable: false
+    }
 };
-
+  
 var mymap, baseLayers, layerControl, currentLayer;
 
 function clear_popup()
@@ -251,14 +253,12 @@ function addPointsLayerGroup(latlngs) {
   if(cnt < 1)
     return null;
   var group = L.layerGroup();
-  var alatlngs=[];
   var i;
   for(i=0;i<cnt;i++) {
      var item=latlngs[i];
      var lat=parseFloat(item['lat']);
      var lon=parseFloat(item['lon']);
      var bounds = [lat,lon ];
-     alatlngs[alatlngs.length]=(bounds);
      var layer = L.marker(bounds, small_point_options);
      var icon = layer.options.icon;
      icon.options.iconSize = [10, 10];

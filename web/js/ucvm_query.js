@@ -7,7 +7,6 @@
 var MAX_FILEPOINTS=200;
 
 function getInstallModelList() {
-    var xmlhttp;
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();

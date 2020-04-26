@@ -28,6 +28,7 @@ $header = getHeader("Viewer");
     <script type='text/javascript' src='js/vendor/leaflet.awesome-markers.js'></script>
     <script type='text/javascript' src='js/vendor/popper.min.js'></script>
     <script type='text/javascript' src='js/vendor/jquery.min.js'></script>
+    <script type='text/javascript' src='js/vendor/jquery.csv.js'></script>
     <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
     <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
     <script type='text/javascript' src='js/vendor/ersi-leaflet.js'></script>
@@ -81,6 +82,8 @@ $header = getHeader("Viewer");
     <script type="text/javascript" src="js/ucvm_query.js"></script>
     <script type="text/javascript" src="js/ucvm_sidebar.js"></script>
     <script type="text/javascript" src="js/ucvm_state.js"></script>
+    <script type="text/javascript" src="js/cfm_misc_util.js"></script>
+    <script type="text/javascript" src="js/gfm_region.js"></script>
 
     <!-- plotly profile -->
     <script type="text/javascript" src="js/ucvm_profile_util.js"></script>
@@ -158,6 +161,14 @@ TODO: need a new id
             <p>The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows user query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.  See the <a href="guide.php">user guide</a> for more details and site usage instructions.</p>
         </div>
     </div>
+
+<!--- MISC --->
+<div id="miscTools">
+   <button class="btn ucvm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
+       <span id="ucvm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
+   <button class="btn ucvm-small-btn" title="display CRM points" onclick='toggleShowCRM()'>
+       <span id="ucvm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>CRM</button>
+</div>
 
     <div class="row" style="display:none;">
         <div class="col justify-content-end custom-control-inline">

@@ -14,6 +14,8 @@ jQuery(document).ready(function() {
   setup_model();
   setup_fileFormat();
   setup_ZMode();
+  setup_CFM();
+  setup_CRM();
 
   $(".popup").hide();
 
