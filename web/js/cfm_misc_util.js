@@ -6,49 +6,78 @@ b) import external geoJson.txt and create a groupLayer with optional name popup
 c) import external latlon.csv with 'name' and create a group Layerof mulitple groups of points with different color 
 **/
 
-
 // *** specifically for CFM_web ***
 // create CFM5.2_geoJson.txt json file from cfm_trace_list.json
-// and cfm_active_gid_list of current active faults on the leaflet map
-function dumpActiveGeo() {
-  var f = new Date().getTime();
-  var ff= f.toString();
-  var dumpname="CFM5.2_geoJson.txt"; 
+function dumpActiveCFMGeo() {
+  var tracelist = [];
+  var labellist = [];
 
-  var csz=cfm_active_gid_list.length;
+  var csz=cfm_active_gid_list.length; // there is a search list result
   var tsz=cfm_trace_list.length;
-  var i;
-  var tlist=[];
-  var cnt=0;
-  for(i=0; i< tsz; i++) {
+  for(var i=0; i< tsz; i++) {
     var titem=cfm_trace_list[i];
     var gid=titem['gid'];
-    var tracename=find_name_by_gid(gid);
+    var tracename=find_pretty_name_by_gid(gid);
     var atrace=titem['trace'];
     // either all, or has a active list
     if(!csz || in_active_gid_list(gid)) {
-      cnt=cnt+1;
-      atrace.features[0].properties.name=tracename;
-      tlist.push(atrace);
+      labellist.push(tracename);
+      tracelist.push(atrace);
     }
   }
-  if(cnt == 0) { // no active faults
-    return;
+  if(tracelist.length) {
+    dumpActiveGeo("CFM5.2_geoJson.txt", tracelist, labellist);
+  }
+}
+
+function dumpActiveCRMGeo() {
+  var tracelist = [];
+  var labellist = [];
+
+  var tsz=crm_trace_list.length;
+  for(var i=0; i< tsz; i++) {
+    var titem=crm_trace_list[i];
+    var gid=titem['gid'];
+    var tracename=find_crm_name_by_gid(gid);
+    var atrace=titem['trace'];
+    // either all, or has a active list
+    labellist.push(tracename);
+    tracelist.push(atrace);
+  }
+
+  if(tracelist.length) {
+     dumpActiveGeo("CRM_geoJson.txt", tracelist, labellist);
+  }
+}
+
+function dumpActiveGeo(dumpname, trace_list, label_list) {
+
+  var tsz=trace_list.length;
+  var tlist=[];
+  var i;
+  for(var i=0; i< tsz; i++) {
+    var atrace=trace_list[i];
+    var tracename=label_list[i];
+    var fsz=atrace.features.length;
+    for(var j=0;j<fsz;j++) {
+      atrace.features[j].properties.name=tracename;
+    }
+    tlist.push(atrace);
   }
   
-  var dump={ 'cfm_trace_list': tlist }; 
+  var dump={ 'trace_list': tlist }; 
   var dumpstring=JSON.stringify(dump);
   var dumpblob = new Blob([dumpstring], { type: "text/plain;charset=utf-8" });
   saveAs(dumpblob,dumpname);
 }
 
 // from a local file
-function readLocalAndProcessActiveGeo() {
+function readLocalAndProcessActiveCFMGeo() {
   var url="data/CFM5.2_geoJson.txt";
   var blob=ckExist(url);
   var jblob=JSON.parse(blob);
 
-  var trace_list= jblob["cfm_trace_list"];
+  var trace_list= jblob["trace_list"];
   var cnt=trace_list.length;
   var i;
   for(i=0;i<cnt;i++) { 
@@ -76,7 +105,7 @@ function readAndProcessActiveGeo(urls) {
   reader.onload=function(event) {
     var evt = event.target.result; 
     var jblob= JSON.parse(reader.result);
-    var trace_list= jblob["cfm_trace_list"];
+    var trace_list= jblob["trace_list"];
     var cnt=trace_list.length;
     var i;
     for(i=0;i<cnt;i++) { 
@@ -103,7 +132,7 @@ function addGeoGroupToMap(traceList, mymap) {
 
 function makeGeoGroup(traceList) {
    var cnt=traceList.length;
-   window.console.log("number of importing faults ",cnt);
+   window.console.log("number of importing traces ",cnt);
    var group = L.layerGroup();
    for(var i=0; i< cnt; i++) {
      var trace=traceList[i];
@@ -148,6 +177,32 @@ function bindPopupEachFeatureName(feature, layer) {
           layer.bindPopup(popupContent);
         },
     });
+}
+
+// from a local file
+function readLocalAndProcessActiveCRMGeo() {
+  var url="data/CRM_geoJson.txt";
+  var blob=ckExist(url);
+  var jblob=JSON.parse(blob);
+
+  var trace_list= jblob["trace_list"];
+  var cnt=trace_list.length;
+  var i;
+  for(i=0;i<cnt;i++) { 
+     var atrace=trace_list[i];
+     var tcnt=atrace.features.length;
+     for(var j=0; j<tcnt; j++) {
+// make it lighter
+       atrace.features[j].properties.style.weight=0.3;
+     }
+     var name= atrace.features[0].properties.name;
+     window.console.log("adding trace.. ",name);
+  }
+  return makeGeoGroup(trace_list);
+}
+
+function loadCRMRegions() {
+  getCRMAllTraces();
 }
 
 //domain,xcoord,ycoord

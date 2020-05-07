@@ -25,6 +25,9 @@ var show_cfm=false;
 // tracking the layer that contains CRM latlon points 
 var ucvm_crm_layer;
 var show_crm=false;
+// tracking the layer that contains CRM latlon points 
+var ucvm_crm_point_layer;
+var show_crm_point=false;
 
 
 /******************************************/
@@ -54,7 +57,7 @@ function setup_ZMode() {
 }
 
 function setup_CFM() {
-   ucvm_cfm_layer=readLocalAndProcessActiveGeo();
+   ucvm_cfm_layer=readLocalAndProcessActiveCFMGeo();
 }
 
 function toggleShowCFM() {
@@ -71,7 +74,7 @@ function toggleShowCFM() {
 } 
 
 function setup_CRM() {
-   ucvm_crm_layer=readLocalAndProcessActiveLatlon();
+   ucvm_crm_layer=readLocalAndProcessActiveCRMGeo();
 }
 
 function toggleShowCRM() {
@@ -84,6 +87,23 @@ function toggleShowCRM() {
        viewermap.removeLayer(ucvm_crm_layer); 
        $('#ucvm_crm_btn').addClass('glyphicon-ok-sign');
        $('#ucvm_crm_btn').removeClass('glyphicon-remove-sign');
+   }
+} 
+
+function setup_CRMPoints() {
+   ucvm_crm_point_layer=readLocalAndProcessActiveLatlon();
+}
+
+function toggleShowCRMPoints() {
+   show_crm_point=!show_crm_point;
+   if(show_crm_point) {
+     viewermap.addLayer(ucvm_crm_point_layer);
+     $('#ucvm_crm_point_btn').removeClass('glyphicon-ok-sign');
+     $('#ucvm_crm_point_btn').addClass('glyphicon-remove-sign');
+     } else {
+       viewermap.removeLayer(ucvm_crm_point_layer); 
+       $('#ucvm_crm_point_btn').addClass('glyphicon-ok-sign');
+       $('#ucvm_crm_point_btn').removeClass('glyphicon-remove-sign');
    }
 } 
 
