@@ -66,8 +66,6 @@ if($datatype != 'vs30') {
     $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_vs30_etree_map.py".$qstub.$lstr;
 }
 
-echo $query;
-
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 $resultarray = new \stdClass();
