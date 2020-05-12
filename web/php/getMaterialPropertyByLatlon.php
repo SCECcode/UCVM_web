@@ -26,8 +26,6 @@ if ($zrange != 'none') {
 
 $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf ".$estr;
 
-echo $query;
-
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 $itemlist = new \stdClass();
