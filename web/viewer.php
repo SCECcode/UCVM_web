@@ -143,8 +143,8 @@ TODO: need a new id
 <div id="miscTools">
    <button class="btn ucvm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
        <span id="ucvm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
-   <button class="btn ucvm-small-btn" title="display CRM regions" onclick='toggleShowCRM()'>
-       <span id="ucvm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>CRM</button>
+   <button class="btn ucvm-small-btn" title="display GFM regions" onclick='toggleShowCRM()'>
+       <span id="ucvm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM</button>
 <!--
    <button class="btn ucvm-small-btn" title="display CRM points" onclick='toggleShowCRMPoints()'>
        <span id="ucvm_crm_point_btn" class="glyphicon glyphicon-ok-sign"></span>CRM Points</button>
