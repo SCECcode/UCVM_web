@@ -4,7 +4,7 @@
 {"id":3,"name":"Sierra Nevada(E)","sliver":0,"state":1,"color":"#B041FF","ucolor":"purple"},
 {"id":4,"name":"Colorado Plateau","sliver":0,"state":1,"color":"#614051","ucolor":"brown"},
 {"id":5,"name":"Sierra Nevada(W)","sliver":0,"state":1,"color":"#4A148C","ucolor":"purple"},
-{"id":6,"name":"Peninsular Range(W)","sliver":"0","state":1,"color":"#7B1FA2","ucolor":"purple"},
+{"id":6,"name":"Peninsular Range(W)","sliver":0,"state":1,"color":"#7B1FA2","ucolor":"purple"},
 {"id":7,"name":"Basin and Range","sliver":0,"state":1,"color":"#D84315","ucolor":"dark orange"},
 {"id":8,"name":"Peninsular Range(W)","sliver":1,"state":1,"color":"#9C27B0","ucolor":"purple"},
 {"id":9,"name":"Southern Walker Lane","sliver":0,"state":1,"color":"#FF6F00","ucolor":"dark orange"},

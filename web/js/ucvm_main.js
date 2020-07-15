@@ -13,6 +13,7 @@ jQuery(document).ready(function() {
   viewermap=setup_viewer();
   setup_model();
   setup_fileFormat();
+  setup_parameter();
   setup_ZMode();
   setup_CFM();
   setup_CRM();

@@ -4,9 +4,6 @@
 
 ****/
 
-// information on model 
-var UCVM_installed=[];
-
 var UCVM_tb={
 "models": [
     {'id':1,
@@ -198,292 +195,26 @@ var UCVM_tb={
      'description':'A Cross section of a selected property is produced between two selected points. The plot starts at Z start, ends at Z ends, and the interval is determined by the web service'},
     {'id': 3,
      'product name': '2D Horizontal Slice',
-     'description':'A Horizontal slice of a selected property is produced in a area marked by the rectangle drawn with the depth or elevation supplied as Z, and the interval is determined by the web service.'},
-    ]
+     'description':'A Horizontal slice of a selected property is produced in a area marked by the rectangle drawn with the depth or elevation supplied as Z, and the interval is determined by the web service.'}
+ ],
+"descript": [
+{'id':'lon','label':'lon','show':1,'descript':'Longitude'},
+{'id':'lat','label':'lat','show':1,'descript':'Latitude)'},
+{'id':'Z','label':'Z','show':1,'descript':'Input Z (elevation - meters above sea level. Positive numbers above sea-level)<br>(depth - meters below ground surface. Positive numbers below ground surface)'},
+{'id':'surf','label':'surf','show':1,'descript':'Surface elevation from sealevel'},
+{'id':'vs30','label':'vs30','show':1,'descript':'vs30 value from Wills 2015 map'},
+{'id':'crustal','label':'crustal','show':1,'descript':'crustal model'},
+{'id':'cr_vp','label':'cr_vp','show':0,'descript':'cr_vp'},
+{'id':'cr_vs','label':'cr_vs','show':0,'descript':'cr_vs'},
+{'id':'cr_rho','label':'cr_rho','show':0,'descript':'cr_rho'},
+{'id':'gtl','label':'gtl','show':1,'descript':'gtl'},
+{'id':'gtl_vp','label':'gtl_vp','show':0,'descript':'gtl_vp'},
+{'id':'gtl_vs','label':'gtl_vs','show':0,'descript':'gtl_vs'},
+{'id':'gtl_rho','label':'gtl_rho','show':0,'descript':'gtl_rho'},
+{'id':'cmb_algo','label':'cmb_algo','show':0,'descript':'cmb_algo'},
+{'id':'cmb_vp','label':'vp','show':1,'descript':'vp'},
+{'id':'cmb_vs','label':'vs','show':1,'descript':'vs'},
+{'id':'cmb_rho','label':'rho','show':1,'descript':'rho'},
+]
 };
 
-// str is a blob { 'models': ['cvmh','cvms5'] }
-function makeInstallModelList(str) {
-  var blob;
-  if( str == undefined || str == "" ) {
-     window.console.log("ERROR: no return result");
-     return "";
-  }
-  if( typeof str === 'string') {
-     blob=JSON.parse(str);
-     } else {
-       blob=str;
-  }
-  var mlist=blob['models'];
-  var cnt=mlist.length;
-  var i;
-  for(i=0;i<cnt;i++) {
-    var item=mlist[i];
-    UCVM_installed.push(item);
-  }
-  setup_modeltype();
-}
-
-function isModelInstalled(pname) {
-  var cnt=UCVM_installed.length;
-  var i=0;
-  for(i=0; i<cnt;i++) {
-     if(UCVM_installed[i]==pname) {
-        return 1;
-     }
-  }
-  return 0;
-}
-
-function makeModelSelection()
-{
-   var tb=UCVM_tb['models'];
-   var cnt=tb.length;
-   var i;
-   var option;
-   for(i=0; i<cnt; i++) {
-     var item=tb[i];
-     var color=item['color'];
-     var aname=item['abb name'];
-     var mname=item['model name'];
-     var pname=item['path name'];
-     // check the model directory to make sure it exists before adding 
-     // the option
-     if(isModelInstalled(pname)) {
-        var sel=document.getElementById('modelType');
-        option = document.createElement("option");
-        option.text = mname;
-        option.value= aname;
-        sel.add(option);
-     }
-   } 
-   // special case
-   var sel=document.getElementById('modelType');
-   option = document.createElement("option");
-   option.text = "-- Advanced --";
-   option.setAttribute("disabled", true);
-   option.value= "disabled";
-   sel.add(option);
-
-   if(isModelInstalled("cvms5") && isModelInstalled("cvmh1511")) {
-     option = document.createElement("option");
-     option.text = "CVM-S4.26,CVM-H v15.1";
-     option.value= "cvms5,cvmh"; 
-     sel.add(option);
-   }
-
-   if(isModelInstalled("cvms5") && isModelInstalled("1d")) {
-     option = document.createElement("option");
-     option.text = "CVM-S4.26,1D";
-     option.value= "cvms5,1d"; 
-     sel.add(option);
-   }
-
-   if(isModelInstalled("albacore") && isModelInstalled("1d")) {
-     option = document.createElement("option");
-     option.text = "ALBACORE,1D";
-     option.value= "albacore,1d"; 
-     sel.add(option);
-   }
-
-/****
-   option = document.createElement("option");
-   option.text = "CVM-S4.26,elygtl:ely";
-   option.value= "cvms5,elygtl:ely"; 
-   sel.add(option);
-****/
-
-// put in the default region on the map
-   makeLatlngsCoordinate('cvmh');
-}
-
-function getModelColor(target_nm) {
-   var tb=UCVM_tb['models'];
-   var icnt=tb.length;
-   var i;
-   for(i=0; i<icnt; i++) {
-     var item=tb[i];
-     if(item['abb name'] == target_nm) {
-        var color=item['color'];
-        return color;
-     }
-  }
-  return "black";
-}
-
-function makeLatlngsCoordinate(target_nm) {
-
-   var ret=[];
-   var tb=UCVM_tb['models'];
-   var icnt=tb.length;
-   var lon, lat;
-   var i,j;
-   for(i=0; i<icnt; i++) {
-     var item=tb[i];
-     if(item['abb name'] == target_nm) {
-        var coord=item['coordinates'];
-        var jcnt=coord.length;
-        for(j=0;j<jcnt;j++) {
-          var c=coord[j];
-          lon=c['lon'];
-          lat=c['lat'];
-          ret[ret.length]=([lat, lon]);      
-        }
-//        window.console.log(ret);
-        return ret;
-      }
-   }
-   return ret;
-}
-
-function makeModelTable() {
-   var tb=UCVM_tb['models'];
-   var cnt=tb.length;
-   var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">UCVM Model Table</th></tr></tbody></table>";
-   tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:8vw\"><b>Model</b></td><td style=\"width:6vw\"><b>UCVM abbreviation</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
-
-   for( i=0; i<cnt; i++) {
-     var item=tb[i];
-     var mname=item['model name'];
-     var aname=item['abb name'];
-     var pname=item['path name'];
-     if(isModelInstalled(pname)) {
-       var descript=item['description'];
-       var t="<tr><td style=\"width:6vw\">"+mname+"</td><td style=\"width:6vw\">"+aname+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
-       tbhtml=tbhtml+t;
-     }
-   }
-   tbhtml=tbhtml+"</tbody></table></div>";
-   return tbhtml;
-}
-
-function _getModelItemWithID(id) {
-   var tb=UCVM_tb['models'];
-   var cnt=tb.length;
-   var i;
-   for(i=0; i<cnt;i++) {
-      var model=tb[i];
-      if(model['id'] == id) {
-        return model;
-      }
-   }
-   return undefined;
-}
-
-function getModelNameWithID(id) {
-   var item=_getModelItemWithID(id);
-   if(item != undefined) {
-       var n= item['model name'];
-       return n;
-   }
-   return undefined;
-}
-
-function getModelNameWithType(t) {
-   // t could be multiple, "albacore,cvms"
-   var rt="";
-   var mlist=t.split(',');
-   var mcnt=mlist.length;
-   var tlist=UCVM_tb['models'];
-   var tcnt=tlist.length;
-   var i,j;
-
-   for(i=0;i<mcnt;i++) {
-      for(j=0; j<tcnt;j++) {
-         var target=tlist[j];
-         if(target['abb name'] == mlist[i]) {
-            rt=rt+target['model name'];
-            if(mcnt>1 && i!=(mcnt-1))
-               rt=rt+", ";
-            break;
-         }
-      }
-   }
-   if(rt=="")
-       rt=undefined;
-   return rt;
-}
-function getZModeNameWithType(t) {
-   var tb=UCVM_tb['zmodes'];
-   var cnt=tb.length;
-   var i;
-   for(i=0; i<cnt;i++) {
-      var zmode=tb[i];
-      if(zmode['value'] == t) {
-        return zmode['mode name'];
-      }
-   }
-   return undefined;
-}
-
-function getModelColorWithID(id) {
-   var item=_getModelItemWithID(id);
-   if(item != undefined) {
-       var c= item['color'];
-       return c;
-   }
-   return undefined;
-}
-
-function getModelCoordinatesWithID(id) {
-   var item=_getModelItemWithID(id);
-   if(item != undefined) {
-       var coord= item['coordinates'];
-       return coord;
-   }
-   return undefined;
-}
-
-function getAllModelNames() {
-   var ret=[];
-   var tb=UCVM_tb['models'];
-   var cnt=tb.length;
-   var i,item,aname;
-   for(i=0; i<cnt; i++) {
-     item=tb[i]; 
-     aname=item['abb name'];
-     ret.push(aname);
-   }
-   return ret;
-}
-
-function makeFileFormatTable() {
-   var tb=UCVM_tb['fileformats'];
-   var cnt=tb.length;
-   var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">File Format Table</th></tr></tbody></table>";
-   tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:12vw\"><b>Format</b></td><td style=\"width:4vw\"><b>suffix</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
-
-   for( i=0; i<cnt; i++) {
-     var item=tb[i];
-     var fname=item['format name'];
-     var suffix=item['suffix'];
-     var descript=item['description'];
-     var t="<tr><td style=\"width:12vw\">"+fname+"</td><td style=\"width:4vw\">"+suffix+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
-     tbhtml=tbhtml+t;
-   }
-   tbhtml=tbhtml+"</tbody></table></div>";
-   return tbhtml;
-}
-
-function makeZModeTable() {
-   var tb=UCVM_tb['zmodes'];
-   var cnt=tb.length;
-   var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">Z Mode Table</th></tr></tbody></table>";
-   tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:8vw\"><b>Mode</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
-
-   for( i=0; i<cnt; i++) {
-     var item=tb[i];
-     var mname=item['mode name'];
-     var descript=item['description'];
-     var t="<tr><td style=\"width:6vw\">"+mname+"</td><td style=\"width:40vw\">"+descript+"</td></tr>";
-     tbhtml=tbhtml+t;
-   }
-   tbhtml=tbhtml+"</tbody></table></div>";
-   return tbhtml;
-}

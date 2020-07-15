@@ -1,10 +1,47 @@
 /**
-    cfm_misc_util.c
+    cxm_misc_util.c
 
 a) export 'active' fault's geo out into an external file CFM5.2_geoJson.txt
 b) import external geoJson.txt and create a groupLayer with optional name popup
 c) import external latlon.csv with 'name' and create a group Layerof mulitple groups of points with different color 
+
 **/
+
+/***
+--> needs gfm_regions.js
+***/
+function getGFMRegionColorWithName(name) {
+   var tb=GFM_tb['regions'];
+   var cnt=tb.length;
+   var i;
+   for(i=0; i<cnt;i++) {
+      var region=tb[i];
+      if(region['name'] == name)
+        return region['color'];
+   }
+   return undefined;
+}
+
+// should be a very small file and used for testing and so can ignore
+// >>Synchronous XMLHttpRequest on the main thread is deprecated
+// >>because of its detrimental effects to the end user's experience.
+//     url=http://localhost/data/synapse/segments-dummy.csv
+function ckCXMExist(url) {
+  var http = new XMLHttpRequest();
+  http.onreadystatechange = function () {
+    if (this.readyState == 4) {
+ // okay
+    }
+  }
+  http.open("GET", url, false);
+  http.send();
+  if(http.status !== 404) {
+    return http.responseText;
+    } else {
+      return null;
+  }
+}
+
 
 // *** specifically for CFM_web ***
 // create CFM5.2_geoJson.txt json file from cfm_trace_list.json
@@ -74,7 +111,7 @@ function dumpActiveGeo(dumpname, trace_list, label_list) {
 // from a local file
 function readLocalAndProcessActiveCFMGeo() {
   var url="data/CFM5.2_geoJson.txt";
-  var blob=ckExist(url);
+  var blob=ckCXMExist(url);
   var jblob=JSON.parse(blob);
 
   var trace_list= jblob["trace_list"];
@@ -156,6 +193,13 @@ function makeGeoGroup(traceList) {
      });
      group.addLayer(geoLayer);
    } 
+
+   group.eachLayer(function(layer) {
+     var popUp= layer._popup;
+     window.console.log("layergroup got a popup...", popUp);
+   });
+
+
    return group;
 }
 
@@ -166,6 +210,10 @@ function bindPopupEachFeatureName(feature, layer) {
     layer.on({
         mouseover: function(e) {
           layer.setStyle({weight: 5});
+          if (feature.properties != undefined) {
+            popupContent = feature.properties.name;
+          }
+          layer.bindPopup(popupContent);
         },
         mouseout: function(e) {
           layer.setStyle({weight: 1});
@@ -177,12 +225,13 @@ function bindPopupEachFeatureName(feature, layer) {
           layer.bindPopup(popupContent);
         },
     });
+   
 }
 
 // from a local file
 function readLocalAndProcessActiveCRMGeo() {
   var url="data/CRM_geoJson.txt";
-  var blob=ckExist(url);
+  var blob=ckCXMExist(url);
   var jblob=JSON.parse(blob);
 
   var trace_list= jblob["trace_list"];
@@ -251,7 +300,7 @@ function readAndProcessActiveLatlon(urls) {
 function readLocalAndProcessActiveLatlon() {
 
   var url="data/CRM_polygons_points_with_corrected_Rift_names_Mar112019.csv";
-  var blob=ckExist(url);
+  var blob=ckCXMExist(url);
   var ffline = blob.split('\n');
   var cnt=ffline.length;
   var fdata=[];
@@ -303,7 +352,7 @@ function makeRawLatlonGroup(fdataList) {
      var lon=parseFloat(item[1]);
      var lat=parseFloat(item[2]);
     
-     var color=getRegionColorWithName(name);
+     var color=getGFMRegionColorWithName(name);
      if(color == undefined) {
         window.console.log("BAD -- no color for ", name);
         continue;

@@ -37,23 +37,21 @@ function setup_model() {
 }
 
 function setup_modeltype() {
-   var tb=makeModelTable();
-   var html=document.getElementById('modelTable-container');
-   html.innerHTML=tb;
+   var html=document.getElementById('modelTable-container').innerHTML=makeModelTable();
    makeModelSelection();
    make_all_model_layer();
 }
 
+function setup_parameter() {
+   document.getElementById('parametersTable-container').innerHTML=makeParametersTable();
+}
+
 function setup_fileFormat() {
-   var tb=makeFileFormatTable();
-   var html=document.getElementById('fileFormatTable-container');
-   html.innerHTML=tb;
+   document.getElementById('fileFormatTable-container').innerHTML=makeFileFormatTable();
 }
 
 function setup_ZMode() {
-   var tb=makeZModeTable();
-   var html=document.getElementById('ZModeTable-container');
-   html.innerHTML=tb;
+   document.getElementById('ZModeTable-container').innerHTML=makeZModeTable();
 }
 
 function setup_CFM() {
@@ -282,6 +280,8 @@ function makeHorizontalResultTable(uid,str)
     for(i=0; i<sz; i++) {
         key=datakeys[i];
         // special case
+        if(!showInTable(key))
+          continue;
         if(key == 'Z') { 
           zkeyidx=i;
           labelline=labelline+"<th style=\"width:48vw\"><b>"+key+"</b></th>";
@@ -310,6 +310,8 @@ function makeHorizontalResultTable(uid,str)
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
+            if(!showInTable(key2))
+              continue;
             if(i == zkeyidx) {
               var zmodestr=document.getElementById("zModeType").value;
               if(zmodestr == "e")
@@ -368,6 +370,8 @@ function makeHorizontalResultTable_row(uid,str)
     for(i=0; i<sz; i++) {
         key=datakeys[i];
         // special case
+        if(!showInTable(key))
+          continue;
         if(key == 'Z') { 
           zkeyidx=i;
           break;
@@ -390,6 +394,8 @@ function makeHorizontalResultTable_row(uid,str)
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
+            if(!showInTable(key2))
+              continue;
             if(i == zkeyidx) {
               var zmodestr=document.getElementById("zModeType").value;
               if(zmodestr == "e")
@@ -554,11 +560,4 @@ function set_zrange_presets()
          $( "#zrangeStartTxt" ).val('0');
          $( "#zrangeStopTxt" ).val('-350');
    }
-}
-  
-
-function reset_zrange_presets()
-{
-   $( "#zrangeStartTxt" ).val('');
-   $( "#zrangeStopTxt" ).val('');
 }

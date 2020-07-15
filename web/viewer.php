@@ -76,13 +76,14 @@ $header = getHeader("Viewer");
     <script type="text/javascript" src="js/ucvm_leaflet.js"></script>
     <script type="text/javascript" src="js/ucvm_layer.js"></script>
     <script type="text/javascript" src="js/ucvm_region.js"></script>
+    <script type="text/javascript" src="js/ucvm_region_util.js"></script>
     <script type="text/javascript" src="js/ucvm_util.js"></script>
     <script type="text/javascript" src="js/ucvm_ui.js"></script>
     <script type="text/javascript" src="js/ucvm_main.js"></script>
     <script type="text/javascript" src="js/ucvm_query.js"></script>
     <script type="text/javascript" src="js/ucvm_sidebar.js"></script>
     <script type="text/javascript" src="js/ucvm_state.js"></script>
-    <script type="text/javascript" src="js/cfm_misc_util.js"></script>
+    <script type="text/javascript" src="js/cxm_misc_util.js"></script>
     <script type="text/javascript" src="js/gfm_region.js"></script>
 
     <!-- plotly profile -->
@@ -117,30 +118,6 @@ TODO: need a new id
         });
 
     </script>
-<style>
-.full_modal-dialog {
-  width: 98%;
-  height: 92%;
-  min-width: 98%;
-  min-height: 92%;
-  max-width: 98%;
-  max-height: 92%;
-  padding: 0;
-}
-
-.full_modal-content {
-  height: 99%;
-  min-height: 99%;
-  max-height: 99%;
-}
-
-.full_modal-body {
-  height: 99%;
-  min-height: 99%;
-  max-height: 99%;
-}
-
-</style>
 </head>
 <body>
 <?php echo $header; ?>
@@ -204,7 +181,6 @@ TODO: need a new id
                         placeholder="Start"
                         title="zrange start"
                         onfocus="this.value=''"
-                        onchange="reset_zrange_presets()"
                         class="form-control">
                 </div>
                 <div class="col-4 pr-0">
@@ -213,7 +189,6 @@ TODO: need a new id
                         placeholder="Stop"
                         title="zrange stop"
                         onfocus="this.value=''"
-                        onchange="reset_zrange_presets()"
                         class="form-control">
                 </div>
                 </div>
@@ -549,7 +524,7 @@ TODO: need a new id
                     <table id="mpHeaderTable" style="border:none">
                         <tbody>
                         <tr>
-                            <td style="border:none"><b>Material Property</b></td>
+                            <td style="border:none"><b>Material Property</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                             <td align="right" style="border:none" title="process mp table">
                               <div>
                                 <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
@@ -606,6 +581,26 @@ TODO: need a new id
         </div> <!-- result-container -->
     </div> <!-- content-container -->
 </div> <!-- container main -->
+
+<!--Modal: Parameters Table -->
+<div class="modal" id="modalParameters" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalParametersDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalParametersContent">
+      <!--Body-->
+      <div class="modal-body" id="modalParametersBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+          <div class="col-12" id="parametersTable-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
 
 <!--Modal: FileFormat -->
 <div class="modal" id="modalff" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
