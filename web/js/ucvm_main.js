@@ -17,7 +17,8 @@ jQuery(document).ready(function() {
   setup_ZMode();
   setup_CFM();
   setup_CRM();
-  setup_CRMPoints();
+  setup_CTM();
+//  setup_CRMPoints();
 
   $(".popup").hide();
 

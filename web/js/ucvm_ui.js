@@ -22,9 +22,12 @@ var ucvm_metaplottb_list=[];
 // tracking the layer that contains CFM5.2 faults
 var ucvm_cfm_layer;
 var show_cfm=false;
-// tracking the layer that contains CRM latlon points 
+// tracking the layer that contains CRM regions
 var ucvm_crm_layer;
 var show_crm=false;
+// tracking the layer that contains CTM regions
+var ucvm_ctm_layer;
+var show_ctm=false;
 // tracking the layer that contains CRM latlon points 
 var ucvm_crm_point_layer;
 var show_crm_point=false;
@@ -87,6 +90,23 @@ function toggleShowCRM() {
        $('#ucvm_crm_btn').removeClass('glyphicon-remove-sign');
    }
 } 
+
+function setup_CTM() {
+   ucvm_ctm_layer=readLocalAndProcessActiveCTMGeo();
+}
+
+function toggleShowCTM() {
+   show_ctm=!show_ctm;
+   if(show_ctm) {
+     viewermap.addLayer(ucvm_ctm_layer);
+     $('#ucvm_ctm_btn').removeClass('glyphicon-ok-sign');
+     $('#ucvm_ctm_btn').addClass('glyphicon-remove-sign');
+     } else {
+       viewermap.removeLayer(ucvm_ctm_layer);
+       $('#ucvm_ctm_btn').addClass('glyphicon-ok-sign');
+       $('#ucvm_ctm_btn').removeClass('glyphicon-remove-sign');
+   }
+}
 
 function setup_CRMPoints() {
    ucvm_crm_point_layer=readLocalAndProcessActiveLatlon();

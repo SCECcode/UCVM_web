@@ -5,7 +5,7 @@ $header = getHeader("Viewer");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>UCVM Viewer</title>
+    <title>CM Viewer</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -135,7 +135,7 @@ TODO: need a new id
 
     <div class="row">
         <div class="col-12">
-            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Unified Community Velocity Model (UCVM)</a> Viewer provides a browser access to  19.4. It allows user query for material property and it also can generate Elevation or Depth Profile plot, Cross Section plot, Horizontal Slice plot on demand using the plotting tools packaged within the  release.  See the <a href="guide.php">user guide</a> for more details and site usage instructions.</p>
+            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Community Models (CM)</a> Viewer provides an integrated view of SCEC CVMs, CFM, GFM and CTM models and also offers a browser access to the latest SCEC Unified Community Velocity Model(UCVM). User can query for material property, generate Elevation profile plot, Depth Profile plot, Cross Section plot, or Horizontal Slice plot on demand using the plotting utility tools from UCVM.  See the <a href="guide.php">user guide</a> for more details and site usage instructions.</p>
         </div>
     </div>
 
@@ -144,7 +144,9 @@ TODO: need a new id
    <button class="btn ucvm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
        <span id="ucvm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
    <button class="btn ucvm-small-btn" title="display GFM regions" onclick='toggleShowCRM()'>
-       <span id="ucvm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM</button>
+       <span id="ucvm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM1.0</button>
+   <button class="btn ucvm-small-btn" title="display CTM regions" onclick='toggleShowCTM()'>
+       <span id="ucvm_ctm_point_btn" class="glyphicon glyphicon-ok-sign"></span>CTM</button>
 <!--
    <button class="btn ucvm-small-btn" title="display CRM points" onclick='toggleShowCRMPoints()'>
        <span id="ucvm_crm_point_btn" class="glyphicon glyphicon-ok-sign"></span>CRM Points</button>
@@ -164,7 +166,7 @@ TODO: need a new id
 
     <div id="content-container" class="row">
         <div id="control-container" class="col-5">
-          <div class="col-12">
+          <div class="col-12" style="padding-left:0px; padding-righ:0px">
             <div class="input-group filters mb-1">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="modelType" >Select Model Type</label>
@@ -497,7 +499,7 @@ TODO: need a new id
           </div>
         </div> <!-- control-container -->
         <div id="map-container" class="col-7">
-            <div class="col-8 d-flex offset-4 align-items-end mb-1">
+            <div class="col-8 offset-4 d-flex mb-1">
                 <div class="input-group input-group-sm" id="map-controls">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="mapLayer">Select Map Type</label>
@@ -512,9 +514,10 @@ TODO: need a new id
                 </div>
             </div>
             <div class="row mapData">
-                <div class="col-12 pr-0 pl-2 pt-1 ">
-                    <div class="row w-100 mb-1" id='UCVM_plot'
-                         style="position:relative;border:solid 1px #ced4da; height:576px;"></div>
+                <div class="col-12 pr-0 pl-2 pt-1"> 
+                    <div class="col-12 w-100 mb-1" id='UCVM_plot'
+                         style="position:relative;border:solid 1px #ced4da; height:576px;">
+                    </div>
                 </div>
             </div>
         </div> <!-- map-container -->

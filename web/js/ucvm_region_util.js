@@ -274,7 +274,7 @@ function makeParametersTable() {
    var i;
    var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">UCVM Parameters Table</th></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:10vw\">Parameter</td><td style=\"width:45vw\">Description</td></tr>";
+   tbhtml=tbhtml+"<tr><td style=\"width:10vw\"><b>Parameter</b></td><td style=\"width:45vw\"><b>Description</b></td></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var label=item['id'];
