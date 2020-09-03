@@ -5,7 +5,7 @@ $header = getHeader("Viewer");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SCEC Community Models Viewer</title>
+    <title>SCEC Community Models Viewer (under active development)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -135,7 +135,7 @@ TODO: need a new id
 
     <div class="row">
         <div class="col-12">
-            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Community Models (CM)</a> Viewer provides an integrated view of SCEC CVMs, CFM, GFM and CTM models and also offers a browser access to the latest SCEC Unified Community Velocity Model(UCVM). User can query for material property, generate Elevation profile plot, Depth Profile plot, Cross Section plot, or Horizontal Slice plot on demand using the plotting utility tools from UCVM.  See the <a href="guide.php">user guide</a> for more details and site usage instructions.</p>
+            <p>The <a href="https://www.scec.org/research/ucvm">SCEC Community Models (CM) Viewer</a> provides an integrated view of SCEC CVMs, CFM, GFM and CTM models and also offers a browser access to the latest SCEC Unified Community Velocity Model(UCVM). User can query for material property from selected Community Velocity Model, generate Elevation profile plot, Depth Profile plot, Cross Section plot, or Horizontal Slice plot on demand using the plotting utility tools from UCVM.  See the <a href="guide.php">user guide</a> for more details and site usage instructions.</p>
         </div>
     </div>
 

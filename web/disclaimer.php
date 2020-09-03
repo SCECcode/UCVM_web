@@ -19,7 +19,7 @@ $header = getHeader("Disclaimer");
     <script type='text/javascript' src='js/vendor/jquery.min.js'></script>
     <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
     <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
-    <title>Geological Framework Model Viewer: Disclaimer</title>
+    <title>SCEC Community Models Viewer: Disclaimer</title>
 </head>
 <body>
 <?php echo $header; ?>
