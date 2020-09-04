@@ -20,7 +20,7 @@ $header = getHeader("User Guide");
     <script type='text/javascript' src='js/vendor/jquery.min.js'></script>
     <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
     <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
-    <title>SCEC Community Models Viewer (under active development): User Guide</title>
+    <title>SCEC Community Models Viewer: User Guide</title>
 </head>
 <body>
 <?php echo $header; ?>
@@ -41,8 +41,8 @@ $header = getHeader("User Guide");
                It allows users to retrieve material properties from different Community Velocity Models. It also allows user to create 1D vertical profiles, 2D vertical cross sections and 2D horizontal slices from retrieved material properties</p>
             <p>The pages on this site are the <a href="<?php echo $host_site_actual_path; ?>">CM viewer page</a>, this user guide, <a href="disclaimer">a disclaimer</a>, and a <a href="contact">contact information</a> page.</p>
 
-            <p>The main interface is on the <a href="<?php echo $host_site_actual_path; ?>">Viewer Page</a>. On top of the map, there are button for selection overlays to include fault information from CFM, geological regions from GFM and/or heat flow regions from CTM. </p>
-            <p> Also, on top of the map, there is a control that allows the base map to be changed. 
+            <p>The main interface is on the <a href="<?php echo $host_site_actual_path; ?>">Viewer Page</a>. On top of the map, there are selection buttons for overlay to include fault information from CFM, geological regions from GFM and/or heat flow regions from CTM. </p>
+            <p> Also on top of the map, there is a control that allows the base map to be changed. 
                 By default, the map shown is <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer">ESRI Topographic</a>.
                 The other map types are: <a
                         href="https://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer">ESRI National Geographic</a>, <a

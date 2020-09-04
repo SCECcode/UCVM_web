@@ -5,7 +5,7 @@ $header = getHeader("Viewer");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>UCVM Viewer</title>
+    <title>SCEC Community Models Viewer</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
