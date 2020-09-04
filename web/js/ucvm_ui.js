@@ -288,6 +288,8 @@ function makeHorizontalResultTable(uid,str)
        datablob=JSON.parse(datablob);
     }
 
+    insert_materialproperty(uid,datablob); // save a copy
+
     // create the key first
     var labelline="<th style=\"width:4vw\"></th>";
     var key;
@@ -380,6 +382,8 @@ function makeHorizontalResultTable_row(uid,str)
        datablob=JSON.parse(datablob);
     }
 
+    insert_materialproperty(uid,datablob); // save a copy
+
     // create the key first
     var key;
     
@@ -432,6 +436,18 @@ function makeHorizontalResultTable_row(uid,str)
          var row=table.insertRow(1);
          row.innerHTML=mpline;
     }
+}
+
+// go through the table and pick up the label that has valid entry
+// chunk and extract the old mp date from backend
+function downloadMPTable() {
+    // create a uniq uid also for this tasks.,
+    var uid=$.now();
+
+    var mplist=get_all_materialproperty();
+    window.console.log(">>mp downloading..cnt is",mplist.length);
+    var csvblob=getCSVFromJSON(mplist);
+    saveAsCSVBlobFile(csvblob, uid);
 }
 
 function saveAsCSVBlobFile(data, timestamp)
@@ -496,12 +512,20 @@ function processMPTable(v)
     case 's':
       save_mp_table();
       break;
+    case 'd':
+      save_mp_data();
+      break;
   }
 }
 
 function edit_mp_table()
 {
    window.console.log("calling edit_mp_table");
+}
+
+function save_mp_data()
+{
+   downloadMPTable();
 }
 
 function save_mp_table()
@@ -580,4 +604,26 @@ function set_zrange_presets()
          $( "#zrangeStartTxt" ).val('0');
          $( "#zrangeStopTxt" ).val('-350');
    }
+}
+
+function getCSVFromJSON(jblob) {
+    var objs=Object.keys(jblob);
+    var len=objs.length;
+    var last=len-1;
+
+    var jfirst=jblob[0];
+    var keys=Object.keys(jfirst);
+    var csvblob = keys.join(",");
+    csvblob +='\n';
+    for(var i=0; i< len; i++) {
+       var jnext=jblob[i];
+       var values=Object.values(jnext)
+       var vblob=values.join(",");
+       csvblob += vblob;
+       if(i != last) {
+         csvblob +='\n';
+       }
+   }
+//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+    return csvblob;
 }

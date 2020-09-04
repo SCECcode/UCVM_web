@@ -532,8 +532,9 @@ TODO: need a new id
                               <div>
                                 <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
                                     <ul id='processMPTableList' class="dropdown-menu list-inline" role="menu">
-                                        <li data-id='s' hidden >Save All</li>
-                                        <li id='mpCollapseLi' data-id='c'>Collapse</li>
+                                        <li id='mpSaveAllLi' data-id='d'>Save All</li>
+                                        <li id='mpSaveTableLi' data-id='s' hidden>Save Table</li>
+                                        <li id='mpCollapseLi' data-id='c' hidden>Collapse</li>
                                     </ul>
                               </div></td>
                         </tr>

@@ -215,6 +215,7 @@ var UCVM_tb={
     {'id':'cmb_vp','label':'vp','show':1,'descript':'vp'},
     {'id':'cmb_vs','label':'vs','show':1,'descript':'vs'},
     {'id':'cmb_rho','label':'rho','show':1,'descript':'rho'},
+    {'id':'Zmode','label':'zmode','show':0,'descript':'zmode'},
  ]
 };
 

@@ -150,6 +150,14 @@ function get_points_mp() {
   return len1;
 }
 
+function insert_materialproperty(uid, mp) {
+   ucvm_mp_list.push( { "uid":uid, "mp":mp });
+}
+
+function clear_materialproperty() {
+   ucvm_mp_list=[];
+}
+
 function get_materialproperty(target_uid) {
   var cnt=ucvm_mp_list.length;
   for(var i=0; i<cnt; i++) {
@@ -161,6 +169,17 @@ function get_materialproperty(target_uid) {
   }
   return {};
 }
+
+function get_all_materialproperty() {
+  var mplist=[];
+  var cnt=ucvm_mp_list.length;
+  for(var i=0; i<cnt; i++) {
+    var element=ucvm_mp_list[i];
+    mplist.push(element["mp"]);
+  }
+  return mplist;
+}
+
 
 /* return meta item if id is in the meta list */
 function find_meta_from_list(target_uid) {

@@ -28,8 +28,12 @@ $query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UC
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+$item=json_decode($result);
+$item->{"Zmode"} = $zmode;
+$nresult= json_encode($item);
 $itemlist = new \stdClass();
-$itemlist->mp=$result;
+
+$itemlist->mp=$nresult;
 
 $resultstring = htmlspecialchars(json_encode($itemlist), ENT_QUOTES, 'UTF-8');
 
