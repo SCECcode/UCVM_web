@@ -172,7 +172,7 @@ TODO: need a new id
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="modelType" >Select Model Type</label>
                 </div>
-                <select id="modelType" class="custom-select"></select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalmt"><span class="glyphicon glyphicon-info-sign"></span></button>
+                <select id="modelType" class="custom-select"></select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalmt" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
             </div>
 <!-- special pull-out for elygtl -->
             <div id="zrange" class="input-group mt-1" style="display:none;"> 
@@ -203,7 +203,7 @@ TODO: need a new id
                 <select id="zModeType" class="custom-select">
                     <option value="d">Depth</option>
                     <option value="e">Elevation</option>
-                </select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalzm"><span class="glyphicon glyphicon-info-sign"></span></button>
+                </select>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalzm" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
             </div>
             <div class="input-group filters">
                 <select id="search-type" class="custom-select">
@@ -638,7 +638,7 @@ TODO: need a new id
         </div>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" onclick="$('#sidebar').show();">&times;</button>
       </div>
 
     </div> <!--Content-->
@@ -658,7 +658,7 @@ TODO: need a new id
         </div>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" onclick="$('#sidebar').show();">&times;</button>
       </div>
 
     </div> <!--Content-->
