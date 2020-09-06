@@ -225,7 +225,7 @@ TODO: need a new id
                         <li id='start' class='navigationLi' style="display:none">
                             <div id='startMenu' class='menu'>
                                 <div class="row mt-2 pl-5">
-                                    <div class="col-12 mt-2" style="font-size:16px" >
+                                    <div class="col-12 mt-2" style="font-size:14px" >
                                        <h5><span class="glyphicon glyphicon-chevron-down"></span> Pick a UCVM model</h5>
                                        <h5><span class="glyphicon glyphicon-chevron-down"></span> Select either Depth or Elevation mode</h5>
                                        <h5><span class="glyphicon glyphicon-chevron-down"></span> Select an option</h5>
