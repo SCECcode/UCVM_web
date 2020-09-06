@@ -272,9 +272,9 @@ function makeParametersTable() {
    var tb=UCVM_tb['descript'];
    var cnt=tb.length;
    var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">UCVM Parameters Table</th></tr></tbody></table>";
+   var tbhtml="<table><tbody><tr><td style=\"border:1px solid white;\">UCVM Parameters Table</td></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:10vw\"><b>Parameter</b></td><td style=\"width:45vw\"><b>Description</b></td></tr>";
+   tbhtml=tbhtml+"<tr><th style=\"width:10vw\"><b>Parameter</b></th><th style=\"width:45vw\"><b>Description</b></th></tr>";
    for( i=0; i<cnt; i++) {
      var item=tb[i];
      var label=item['id'];
@@ -293,9 +293,9 @@ function makeFileFormatTable() {
    var tb=UCVM_tb['fileformats'];
    var cnt=tb.length;
    var i;
-   var tbhtml="<table><tbody><tr><th style=\"border:1px solid white;\">File Format Table</th></tr></tbody></table>";
+   var tbhtml="<table><tbody><tr><td style=\"border:1px solid white;\">File Format Table</td></tr></tbody></table>";
    tbhtml=tbhtml+"<div class=\"ucvm-table\"><table><tbody>";
-   tbhtml=tbhtml+"<tr><td style=\"width:12vw\"><b>Format</b></td><td style=\"width:4vw\"><b>suffix</b></td><td style=\"width:40vw\"><b>Description</b></td></tr>";
+   tbhtml=tbhtml+"<tr><th style=\"width:12vw\"><b>Format</b></th><th style=\"width:4vw\"><b>suffix</b></th><th style=\"width:40vw\"><b>Description</b></th></tr>";
 
    for( i=0; i<cnt; i++) {
      var item=tb[i];

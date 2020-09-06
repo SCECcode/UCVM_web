@@ -79,7 +79,7 @@ jQuery(document).ready(function() {
   });
 
   // setup the iframe for profile pageh
-  $("#profileBtn").click(function(e) {
+  $("#plotProfileBtn").click(function(e) {
       plotly_profile_run();
   });
 

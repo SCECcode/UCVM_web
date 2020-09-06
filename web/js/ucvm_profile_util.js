@@ -1,5 +1,22 @@
 
 /*** iframe housekeeping ***/
+function setIframSize(id) {
+  let topH = document.documentElement.clientHeight;
+  let topW = document.documentElement.clientWidth;
+  window.console.log("topH,",topH,"topW,", topW);
+  let f_h = 58; //header or footer
+  var height=topH -(f_h* 3);
+  var width= topW/3;
+
+  let oh=document.getElementById(id).height;
+  let ow=document.getElementById(id).width;
+  window.console.log("oH,",oh,"oW,", ow);
+ 
+  document.getElementById(id).height = height;
+//  document.getElementById(id).width = width;
+  window.console.log("setH,",height,"setW,", width);
+}
+
 function plotly_profile_run(){
    var plist=get_all_highlight_profile_list();
    var data=[];
@@ -12,11 +29,13 @@ function plotly_profile_run(){
        data.push(d);
      }
    }
+   window.console.log("HERE..",sz);
 
    var ulist=JSON.stringify(plist);
    var srcstr= "plotly_profile/compare.html?uidlist="+ulist;
-   var frameHeight=window.innerHeight;
-   document.getElementById("viewProfileIfram").height = frameHeight * 0.9 ;
+   window.console.log(srcstr);
+//   var frameHeight=window.innerHeight;
+//   document.getElementById("viewProfileIfram").height = frameHeight * 0.9 ;
    $('#viewProfileIfram').attr('src',srcstr);
 
    setTimeout(() => { send_to_profileIfram(JSON.stringify(data)) ; }, 2000);
@@ -27,6 +46,7 @@ function get_all_highlight_profile_list() {
    var cnt=ucvm_profile_list.length;
    var plist=[];
    if(cnt == 0) { // none to look at
+     window.console.log("no highlighted profile data");
      return plist;
    } else {
      var i;
@@ -51,6 +71,8 @@ function readVProfileDataFile(uid) {
   fmeta="result/"+fmeta;
   fmp="result/"+fmp;
 
+  window.console.log("HERE2");
+
   var fmetablob=getTextFile(fmeta);
   var metajson=JSON.parse(fmetablob);
   var fmpblob=getTextFile(fmp);
@@ -74,27 +96,3 @@ function send_to_profileIfram(data) {
   }
 
 }
-
-var track_profile_full=1; // 1 is on 0 is off
-function toggleExpandProfileView(elt) {
-
-  track_profile_full = !track_profile_full;
-
-  var body=document.getElementById("modalProfileBody");
-  var body_height=body.scrollHeight;
-  var body_width=body.scrollWidth;
-
-  if(track_profile_full) {
-    window.console.log("in shrink..\n");
-    elt.innerHTML="Expand";
-    $('#modalProfileContent').removeClass('full_modal-content');
-    document.getElementById("viewProfileIfram").height = body_height/2 ;
-    } else {
-    window.console.log("in expand..\n");
-      elt.innerHTML="Shrink";
-      $('#modalProfileContent').addClass('full_modal-content');
-      document.getElementById("viewProfileIfram").height = body_height*2;
-  }
-}
-
-

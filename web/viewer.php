@@ -123,8 +123,7 @@ TODO: need a new id
 <?php echo $header; ?>
 
 
-<div class="container main">
-
+<div class="container main container-fluid">
     <div class="spinDialog" style="position:absolute;top:50%;left:50%; z-index:9999;">
         <div id="spinIconForProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
         <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
@@ -141,18 +140,20 @@ TODO: need a new id
 
 <!--- MISC --->
 <div id="miscTools">
-   <button class="btn ucvm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
+  <div class="d-flex flex-row justify-content-end">
+    <button class="btn ucvm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
        <span id="ucvm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
-   <button class="btn ucvm-small-btn" title="display GFM regions" onclick='toggleShowCRM()'>
+    <button class="btn ucvm-small-btn" title="display GFM regions" onclick='toggleShowCRM()'>
        <span id="ucvm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM1.0</button>
-   <button class="btn ucvm-small-btn" title="display CTM regions" onclick='toggleShowCTM()'>
+    <button class="btn ucvm-small-btn" title="display CTM regions" onclick='toggleShowCTM()'>
        <span id="ucvm_ctm_btn" class="glyphicon glyphicon-ok-sign"></span>CTM</button>
 <!--
-   <button class="btn ucvm-small-btn" title="display CRM points" onclick='toggleShowCRMPoints()'>
+    <button class="btn ucvm-small-btn" title="display CRM points" onclick='toggleShowCRMPoints()'>
        <span id="ucvm_crm_point_btn" class="glyphicon glyphicon-ok-sign"></span>CRM Points</button>
 -->
+   </div>
 </div>
-
+   
     <div class="row" style="display:none;">
         <div class="col justify-content-end custom-control-inline">
             <div style="display:none;" id="external_leaflet_control"></div>
@@ -161,12 +162,12 @@ TODO: need a new id
 
   <!-- hidden btn to do profile comparison -->
     <div>
-        <button id="profileBtn" onclick="" class="btn ucvm-small-btn" data-toggle="modal" data-target="#modalProfile" style="display:none"></button>
+        <button id="plotProfileBtn" onclick="" class="btn ucvm-small-btn" data-toggle="modal" data-target="#modalProfile" style="display:none" onclick="$('#sidebar').hide();"></button>
     </div>
 
-    <div id="content-container" class="row">
+    <div id="content-container" class="row flex-row flex-wrap">
         <div id="control-container" class="col-5">
-          <div class="col-12" style="padding-left:0px; padding-righ:0px">
+          <div class="col-12 mt-4" style="padding-top:10px; padding-left:0px; padding-righ:0px">
             <div class="input-group filters mb-1">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="modelType" >Select Model Type</label>
@@ -206,7 +207,7 @@ TODO: need a new id
             </div>
             <div class="input-group filters">
                 <select id="search-type" class="custom-select">
-                    <option value="freezeClick">Select</option>
+                    <option value="startClick">Select</option>
                     <option value="pointClick">0D Point</option>
                     <option disabled>-- Advanced --</option>
                     <option value="profileClick">1D Vertical Profile</option>
@@ -221,6 +222,27 @@ TODO: need a new id
                 <div class="col input-group">
                     <ul id="sidebar" class="navigation pl-2 pb-2 pr-1" style="background:whitesmoke;display:none">
 
+                        <li id='start' class='navigationLi' style="display:none">
+                            <div id='startMenu' class='menu'>
+                                <div class="row mt-2 pl-5">
+                                    <div class="col-12 mt-2" style="font-size:16px" >
+                                       <h5><span class="glyphicon glyphicon-chevron-down"></span> Pick a UCVM model</h5>
+                                       <h5><span class="glyphicon glyphicon-chevron-down"></span> Select either Depth or Elevation mode</h5>
+                                       <h5><span class="glyphicon glyphicon-chevron-down"></span> Select an option</h5>
+                                       <div class="col-10">
+                                       <ul>
+                                          <li style="list-style-type:disc">Query for material properties with<br>0D Point option</lib> 
+                                          <li style="list-style-type:disc">Plot depth or elevation profile with<br>1D Vertical Profile option</li> 
+                                          <li style="list-style-type:disc">Plot cross section for vs, vp, density or poisson data type with<br>2D Vertical Cross Section option</li>
+                                          <li style="list-style-type:disc">Plot horizontal slice of vs, vp, density, poisson or vs30 etree with<br>2D Horizontal Slice option </li>
+                                       </ul>
+                                       </div>
+                                       <br>
+                                       <h5> Preliminary: Plot vertical profile comparison plot with 1 or more vertical profiles(<span style="font-size:6px" class="glyphicon glyphicon-triangle-bottom"></span>)</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         <li id='point' class='navigationLi' style="display:none">
                             <div id='pointMenu' class='menu'>
                                 <div class="row mt-2">
@@ -274,7 +296,7 @@ TODO: need a new id
                                      <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
                                      <button id="fileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
                                      <span class="glyphicon glyphicon-file"></span> Select file to use</button>
-<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalfile"><span class="glyphicon glyphicon-info-sign"></span></button>
+<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalfile" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
                                      <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                 </div>
                             </div>
@@ -499,7 +521,7 @@ TODO: need a new id
           </div>
         </div> <!-- control-container -->
         <div id="map-container" class="col-7">
-            <div class="col-8 offset-4 d-flex mb-1">
+            <div class="col-8 d-flex mb-1" style="margin-left:35%">
                 <div class="input-group input-group-sm" id="map-controls">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="mapLayer">Select Map Type</label>
@@ -514,75 +536,52 @@ TODO: need a new id
                 </div>
             </div>
             <div class="row mapData">
-                <div class="col-12 pr-0 pl-2 pt-1"> 
-                    <div class="col-12 w-100 mb-1" id='UCVM_plot'
+                <div class="col-12 pr-0 pl-2 pt-0"> 
+                    <div class="row w-100 mb-1" id='UCVM_plot'
                          style="position:relative;border:solid 1px #ced4da; height:576px;">
                     </div>
                 </div>
             </div>
         </div> <!-- map-container -->
-        <div id="result-container" class="col-12">
-            <div class="row" id="mp-table">
-                <div class="col-12" id="materialProperty-header-container">
-                    <table id="mpHeaderTable" style="border:none">
-                        <tbody>
-                        <tr>
-                            <td style="border:none"><b>Material Property</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalParameters"><span class="glyphicon glyphicon-info-sign"></span></button></td>
-                            <td align="right" style="border:none" title="process mp table">
-                              <div>
-                                <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
-                                    <ul id='processMPTableList' class="dropdown-menu list-inline" role="menu">
-                                        <li id='mpSaveAllLi' data-id='d'>Save All</li>
-                                        <li id='mpSaveTableLi' data-id='s' hidden>Save Table</li>
-                                        <li id='mpCollapseLi' data-id='c' hidden>Collapse</li>
-                                    </ul>
-                              </div></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-12" id="materialProperty-viewer-container" style="overflow:scroll;max-height:20vh">
-                    <table id="materialPropertyTable">
-                        <tbody>
-                        <tr id="mp_placeholder-row">
-                            <td colspan="12">Material Property for selected locations will appear here. </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row mt-2 mb-4">
-                <div class="col-12" id="metadata-header-container">
-                    <table id="metaHeaderTable" style="border:none">
-                        <tbody>
-                        <tr>
-                            <td style="border:none"><b>Result and Metadata</b>&nbsp;<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+        <div class="col-12 mt-0">
+        <div id="result-container" class="row d-flex flex-column">
 
-                            <td align="right" style="border:none" title="process result table">
-                              <div>
-                                <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
-                                    <ul id='processMetaPlotResultTableList' class="dropdown-menu list-inline" role="menu">
-                                        <li data-id='s' hidden >Save All</li>
-                                        <li id='mprCollapseLi' data-id='c'>Collapse</li>
-                                        <li data-id='p'>plot Depth Profile</li>
-                                    </ul>
-                              </div></td>
+           <div class="col-12 flex-row" align="end">
+               <button class="btn ucvm-top-small-btn" title="download all the material property in the table" onclick="downloadMPTable()" ><span class="glyphicon glyphicon-download"></span></button>
+               <button class="btn ucvm-top-small-btn" title="material property  parameters displayed in the table" data-toggle="modal" data-target="#modalParameters" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+            </div>
+            <div class="col-12 mb-0" id="mp-table">
+                <div id="materialPropertyTable-container" style="overflow:auto;max-height:20vh;margin:0px 0px 0px 0px;">
+                    <table id="materialPropertyTable">
+                        <tr id="placeholder-row">
+                            <td colspan="11">Material Property for selected locations will appear here </td>
                         </tr>
-                        </tbody>
                     </table>
                 </div>
-                <div class="col-12" id="metadataPlotTable-container" style="overflow:scroll;max-height:30vh">
+            </div> <!-- mp-table -->
+
+            <div class="col-12 flex-row" align="end">
+                <button class="btn ucvm-top-small-btn dropdown-toggle" data-toggle="dropdown"></button>
+                <ul id='processMetaPlotResultTableList' class="dropdown-menu list-inline" role="menu">
+                   <li data-id='s' hidden >Save All</li>
+                   <li id='mprCollapseLi' data-id='c' hidden>Collapse</li>
+                   <li data-id='p'>plot Depth Profile</li>
+                </ul>
+                <button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalff" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+            </div>
+            <div class="col-12  mt-0 mb-4" id="result-table">
+               <div id="metadataPlotTable-container" style="overflow:auto;max-height:20vh;margin:0px 0px 0px 0px;">
                     <table id="metadataPlotTable">
-                        <tbody>
                         <tr id="placeholder-row">
-                            <td colspan="12">Result, Plot and Metadata will appear here. </td>
+                            <td colspan="12">Downloadable Batch Result will appear here </td>
                         </tr>
-                        </tbody> </table>
-                </div>
+                    </table>
+               </div>
             </div>
 
             <div id="phpResponseTxt"></div>
         </div> <!-- result-container -->
+        </div> <!-- wrap result -->
     </div> <!-- content-container -->
 </div> <!-- container main -->
 
@@ -599,7 +598,7 @@ TODO: need a new id
         </div>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" onclick="$('#sidebar').show();">&times;</button>
       </div>
 
     </div> <!--Content-->
@@ -619,7 +618,7 @@ TODO: need a new id
         </div>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" onclick=$('#sidebar').show();>&times;</button>
       </div>
 
     </div> <!--Content-->
@@ -677,19 +676,17 @@ TODO: need a new id
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
 
           <div class="col-12" id="file-container">
-<p>
-Format of input file :
+<h5>Local input file format is 3 columns of Longitude, Latitude and Z separated by a comma or a space </h5>
 <pre>
-      lon1  lat1  z1
-      lon2  lat2  z1
+lon1 lat1 z1             lon1,lat1,z1
+lon2 lat2 z2      or     lon2,lat2,z2
 </pre>
-
-</p>
+<h5> Z value should match the Z mode selection from the main viewer </h5>
           </div>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" onclick="$('#sidebar').show();">&times;</button>
       </div>
 
     </div> <!--Content-->
@@ -705,22 +702,23 @@ Format of input file :
       
       <!--Body-->
       <div class="modal-body" id="modalProfileBody">
-        <div id="profile-iframe-container" class="row col-12" style="overflow:hidden; border:2px solid green;">
+        <div id="profile-iframe-container" class="col-12" style="overflow:auto;">
 
-<iframe id="viewProfileIfram" src="" height="0" width=100% frameborder="2" allowfullscreen></iframe>
+<iframe id="viewProfileIfram" src="" height="0" width="100%" onload="setIframSize(this.id)" allowfullscreen></iframe>
 
         </div>
       </div>
 
-<!--- other style
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal">Close</button>
-        <button id="expandProfileBtn" class="btn btn-outline-primary btn-md" type="button" onclick="toggleExpandProfileView(this)">Expand</button>
+        <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal" onclick="$('#sidebar').show();">Close</button>
+        <div class="spinDialog" style="position:absolute;top:40%;left:50%; z-index:9999;">
+          <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
       </div> 
---->
+<!--
       <div class="modal-footer justify-content-center">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+--->
 
 
     </div> <!--Content-->

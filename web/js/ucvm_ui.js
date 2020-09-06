@@ -2,6 +2,10 @@
    ucvm_ui.js
 ***/
 
+// global flag to show if material property is at the very start of
+// insert
+var hold_mptable=1;
+
 /***
    tracking download handles
 ***/
@@ -239,7 +243,7 @@ function makeMetaPlotResultTable(note,uid,html) {
       table.deleteRow(0); // delete the holdover
 //label
       var row=table.insertRow(-1);
-      row.innerHTML="<th style=\"width:10vw\"><b>UID</b></th><th style=\"width:2vw\"></th><th style=\"width:24vw\"><b>Links</b></th><th style=\"width:24vw\"><b>Description</b></th>";
+      row.innerHTML="<th style=\"width:10vw;background-color:whitesmoke\"><b>UID</b></th><th style=\"width:2vw;background-color:whitesmoke\"></th><th style=\"width:24vw;background-color:whitesmoke\"><b>Links</b></th><th style=\"width:24vw;background-color:whitesmoke\"><b>Description</b></th>";
 //
     }
 
@@ -255,7 +259,7 @@ function makeMetaPlotResultTable(note,uid,html) {
 
 // takes 1 or more sets of result
 // of { 'first':{...}, 'second':{...}, ...}
-function makeHorizontalResultTable(uid,str)
+function makeMPTable(uid,str)
 {
     var i;
     var blob;
@@ -290,34 +294,35 @@ function makeHorizontalResultTable(uid,str)
 
     insert_materialproperty(uid,datablob); // save a copy
 
+    var table=document.getElementById("materialPropertyTable");
+
     // create the key first
-    var labelline="<th style=\"width:4vw\"></th>";
+    var labelline="<th style=\"width:10vw;background-color:whitesmoke;\"></th>";
     var key;
     
     var datakeys=Object.keys(datablob);
     var sz=(Object.keys(datablob).length);
 
-    var zkeyidx=0;
     var tmp;
-    for(i=0; i<sz; i++) {
-        key=datakeys[i];
-        // special case
-        if(!showInTable(key))
-          continue;
-        if(key == 'Z') { 
-          zkeyidx=i;
-          labelline=labelline+"<th style=\"width:48vw\"><b>"+key+"</b></th>";
-          } else {
-            labelline=labelline+"<th style=\"width:24vw\"><b>"+key+"</b></th>";
+    if(hold_mptable) {
+        for(i=0; i<sz; i++) {
+            key=datakeys[i];
+            // special case
+            if(!showInTable(key))
+              continue;
+            if(key == 'Z') { 
+              labelline=labelline+"<th style=\"width:48vw;background-color:whitesmoke;\"><b>"+key+"</b></th>";
+              } else {
+                labelline=labelline+"<th style=\"width:24vw;background-color:whitesmoke\"><b>"+key+"</b></th>";
+            }
         }
+        table.deleteRow(0); // delete the holdover
+        hold_mptable=0;
+    
+        row=table.insertRow(-1);
+        row.innerHTML=labelline;
     }
-
-    var table=document.getElementById("materialPropertyTable");
-    table.deleteRow(0); // delete the holdover
-
-    row=table.insertRow(-1);
-    row.innerHTML=labelline;
-
+    
     // now adding the data part..
     for(j=0; j< dsz; j++) {
         var datablob=blob[dkeys[j]];
@@ -326,117 +331,32 @@ function makeHorizontalResultTable(uid,str)
         if( typeof datablob === 'string') { 
            datablob=JSON.parse(datablob);
         }
+
         var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
 
         var tmp;
         for(i=0; i<sz; i++) {
             var key2=datakeys[i];
             var val2=datablob[key2];
+            var zmodestr=datablob["Zmode"];
             if(!showInTable(key2))
               continue;
-            if(i == zkeyidx) {
-              var zmodestr=document.getElementById("zModeType").value;
+            if(key2=="Z") {
               if(zmodestr == "e")
                 val2=val2+"(by&nbsp;elevation)";
-              else
-                val2=val2+"(by&nbsp;depth)";
+                else
+                  val2=val2+"(by&nbsp;depth)";
               tmp="<td style=\"width:24vw\">"+val2+"</td>";
               } else { 
                   tmp="<td style=\"width:24vw\">"+val2+"</td>";
             }
             mpline=mpline+tmp;
          }
-//         row=table.insertRow(-1);
          row=table.insertRow(1);
          row.innerHTML=mpline;
     }
 }
 
-function makeHorizontalResultTable_row(uid,str)
-{
-    var i;
-    var blob;
-
-    if( typeof str === 'string') { 
-       blob=JSON.parse(str);
-       } else {
-         blob=str;
-    }
-
-    var dkeys=Object.keys(blob); // dkeys: first, second
-    var dsz=(Object.keys(blob).length); // 2
-
-    if(dsz < 1) {
-       window.console.log("ERROR: expecting at least 1 set of material properties");
-       return;
-    }
-
-    var datablob=blob[dkeys[0]]; // first set of data { 'X':..,'Y':...  }
-
-    if( datablob == "" ) {
-       window.console.log("ERROR: no return result");
-       return "";
-    } 
-
-    if( typeof datablob === 'string') { 
-       datablob=JSON.parse(datablob);
-    }
-
-    insert_materialproperty(uid,datablob); // save a copy
-
-    // create the key first
-    var key;
-    
-    var datakeys=Object.keys(datablob);
-    var sz=(Object.keys(datablob).length);
-
-    var zkeyidx=0; // look for Z entry
-    for(i=0; i<sz; i++) {
-        key=datakeys[i];
-        // special case
-        if(!showInTable(key))
-          continue;
-        if(key == 'Z') { 
-          zkeyidx=i;
-          break;
-        }
-    }
-
-    // the data part..
-    var table=document.getElementById("materialPropertyTable");
-//    var row=table.insertRow(-1);
-    var row=table.insertRow(1);
-    for(j=0; j< dsz; j++) {
-        var mpline="<td style=\"width:4px\"><button class=\"btn btn-sm ucvm-small-btn\" title=\"toggle the layer\" onclick=toggle_a_layergroup(\""+uid+"\");><span value=0 id=\"ucvm_layer_"+uid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td>";
-        var datablob=blob[dkeys[j]];
-        if(datablob == "")
-           continue;
-        if( typeof datablob === 'string') { 
-           datablob=JSON.parse(datablob);
-        }
-        var tmp;
-        for(i=0; i<sz; i++) {
-            var key2=datakeys[i];
-            var val2=datablob[key2];
-            if(!showInTable(key2))
-              continue;
-            if(i == zkeyidx) {
-              var zmodestr=document.getElementById("zModeType").value;
-              if(zmodestr == "e")
-                val2=val2+"(by&nbsp;elevation)";
-              else
-                val2=val2+"(by&nbsp;depth)";
-              tmp="<td style=\"width:24vw\">"+val2+"</td>";
-              } else {
-                tmp="<td style=\"width:24vw\">"+val2+"</td>";
-            }
-            mpline=mpline+tmp;
-         }
-//         var row=table.insertRow(-1);
-         var row=table.insertRow(1);
-         row.innerHTML=mpline;
-    }
-}
 
 // go through the table and pick up the label that has valid entry
 // chunk and extract the old mp date from backend
@@ -563,7 +483,7 @@ function processMetaPlotResultTable(v)
       save_mpr_table();
       break;
     case 'p':
-      $("#profileBtn").click();
+      $("#plotProfileBtn").click();
       break;
   }
 }

@@ -144,12 +144,6 @@ function load_selected_model(modelstr) {
    }
 }
 
-// see how many mp from points is there right now
-function get_points_mp() {
-  var len1=ucvm_point_list.length;
-  return len1;
-}
-
 function insert_materialproperty(uid, mp) {
    ucvm_mp_list.push( { "uid":uid, "mp":mp });
 }
@@ -431,6 +425,7 @@ function remove_bounding_point_layer(uid) {
 }
 
 function add_bounding_profile(uid,a,b) {
+  window.console.log("adding_bounding_profile");
   var group=addProfileLayerGroup(a,b);
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b}]};
   ucvm_profile_list.push(tmp);
@@ -438,6 +433,7 @@ function add_bounding_profile(uid,a,b) {
 }
 
 function add_bounding_profile_layer(layer,a,b) {
+  window.console.log("adding_bounding_profile_layer");
   if(dirty_layer_uid) {
     remove_a_layer(dirty_layer_uid);
   }
