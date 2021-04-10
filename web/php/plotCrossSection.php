@@ -53,6 +53,8 @@ if ($zmode == 'e') {
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+$rc=checkResult($query, $result);
+
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
 $resultarray->plot= $uid."cross.png";

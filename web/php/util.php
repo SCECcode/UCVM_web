@@ -9,4 +9,20 @@ function makeEnvString() {
    return $envstr;
 }
 
+function checkResult($query,$result) {
+  $pos=strpos($result,"ERROR:");
+  $fp= fopen("../result/query_r","w+") or die("Unable to open file!");
+  fwrite($fp,$query); fwrite($fp,"\n");
+  fwrite($fp,$result); fwrite($fp,"\n");
+  fclose($fp);
+  if( $pos != FALSE ) { // found ERROR
+     $fp= fopen("../result/query_r","w+") or die("Unable to open file!");
+     fwrite($fp,$query); fwrite($fp,"\n");
+     fwrite($fp,$result); fwrite($fp,"\n");
+     fclose($fp);
+     return TRUE;
+  } 
+  return FALSE;
+}
+
 ?>

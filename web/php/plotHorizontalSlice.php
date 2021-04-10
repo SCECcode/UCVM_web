@@ -68,6 +68,9 @@ if($datatype != 'vs30') {
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+$rc=checkResult($query,$result);
+echo $rc;
+
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
 $resultarray->plot= $uid."horizontal.png";
