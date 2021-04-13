@@ -33,10 +33,12 @@ if ($zrange != 'none') {
 $qstub=" -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET -d vs,vp,density -c ".$model." -o ".$file;
 
 if ($zmode == 'e') {
-  $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_profile.py ".$qstub.$lstr;
+  $query= $envstr." ../model/UCVMC_TARGET/ucvm_plotting/ucvm_plotting/plot_elevation_profile.py ".$qstub.$lstr;
   } else {
-    $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_depth_profile.py ".$qstub.$lstr;
+    $query= $envstr." ../model/UCVMC_TARGET/ucvm_plotting/ucvm_plotting/plot_depth_profile.py ".$qstub.$lstr;
 }
+
+echo "$query";
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 

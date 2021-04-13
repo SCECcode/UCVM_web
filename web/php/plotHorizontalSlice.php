@@ -56,14 +56,14 @@ if($datatype != 'vs30') {
   $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET ";
 
   if( $zmode == 'd') {
-    $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_horizontal_slice.py ".$qstub.$lstr;
+    $query= $envstr." ../model/UCVMC_TARGET/ucvm_plotting/ucvm_plotting/plot_horizontal_slice.py ".$qstub.$lstr;
     } else {
-      $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_horizontal_slice.py ".$qstub.$lstr;
+      $query= $envstr." ../model/UCVMC_TARGET/ucvm_plotting/ucvm_plotting/plot_elevation_horizontal_slice.py ".$qstub.$lstr;
   }
   } else {
     $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon;
     $qstub=" -s ".$sval." -c ".$model." -a dd -o ".$file." -i ../model/UCVMC_TARGET";
-    $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_vs30_etree_map.py".$qstub.$lstr;
+    $query= $envstr." plot_vs30_etree_map.py".$qstub.$lstr;
 }
 
 $result = exec(escapeshellcmd($query), $retval, $status);

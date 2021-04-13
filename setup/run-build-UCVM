@@ -1,30 +1,31 @@
 #!/bin/bash
 
-##setup mpi environment
-##none, source /usr/usc/openmpi/1.8.8/setup.sh
-
-source setup/setup_UCVMC.sh
+source setup/setup_UCVM.sh
 
 mkdir -p $UCVM_INSTALL_PATH
 
-mkdir  $TOP_UCVM_DIR/model
+mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
-git clone https://github.com/SCECcode/UCVMC.git -b forGFM
+git clone https://github.com/SCECcode/UCVMC.git -b toPython3
 
 # 6th is cvmsi,
 # 8th is cvmh
 cd $UCVM_SRC_PATH/largefiles
 ./get_large_files.py << EOB 
+n
+n
+n
+n
+n
+n
+n
+n
 y
-n
-n
-n
-y
-y
-n
 y
 y
 EOB
+
+#cp cvmh-15.1.1.tar.gz $UCVM_SRC_PATH/largefiles
 
 ### cd $UCVM_SRC_PATH/largefiles; ./check_largefiles_md5.py
 cd $UCVM_SRC_PATH/largefiles; ./stage_large_files.py
@@ -34,7 +35,13 @@ cd $UCVM_SRC_PATH
 $UCVM_INSTALL_PATH
 EOF
 
-cd $UCVM_SRC_PATH; make check
+cd $UCVM_SRC_PATH; make runcheck
+source conf/ucvm_env.sh
+
+cd $UCVM_INSTALL_PATH
+git clone https://github.com/SCECcode/ucvm_plotting.git
+cd ucvm_plotting
+./unpack-dist
 
 echo "..EXITING.."
 exit

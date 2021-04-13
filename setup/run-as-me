@@ -17,13 +17,13 @@ sudo bash Anaconda2-2019.07-Linux-x86_64.sh -b -f -p /usr/local/share/anaconda2
 
 rm -rf Anaconda2-2019.07-Linux-x86_64.sh
 
-git clone https://github.com/SCECcode/UCVM_web.git
+git clone https://github.com/SCECcode/UCVM_web.git -b withLSU
 cd UCVM_web
 git clone git@github.com:meihuisu/ucvm_plotly_web.git plotly_profile
 
 ## build UCVMC 
 cd UCVM_web
-bash ./setup/run-build-UCVMC
+bash ./setup/run-build-UCVM
 bash ./setup/run-build-UCVM_web
 
 ## python basemap, basemap-data-hires, matplotlib
