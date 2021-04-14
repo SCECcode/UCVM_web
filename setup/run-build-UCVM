@@ -25,9 +25,9 @@ y
 y
 EOB
 
-#cp cvmh-15.1.1.tar.gz $UCVM_SRC_PATH/largefiles
-
-### cd $UCVM_SRC_PATH/largefiles; ./check_largefiles_md5.py
+if [ "$(uname)" != "Darwin" ]; then
+  cd $UCVM_SRC_PATH/largefiles; ./check_largefiles_md5.py
+fi
 cd $UCVM_SRC_PATH/largefiles; ./stage_large_files.py
 
 cd $UCVM_SRC_PATH
