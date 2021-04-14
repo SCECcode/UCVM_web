@@ -92,10 +92,12 @@ function makeModelSelection()
    }
 
 /**XXX**/
-   option = document.createElement("option");
-   option.text = "CVM-S4.26,elygtl:ely";
-   option.value= "cvms5,elygtl:ely"; 
-   sel.add(option);
+   if(isModelInstalled("cvms5")) {
+     option = document.createElement("option");
+     option.text = "CVM-S4.26,elygtl:ely";
+     option.value= "cvms5,elygtl:ely"; 
+     sel.add(option);
+   }
 /****/
 
 // put in the default region on the map

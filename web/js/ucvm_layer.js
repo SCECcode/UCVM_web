@@ -80,11 +80,12 @@ function remove_all_models() {
 }
 
 function load_a_model(name, order) {
+   var nname=name.toLowerCase();
    var cnt=ucvm_model_list.length;
    var i;
    for(i=0;i<cnt;i++) {
      var t=ucvm_model_list[i];
-     if(t['model'] == name ) {
+     if(t['model'] == nname ) {
        if(t['visible']==0) {
           t['visible']=1; 
           t['oidx']=order;
@@ -99,11 +100,12 @@ function load_a_model(name, order) {
 }
 
 function remove_a_model(name) {
+   var nname=name.toLoserCase();
    var cnt=ucvm_model_list.length;
    var i;
    for(i=0;i<cnt;i++) {
      var t=ucvm_model_list[i];
-     if(t['name'] == name ) {
+     if(t['name'] == nname ) {
        if(t['visible']==1) {
           t['visible']=0; 
           t['oidx']=0;
@@ -130,8 +132,13 @@ function make_all_model_layer() {
       var layer=makeModelLayer(latlngs,color);
       ucvm_model_list.push({"model": name, "layer": layer, "visible": 0, "oidx":0 });
    }
-// initialize with the default model
-   load_a_model("cvmh");
+
+   { // initialize with the default model
+     var sel=document.getElementById('modelType');
+     var opt=sel[0]
+     var model=opt.text;
+     load_a_model(model);
+   }
 }
 
 // can be "cvmh" or "cvmh,cvmsi"
