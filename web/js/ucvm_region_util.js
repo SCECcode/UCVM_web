@@ -72,7 +72,7 @@ function makeModelSelection()
 
    if(isModelInstalled("cvms5") && isModelInstalled("cvmh1511")) {
      option = document.createElement("option");
-     option.text = "CVM-S4.26,CVM-H v15.1";
+     option.text = "CVM-S4.26,CVM-H v15.1.1";
      option.value= "cvms5,cvmh"; 
      sel.add(option);
    }
@@ -91,14 +91,27 @@ function makeModelSelection()
      sel.add(option);
    }
 
-/**XXX**/
+   if(isModelInstalled("ivlsu") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SSIP Imperial Valley,1D";
+     option.value= "ivlsu,1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("ivlsu") && isModelInstalled("cvmh1511")) {
+     option = document.createElement("option");
+     option.text = "CVM-S4.26,CVM-H v15.1.1";
+     option.text = "SSIP Imperial Valley,CVM-H v15.1.1";
+     option.value= "ivlsu,cvmh"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("cvms5")) {
      option = document.createElement("option");
      option.text = "CVM-S4.26,elygtl:ely";
      option.value= "cvms5,elygtl:ely"; 
      sel.add(option);
    }
-/****/
 
 // put in the default region on the map
    makeLatlngsCoordinate('cvmh');

@@ -17,9 +17,6 @@ $model = ($_GET['model']);
 $zrange = ($_GET['zrange']);
 $uid = ($_GET['uid']);
 
-$np="/usr/local/share/anaconda2/bin:/usr/local/share/anaconda2/condabin:".getenv("PATH");
-putenv("PATH=".$np);
-
 $file="../result/".$uid."vertical.png";
 
 $envstr=makeEnvString();
@@ -37,8 +34,6 @@ if ($zmode == 'e') {
   } else {
     $query= $envstr." ../model/UCVMC_TARGET/ucvm_plotting/ucvm_plotting/plot_depth_profile.py ".$qstub.$lstr;
 }
-
-echo "$query";
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 

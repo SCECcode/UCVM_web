@@ -7,7 +7,7 @@
 var UCVM_tb={
 "models": [
     {'id':1,
-     'model name':'CVM-H v15.1',
+     'model name':'CVM-H v15.1.1',
      'abb name':'cvmh',
      'path name':'cvmh1511',
      'model filename':'cvmh-15.1.1.tar.gz',
@@ -59,7 +59,7 @@ var UCVM_tb={
      'abb name':'albacore',
      'path name':'albacore',
      'model filename':'albacore.tar.gz',
-     'description':'Southern California Off-shore Velocity Model',
+     'description':'Southern California Off-shore Velocity Model<br>depth:0 to 100km',
      'coordinates': [
                {'lon':-116.847200,'lat':33.300000},
                {'lon':-116.847200,'lat':32.700000},
@@ -132,7 +132,7 @@ var UCVM_tb={
      'abb name':'ivlsu',
      'path name':'ivlsu',
      'model filename':'ivlsu.tar.gz',
-     'description':'Imperial Valley Velocity Model developed by LSU',
+     'description':'Imperial Valley Velocity Model developed by LSU<br>depth:0 to 8km',
      'coordinates': [
                {'lon':-116.051578,'lat':32.596922},
                {'lon':-115.344866,'lat':32.596922},
@@ -145,7 +145,7 @@ var UCVM_tb={
      'abb name':'cvlsu',
      'path name':'cvlsu',
      'model filename':'cvlsu.tar.gz',
-     'description':'Coachella Valley Velocity Model developed by LSU',
+     'description':'Coachella Valley Velocity Model developed by LSU<br>depth:-5km to 16km',
      'coordinates': [
                {'lon':-115.7,'lat':33.3},
                {'lon':-116.7,'lat':33.3},

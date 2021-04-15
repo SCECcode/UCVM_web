@@ -68,8 +68,7 @@ if($datatype != 'vs30') {
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
-$rc=checkResult($query,$result);
-echo $rc;
+$rc=checkResult($query,$result,$uid);
 
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
