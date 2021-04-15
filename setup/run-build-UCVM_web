@@ -8,6 +8,6 @@ chmod og+rw $TOP_UCVM_WEB_DIR/result
 
 ## make sure the datafile are readable by web user
 
-chmod -R og+r $TOP_UCVM_INSTALL_PATH/model
+chmod -R og+r $UCVM_WEB_INSTALL_PATH/model
 
 exit

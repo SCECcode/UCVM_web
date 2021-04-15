@@ -1,5 +1,6 @@
 ## run as installer of the system stack
 #   
+# to be run on moho
 
 rm -rf Anaconda2-2019.07-Linux-x86_64.sh
 rm -rf UCVM_web
@@ -30,5 +31,14 @@ bash ./setup/run-build-UCVM_web
 sudo /usr/local/share/anaconda2/bin/conda install -y matplotlib
 sudo /usr/local/share/anaconda2/bin/conda install -y basemap
 sudo /usr/local/share/anaconda2/bin/conda install -y basemap-data-hires
+sudo /usr/local/share/anaconda2/bin/conda install -y pip
+
+cd $UCVM_SRC_PATH
+source conf/ucvm_env.sh
+
+cd $UCVM_INSTALL_PATH
+git clone https://github.com/SCECcode/ucvm_plotting.git
+cd ucvm_plotting
+sudo /usr/local/share/anaconda2/bin/pip install dist/ucvm_plotting-0.0.1.tar.gz
 
     

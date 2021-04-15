@@ -36,12 +36,15 @@ $UCVM_INSTALL_PATH
 EOF
 
 cd $UCVM_SRC_PATH; make runcheck
-source conf/ucvm_env.sh
 
-cd $UCVM_INSTALL_PATH
-git clone https://github.com/SCECcode/ucvm_plotting.git
-cd ucvm_plotting
-./unpack-dist
+## only if it is on my local mac
+if [ "$(uname)" == "Darwin" ]; then
+    source conf/ucvm_env.sh
+    cd $UCVM_INSTALL_PATH
+    git clone https://github.com/SCECcode/ucvm_plotting.git
+    cd ucvm_plotting
+    ./unpack-dist
+fi
 
 echo "..EXITING.."
 exit
