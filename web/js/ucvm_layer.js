@@ -80,12 +80,11 @@ function remove_all_models() {
 }
 
 function load_a_model(name, order) {
-   var nname=name.toLowerCase();
    var cnt=ucvm_model_list.length;
    var i;
    for(i=0;i<cnt;i++) {
      var t=ucvm_model_list[i];
-     if(t['model'] == nname ) {
+     if(t['model'] = name ) {
        if(t['visible']==0) {
           t['visible']=1; 
           t['oidx']=order;
@@ -100,12 +99,11 @@ function load_a_model(name, order) {
 }
 
 function remove_a_model(name) {
-   var nname=name.toLoserCase();
    var cnt=ucvm_model_list.length;
    var i;
    for(i=0;i<cnt;i++) {
      var t=ucvm_model_list[i];
-     if(t['name'] == nname ) {
+     if(t['name'] == name ) {
        if(t['visible']==1) {
           t['visible']=0; 
           t['oidx']=0;
@@ -136,7 +134,7 @@ function make_all_model_layer() {
    { // initialize with the default model
      var sel=document.getElementById('modelType');
      var opt=sel[0]
-     var model=opt.text;
+     var model=opt.value;
      load_a_model(model);
    }
 }
