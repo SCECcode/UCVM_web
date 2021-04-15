@@ -3,18 +3,17 @@
 function setIframSize(id) {
   let topH = document.documentElement.clientHeight;
   let topW = document.documentElement.clientWidth;
-  window.console.log("topH,",topH,"topW,", topW);
+//  window.console.log("topH,",topH,"topW,", topW);
   let f_h = 58; //header or footer
   var height=topH -(f_h* 3);
   var width= topW/3;
 
   let oh=document.getElementById(id).height;
   let ow=document.getElementById(id).width;
-  window.console.log("oH,",oh,"oW,", ow);
+//  window.console.log("oH,",oh,"oW,", ow);
  
   document.getElementById(id).height = height;
-//  document.getElementById(id).width = width;
-  window.console.log("setH,",height,"setW,", width);
+//  window.console.log("setH,",height,"setW,", width);
 }
 
 function plotly_profile_run(){

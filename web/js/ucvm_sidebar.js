@@ -245,6 +245,7 @@ function pointClick() {
   if(point_sidebar) {
     sidebar_point_slideOut();
     $('#pointBtn').addClass('pick');
+    set_point_latlons_special();
     markPointLatlon();
     } else {
       // enable the popup on map
@@ -254,18 +255,39 @@ function pointClick() {
   }
 }
 
+
 function set_point_latlons_preset()
 {
     $( "#pointZTxt" ).val(0);
 }
 
+/*  special preset case for ivslu/cvlsu because they are sparse */
+function set_point_latlons_special() 
+{
+    reset_point_latlons();
+/*  special preset case for ivslu/cvlsu because they are sparse */
+    var model=document.getElementById("modelType").value;
+    if(model == "ivlsu") {
+        $( "#pointFirstLatTxt" ).val(32.686);
+        $( "#pointFirstLonTxt" ).val(-116.05);
+        reset_point_UID();
+        $( "#pointZTxt" ).val(1000);
+    } 
+    if(model == "cvlsu") {
+        $( "#pointFirstLatTxt" ).val(33.31);
+        $( "#pointFirstLonTxt" ).val(-116.57);
+        reset_point_UID();
+        $( "#pointZTxt" ).val(1000);
+    } 
+}
+ 
 function set_point_latlons(uid,lat,lon) {
    // need to capture the lat lon and draw a point
    if(point_sidebar && drawing_point) {
        $( "#pointFirstLatTxt" ).val(round2Four(lat));
        $( "#pointFirstLonTxt" ).val(round2Four(lon));
        $( "#pointUIDTxt" ).val(uid);
-       set_point_latlons_preset();
+       set_point_latlons_preset()
    }
 }
 function reset_point_latlons() {

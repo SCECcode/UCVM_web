@@ -129,7 +129,7 @@ function readLocalAndProcessActiveCFMGeo() {
 // SPECIAL CASE
 //   atrace.features[0].properties.style.color="red"; // the first one in all traces
      var name= atrace.features[0].properties.name;
-     window.console.log("adding trace.. ",name);
+//     window.console.log("adding trace.. ",name);
   }
   return makeGeoGroup(trace_list);
 }
@@ -154,7 +154,7 @@ function readAndProcessActiveGeo(urls) {
          atrace.features[j].properties.style.color="orange";
        }
        var name= atrace.features[0].properties.name;
-       window.console.log("adding trace.. ",name);
+//       window.console.log("adding trace.. ",name);
     }
     return makeGeoGroup(trace_list);
   };
@@ -247,7 +247,7 @@ function readLocalAndProcessActiveCRMGeo() {
        atrace.features[j].properties.style.weight=0.3;
      }
      var name= atrace.features[0].properties.name;
-     window.console.log("adding trace.. ",name);
+//     window.console.log("adding trace.. ",name);
   }
   return makeGeoGroup(trace_list);
 }
@@ -273,7 +273,7 @@ function readLocalAndProcessActiveCTMGeo() {
        atrace.features[j].properties.style.weight=0.3;
      }
      var name= atrace.features[0].properties.name;
-     window.console.log("adding trace.. ",name);
+//     window.console.log("adding trace.. ",name);
   }
   return makeGeoGroup(trace_list);
 }

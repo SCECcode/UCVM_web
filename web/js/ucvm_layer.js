@@ -84,7 +84,7 @@ function load_a_model(name, order) {
    var i;
    for(i=0;i<cnt;i++) {
      var t=ucvm_model_list[i];
-     if(t['model'] = name ) {
+     if(t['model'] == name ) {
        if(t['visible']==0) {
           t['visible']=1; 
           t['oidx']=order;
@@ -135,7 +135,7 @@ function make_all_model_layer() {
      var sel=document.getElementById('modelType');
      var opt=sel[0]
      var model=opt.value;
-     load_a_model(model);
+     load_selected_model(model);
    }
 }
 
