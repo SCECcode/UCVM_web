@@ -19,17 +19,16 @@ sudo bash Anaconda2-2019.07-Linux-x86_64.sh -b -f -p /usr/local/share/anaconda2
 rm -rf Anaconda2-2019.07-Linux-x86_64.sh
 
 ## at moho need to clone this some where else first and bring it over
-cd ~/
+cd ~
 git clone https://github.com/SCECcode/UCVM_web.git -b withLSU
 sudo mv UCVM_web /var/www/html
 
 cd /var/www/html/UCVM_web
 
-git clone git@github.com:meihuisu/ucvm_plotly_web.git plotly_profile
-
 ## build UCVMC 
-bash ./setup/run-build-UCVM
-bash ./setup/run-build-UCVM_web
+./setup/run-build-UCVM
+./setup/run-build-UCVM_web
+git clone git@github.com:meihuisu/ucvm_plotly_web.git plotly_profile
 
 ## python basemap, basemap-data-hires, matplotlib
 sudo /usr/local/share/anaconda2/bin/conda install -y matplotlib
@@ -37,8 +36,7 @@ sudo /usr/local/share/anaconda2/bin/conda install -y basemap
 sudo /usr/local/share/anaconda2/bin/conda install -y basemap-data-hires
 sudo /usr/local/share/anaconda2/bin/conda install -y pip
 
-cd $UCVM_SRC_PATH
-source conf/ucvm_env.sh
+source model/UCVM/conf/ucvm_env.sh
 
 cd $UCVM_INSTALL_PATH
 git clone https://github.com/SCECcode/ucvm_plotting.git
