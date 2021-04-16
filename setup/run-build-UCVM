@@ -6,7 +6,7 @@ mkdir -p $UCVM_INSTALL_PATH
 
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
-git clone https://github.com/SCECcode/UCVMC.git -b toPython3
+git clone https://github.com/SCECcode/UCVMC.git -b toPython3 UCVM
 
 # 6th is cvmsi,
 # 8th is cvmh
