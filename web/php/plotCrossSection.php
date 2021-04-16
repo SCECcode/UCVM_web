@@ -44,9 +44,9 @@ if ($zrange != 'none') {
 
 $vval= intval(((float)$z-(float)$zstart)/100); 
 $lstr=$lstr ." -e ".$z;
-$qstub=" -s ".$zstart." -h ".$hval." -d ".$datatype." -c ".$model." -a d -o ".$file." -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET "."-v ".$vval;
+$qstub=" -s ".$zstart." -h ".$hval." -d ".$datatype." -c ".$model." -a d -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET "."-v ".$vval;
 if ($zmode == 'e') {
-    $query= $envstr." ../model/UCVM_TARGET/ucvm_plotting/ucvm_plotting/plot_elevation_cross_section.py".$qstub.$lstr;
+    $query= $envstr." plot_elevation_cross_section.py".$qstub.$lstr;
     } else {
         $query= $envstr." plot_cross_section.py".$qstub.$lstr;
 }

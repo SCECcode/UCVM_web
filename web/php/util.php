@@ -2,9 +2,9 @@
 function makeEnvString() {
    $myhost = gethostname();
    if ($myhost == "MeiPro.local") {
-      $envstr="PROJ_LIB=/Users/mei/SCEC/anaconda2/share/proj PATH=/Users/mei/anaconda2/bin:/Users/mei/anaconda2/condabin:/anaconda2/bin:/usr/local/opt/libxml2/bin:/usr/local/opt/sqlite/bin:/usr/local/opt/libxml2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin PYTHONPATH=../model/UCVMC_TARGET/ucvm_plotting";
+      $envstr="PROJ_LIB=/Users/mei/SCEC/anaconda2/share/proj PATH=/Users/mei/anaconda2/bin:/Users/mei/anaconda2/condabin:/anaconda2/bin:/usr/local/opt/libxml2/bin:/usr/local/opt/sqlite/bin:/usr/local/opt/libxml2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin PYTHONPATH=../model/UCVM_TARGET/ucvm_plotting";
    } else { 
-	   $envstr="PROJ_LIB=/usr/local/share/anaconda2/share/proj PATH=/usr/local/share/anaconda2/bin:/usr/local/share/anaconda2/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin PYTHONPATH=../model/UCVMC_TARGET/ucvm_plotting";
+	   $envstr="PROJ_LIB=/usr/local/share/anaconda2/share/proj PATH=/usr/local/share/anaconda2/bin:/usr/local/share/anaconda2/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin PYTHONPATH=../model/UCVM_TARGET/ucvm_plotting";
    }
    return $envstr;
 }

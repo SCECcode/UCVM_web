@@ -24,7 +24,7 @@ if ($zrange != 'none') {
   $estr=" -z ".$zrange.$estr;
 }
 
-$query="../model/UCVMC_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVMC_TARGET/conf/ucvm.conf ".$estr;
+$query="../model/UCVM_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVM_TARGET/conf/ucvm.conf ".$estr;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
