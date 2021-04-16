@@ -11,19 +11,35 @@ git clone https://github.com/SCECcode/UCVMC.git -b toPython3 UCVM
 # 6th is cvmsi,
 # 8th is cvmh
 cd $UCVM_SRC_PATH/largefiles
-./get_large_files.py << EOB 
+if [ "$(uname)" == "Darwin" ]; then
+    ./get_large_files.py << EOB 
 n
 n
 n
 n
 n
 n
-n
+y
 y
 y
 y
 y
 EOB
+else
+    ./get_large_files.py << EOB 
+y
+y
+n
+n
+y
+y
+y
+y
+y
+y
+y
+EOB
+fi
 
 if [ "$(uname)" != "Darwin" ]; then
   cd $UCVM_SRC_PATH/largefiles; ./check_largefiles_md5.py
