@@ -6,7 +6,7 @@ mkdir -p $UCVM_INSTALL_PATH
 
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
-git clone https://github.com/meihuisu/UCVM.git
+git clone https://github.com/SCECcode/UCVM.git
 
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
