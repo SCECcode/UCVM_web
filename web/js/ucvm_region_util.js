@@ -138,7 +138,7 @@ function getModelMap(target_nm) {
    for(i=0; i<icnt; i++) {
      var item=tb[i];
      if(item['abb name'] == target_nm) {
-        if(item.has('map') {
+        if(item.has('map')) {
            return item['map'];
         }
      }
