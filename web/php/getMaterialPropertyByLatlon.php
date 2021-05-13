@@ -24,7 +24,11 @@ if ($zrange != 'none') {
   $estr=" -z ".$zrange.$estr;
 }
 
-$query="../model/UCVM_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVM_TARGET/conf/ucvm.conf ".$estr;
+if ($model == 'wfcvm') {
+  $query="../model/UCVM_TARGET/bin/run_ucvm_query.sh -m ".$model." -p ucvm_utah -f ../model/UCVM_TARGET/conf/ucvm.conf ".$estr;
+  } else {
+    $query="../model/UCVM_TARGET/bin/run_ucvm_query.sh -m ".$model." -f ../model/UCVM_TARGET/conf/ucvm.conf ".$estr;
+}
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 

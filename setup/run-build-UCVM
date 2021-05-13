@@ -6,11 +6,12 @@ mkdir -p $UCVM_INSTALL_PATH
 
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
-git clone https://github.com/SCECcode/UCVM.git
+git clone https://github.com/SCECcode/UCVM.git -b target
 
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
-
+export CC=gcc
+export cc=gcc
 ./get_large_files.py << EOB 
 n
 n
@@ -23,6 +24,7 @@ n
 y
 y
 y
+n
 EOB
 
 else
@@ -32,6 +34,7 @@ y
 y
 n
 n
+y
 y
 y
 y

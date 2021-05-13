@@ -9,8 +9,8 @@ var UCVM_tb={
     {'id':1,
      'model name':'CVM-H v15.1.1',
      'abb name':'cvmh',
-     'path name':'cvmh1511',
-     'model filename':'cvmh-15.1.1.tar.gz',
+     'path name':'cvmh',
+     'model filename':'cvmh.tar.gz',
      'description':'Southern California Velocity Model developed by Harvard Structural Geology Group',
      'coordinates': [
           { 'lon':-120.862028,'lat':30.956496 },
@@ -22,7 +22,7 @@ var UCVM_tb={
      'model name':'CVM-S4',
      'abb name':'cvms',
      'path name':'cvms',
-     'model filename':'cvms4.tar.gz',
+     'model filename':'cvms.tar.gz',
      'description':'Southern California Velocity Model developed by SCEC, Caltech, USGS Group with geotechnical layer',
      'coordinates': [
           { 'lon':-116.64433, 'lat':31.102 },
@@ -45,8 +45,8 @@ var UCVM_tb={
     {'id':4,
      'model name':'CVM-S4.26.M01',
      'abb name':'cvmsi',
-     'path name':'cvms426',
-     'model filename':'cvms426.tar.gz',
+     'path name':'cvmsi',
+     'model filename':'cvmsi.tar.gz',
      'description':'CVM-S4.26 with geotechnical layer',
      'coordinates': [
           { 'lon':-116.000, 'lat':30.4499 },
@@ -91,7 +91,7 @@ var UCVM_tb={
      'model name':'CenCalVM',
      'abb name':'cencal',
      'path name':'cencal',
-     'model filename':'cencal080.tar.gz',
+     'model filename':'cencal.tar.gz',
      'description':'USGS Bay Area (CenCal) Velocity Model',
      'coordinates': [
         {'lon':-120.644051,'lat':37.050062},
@@ -154,6 +154,20 @@ var UCVM_tb={
                ],
      'color':'#FF3C00'},
     {'id':11,
+     'model name':'Wasatch Front Utah',
+     'abb name':'wfcvm',
+     'path name':'wfcvm',
+     'model filename':'wfcvm.tar.gz',
+     'map','ucvm_utah',
+     'description':'Wasatch Front North-eastern Utah Velocity Model',
+     'coordinates': [
+               {'lon':-112.699997,'lat':39.75},
+               {'lon':-112.699997,'lat':42},
+               {'lon':-111.5,'lat':42},
+               {'lon':-111.5,'lat':39.75}
+               ],
+     'color':'#FF3CFF'},
+    {'id':12,
      'model name':'1D',
      'abb name':'1d',
      'path name':'1d',
@@ -168,7 +182,7 @@ var UCVM_tb={
      'abb name':'ucvm',
      'path name':'ucvm',
      'map filename':'ucvm.e',
-     'description':'UCVM Topography and Vs30 Coverage Region',
+     'description':'UCVM Topography and Vs30 Coverage Region(Wills2015)',
      'coordinates': [
         {'lon':-129.25,'lat':41},
         {'lon':-117.4199,'lat':28.0268},
@@ -176,6 +190,19 @@ var UCVM_tb={
         {'lon':-121.5606,'lat':45.4670}
                ],
      'color':'#FF0000'},
+    {'id':2,
+     'map name':'UCVM UTAH',
+     'abb name':'ucvm_utah',
+     'path name':'ucvm_utah',
+     'map filename':'ucvm_utah.e',
+     'description':'UCVM Utah Topography and Vs30 Coverage Region(2006)',
+     'coordinates': [
+        {'lon':-116,'lat':35},
+        {'lon':-116,'lat':44},
+        {'lon':-108,'lat':44},
+        {'lon':-108,'lat':35}
+               ],
+     'color':'#FF00FF'}
     ],
 "fileformats": [
     {'id':1,

@@ -98,11 +98,10 @@ function makeModelSelection()
      sel.add(option);
    }
 
-   if(isModelInstalled("ivlsu") && isModelInstalled("cvmh1511")) {
+   if(isModelInstalled("cvlsu") && isModelInstalled("1d")) {
      option = document.createElement("option");
-     option.text = "CVM-S4.26,CVM-H v15.1.1";
-     option.text = "SSIP Imperial Valley,CVM-H v15.1.1";
-     option.value= "ivlsu,cvmh"; 
+     option.text = "SSIP Coachella Valley,1D";
+     option.value= "cvlsu,1d"; 
      sel.add(option);
    }
 
@@ -129,6 +128,22 @@ function getModelColor(target_nm) {
      }
   }
   return "black";
+}
+
+// this is an optional field, vs30/topo etree map
+function getModelMap(target_nm) {
+   var tb=UCVM_tb['models'];
+   var icnt=tb.length;
+   var i;
+   for(i=0; i<icnt; i++) {
+     var item=tb[i];
+     if(item['abb name'] == target_nm) {
+        if(item.has('map') {
+           return item['map'];
+        }
+     }
+  }
+  return NULL;
 }
 
 function makeLatlngsCoordinate(target_nm) {
