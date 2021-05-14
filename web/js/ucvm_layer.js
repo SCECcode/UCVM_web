@@ -147,6 +147,8 @@ function load_selected_model(modelstr) {
    for(i=0;i < cnt; i++) {
       load_a_model(mlist[i], i);
    }
+   /* call refocus on map */
+   switchMapFocus();
 }
 
 function insert_materialproperty(uid, mp) {

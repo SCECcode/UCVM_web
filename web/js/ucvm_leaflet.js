@@ -239,7 +239,9 @@ function unbindPopupEachFeature(layer) {
 function makeModelLayer(latlngs,color) {
   var mypoly=polygon_options;
   mypoly['color']=color;
-  var layer = new L.polygon(latlngs, mypoly);
+  var layer= new L.FeatureGroup([
+    new L.polygon(latlngs, mypoly)
+  ]);
   return layer;
 }
 
@@ -301,4 +303,20 @@ function switchBaseLayer(layerString) {
     mymap.addLayer(baseLayers[layerString]);
     currentLayer = baseLayers[layerString];
 }
+
+// https://stackoverflow.com/questions/45286918/leafletjs-dynamically-bound-map-to-visible-overlays
+function switchMapFocus() {
+    var bounds = new L.LatLngBounds();
+    viewermap.eachLayer(function (layer) {
+        var l=layer;
+            // FeatureGroup with polygon is only for the model boundary layer
+        if (layer instanceof L.FeatureGroup) {
+            bounds.extend(layer.getBounds());
+        } 
+    });
+    if (bounds.isValid()) {
+        viewermap.fitBounds(bounds);
+    }
+}
+
 
