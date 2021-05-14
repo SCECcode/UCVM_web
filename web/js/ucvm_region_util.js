@@ -70,7 +70,7 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
-   if(isModelInstalled("cvms5") && isModelInstalled("cvmh1511")) {
+   if(isModelInstalled("cvms5") && isModelInstalled("cvmh")) {
      option = document.createElement("option");
      option.text = "CVM-S4.26,CVM-H v15.1.1";
      option.value= "cvms5,cvmh"; 

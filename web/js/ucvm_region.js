@@ -158,7 +158,7 @@ var UCVM_tb={
      'abb name':'wfcvm',
      'path name':'wfcvm',
      'model filename':'wfcvm.tar.gz',
-     'map','ucvm_utah',
+     'map':'ucvm_utah',
      'description':'Wasatch Front North-eastern Utah Velocity Model',
      'coordinates': [
                {'lon':-112.699997,'lat':39.75},

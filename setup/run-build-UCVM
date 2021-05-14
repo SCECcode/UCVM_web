@@ -58,6 +58,9 @@ EOF
 
 cd $UCVM_SRC_PATH; make runcheck
 
+## make sure everything in installed model is globally readable
+chmod -R +r $UCVM_INSTALL_PATH/model
+
 ## only if it is on my local mac
 if [ "$(uname)" == "Darwin" ]; then
     source conf/ucvm_env.sh
