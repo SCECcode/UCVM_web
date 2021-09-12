@@ -141,8 +141,8 @@ TODO: need a new id
 <!--- MISC --->
 <div id="miscTools">
   <div class="d-flex flex-row justify-content-end">
-    <button class="btn ucvm-small-btn" title="display CFM5.2 faults" onclick='toggleShowCFM()'>
-       <span id="ucvm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.2</button>
+    <button class="btn ucvm-small-btn" title="display CFM5.3 faults" onclick='toggleShowCFM()'>
+       <span id="ucvm_cfm_btn" class="glyphicon glyphicon-ok-sign"></span>CFM5.3</button>
     <button class="btn ucvm-small-btn" title="display GFM regions" onclick='toggleShowCRM()'>
        <span id="ucvm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM1.0</button>
     <button class="btn ucvm-small-btn" title="display CTM regions" onclick='toggleShowCTM()'>

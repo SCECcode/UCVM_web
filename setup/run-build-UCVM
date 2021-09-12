@@ -6,13 +6,13 @@ mkdir -p $UCVM_INSTALL_PATH
 
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
-git clone https://github.com/SCECcode/UCVM.git -b target
+git clone https://github.com/SCECcode/ucvm.git -b target
 
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
 export CC=gcc
 export cc=gcc
-./get_large_files.py << EOB 
+./get_largefiles.py << EOB 
 n
 n
 n
@@ -24,12 +24,12 @@ n
 y
 y
 y
-n
+y
 EOB
 
 else
 
-./get_large_files.py << EOB 
+./get_largefiles.py << EOB 
 y
 y
 n
@@ -49,7 +49,7 @@ fi
 if [ "$(uname)" != "Darwin" ]; then
   cd $UCVM_SRC_PATH/largefiles; ./check_largefiles_md5.py
 fi
-cd $UCVM_SRC_PATH/largefiles; ./stage_large_files.py
+cd $UCVM_SRC_PATH/largefiles; ./stage_largefiles.py
 
 cd $UCVM_SRC_PATH
 ./ucvm_setup.py -d -a << EOF &> ucvm_setup_install.log
