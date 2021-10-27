@@ -6,7 +6,7 @@ mkdir -p $UCVM_INSTALL_PATH
 
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
-git clone https://github.com/SCECcode/ucvm.git -b target
+git clone https://github.com/SCECcode/ucvm.git -b basin
 
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
@@ -20,27 +20,29 @@ n
 n
 n
 n
+y
 n
-y
-y
-y
+n
+n
+n
 y
 EOB
 
 else
 
 ./get_largefiles.py << EOB 
-y
+n
+n
+n
+n
+n
+n
+n
 y
 n
 n
-y
-y
-y
-y
-y
-y
-y
+n
+n
 y
 EOB
 
@@ -56,6 +58,12 @@ cd $UCVM_SRC_PATH
 $UCVM_INSTALL_PATH
 EOF
 
+if [ "$(uname)" == "Darwin" ]; then
+## proj4 can not handle this
+  unset PROJ_LIB
+fi
+
+
 cd $UCVM_SRC_PATH; make runcheck
 
 ## make sure everything in installed model is globally readable
@@ -64,6 +72,8 @@ chmod -R +r $UCVM_INSTALL_PATH/model
 ## only if it is on my local mac
 if [ "$(uname)" == "Darwin" ]; then
     source conf/ucvm_env.sh
+## anaconda2 needs this but breaks proj4
+    export PROJ_LIB=/Users/mei/anaconda2/share/proj
     cd $UCVM_INSTALL_PATH
     git clone https://github.com/SCECcode/ucvm_plotting.git
     cd ucvm_plotting
