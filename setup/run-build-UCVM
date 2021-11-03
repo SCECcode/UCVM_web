@@ -6,14 +6,15 @@ mkdir -p $UCVM_INSTALL_PATH
 
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
-git clone https://github.com/SCECcode/ucvm.git -b basin
+#git clone https://github.com/SCECcode/ucvm.git -b basin
+git clone https://github.com/SCECcode/ucvm.git
 
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
-export CC=gcc
-export cc=gcc
+##export CC=gcc
+##export cc=gcc
 ./get_largefiles.py << EOB 
-n
+y
 n
 n
 n
@@ -22,16 +23,15 @@ n
 n
 y
 n
-n
-n
-n
+y
+y
 y
 EOB
 
 else
 
 ./get_largefiles.py << EOB 
-n
+y
 n
 n
 n
@@ -40,9 +40,8 @@ n
 n
 y
 n
-n
-n
-n
+y
+y
 y
 EOB
 
@@ -73,7 +72,9 @@ chmod -R +r $UCVM_INSTALL_PATH/model
 if [ "$(uname)" == "Darwin" ]; then
     source conf/ucvm_env.sh
 ## anaconda2 needs this but breaks proj4
-    export PROJ_LIB=/Users/mei/anaconda2/share/proj
+##??    export PROJ_LIB=/Users/mei/anaconda2/share/proj
+##
+    conda install -y numpy matplotlib basemap basemap-data-hires
     cd $UCVM_INSTALL_PATH
     git clone https://github.com/SCECcode/ucvm_plotting.git
     cd ucvm_plotting

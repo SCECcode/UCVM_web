@@ -1,6 +1,6 @@
 ## run as installer of the system stack
 #   
-# to be run on moho
+# to be run on remote host system(linux)
 
 rm -rf Anaconda2-2019.07-Linux-x86_64.sh
 rm -rf UCVM_web
@@ -18,9 +18,9 @@ sudo bash Anaconda2-2019.07-Linux-x86_64.sh -b -f -p /usr/local/share/anaconda2
 
 rm -rf Anaconda2-2019.07-Linux-x86_64.sh
 
-## at moho need to clone this some where else first and bring it over
+## at moho host, needs to clone user's home directory first and then bring it to apache's html
 cd ~
-git clone https://github.com/SCECcode/UCVM_web.git -b withLSU
+git clone https://github.com/SCECcode/UCVM_web.git -b basin
 sudo mv UCVM_web /var/www/html
 
 cd /var/www/html/UCVM_web
@@ -41,6 +41,6 @@ source model/UCVM/conf/ucvm_env.sh
 cd $UCVM_INSTALL_PATH
 git clone https://github.com/SCECcode/ucvm_plotting.git
 cd ucvm_plotting
-sudo /usr/local/share/anaconda2/bin/pip install dist/ucvm_plotting-0.0.1.tar.gz
+sudo /usr/local/share/anaconda2/bin/pip install dist/ucvm_plotting-0.0.2.tar.gz
 
     
