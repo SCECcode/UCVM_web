@@ -70,6 +70,20 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
+   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmh")) {
+     option = document.createElement("option");
+     option.text = "CVM-H LA Basin,CVM-H v15.1.1";
+     option.value= "cvmhlabn,cvmh"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvmhlabn") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "CVMH-H LA Basin,1D";
+     option.value= "cvmhlabn,1d"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("cvms5") && isModelInstalled("cvmh")) {
      option = document.createElement("option");
      option.text = "CVM-S4.26,CVM-H v15.1.1";
