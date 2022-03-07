@@ -17,9 +17,6 @@ $model = ($_GET['model']);
 $zrange = ($_GET['zrange']);
 $uid = ($_GET['uid']);
 
-$np="/usr/local/share/anaconda2/bin:/usr/local/share/anaconda2/condabin:".getenv("PATH");
-putenv("PATH=".$np);
-
 $file="../result/".$uid."vertical.png";
 
 $envstr=makeEnvString();
@@ -30,12 +27,12 @@ if ($zrange != 'none') {
   $lstr = " -z ".$zrange.$lstr;
 }
 
-$qstub=" -n ../model/UCVMC_TARGET/conf/ucvm.conf -i ../model/UCVMC_TARGET -d vs,vp,density -c ".$model." -o ".$file;
+$qstub=" -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET -d vs,vp,density -c ".$model." -o ".$file;
 
 if ($zmode == 'e') {
-  $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_elevation_profile.py ".$qstub.$lstr;
+  $query= $envstr." plot_elevation_profile.py ".$qstub.$lstr;
   } else {
-    $query= $envstr." ../model/UCVMC_TARGET/utilities/plot_depth_profile.py ".$qstub.$lstr;
+    $query= $envstr." plot_depth_profile.py ".$qstub.$lstr;
 }
 
 $result = exec(escapeshellcmd($query), $retval, $status);

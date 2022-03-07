@@ -130,8 +130,13 @@ function make_all_model_layer() {
       var layer=makeModelLayer(latlngs,color);
       ucvm_model_list.push({"model": name, "layer": layer, "visible": 0, "oidx":0 });
    }
-// initialize with the default model
-   load_a_model("cvmh");
+
+   { // initialize with the default model
+     var sel=document.getElementById('modelType');
+     var opt=sel[0]
+     var model=opt.value;
+     load_selected_model(model);
+   }
 }
 
 // can be "cvmh" or "cvmh,cvmsi"
@@ -142,6 +147,8 @@ function load_selected_model(modelstr) {
    for(i=0;i < cnt; i++) {
       load_a_model(mlist[i], i);
    }
+   /* call refocus on map */
+   switchMapFocus();
 }
 
 function insert_materialproperty(uid, mp) {

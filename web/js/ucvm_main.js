@@ -46,6 +46,7 @@ jQuery(document).ready(function() {
       var model = $(this).val();
       remove_all_models();
       load_selected_model(model);
+      set_point_latlons_special();
       // special case.. elygtl:ely
       var v=document.getElementById('zrange').style.display;
       var ely=model.includes("elygtl:ely");

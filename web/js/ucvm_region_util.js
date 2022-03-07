@@ -70,9 +70,23 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
-   if(isModelInstalled("cvms5") && isModelInstalled("cvmh1511")) {
+   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmh")) {
      option = document.createElement("option");
-     option.text = "CVM-S4.26,CVM-H v15.1";
+     option.text = "CVM-H LA Basin,CVM-H v15.1.1";
+     option.value= "cvmhlabn,cvmh"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvmhlabn") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "CVMH-H LA Basin,1D";
+     option.value= "cvmhlabn,1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvms5") && isModelInstalled("cvmh")) {
+     option = document.createElement("option");
+     option.text = "CVM-S4.26,CVM-H v15.1.1";
      option.value= "cvms5,cvmh"; 
      sel.add(option);
    }
@@ -91,12 +105,26 @@ function makeModelSelection()
      sel.add(option);
    }
 
-/**XXX**/
-   option = document.createElement("option");
-   option.text = "CVM-S4.26,elygtl:ely";
-   option.value= "cvms5,elygtl:ely"; 
-   sel.add(option);
-/****/
+   if(isModelInstalled("ivlsu") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SSIP Imperial Valley,1D";
+     option.value= "ivlsu,1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvlsu") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SSIP Coachella Valley,1D";
+     option.value= "cvlsu,1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvms5")) {
+     option = document.createElement("option");
+     option.text = "CVM-S4.26,elygtl:ely";
+     option.value= "cvms5,elygtl:ely"; 
+     sel.add(option);
+   }
 
 // put in the default region on the map
    makeLatlngsCoordinate('cvmh');
@@ -114,6 +142,22 @@ function getModelColor(target_nm) {
      }
   }
   return "black";
+}
+
+// this is an optional field, vs30/topo etree map
+function getModelMap(target_nm) {
+   var tb=UCVM_tb['models'];
+   var icnt=tb.length;
+   var i;
+   for(i=0; i<icnt; i++) {
+     var item=tb[i];
+     if(item['abb name'] == target_nm) {
+        if(item.has('map')) {
+           return item['map'];
+        }
+     }
+  }
+  return NULL;
 }
 
 function makeLatlngsCoordinate(target_nm) {

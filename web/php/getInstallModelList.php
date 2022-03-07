@@ -8,7 +8,7 @@
 
 $result=array();
 
-$Files = glob("../model/UCVMC_TARGET/model/*");
+$Files = glob("../model/UCVM_TARGET/model/*");
 foreach ($Files as $file) {
     $bname=basename($file);
     array_push($result,$bname);
