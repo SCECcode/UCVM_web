@@ -26,8 +26,6 @@ if ($zrange != 'none') {
 
 $query="../model/UCVM_TARGET/utilities/run_ucvm_query.sh -m ".$model." -f ../model/UCVM_TARGET/conf/ucvm.conf ".$estr;
 
-echo $query;
-
 $result = exec(escapeshellcmd($query), $retval, $status);
 
 $item=json_decode($result);

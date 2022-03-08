@@ -17,31 +17,31 @@ n
 n
 n
 n
-n
-n
+y
+y
 n
 y
 n
 n
 n
 n
-y
+n
 EOB
 
 else
 
 ./get_largefiles.py << EOB 
-n
-n
-n
-n
-n
-n
-n
+y
 y
 n
 n
-n
+y
+y
+y
+y
+y
+y
+y
 n
 y
 EOB
