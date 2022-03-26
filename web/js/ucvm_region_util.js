@@ -70,6 +70,13 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
+   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn")) {
+     option = document.createElement("option");
+     option.text = "CVM-H LA Basin,CVM-H San Gabriel Basin";
+     option.value= "cvmhlabn,cvmhsgbn"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmh")) {
      option = document.createElement("option");
      option.text = "CVM-H LA Basin,CVM-H v15.1.1";

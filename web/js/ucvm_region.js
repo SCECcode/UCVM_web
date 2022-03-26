@@ -6,6 +6,18 @@
 
 var UCVM_tb={
 "models": [
+    {'id':14,
+     'model name':'CVM-H San Gabriel Basin',
+     'abb name':'cvmhsgbn',
+     'path name':'cvmhsgbn',
+     'model filename':'cvmhsgbn.tar.gz',
+     'description':'San Gabriel Basin developed by Harvard Structural Geology Group',
+     'coordinates': [
+          { 'lon':-118.26439,'lat':33.82977 },
+          { 'lon':-118.26439, 'lat':34.19044 },
+          { 'lon':-117.33646, 'lat':34.19654 },
+          { 'lon':-117.33504, 'lat':33.83579 } ],
+     'color':'#990099'},
     {'id':13,
      'model name':'CVM-H LA Basin',
      'abb name':'cvmhlabn',
