@@ -44,7 +44,7 @@ return;
 $sval= round(sqrt(($lval*$lval) + ($llval*$llval))/100,3);
 
 if ($sval == 0) {
-$sval= 0.001;
+  $sval=0.001;
 }
 
 $file="../result/".$uid."horizontal.png";
