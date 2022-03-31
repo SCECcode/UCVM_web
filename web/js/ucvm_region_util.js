@@ -93,7 +93,7 @@ function makeModelSelection()
 
    if(isModelInstalled("cvmhsgbn") && isModelInstalled("1d")) {
      option = document.createElement("option");
-     option.text = "CVMH-H San Gabriel Basin,1D";
+     option.text = "CVM-H San Gabriel Basin,1D";
      option.value= "cvmhsgbn,1d"; 
      sel.add(option);
    }
