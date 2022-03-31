@@ -17,7 +17,7 @@ var UCVM_tb={
           { 'lon':-118.26439, 'lat':34.19044 },
           { 'lon':-117.33646, 'lat':34.19654 },
           { 'lon':-117.33504, 'lat':33.83579 } ],
-     'color':'#990099'},
+     'color':'#990000'},
     {'id':13,
      'model name':'CVM-H LA Basin',
      'abb name':'cvmhlabn',
