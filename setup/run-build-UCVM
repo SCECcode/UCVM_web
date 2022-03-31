@@ -6,50 +6,19 @@ mkdir -p $UCVM_INSTALL_PATH
 
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
-git clone https://github.com/SCECcode/ucvm.git -b basin UCVM
+
+git clone https://github.com/SCECcode/ucvm.git -b basin UCVM_BASIN
+#git clone https://github.com/SCECcode/ucvm.git UCVM
 
 ## "cvms5", "cca", "cs173", "cs173h", "cvms", "cvmsi", "cencal", "cvmh", "albacore", "cvlsu", "ivlsu", "wfcvm", "cvmhlabn"
-
-#git clone https://github.com/SCECcode/ucvm.git UCVM
 
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
 ##export CC=gcc
 ##export cc=gcc
-./get_largefiles.py << EOB 
-n
-n
-n
-n
-n
-n
-n
-y
-n
-y
-y
-n
-y
-EOB
-
+./get_largefiles.py -m cvms,cvms5,cvmsi
 else
-
-./get_largefiles.py << EOB 
-n
-n
-n
-n
-n
-n
-n
-y
-n
-y
-y
-n
-y
-EOB
-
+./get_largefiles.py -m cvms,cvms5,cvmsi,cvmh,wfcvm,cvmhlabn
 fi
 
 if [ "$(uname)" != "Darwin" ]; then
@@ -58,9 +27,7 @@ fi
 cd $UCVM_SRC_PATH/largefiles; ./stage_largefiles.py
 
 cd $UCVM_SRC_PATH
-./ucvm_setup.py -d -a << EOF &> ucvm_setup_install.log
-$UCVM_INSTALL_PATH
-EOF
+./ucvm_setup.py -a -d -p $UCVM_INSTALL_PATH &> ucvm_setup_install.log
 
 if [ "$(uname)" == "Darwin" ]; then
 ## proj4 can not handle this

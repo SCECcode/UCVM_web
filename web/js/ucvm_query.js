@@ -18,7 +18,6 @@ function getInstallModelList() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             var str=processSearchResult("getInstallModelList");
-window.console.log("HERE.. "+str);
             makeInstallModelList(str);
        }
     }
@@ -213,6 +212,7 @@ function plotCrossSection() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+
             var str=processSearchResult("plotCrossSection",uid);
 
 	    if (str != undefined) { 
