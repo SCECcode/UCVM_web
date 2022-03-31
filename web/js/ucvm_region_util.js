@@ -26,6 +26,7 @@ function makeInstallModelList(str) {
     var item=mlist[i];
     UCVM_installed.push(item);
   }
+
   setup_modeltype();
 }
 
