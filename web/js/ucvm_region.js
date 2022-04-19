@@ -6,6 +6,18 @@
 
 var UCVM_tb={
 "models": [
+    {'id':15,
+     'model name':'CVM-H Ventura Basin',
+     'abb name':'cvmhvbn',
+     'path name':'cvmhvbn',
+     'model filename':'cvmhvbn.tar.gz',
+     'description':'Ventura Basin developed by Harvard Structural Geology Group',
+     'coordinates': [
+          { 'lon':-119.56521,'lat':33.97183 },
+          { 'lon':-119.56521, 'lat':34.52582 },
+          { 'lon':-118.08960, 'lat':34.52582 },
+          { 'lon':-118.08960, 'lat':33.97183 } ],
+     'color':'#4B0082'},
     {'id':14,
      'model name':'CVM-H San Gabriel Basin',
      'abb name':'cvmhsgbn',

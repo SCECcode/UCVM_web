@@ -78,6 +78,13 @@ function makeModelSelection()
      sel.add(option);
    }
 
+   if(isModelInstalled("cvmhvbn") && isModelInstalled("cvmh")) {
+     option = document.createElement("option");
+     option.text = "CVM-H Ventura Basin,CVM-H v15.1.1";
+     option.value= "cvmhvbn,cvmh"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("cvmhsgbn") && isModelInstalled("cvmh")) {
      option = document.createElement("option");
      option.text = "CVM-H San Gabriel Basin,CVM-H v15.1.1";
@@ -94,7 +101,7 @@ function makeModelSelection()
 
    if(isModelInstalled("cvmhsgbn") && isModelInstalled("1d")) {
      option = document.createElement("option");
-     option.text = "CVMH-H San Gabriel Basin,1D";
+     option.text = "CVM-H San Gabriel Basin,1D";
      option.value= "cvmhsgbn,1d"; 
      sel.add(option);
    }
