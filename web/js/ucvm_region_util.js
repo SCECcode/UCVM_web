@@ -71,6 +71,20 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
+   if(isModelInstalled("cvmh")) {
+     option = document.createElement("option");
+     option.text = "CVM-H LA Basin,elygtl:ely";
+     option.value= "cvmh,elygtl:ely"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvmh")) {
+     option = document.createElement("option");
+     option.text = "CVM-H LA Basin,elygtl:linear";
+     option.value= "cvmh,elygtl:linear"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn")) {
      option = document.createElement("option");
      option.text = "CVM-H LA Basin,CVM-H San Gabriel Basin";
@@ -152,6 +166,13 @@ function makeModelSelection()
      option = document.createElement("option");
      option.text = "CVM-S4.26,elygtl:ely";
      option.value= "cvms5,elygtl:ely"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvms5")) {
+     option = document.createElement("option");
+     option.text = "CVM-S4.26,elygtl:linear";
+     option.value= "cvms5,elygtl:linear"; 
      sel.add(option);
    }
 
@@ -276,7 +297,10 @@ function getModelNameWithType(t) {
             if(mcnt>1 && i!=(mcnt-1))
                rt=rt+", ";
             break;
-         }
+	 } 
+      }
+      if(j == tcnt) { // not found
+         rt=rt+mlist[i];
       }
    }
    if(rt=="")
