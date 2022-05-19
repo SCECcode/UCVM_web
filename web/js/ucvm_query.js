@@ -339,3 +339,108 @@ function plotHorizontalSlice() {
     xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&datatype="+datatypestr+"&uid="+uid,true);
     xmlhttp.send();
 }
+
+function plotZ10Slice() {
+    var xmlhttp;
+    var firstlatstr=document.getElementById("areaFirstLatTxt").value;
+    var firstlonstr=document.getElementById("areaFirstLonTxt").value;
+    var modelstr=document.getElementById("modelType").value;
+    var uid=document.getElementById("areaUIDTxt").value;
+    var secondlatstr=document.getElementById("areaSecondLatTxt").value;
+    var secondlonstr=document.getElementById("areaSecondLonTxt").value;
+
+    if (firstlatstr == "" || firstlonstr=="" ||
+              secondlatstr == "" || secondlonstr=="" ) {
+        document.getElementById('spinIconForArea').style.display = "none";
+        reset_area_UID();
+        return;
+    }
+
+    if(uid == '') {
+      uid=getRnd();
+      set_area_UID(uid);
+      add_bounding_area(uid,firstlatstr,firstlonstr,secondlatstr,secondlonstr);
+      } else {    
+        reset_dirty_uid();
+    }
+
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("plotZ10Slice",uid);
+
+            if (str != undefined) { 
+                var zstr=getZModeNameWithType(zmodestr);
+                var mstr=getModelNameWithType(modelstr);
+                var note="Z10 Slice with "+mstr;
+                insertMetaPlotResultTable(note,uid,str);
+            }
+
+            document.getElementById('spinIconForArea').style.display = "none";
+            reset_area_UID();
+        }
+    }
+    xmlhttp.open("GET","php/plotZ10Slice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&model="+modelstr+"&uid="+uid,true);
+    xmlhttp.send();
+}
+
+
+function plotZ25Slice() {
+    var xmlhttp;
+    var firstlatstr=document.getElementById("areaFirstLatTxt").value;
+    var firstlonstr=document.getElementById("areaFirstLonTxt").value;
+    var modelstr=document.getElementById("modelType").value;
+    var uid=document.getElementById("areaUIDTxt").value;
+    var secondlatstr=document.getElementById("areaSecondLatTxt").value;
+    var secondlonstr=document.getElementById("areaSecondLonTxt").value;
+
+    if (firstlatstr == "" || firstlonstr=="" ||
+              secondlatstr == "" || secondlonstr=="" ) {
+        document.getElementById('spinIconForArea').style.display = "none";
+        reset_area_UID();
+        return;
+    }
+
+    if(uid == '') {
+      uid=getRnd();
+      set_area_UID(uid);
+      add_bounding_area(uid,firstlatstr,firstlonstr,secondlatstr,secondlonstr);
+      } else {    
+        reset_dirty_uid();
+    }
+
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("plotZ25Slice",uid);
+
+            if (str != undefined) { 
+                var zstr=getZModeNameWithType(zmodestr);
+                var mstr=getModelNameWithType(modelstr);
+                var note="Z25 Slice with "+mstr;
+                insertMetaPlotResultTable(note,uid,str);
+            }
+
+            document.getElementById('spinIconForArea').style.display = "none";
+            reset_area_UID();
+        }
+    }
+    xmlhttp.open("GET","php/plotZ25Slice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&model="+modelstr+"&uid="+uid,true);
+    xmlhttp.send();
+}
