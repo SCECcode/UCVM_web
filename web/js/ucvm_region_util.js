@@ -71,13 +71,6 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
-   if(isModelInstalled("cvmh")) {
-     option = document.createElement("option");
-     option.text = "CVM-H LA Basin,elygtl:ely";
-     option.value= "cvmh,elygtl:ely"; 
-     sel.add(option);
-   }
-
    if(
 isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
 isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
