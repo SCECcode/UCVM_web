@@ -78,24 +78,23 @@ function makeModelSelection()
      sel.add(option);
    }
 
-   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn")) {
+   if(
+isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
+isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
+isModelInstalled("cvmhibbn") && isModelInstalled("cvmhsmbn"),
+isModelInstalled("cvmhsbbn") && isModelInstalled("cvmhsbcbn"),
+isModelInstalled("cvmhstbn")
+) {
      option = document.createElement("option");
-     option.text = "CVM-H LA Basin,CVM-H San Gabriel Basin";
-     option.value= "cvmhlabn,cvmhsgbn"; 
+     option.text = "CVM-H All Basins";
+     option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn";
      sel.add(option);
    }
 
-   if(isModelInstalled("cvmhvbn") && isModelInstalled("cvmh")) {
+   if(isModelInstalled("cvmh")) {
      option = document.createElement("option");
-     option.text = "CVM-H Ventura Basin,CVM-H v15.1.1";
-     option.value= "cvmhvbn,cvmh"; 
-     sel.add(option);
-   }
-
-   if(isModelInstalled("cvmhsgbn") && isModelInstalled("cvmh")) {
-     option = document.createElement("option");
-     option.text = "CVM-H San Gabriel Basin,CVM-H v15.1.1";
-     option.value= "cvmhsgbn,cvmh"; 
+     option.text = "CVM-H LA Basin,elygtl:ely";
+     option.value= "cvmh,elygtl:ely"; 
      sel.add(option);
    }
 
