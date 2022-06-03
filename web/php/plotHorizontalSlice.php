@@ -54,7 +54,7 @@ if($datatype != 'vs30') {
   $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
 
   if ($zrange != 'none') {
-   $lstr=" -z ".$ztrange.$lstr;
+   $lstr=" -z ".$zrange.$lstr;
   }
 
   $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";
