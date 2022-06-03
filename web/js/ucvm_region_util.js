@@ -107,7 +107,7 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmh")
    if(isModelInstalled("cvmhlabn")) {
      option = document.createElement("option");
      option.text = "CVM-H LA Basin,elygtl:ely";
-     option.value= "cvmh,elygtl:ely"; 
+     option.value= "cvmhlabn,elygtl:ely"; 
      sel.add(option);
    }
 
