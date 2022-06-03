@@ -104,17 +104,10 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmh")
      sel.add(option);
    }
 
-   if(isModelInstalled("cvmh")) {
+   if(isModelInstalled("cvmhlabn")) {
      option = document.createElement("option");
-     option.text = "CVM-H v15.1.1,elygtl:ely";
+     option.text = "CVM-H LA Basin,elygtl:ely";
      option.value= "cvmh,elygtl:ely"; 
-     sel.add(option);
-   }
-
-   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmh")) {
-     option = document.createElement("option");
-     option.text = "CVMH-H LA Basin, CVM-H v15.1.1";
-     option.value= "cvmhlabn,cvmh"; 
      sel.add(option);
    }
 
