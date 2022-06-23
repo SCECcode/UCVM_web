@@ -104,10 +104,10 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmh")
      sel.add(option);
    }
 
-   if(isModelInstalled("cvmhsgbn") && isModelInstalled("cvms")) {
+   if(isModelInstalled("cvmhsmbn") && isModelInstalled("cvms")) {
      option = document.createElement("option");
-     option.text = "CVM-H San Gabriel Basin,CVM-S4";
-     option.value= "cvmhsgbn,cvms"; 
+     option.text = "CVM-H Santa Maria Basin,CVM-S4";
+     option.value= "cvmhsmbn,cvms"; 
      sel.add(option);
    }
 
