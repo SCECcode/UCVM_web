@@ -107,7 +107,7 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmh")
    if(isModelInstalled("cvmhsgbn") && isModelInstalled("cvms")) {
      option = document.createElement("option");
      option.text = "CVM-H San Gabriel Basin,CVM-S4";
-     option.value= "cvmsgbn,cvms"; 
+     option.value= "cvmhsgbn,cvms"; 
      sel.add(option);
    }
 
