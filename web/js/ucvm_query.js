@@ -24,7 +24,7 @@ function getInstallModelList() {
     xmlhttp.open("GET","php/getInstallModelList.php", true);
     xmlhttp.send();
 }
-//
+
 function getTextFile(url) {
   var result = null;
   var xmlhttp = new XMLHttpRequest();
@@ -282,7 +282,6 @@ function plotVerticalProfile() {
     xmlhttp.send();
 }
 
-
 function plotHorizontalSlice() {
     var xmlhttp;
     var firstlatstr=document.getElementById("areaFirstLatTxt").value;
@@ -312,6 +311,15 @@ function plotHorizontalSlice() {
         reset_dirty_uid();
     }
 
+    // to catch when user input or alter the input coordinates
+    // first set should always  be the south-west,
+    // second set should always be the north-east
+    var flat1=parseFloat(firstlatstr);
+    var flon1=parseFloat(firstlonstr);
+    var flat2=parseFloat(secondlatstr);
+    var flon2=parseFloat(secondlonstr);
+    [flat1,flon1,flat2,flon2]=fixAreaOrdering(flat1,flon1,flat2,flon2)
+
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
@@ -336,7 +344,7 @@ function plotHorizontalSlice() {
             reset_area_UID();
         }
     }
-    xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&datatype="+datatypestr+"&uid="+uid,true);
+    xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+flat1+"&firstlon="+flon1+"&secondlat="+flat2+"&secondlon="+flon2+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&datatype="+datatypestr+"&uid="+uid,true);
     xmlhttp.send();
 }
 
