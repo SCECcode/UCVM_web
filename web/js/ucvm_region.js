@@ -13,12 +13,6 @@ var UCVM_tb={
      'model filename':'cvmhlabn.tar.gz',
      'description':'LA Basin developed by Harvard Structural Geology Group',
      'coordinates': [
-/*
-          { 'lon':-120.862028,'lat':30.956496 },
-          { 'lon':-120.862028, 'lat':36.612951 },
-          { 'lon':-113.33294, 'lat':36.612951 },
-          { 'lon':-113.33294, 'lat':30.956496 } ],
-*/
           { 'lon':-118.60524,'lat':32.978073 },
           { 'lon':-117.256881, 'lat':32.988127 },
           { 'lon':-117.260267, 'lat':34.123581 },
