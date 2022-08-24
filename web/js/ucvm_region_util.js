@@ -97,6 +97,13 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmh")
      sel.add(option);
    }
 
+   if(isModelInstalled("scpbr")) {
+     option = document.createElement("option");
+     option.text = "SCPBR";
+     option.value= "scpbr"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmh")) {
      option = document.createElement("option");
      option.text = "CVM-H LA Basin,CVM-H v15.1.1";
