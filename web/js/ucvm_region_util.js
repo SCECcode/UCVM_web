@@ -97,10 +97,10 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmh")
      sel.add(option);
    }
 
-   if(isModelInstalled("scpbr")) {
+   if(isModelInstalled("scpbr") && isModelInstalled("1d")) {
      option = document.createElement("option");
-     option.text = "SCPBR";
-     option.value= "scpbr"; 
+     option.text = "SCPBR,1D";
+     option.value= "scpbr,1d"; 
      sel.add(option);
    }
 
