@@ -7,44 +7,15 @@ mkdir -p $UCVM_INSTALL_PATH
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
 #git clone https://github.com/SCECcode/ucvm.git -b basin UCVM
-git clone https://github.com/SCECcode/ucvm.git UCVM
+git clone https://github.com/SCECcode/ucvm.git -b withSCPBR UCVM
 
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
 ##export CC=gcc
 ##export cc=gcc
-./get_largefiles.py << EOB 
-y
-n
-n
-n
-n
-n
-n
-y
-n
-y
-y
-y
-EOB
-
+./get_largefiles.py -m cvmh,ivlsu,cvlsu
 else
-
-./get_largefiles.py << EOB 
-y
-n
-n
-n
-n
-n
-n
-y
-n
-y
-y
-y
-EOB
-
+./get_largefiles.py -m scpbr,ivlsu,cvmh
 fi
 
 if [ "$(uname)" != "Darwin" ]; then
@@ -53,9 +24,7 @@ fi
 cd $UCVM_SRC_PATH/largefiles; ./stage_largefiles.py
 
 cd $UCVM_SRC_PATH
-./ucvm_setup.py -d -a << EOF &> ucvm_setup_install.log
-$UCVM_INSTALL_PATH
-EOF
+./ucvm_setup.py -d -a -p $UCVM_INSTALL_PATH &> ucvm_setup_install.log
 
 if [ "$(uname)" == "Darwin" ]; then
 ## proj4 can not handle this
