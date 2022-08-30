@@ -43,6 +43,10 @@ return;
 
 $sval= round(sqrt(($lval*$lval) + ($llval*$llval))/100,3);
 
+if ($sval == 0) {
+  $sval=0.001;
+}
+
 $file="../result/".$uid."horizontal.png";
 
 if($datatype != 'vs30') {
@@ -50,7 +54,7 @@ if($datatype != 'vs30') {
   $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon." -e ".$zval;
 
   if ($zrange != 'none') {
-   $lstr=" -z ".$ztrange.$lstr;
+   $lstr=" -z ".$zrange.$lstr;
   }
 
   $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";

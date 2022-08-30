@@ -18,7 +18,7 @@ sudo bash Anaconda2-2019.07-Linux-x86_64.sh -b -f -p /usr/local/share/anaconda2
 
 rm -rf Anaconda2-2019.07-Linux-x86_64.sh
 
-## at moho host, needs to clone user's home directory first and then bring it to apache's html
+## at remote host, needs to clone this somewhere else first and then bring it over
 cd ~
 git clone https://github.com/SCECcode/UCVM_web.git -b basin
 sudo mv UCVM_web /var/www/html

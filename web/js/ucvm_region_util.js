@@ -26,6 +26,7 @@ function makeInstallModelList(str) {
     var item=mlist[i];
     UCVM_installed.push(item);
   }
+
   setup_modeltype();
 }
 
@@ -70,10 +71,44 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
-   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmh")) {
+   if(
+isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
+isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
+isModelInstalled("cvmhibbn") && isModelInstalled("cvmhsmbn"),
+isModelInstalled("cvmhsbbn") && isModelInstalled("cvmhsbcbn"),
+isModelInstalled("cvmhstbn")
+) {
      option = document.createElement("option");
-     option.text = "CVM-H LA Basin,CVM-H v15.1.1";
-     option.value= "cvmhlabn,cvmh"; 
+     option.text = "CVM-H All Basins";
+     option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn";
+     sel.add(option);
+   }
+
+   if(isModelInstalled("scpbr") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SCPBR,1D";
+     option.value= "scpbr,1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvms")) {
+     option = document.createElement("option");
+     option.text = "CVM-H LA Basin,CVM-S4";
+     option.value= "cvmhlabn,cvms"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvmhsmbn") && isModelInstalled("cvms")) {
+     option = document.createElement("option");
+     option.text = "CVM-H Santa Maria Basin,CVM-S4";
+     option.value= "cvmhsmbn,cvms"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("cvmhlabn")) {
+     option = document.createElement("option");
+     option.text = "CVM-H LA Basin,elygtl:ely";
+     option.value= "cvmhlabn,elygtl:ely"; 
      sel.add(option);
    }
 
@@ -247,7 +282,10 @@ function getModelNameWithType(t) {
             if(mcnt>1 && i!=(mcnt-1))
                rt=rt+", ";
             break;
-         }
+	 } 
+      }
+      if(j == tcnt) { // not found
+         rt=rt+mlist[i];
       }
    }
    if(rt=="")
