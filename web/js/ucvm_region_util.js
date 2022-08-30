@@ -84,19 +84,6 @@ isModelInstalled("cvmhstbn")
      sel.add(option);
    }
 
-   if(
-isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
-isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
-isModelInstalled("cvmhibbn") && isModelInstalled("cvmhsmbn"),
-isModelInstalled("cvmhsbbn") && isModelInstalled("cvmhsbcbn"),
-isModelInstalled("cvmhstbn") && isModelInstalled("cvmh")
-) {
-     option = document.createElement("option");
-     option.text = "CVM-H All Basins, CVM-H v15.1.1";
-     option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn,cvmh";
-     sel.add(option);
-   }
-
    if(isModelInstalled("scpbr") && isModelInstalled("1d")) {
      option = document.createElement("option");
      option.text = "SCPBR,1D";
@@ -104,10 +91,10 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmh")
      sel.add(option);
    }
 
-   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvmh")) {
+   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvms")) {
      option = document.createElement("option");
-     option.text = "CVM-H LA Basin,CVM-H v15.1.1";
-     option.value= "cvmhlabn,cvmh"; 
+     option.text = "CVM-H LA Basin,CVM-S4";
+     option.value= "cvmhlabn,cvms"; 
      sel.add(option);
    }
 
