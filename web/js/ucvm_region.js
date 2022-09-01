@@ -15,8 +15,8 @@ var UCVM_tb={
      'coordinates': [
           { 'lon':-115.38,'lat':32.38 },
           { 'lon':-118.17, 'lat':32.38 },
-          { 'lon':-118.17, 'lat':34.55},
-          { 'lon':-115.38, 'lat':34.55 } ],
+          { 'lon':-118.17, 'lat':34.54},
+          { 'lon':-115.38, 'lat':34.54 } ],
      'color':'#00CC00'},
     {'id':21,
      'model name':'CVM-H Santa Maria Basin',
