@@ -36,6 +36,7 @@ $hhhval= ((float)$secondlon - (float)$firstlon)*111.32;
 $dval=  round(sqrt(($hhval*$hhval) + ($hhhval*$hhhval)),3);
 $hval=intval(($dval/200)*1000);
 
+
 $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon;
 
 if ($zrange != 'none') {
@@ -52,6 +53,7 @@ if ($zmode == 'e') {
 }
 
 $result = exec(escapeshellcmd($query), $retval, $status);
+
 
 $rc=checkResult($query, $result, $uid);
 
