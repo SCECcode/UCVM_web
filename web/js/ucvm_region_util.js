@@ -71,6 +71,20 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
+   if(isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "1D";
+     option.value= "1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("scpbr") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SCPBR,1D";
+     option.value= "scpbr,1d"; 
+     sel.add(option);
+   }
+
    if(
 isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
 isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
@@ -84,24 +98,31 @@ isModelInstalled("cvmhstbn")
      sel.add(option);
    }
 
-   if(isModelInstalled("scpbr") && isModelInstalled("1d")) {
+   if(
+isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
+isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
+isModelInstalled("cvmhibbn") && isModelInstalled("cvmhsmbn"),
+isModelInstalled("cvmhsbbn") && isModelInstalled("cvmhsbcbn"),
+isModelInstalled("cvmhstbn") && isModelInstalled("1d")
+) {
      option = document.createElement("option");
-     option.text = "SCPBR,1D";
-     option.value= "scpbr,1d"; 
+     option.text = "CVM-H All Basins,1D";
+     option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn,1d";
      sel.add(option);
    }
 
-   if(isModelInstalled("cvmhlabn") && isModelInstalled("cvms")) {
+
+   if(isModelInstalled("cvmhlabn") && isModelInstalled("1d")) {
      option = document.createElement("option");
-     option.text = "CVM-H LA Basin,CVM-S4";
-     option.value= "cvmhlabn,cvms"; 
+     option.text = "CVM-H LA Basin,1D";
+     option.value= "cvmhlabn,1d"; 
      sel.add(option);
    }
 
-   if(isModelInstalled("cvmhsmbn") && isModelInstalled("cvms")) {
+   if(isModelInstalled("cvmhsmbn") && isModelInstalled("cvmhlabn") && isModelInstalled("1d")) {
      option = document.createElement("option");
-     option.text = "CVM-H Santa Maria Basin,CVM-S4";
-     option.value= "cvmhsmbn,cvms"; 
+     option.text = "CVM-H Santa Maria Basin,CVM-H LA Basin,1D";
+     option.value= "cvmhsmbn,cvmhlabn,1d"; 
      sel.add(option);
    }
 
@@ -109,13 +130,6 @@ isModelInstalled("cvmhstbn")
      option = document.createElement("option");
      option.text = "CVM-H LA Basin,elygtl:ely";
      option.value= "cvmhlabn,elygtl:ely"; 
-     sel.add(option);
-   }
-
-   if(isModelInstalled("cvmhlabn") && isModelInstalled("1d")) {
-     option = document.createElement("option");
-     option.text = "CVMH-H LA Basin,1D";
-     option.value= "cvmhlabn,1d"; 
      sel.add(option);
    }
 

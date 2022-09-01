@@ -357,6 +357,8 @@ function toggle_a_layergroup(uid) {
         $('#ucvm_layer_'+uid).addClass('glyphicon-eye-open');
         $('#ucvm_layer_'+uid).removeClass('glyphicon-eye-close');
       }
+      } else {
+        window.console.log("toggle_a_layergroup.. can not find this uid ",uid);
    }
 }
 
