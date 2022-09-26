@@ -37,6 +37,8 @@ if ($zmode == 'e') {
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+$rc=checkResult($query, $result, $uid);
+
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
 $resultarray->plot= $uid."vertical.png";
