@@ -241,6 +241,8 @@ function plotVerticalProfile() {
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
     var zrangestr=_getZrange(modelstr);
+    var elt=document.getElementById("modelType");
+    var commentstr = elt.options[elt.selectedIndex].innerHTML;
 
     if (latstr == "" || lonstr=="" || zstr=="" || zstartstr=="" || zstepstr=="" ) {
         document.getElementById('spinIconForProfile').style.display = "none";
@@ -278,7 +280,7 @@ function plotVerticalProfile() {
             reset_profile_UID();
         }
     }
-    xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
+    xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&comment="+commentstr+"&zrange="+zrangestr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
     xmlhttp.send();
 }
 

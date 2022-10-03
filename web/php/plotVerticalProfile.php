@@ -14,6 +14,7 @@ $zstart = ($_GET['zstart']);
 $zstep = ($_GET['zstep']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
+$comment = "'".($_GET['comment'])."'";
 $zrange = ($_GET['zrange']);
 $uid = ($_GET['uid']);
 
@@ -25,6 +26,10 @@ $lstr = " -v ".$zstep." -b ".$zstart." -s ".$lat.",".$lon." -e ".$z;
 
 if ($zrange != 'none') {
   $lstr = " -z ".$zrange.$lstr;
+}
+
+if ($comment != 'none') {
+  $lstr = " -C ".$comment.$lstr;
 }
 
 $qstub=" -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET -d vs,vp,density -c ".$model." -o ".$file;
