@@ -293,8 +293,8 @@ TODO: need a new id
                                     </div>
                                 </div>
                                 <div class="mt-2">
-                                     <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
-                                     <button id="fileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
+                                     <input class="form-control" id='infileBtn' type='file' onchange='selectLocalFiles(this.files,1)' style='display:none;'></input>
+                                     <button id="fileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("infileBtn").click();'>
                                      <span class="glyphicon glyphicon-file"></span> Select file to use</button>
 <button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalfile" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
                                      <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
@@ -362,6 +362,15 @@ TODO: need a new id
                                         <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                     </div>
                                 </div>
+<!---XXX----->
+                                <div class="mt-2">
+                                     <input class="form-control" id='inprofilefileBtn' type='file' onchange='selectLocalFiles(this.files,0)' style='display:none;'></input>
+                                     <button id="profilefileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("inprofilefileBtn").click();'>
+                                     <span class="glyphicon glyphicon-file"></span> Select file to use</button>
+<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalprofilefile" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                     <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
+                                </div>
+<!---XXX----->
                             </div>
                         </li>
 
@@ -681,7 +690,35 @@ TODO: need a new id
 lon1 lat1 z1             lon1,lat1,z1
 lon2 lat2 z2      or     lon2,lat2,z2
 </pre>
-<h5> Z value should match the Z mode selection from the main viewer </h5>
+<h5> Z value should match the Z mode selection from the main viewer, maximum display points is 200</h5>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal" onclick="$('#sidebar').show();">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: ModelType -->
+<div class="modal" id="modalprofilefile" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalprofilefileDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalprofilefileContent">
+      <!--Body-->
+      <div class="modal-body" id="modalprofilefileBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+
+          <div class="col-12" id="profilefile-container">
+<h5>Local input file format is 6 columns of Longitude, Latitude, Starting Depth, Ending Depth and Z Step separated by a comma or a space </h5>
+<pre
+lon1 lat1 start1 end1 step1 "comment1"      lon1,lat1,start1,end1,step1,comment1
+lon2 lat2 start2 end2 step2 "comment2"  or  lon2,lat2,start2,end2,step2,comment2
+</pre>
+<h5> Z Step value should match the Z mode selection from the main viewer, maximum number of profile is 10</h5>
           </div>
         </div>
       </div>

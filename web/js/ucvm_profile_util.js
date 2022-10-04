@@ -73,6 +73,10 @@ function readVProfileDataFile(uid) {
   var metajson=JSON.parse(fmetablob);
   var fmpblob=getTextFile(fmp);
   var mpjson=JSON.parse(fmpblob);
+  // add full model name to metajson
+  let t=metajson['cvm'];
+  let modelname=getModelNameWithType(t);
+  metajson.push( { "model":modelname });
   if( "depth" in metajson ) {
     var data= { uid:uid, mp:mpjson, meta:metajson };
     return data;

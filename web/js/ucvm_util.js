@@ -283,7 +283,7 @@ var sort_by=function(field, reverse, primer){
 //
 // Reading files using the HTML5 FileReader.
 //
-function readAndProcessLocalFile(fobj) {
+function readAndProcessLocalFile(fobj,forPoint) {
 
   var reader = new FileReader();
 

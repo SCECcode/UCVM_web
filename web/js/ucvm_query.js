@@ -4,6 +4,7 @@
 ***/
 
 // if there are too many file points, do not generate the mp layer
+// limit it to 200 maximum
 var MAX_FILEPOINTS=200;
 
 function getInstallModelList() {
@@ -266,6 +267,7 @@ function plotVerticalProfile() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            window.console.log("HERE..");
             var str=processSearchResult("plotVerticalProfile",uid);
 
             if (str != undefined) {

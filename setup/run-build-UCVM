@@ -7,7 +7,7 @@ mkdir -p $UCVM_INSTALL_PATH
 mkdir -p $TOP_UCVM_DIR/model
 cd $TOP_UCVM_DIR/model
 
-git clone https://github.com/SCECcode/ucvm.git UCVM
+git clone https://github.com/SCECcode/ucvm.git -b dev UCVM
 #git clone https://github.com/SCECcode/ucvm.git -b withSCPBR UCVM
 
 ## "cvms5", "cca", "cs173", "cs173h", "cvms", "cvmsi", "cencal", "cvmh", "albacore", "cvlsu", "ivlsu", "wfcvm", "cvmhlabn"
@@ -15,11 +15,10 @@ git clone https://github.com/SCECcode/ucvm.git UCVM
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
 ##export CC=gcc
-##export cc=gcc
 ./get_largefiles.py -m cvmh,cvmhlabn,cvmhsgbn,cvmhvbn,cvmhibbn,cvmhrbn,cvmhsbbn,cvmhsbcbn,cvmhsmbn,cvmhstbn
 EOB
 else
-./get_largefiles.py -m cvms5,cca,cvms,cvmsi,cencal,cvmh,albacore,cvlsu,ivlsu,wfcvm,cvmhlabn,cvmhsgbn,cvmhvbn,cvmhibbn,cvmhrbn,cvmhsbbn,cvmhsbcbn,cvmhsmbn,cvmhstbn
+./get_largefiles.py -m cvms5,cvms,cvmsi
 fi
 
 if [ "$(uname)" != "Darwin" ]; then

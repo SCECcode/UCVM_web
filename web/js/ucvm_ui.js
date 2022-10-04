@@ -150,7 +150,9 @@ function processByLatlonForArea() {
 }
 
 // it is filelist
-function selectLocalFiles(_urls) {
+// forPoint==1 is for latlon
+// forPoint==0 is for depth/elevation profile
+function selectLocalFiles(_urls,forPoint) {
 
     document.getElementById('spinIconForListProperty').style.display = "block";
 
@@ -159,7 +161,7 @@ function selectLocalFiles(_urls) {
     }
     var _url=_urls[0];
     if( _url instanceof File) {
-      readAndProcessLocalFile(_url);
+      readAndProcessLocalFile(_url, forPoint);
     } else {
       throw new Error("local file must be a File object type!");
     }
