@@ -14,6 +14,7 @@ $zstart = ($_GET['zstart']);
 $zstep = ($_GET['zstep']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
+$comment = "'".($_GET['comment'])."'";
 $zrange = ($_GET['zrange']);
 $uid = ($_GET['uid']);
 
@@ -27,6 +28,10 @@ if ($zrange != 'none') {
   $lstr = " -z ".$zrange.$lstr;
 }
 
+if ($comment != 'none') {
+  $lstr = " -C ".$comment.$lstr;
+}
+
 $qstub=" -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET -d vs,vp,density -c ".$model." -o ".$file;
 
 if ($zmode == 'e') {
@@ -36,6 +41,8 @@ if ($zmode == 'e') {
 }
 
 $result = exec(escapeshellcmd($query), $retval, $status);
+
+$rc=checkResult($query, $result, $uid);
 
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
