@@ -547,11 +547,11 @@ function set_profile_latlons_preset()
 {
    var t= document.getElementById("zModeType").value;
    if( t == 'd' ) {
-       $( "#profileZTxt" ).val(30000);
+       $( "#profileZEndTxt" ).val(30000);
        $( "#profileZStartTxt" ).val(0);
        $( "#profileZStepTxt" ).val(100);
        } else {
-           $( "#profileZTxt" ).val(-25000);
+           $( "#profileZEndTxt" ).val(-25000);
            $( "#profileZStartTxt" ).val(500);
            $( "#profileZStepTxt" ).val(-100);
    }
@@ -571,7 +571,7 @@ function set_profile_latlons(uid,lat,lon) {
 function reset_profile_latlons() {
    $( "#profileFirstLatTxt" ).val('');
    $( "#profileFirstLonTxt" ).val('');
-   $( "#profileZTxt" ).val('');
+   $( "#profileZEndTxt" ).val('');
    $( "#profileZStartTxt" ).val('');
    $( "#profileZStepTxt" ).val('');
    reset_profile_UID();

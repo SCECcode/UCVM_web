@@ -297,7 +297,6 @@ TODO: need a new id
                                      <button id="fileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("infileBtn").click();'>
                                      <span class="glyphicon glyphicon-file"></span> Select file to use</button>
 <button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalfile" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                     <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                 </div>
                             </div>
                         </li>
@@ -334,7 +333,7 @@ TODO: need a new id
                                                onfocus="this.value=''" 
                                                class="form-control">
                                         <input type="text"
-                                               id="profileZTxt" 
+                                               id="profileZEndTxt" 
                                                placeholder="Z ends" 
                                                title="Z ends"
                                                onfocus="this.value=''" 
@@ -358,9 +357,6 @@ TODO: need a new id
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-1 pr-0">
-                                        <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
-                                    </div>
                                 </div>
 <!---XXX----->
                                 <div class="mt-2">
@@ -368,7 +364,6 @@ TODO: need a new id
                                      <button id="profilefileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("inprofilefileBtn").click();'>
                                      <span class="glyphicon glyphicon-file"></span> Select file to use</button>
 <button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalprofilefile" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                     <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                 </div>
 <!---XXX----->
                             </div>
@@ -713,12 +708,16 @@ lon2 lat2 z2      or     lon2,lat2,z2
         <div class="row col-md-12 ml-auto" style="overflow:hidden;">
 
           <div class="col-12" id="profilefile-container">
-<h5>Local input file format is 6 columns of Longitude, Latitude, Starting Depth, Ending Depth and Z Step separated by a comma or a space </h5>
-<pre
-lon1 lat1 start1 end1 step1 "comment1"      lon1,lat1,start1,end1,step1,comment1
-lon2 lat2 start2 end2 step2 "comment2"  or  lon2,lat2,start2,end2,step2,comment2
+
+<h5>Local input file format is 6 columns of Longitude, Latitude, Starting Depth, Ending Depth, Z Step and
+a comment term that is being used as resulting file prefix separated by a comma or a space </h5>
+<pre>
+   lon1,lat1,start1,end1,step1,comment1
+    or
+   lon1 lat1 start1 end1 step1 comment1  
 </pre>
-<h5> Z Step value should match the Z mode selection from the main viewer, maximum number of profile is 10</h5>
+<h5> Z Step value should match the Z mode selection from the main viewer</h5>
+
           </div>
         </div>
       </div>
@@ -748,8 +747,6 @@ lon2 lat2 start2 end2 step2 "comment2"  or  lon2,lat2,start2,end2,step2,comment2
 
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal" onclick="$('#sidebar').show();">Close</button>
-        <div class="spinDialog" style="position:absolute;top:40%;left:50%; z-index:9999;">
-          <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
       </div> 
 <!--
       <div class="modal-footer justify-content-center">

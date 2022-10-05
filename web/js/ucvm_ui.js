@@ -167,7 +167,11 @@ function selectLocalFiles(_urls,forPoint) {
     }
 
     // clear the the btn
-    document.getElementById("fileBtn").value="";
+    if(forPoint) {
+      document.getElementById("infileBtn").value="";
+      } else {
+        document.getElementById("inprofilefileBtn").value="";
+    }
 }
 
 function clearSearchResult() {

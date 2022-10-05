@@ -49,6 +49,7 @@ function _getZrange(modelstr)
     }
     return ret;
 }
+
 //
 // get a data array
 //    [[lon1,lat1,z1],...,[lonn,latn,zn]]
@@ -56,7 +57,6 @@ function _getZrange(modelstr)
 //      "n": { "lat":latvaln,"lon":lonvaln; "z":zn } }
 // get the material properties of the latlon locations
 //
-
 function getMaterialPropertyByLatlonList(uid,dataarray,current_chunk, total_chunks, chunk_step) {
     if(current_chunk == total_chunks) 
         return;
@@ -231,34 +231,33 @@ function plotCrossSection() {
     xmlhttp.send();
 }
 
-function plotVerticalProfile() {
-    var xmlhttp;
-    var latstr=document.getElementById("profileFirstLatTxt").value;
-    var lonstr=document.getElementById("profileFirstLonTxt").value;
-    var zstr=document.getElementById("profileZTxt").value;
-    var zstartstr=document.getElementById("profileZStartTxt").value;
-    var zstepstr=document.getElementById("profileZStepTxt").value;
-    var uid=document.getElementById("profileUIDTxt").value;
+
+// directly
+function plotVerticalProfileByList(dataarray,idx,total) {
+    if(total > 1 && idx >= total) { 
+      document.getElementById('spinIconForListProperty').style.display = "none";
+      return;
+    }
+
+    let item=dataarray[idx];
+    var lonstr=item[0];
+    var latstr=item[1];
+    var zstartstr=item[2];
+    var zendstr=item[3];
+    var zstepstr=item[4];
+    if(item.length == 6) {
+      uid=item[5]; // could change to json blob            
+      } else {
+        uid=getRnd();
+    }
+
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
     var zrangestr=_getZrange(modelstr);
     var elt=document.getElementById("modelType");
     var commentstr = elt.options[elt.selectedIndex].innerHTML;
 
-    if (latstr == "" || lonstr=="" || zstr=="" || zstartstr=="" || zstepstr=="" ) {
-        document.getElementById('spinIconForProfile').style.display = "none";
-        reset_profile_UID();
-        return;
-    }
-
-    if(uid == '') {
-      uid=getRnd();
-      set_profile_UID(uid);
-      add_bounding_profile(uid,latstr,lonstr);
-      } else {    
-        reset_dirty_uid();
-    }
-
+    var xmlhttp;
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
@@ -269,7 +268,6 @@ function plotVerticalProfile() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
-            window.console.log("HERE..");
             var str=processSearchResult("plotVerticalProfile",uid);
 
             if (str != undefined) {
@@ -280,10 +278,42 @@ function plotVerticalProfile() {
             }
             document.getElementById('spinIconForProfile').style.display = "none";
             reset_profile_UID();
+            // call next one
+            plotVerticalProfileByList(dataarray,idx+1,total);
         }
     }
-    xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&comment="+commentstr+"&zrange="+zrangestr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
+    xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zendstr+"&zmode="+zmodestr+"&model="+modelstr+"&comment="+commentstr+"&zrange="+zrangestr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
     xmlhttp.send();
+}
+
+function plotVerticalProfile() {
+    var latstr=document.getElementById("profileFirstLatTxt").value;
+    var lonstr=document.getElementById("profileFirstLonTxt").value;
+    var zendstr=document.getElementById("profileZEndTxt").value;
+    var zstartstr=document.getElementById("profileZStartTxt").value;
+    var zstepstr=document.getElementById("profileZStepTxt").value;
+    var uid=document.getElementById("profileUIDTxt").value;
+
+    if (latstr == "" || lonstr=="" || zendstr=="" || zstartstr=="" || zstepstr=="" ) {
+        document.getElementById('spinIconForProfile').style.display = "none";
+        reset_profile_UID();
+        return;
+    }
+    if(uid == '') {
+      uid=getRnd();
+      set_profile_UID(uid);
+      add_bounding_profile(uid,latstr,lonstr);
+      } else {    
+        reset_dirty_uid();
+    }
+
+
+    // setup a dataarray
+    let v=[]
+    v.push(lonstr); v.push(latstr); v.push(zstartstr); v.push(zendstr); v.push(zstepstr); v.push(uid);
+    var dataarray=[];
+    dataarray.push(v);
+    plotVerticalProfileByList(dataarray,0,1);
 }
 
 function plotHorizontalSlice() {
