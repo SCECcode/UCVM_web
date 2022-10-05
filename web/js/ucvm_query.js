@@ -148,8 +148,8 @@ function getMaterialPropertyByLatlon() {
       set_point_UID(uid);    
       // must be coming from the sidebar and so need to plot on map..
       add_bounding_point(uid,latstr,lonstr);
-    } else {
-      reset_dirty_uid();
+      } else {
+        reset_dirty_uid();
     }
 
     if (window.XMLHttpRequest) {
@@ -245,11 +245,12 @@ function plotVerticalProfileByList(dataarray,idx,total) {
     var zstartstr=item[2];
     var zendstr=item[3];
     var zstepstr=item[4];
-    if(item.length == 6) {
-      uid=item[5]; // could change to json blob            
-      } else {
-        uid=getRnd();
-    }
+    var uid=item[5]; // could change to json blob            
+    // special case, this is from an actual list
+    if(total > 1) {
+        set_profile_UID(uid);
+        add_bounding_profile(uid,latstr,lonstr);
+    } // not sure if need to reset_dirty_layer here ???
 
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
