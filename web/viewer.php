@@ -712,9 +712,9 @@ lon2 lat2 z2      or     lon2,lat2,z2
 <h5>Local input file format is 6 columns of Longitude, Latitude, Starting Depth, Ending Depth, Z Step and
 a comment term that is being used as resulting file prefix separated by a comma or a space </h5>
 <pre>
-   lon1,lat1,start1,end1,step1,comment1
+   lon,lat,start,end,step,comment
     or
-   lon1 lat1 start1 end1 step1 comment1  
+   lon lat start end step comment  
 </pre>
 <h5> Z Step value should match the Z mode selection from the main viewer</h5>
 
