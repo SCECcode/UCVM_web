@@ -57,7 +57,8 @@ if($datatype != 'vs30') {
    $lstr=" -z ".$zrange.$lstr;
   }
 
-  $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";
+  $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a sd -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";
+#  $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a s -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";
 
   if( $zmode == 'd') {
     $query= $envstr." plot_horizontal_slice.py ".$qstub.$lstr;
