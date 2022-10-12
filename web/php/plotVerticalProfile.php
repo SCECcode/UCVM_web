@@ -44,12 +44,15 @@ $result = exec(escapeshellcmd($query), $retval, $status);
 
 $rc=checkResult($query, $result, $uid);
 
+$rc=makeCSVProfile($uid);
+
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
 $resultarray->plot= $uid."vertical.png";
 $resultarray->query= $query;
 $resultarray->meta= $uid."vertical_meta.json";
 $resultarray->dataset= $uid."vertical_matprops.json";
+$resultarray->csv= $uid."vertical_data.csv";
 
 if ( $status == 0 && file_exists($file)) {
 

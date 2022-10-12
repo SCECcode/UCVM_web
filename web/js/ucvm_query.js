@@ -234,7 +234,7 @@ function plotCrossSection() {
 
 // directly
 function plotVerticalProfileByList(dataarray,idx,total) {
-    if(total > 1 && idx >= total) { 
+    if(idx >= total) { 
       document.getElementById('spinIconForListProperty').style.display = "none";
       return;
     }
