@@ -202,6 +202,9 @@ function makeDownloadLinks(str) {
     for(i=0;i<sz;i++) {
        var val=str[keys[i]]; 
        switch(keys[i]) {
+          case 'csv':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;csv data file</div>";
+              break;
           case 'plot':
               html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-picture\"></span></a>&nbsp;&nbsp;PNG plot</div>";
               break;

@@ -147,6 +147,11 @@ function makeVProfileMPFname(uid) {
   var s=uid+"vertical_matprops.json";
   return s;
 }
+
+function makeVProfileCSVFname(uid) {
+  var s=uid+"vertical_data.csv";
+  return s;
+}
 //
 // allow multiple bin files from ucvmc's plotting utilities
 // example
