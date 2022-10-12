@@ -7,7 +7,7 @@
 function removeFromList(alist, uid) {
     var cnt=alist.length;
     var item;
-    for(i=0;i<cnt;i++) {
+    for(var i=0;i<cnt;i++) {
        item=alist[i];
        if(item['uid']==uid) { // found the item to remove
            var index = alist.indexOf(item);
@@ -36,8 +36,7 @@ function getRnd() {
 function makeLatlngs(darray) {
    var cnt=darray.length;
    var latlngs=[];
-   var i;
-   for(i=0;i<cnt;i++) {
+   for(var i=0;i<cnt;i++) {
       var item=darray[i];
       var lon=item[0];
       var lat=item[1];
@@ -159,7 +158,7 @@ function loadAndProcessBinfromFile(urls) {
   var nlist=[];
   var cnt=urls.length;
 
-  for( var urlidx=0; urlidx < cnt; urlidx++ ) {
+  for(var urlidx=0; urlidx < cnt; urlidx++ ) {
       var url=urls[urlidx]; 
 //      var metaurl=makeMetaFname(url);
       var metaurl="BC_cvms5_gate_vs_meta.json";
@@ -283,7 +282,73 @@ var sort_by=function(field, reverse, primer){
 //
 // Reading files using the HTML5 FileReader.
 //
-function readAndProcessLocalFile(fobj) {
+function readAndProcessLocalFile(fobj,forPoint) {
+  if(forPoint==1) {
+    readAndProcessLocalFileForPoint(fobj);
+    } else {
+      readAndProcessLocalFileForProfile(fobj);
+  }
+}
+
+function readAndProcessLocalFileForPoint(fobj) {
+
+  var reader = new FileReader();
+
+  reader.onload=function(event) {
+    var csv = event.target.result; 
+    var ffline = reader.result.split('\n');
+    var cnt=ffline.length;
+    var fdata=[];
+    if(cnt == 0) { 
+      window.console.log("ERROR, can not process the upload file ");
+      return;
+    }
+    var is_csv=0;
+    if(ffline[0].includes(",")) 
+      is_csv=1;
+    for(i=0;i<cnt;i++) {
+       var fline=ffline[i];
+        
+       if(is_csv) {
+         $.csv.toArray(fline, {}, function(err, data) {
+           var v=[];
+           if( data != "" && data.length >= 3 ) {
+             v.push(data[0]);
+             v.push(data[1]);
+             v.push(data[2]);
+             fdata.push(v);
+           }
+         }); 
+       } else {
+// space separated format 
+           var data=fline.split(' ');
+           var v=[]; 
+           if( data != "" && data.length >= 3 ) {
+             v.push(data[0]);
+             v.push(data[1]);
+             v.push(data[2]);
+             fdata.push(v);
+           }
+       }
+    }
+
+    var cnt=fdata.length;
+    var chunk_size=CHUNK_SIZE;
+    var chunks=Math.ceil(cnt/chunk_size);
+    if(chunks == 1)
+       chunk_size=cnt;
+
+    var uid=getRnd();
+     
+    add_file_of_point(uid,fobj);
+    getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
+
+  };
+  reader.readAsText(fobj);
+  
+}
+
+function readAndProcessLocalFileForProfile(fobj) {
 
   var reader = new FileReader();
 
@@ -305,34 +370,24 @@ function readAndProcessLocalFile(fobj) {
        if(is_csv) {
          $.csv.toArray(fline, {}, function(err, data) {
            var v=data;
-           if( v != "" ) {
+           if( v != "" && v.length >= 5) {
              fdata.push(v);
            }
          }); 
        } else {
 // space separated format 
            var v=fline.split(' ');
-           if( v != "" ) {
+           if( v != "" && v.length >= 5) {
              fdata.push(v);
            }
        }
     }
 
-    var cnt=fdata.length;
-    var chunk_size=CHUNK_SIZE;
-    var chunks=Math.ceil(cnt/chunk_size);
-    if(chunks == 1)
-       chunk_size=cnt;
-
-    var uid=getRnd();
-     
-    add_file_of_point(uid,fobj);
-    getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
+    plotVerticalProfileByList(fdata,0,fdata.length);
 
   };
   reader.readAsText(fobj);
-  
-};
+}
 
 function refreshMPTable() {
     var table=document.getElementById("materialPropertyTable");

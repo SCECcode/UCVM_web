@@ -28,7 +28,6 @@ function plotly_profile_run(){
        data.push(d);
      }
    }
-   window.console.log("HERE..",sz);
 
    var ulist=JSON.stringify(plist);
    var srcstr= "plotly_profile/compare.html?uidlist="+ulist;
@@ -69,8 +68,6 @@ function readVProfileDataFile(uid) {
   var fmp=makeVProfileMPFname(uid);
   fmeta="result/"+fmeta;
   fmp="result/"+fmp;
-
-  window.console.log("HERE2");
 
   var fmetablob=getTextFile(fmeta);
   var metajson=JSON.parse(fmetablob);
