@@ -59,7 +59,7 @@ function makeCSVDepthProfile($uid) {
   fwrite($cfp,"#Start_depth(m):".$start."\n");
   fwrite($cfp,"#End_depth(m):".$depth."\n");
   fwrite($cfp,"#Vert_spacing(m):".$step."\n");
-  fwrite($cfp,"#Depth(m), Vp(km/s), Vs(km/s), Density(kg/m^3)\n");
+  fwrite($cfp,"#Depth(m), Vp(m/s), Vs(m/s), Density(kg/m^3)\n");
 
   ### iterate through the mp list
   $len=count($depthlist);
