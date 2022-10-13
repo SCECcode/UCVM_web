@@ -710,11 +710,11 @@ lon2 lat2 z2      or     lon2,lat2,z2
           <div class="col-12" id="profilefile-container">
 
 <h5>Local input file format is 6 columns of Longitude, Latitude, Starting Depth, Ending Depth, Z Step and
-a uid term that is being used as datafile prefix separated by a comma or a space </h5>
+a label that is being used as datafile prefix separated by a comma or a space </h5>
 <pre>
-   lon,lat,start,end,step,uid
+   lon,lat,start,end,step,label
     or
-   lon lat start end step uid
+   lon lat start end step label
 </pre>
 <h5> Z Step value should match the Z mode selection from the main viewer</h5>
 

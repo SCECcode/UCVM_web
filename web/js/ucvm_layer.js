@@ -380,7 +380,7 @@ function add_bounding_area_layer(layer,a,b,c,d) {
   if(dirty_layer_uid) {
     remove_a_layer(dirty_layer_uid);
   }
-  var uid=getRnd();
+  var uid=getRnd("UCVM");
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   set_area_latlons(uid,a,b,c,d);
   ucvm_area_list.push(tmp);
@@ -418,7 +418,7 @@ function add_bounding_point_layer(layer,a,b) {
   if(dirty_layer_uid) {
     remove_a_layer(dirty_layer_uid);
   }
-  var uid=getRnd();
+  var uid=getRnd("UCVM");
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b}]};
   set_point_latlons(uid,a,b);
   ucvm_point_list.push(tmp);
@@ -446,7 +446,7 @@ function add_bounding_profile_layer(layer,a,b) {
   if(dirty_layer_uid) {
     remove_a_layer(dirty_layer_uid);
   }
-  var uid=getRnd();
+  var uid=getRnd("UCVM");
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b}]};
   set_profile_latlons(uid,a,b);
   ucvm_profile_list.push(tmp);
@@ -478,7 +478,7 @@ function add_bounding_line_layer(layer,a,b,c,d) {
   if(dirty_layer_uid) {
     remove_a_layer(dirty_layer_uid);
   }
-  var uid=getRnd();
+  var uid=getRnd("UCVM");
   var tmp={"uid":uid,"latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   set_line_latlons(uid,a,b,c,d);
   ucvm_line_list.push(tmp);

@@ -144,7 +144,7 @@ function getMaterialPropertyByLatlon() {
     }
 
     if(uid == '') {
-      uid=getRnd();
+      uid=getRnd("UCVM");
       set_point_UID(uid);    
       // must be coming from the sidebar and so need to plot on map..
       add_bounding_point(uid,latstr,lonstr);
@@ -196,7 +196,7 @@ function plotCrossSection() {
 
     var uid=document.getElementById("lineUIDTxt").value;
     if(uid == '') {
-      uid=getRnd();
+      uid=getRnd("UCVM");
       set_line_UID(uid);
       add_bounding_line(uid,firstlatstr,firstlonstr,secondlatstr,secondlonstr);
       } else {    
@@ -246,7 +246,7 @@ function plotVerticalProfileByList(dataarray,idx,total) {
     var zendstr=item[3];
     var zstepstr=item[4];
     var uid=item[5]; // could change to json blob            
-    // special case, this is from an actual list
+
     if(total > 1) {
         set_profile_UID(uid);
         add_bounding_profile(uid,latstr,lonstr);
@@ -300,14 +300,14 @@ function plotVerticalProfile() {
         reset_profile_UID();
         return;
     }
-    if(uid == '') {
-      uid=getRnd();
-      set_profile_UID(uid);
-      add_bounding_profile(uid,latstr,lonstr);
-      } else {    
-        reset_dirty_uid();
-    }
 
+    if(uid != '') {
+      reset_dirty_uid();
+      } else {
+        uid=getRnd("UCVM");
+        set_profile_UID(uid);
+        add_bounding_profile(uid,latstr,lonstr);
+    }
 
     // setup a dataarray
     let v=[]
@@ -339,7 +339,7 @@ function plotHorizontalSlice() {
     }
 
     if(uid == '') {
-      uid=getRnd();
+      uid=getRnd("UCVM");
       set_area_UID(uid);
       add_bounding_area(uid,firstlatstr,firstlonstr,secondlatstr,secondlonstr);
       } else {    
@@ -400,7 +400,7 @@ function plotZ10Slice() {
     }
 
     if(uid == '') {
-      uid=getRnd();
+      uid=getRnd("UCVM");
       set_area_UID(uid);
       add_bounding_area(uid,firstlatstr,firstlonstr,secondlatstr,secondlonstr);
       } else {    
@@ -453,7 +453,7 @@ function plotZ25Slice() {
     }
 
     if(uid == '') {
-      uid=getRnd();
+      uid=getRnd("UCVM");
       set_area_UID(uid);
       add_bounding_area(uid,firstlatstr,firstlonstr,secondlatstr,secondlonstr);
       } else {    

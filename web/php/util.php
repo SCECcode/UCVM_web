@@ -10,7 +10,7 @@ function makeEnvString() {
 }
 
 function checkResult($query,$result,$uid) {
-  $qname="../result/query_r".$uid;
+  $qname="../result/query_".$uid;
   $pos=strpos($result,"ERROR:");
   $fp= fopen($qname,"w+") or die("Unable to open file!");
   fwrite($fp,$query); fwrite($fp,"\n");
@@ -27,12 +27,12 @@ function checkResult($query,$result,$uid) {
 }
 
 function makeCSVDepthProfile($uid) {
-  $csvname="../result/".$uid."vertical_data.csv";
+  $csvname="../result/".$uid."_v_data.csv";
 
   $cfp= fopen($csvname,"w+") or die("Unable to open file!");
 
-  $metaname="../result/".$uid."vertical_meta.json";
-  $mpname="../result/".$uid."vertical_matprops.json";
+  $metaname="../result/".$uid."_v_meta.json";
+  $mpname="../result/".$uid."_v_matprops.json";
 
   $json = file_get_contents($metaname);
   $json_meta = json_decode($json,true);
@@ -54,7 +54,11 @@ function makeCSVDepthProfile($uid) {
 
   fwrite($cfp,"#UID:".$uid."\n");
   fwrite($cfp,"#CVM:".$comment." (".$cvm.")\n");
-  fwrite($cfp,"#Lat:".$lat." Long:".$lon." Start_depth(m):".$start." End_depth(m):".$depth." Vert_spacing(m):".$step."\n");
+  fwrite($cfp,"#Lat:".$lat."\n");
+  fwrite($cfp,"#Long:".$lon."\n");
+  fwrite($cfp,"#Start_depth(m):".$start."\n");
+  fwrite($cfp,"#End_depth(m):".$depth."\n");
+  fwrite($cfp,"#Vert_spacing(m):".$step."\n");
   fwrite($cfp,"#Depth(m), Vp(km/s), Vs(km/s), Density(kg/m^3)\n");
 
   ### iterate through the mp list
@@ -68,12 +72,12 @@ function makeCSVDepthProfile($uid) {
 }
 
 function makeCSVElevationProfile($uid) {
-  $csvname="../result/".$uid."vertical_data.csv";
+  $csvname="../result/".$uid."_v_data.csv";
 
   $cfp= fopen($csvname,"w+") or die("Unable to open file!");
 
-  $metaname="../result/".$uid."vertical_meta.json";
-  $mpname="../result/".$uid."vertical_matprops.json";
+  $metaname="../result/".$uid."_v_meta.json";
+  $mpname="../result/".$uid."_v_matprops.json";
 
   $json = file_get_contents($metaname);
   $json_meta = json_decode($json,true);

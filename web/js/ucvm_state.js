@@ -7,7 +7,7 @@
 //   recovery and restart the user 
 //   tracks uid+meta in external state_uid.json
 function saveUserStateToFile(stateblob) {
-   var uid=getRnd();
+   var uid=getRnd("");
    var sname="ucvm_state_"+uid+".json";
 }
 

@@ -24,11 +24,16 @@ function removeFromList(alist, uid) {
 //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
 //    var rnd= Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-function getRnd() {
+function getRnd(stub) {
 //https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
-    var timestamp = $.now();
-    var rnd="UCVM_"+timestamp;
-    return rnd;
+    let timestamp = $.now();
+// timestamp is 13 digits, chop to tail end to 8 digits 
+    let tt=timestamp % 100000000;
+    if(stub == "" || stub == undefined) { 
+      return tt;
+      } else {	     
+        return stub+"_"+tt;
+    }
 }
 
 // [[lon1,lat1,z1],...,[lonn,latn,zn]]
@@ -139,17 +144,17 @@ function ckExist(url) {
 }
 
 function makeVProfileMetaFname(uid) {
-  var s=uid+"vertical_meta.json";
+  var s=uid+"_v_meta.json";
   return s;
 }
 
 function makeVProfileMPFname(uid) {
-  var s=uid+"vertical_matprops.json";
+  var s=uid+"_v_matprops.json";
   return s;
 }
 
 function makeVProfileCSVFname(uid) {
-  var s=uid+"vertical_data.csv";
+  var s=uid+"_v_data.csv";
   return s;
 }
 //
@@ -343,7 +348,7 @@ function readAndProcessLocalFileForPoint(fobj) {
     if(chunks == 1)
        chunk_size=cnt;
 
-    var uid=getRnd();
+    var uid=getRnd("UCVM");
      
     add_file_of_point(uid,fobj);
     getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
@@ -388,6 +393,12 @@ function readAndProcessLocalFileForProfile(fobj) {
        }
     }
 
+    for(let i=0; i< fdata.length; i++) {
+       let item=fdata[i];
+       let stub=item[5];
+       let uid=getRnd(stub); // rewrite the stub
+       fdata[i][5]=uid;
+    }
     plotVerticalProfileByList(fdata,0,fdata.length);
 
   };

@@ -29,7 +29,7 @@ $secondlon = ($_GET['secondlon']);
 
 $envstr=makeEnvString();
 
-$file="../result/".$uid."cross.png";
+$file="../result/".$uid."_c.png";
 
 $hhval= ((float)$secondlat - (float)$firstlat)*110.57;
 $hhhval= ((float)$secondlon - (float)$firstlon)*111.32;
@@ -59,10 +59,10 @@ $rc=checkResult($query, $result, $uid);
 
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
-$resultarray->plot= $uid."cross.png";
+$resultarray->plot= $uid."_c.png";
 $resultarray->query= $query;
-$resultarray->meta= $uid."cross_meta.json";
-$resultarray->data= $uid."cross_data.bin";
+$resultarray->meta= $uid."_c_meta.json";
+$resultarray->data= $uid."_c_data.bin";
 
 
 if ( $status == 0 && file_exists($file)) {

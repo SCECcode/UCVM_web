@@ -15,10 +15,10 @@ var hold_mptable=1;
 /**** 
     $resultarray = new \stdClass();
     $resultarray->uid= $uid;
-    $resultarray->plot= $uid."cross.png";
+    $resultarray->plot= $uid."_c.png";
     $resultarray->query= $query;
-    $resultarray->meta= $uid."cross_meta.json";
-    $resultarray->data= $uid."cross_data.bin";
+    $resultarray->meta= $uid."_c_meta.json";
+    $resultarray->data= $uid."_c_data.bin";
 ****/
 // [ {"uid":uid, "blob":blob } ]
 var ucvm_metaplottb_list=[];
