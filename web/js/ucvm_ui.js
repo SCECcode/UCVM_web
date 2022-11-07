@@ -535,6 +535,13 @@ function set_zrange_presets()
    }
 }
 
+function set_zrange_start(v) {
+   $( "#zrangeStartTxt" ).val(v);
+}
+function set_zrange_stop(v) {
+   $( "#zrangeStopTxt" ).val(v);
+}
+
 function getCSVFromJSON(jblob) {
     var objs=Object.keys(jblob);
     var len=objs.length;

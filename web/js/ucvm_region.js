@@ -293,7 +293,7 @@ var UCVM_tb={
      'abb name':'cvms5',
      'path name':'cvms5',
      'model filename':'cvms5.tar.gz',
-     'description':'Tomography improved version of CVM-S4 with no geotechnical layer',
+     'description':'Tomography improved version of CVM-S4 with no geotechnical layer(optional)',
      'coordinates': [
           { 'lon':-116.000, 'lat':30.4499 },
           { 'lon':-122.300, 'lat':34.7835 },

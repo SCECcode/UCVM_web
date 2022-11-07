@@ -47,15 +47,24 @@ jQuery(document).ready(function() {
       remove_all_models();
       load_selected_model(model);
       set_point_latlons_special();
-      // special case.. elygtl:ely
+      // special case.. elygtl:ely or elygtl:taper
       var v=document.getElementById('zrange').style.display;
       var ely=model.includes("elygtl:ely");
+      var taper=model.includes("elygtl:taper");
       if(v=="none" && ely) {
          document.getElementById('zrange').style.display="block";
          set_zrange_presets();
+	 set_zrange_stop(350);     
          return;
       }
-      if(v=="block" && !ely) {
+      if(v=="none" && taper) {
+         document.getElementById('zrange').style.display="block";
+         set_zrange_presets();
+//	 set_zrange_stop(350);     
+//	 set_zlimit(700);  -- to do, using -Z to set the Z limit for taper
+         return;
+      }
+      if(v=="block" && !ely && !taper) {
          document.getElementById('zrange').style.display="none";
       }
   });

@@ -313,14 +313,13 @@ function readAndProcessLocalFileForPoint(fobj) {
       window.console.log("ERROR, can not process the upload file ");
       return;
     }
-    var is_csv=0;
-    if(ffline[0].includes(",")) 
-      is_csv=1;
     for(i=0;i<cnt;i++) {
-       var fline=ffline[i];
+      var fline=ffline[i];
+      if(fline[0]=='#')
+        continue;
         
-       if(is_csv) {
-         $.csv.toArray(fline, {}, function(err, data) {
+      if(fline.includes(",")) { 
+        $.csv.toArray(fline, {}, function(err, data) {
            var v=[];
            if( data != "" && data.length >= 3 ) {
              v.push(data[0]);
@@ -328,8 +327,8 @@ function readAndProcessLocalFileForPoint(fobj) {
              v.push(data[2]);
              fdata.push(v);
            }
-         }); 
-       } else {
+        }); 
+        } else {
 // space separated format 
            var data=fline.split(' ');
            var v=[]; 
@@ -339,7 +338,7 @@ function readAndProcessLocalFileForPoint(fobj) {
              v.push(data[2]);
              fdata.push(v);
            }
-       }
+      }
     }
 
     var cnt=fdata.length;
@@ -371,26 +370,25 @@ function readAndProcessLocalFileForProfile(fobj) {
       window.console.log("ERROR, can not process the upload file ");
       return;
     }
-    var is_csv=0;
-    if(ffline[0].includes(",")) 
-      is_csv=1;
+
     for(i=0;i<cnt;i++) {
-       var fline=ffline[i];
-        
-       if(is_csv) {
-         $.csv.toArray(fline, {}, function(err, data) {
+      var fline=ffline[i];
+      if(fline[0] == '#')
+        continue; 	     
+      if(fline.includes(",")) { 
+        $.csv.toArray(fline, {}, function(err, data) {
            var v=data;
-           if( v != "" && v.length >= 5) {
+           if(v != "" && v.length >= 5) {
              fdata.push(v);
            }
-         }); 
-       } else {
+        }); 
+        } else {
 // space separated format 
-           var v=fline.split(' ');
-           if( v != "" && v.length >= 5) {
-             fdata.push(v);
-           }
-       }
+          var v=fline.split(' ');
+          if(v != "" && v.length >= 5) {
+            fdata.push(v);
+          }
+      }
     }
 
     for(let i=0; i< fdata.length; i++) {

@@ -41,7 +41,7 @@ function _getZrange(modelstr)
 {
     var ret="none";
     if( typeof modelstr === 'string') {
-        if(modelstr.endsWith("elygtl:ely")) {
+        if(modelstr.endsWith("elygtl:ely") || modelstr.endsWith("elygtl:taper")) {
             var zstartstr=document.getElementById("zrangeStartTxt").value;
             var zstopstr=document.getElementById("zrangeStopTxt").value;
             ret=zstartstr+","+zstopstr;
@@ -247,10 +247,8 @@ function plotVerticalProfileByList(dataarray,idx,total) {
     var zstepstr=item[4];
     var uid=item[5]; // could change to json blob            
 
-    if(total > 1) {
-        set_profile_UID(uid);
-        add_bounding_profile(uid,latstr,lonstr);
-    } // not sure if need to reset_dirty_layer here ???
+    set_profile_UID(uid);
+    add_bounding_profile(uid,latstr,lonstr);
 
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
@@ -305,8 +303,6 @@ function plotVerticalProfile() {
       reset_dirty_uid();
       } else {
         uid=getRnd("UCVM");
-        set_profile_UID(uid);
-        add_bounding_profile(uid,latstr,lonstr);
     }
 
     // setup a dataarray
