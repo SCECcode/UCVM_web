@@ -80,11 +80,28 @@ function makeModelSelection()
      sel.add(option);
    }
 
+<<<<<<< HEAD
    if(isModelInstalled("scpbr") && isModelInstalled("1d")) {
+=======
+   if(
+isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
+isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
+isModelInstalled("cvmhibbn") && isModelInstalled("cvmhsmbn"),
+isModelInstalled("cvmhsbbn") && isModelInstalled("cvmhsbcbn"),
+isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
+) {
      option = document.createElement("option");
-     option.text = "SCPBR,1D";
-     option.label = "SCPBR,1D";
-     option.value= "scpbr,1d"; 
+     option.text = "CVM-H All Basins, CVM-S4.26.M01";
+     option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn,cvmsi";
+     sel.add(option);
+   }
+
+   if(isModelInstalled("sjfz") && isModelInstalled("1d")) {
+>>>>>>> 68e4110712c5816ceef8c71439d312774143b076
+     option = document.createElement("option");
+     option.text = "SJFZ,1D";
+     option.label = "SJFZ,1D";
+     option.value= "sjfz,1d"; 
      sel.add(option);
    }
 

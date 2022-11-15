@@ -7,11 +7,11 @@
 var UCVM_tb={
 "models": [
     {'id':22,
-     'model name':'Southern California Plate Boundary Region',
-     'abb name':'scpbr',
-     'path name':'scpbr',
-     'model filename':'scpbr.tar.gz',
-     'description':'SCPBR',
+     'model name':'San Jacinto Fault Zone',
+     'abb name':'sjfz',
+     'path name':'sjfz',
+     'model filename':'sjfz.tar.gz',
+     'description':'SJFZ',
      'coordinates': [
           { 'lon':-115.38,'lat':32.38 },
           { 'lon':-118.17, 'lat':32.38 },
