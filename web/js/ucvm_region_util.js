@@ -80,24 +80,7 @@ function makeModelSelection()
      sel.add(option);
    }
 
-<<<<<<< HEAD
-   if(isModelInstalled("scpbr") && isModelInstalled("1d")) {
-=======
-   if(
-isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
-isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
-isModelInstalled("cvmhibbn") && isModelInstalled("cvmhsmbn"),
-isModelInstalled("cvmhsbbn") && isModelInstalled("cvmhsbcbn"),
-isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
-) {
-     option = document.createElement("option");
-     option.text = "CVM-H All Basins, CVM-S4.26.M01";
-     option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn,cvmsi";
-     sel.add(option);
-   }
-
    if(isModelInstalled("sjfz") && isModelInstalled("1d")) {
->>>>>>> 68e4110712c5816ceef8c71439d312774143b076
      option = document.createElement("option");
      option.text = "SJFZ,1D";
      option.label = "SJFZ,1D";
@@ -105,19 +88,19 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
-   if(isModelInstalled("scpbr")) {
+   if(isModelInstalled("sjfz")) {
      option = document.createElement("option");
-     option.text = "SCPBR,elygtl:ely";
-     option.label = "SCPBR,elygtl:ely";
-     option.value= "scpbr,elygtl:ely"; 
+     option.text = "SJFZ,elygtl:ely";
+     option.label = "SJFZ,elygtl:ely";
+     option.value= "sjfz,elygtl:ely"; 
      sel.add(option);
    }
 
-   if(isModelInstalled("scpbr")) {
+   if(isModelInstalled("sjfz")) {
      option = document.createElement("option");
-     option.text = "SCPBR,elygtl:taper";
-     option.label = "SCPBR,elygtl:taper";
-     option.value= "scpbr,elygtl:taper"; 
+     option.text = "SJFZ,elygtl:taper";
+     option.label = "SJFZ,elygtl:taper";
+     option.value= "sjfz,elygtl:taper"; 
      sel.add(option);
    }
 
