@@ -50,6 +50,22 @@ function _getZrange(modelstr)
     return ret;
 }
 
+// to set taper interpolation's vs/vp/density flooring
+function _getFloors(modelstr)
+{
+    var ret="none";
+    if( typeof modelstr === 'string') {
+        if(modelstr.endsWith("elygtl:taper")) {
+            var vsfloorstr=document.getElementById("vsFloorTxt").value;
+            var vpfloorstr=document.getElementById("vpFloorTxt").value;
+            var densityfloorstr=document.getElementById("densityFloorTxt").value;
+            ret=vsfloorstr+","+vpfloorstr+","+densityfloorstr;
+        }
+    }
+    return ret;
+}
+
+
 //
 // get a data array
 //    [[lon1,lat1,z1],...,[lonn,latn,zn]]
@@ -86,6 +102,7 @@ function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
     var zrangestr=_getZrange(modelstr);
+    var floorstr=_getFloors(modelstr);
 
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -122,7 +139,7 @@ function _getMaterialPropertyByLatlonChunk(uid,datastr, dataarray, current_chunk
             }
        }
     }
-    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&chunks="+total_chunks+"&model="+modelstr+"&zrange="+zrangestr+"&uid="+uid, true);
+    xmlhttp.open("GET","php/getMaterialPropertyByLatlonChunk.php?datastr="+datastr+"&zmode="+zmodestr+"&chunkid="+current_chunk+"&chunks="+total_chunks+"&model="+modelstr+"&zrange="+zrangestr+"&floors="+floorstr+ "&uid="+uid, true);
     xmlhttp.send();
 }
 
@@ -135,6 +152,7 @@ function getMaterialPropertyByLatlon() {
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
     var zrangestr=_getZrange(modelstr);
+    var floorstr=_getFloors(modelstr);
     var uid=document.getElementById("pointUIDTxt").value;
 
     if (latstr == "" || lonstr=="" || zstr=="" ) {
@@ -169,7 +187,7 @@ function getMaterialPropertyByLatlon() {
             reset_point_UID();
         }
     }
-    xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&uid="+uid, true);
+    xmlhttp.open("GET","php/getMaterialPropertyByLatlon.php?lat="+latstr+"&lon="+lonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&floors="+floorstr+"&uid="+uid, true);
     xmlhttp.send();
 }
 
@@ -183,6 +201,7 @@ function plotCrossSection() {
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
     var zrangestr=_getZrange(modelstr);
+    var floorstr=_getFloors(modelstr);
 
     var secondlatstr=document.getElementById("lineSecondLatTxt").value;
     var secondlonstr=document.getElementById("lineSecondLonTxt").value;
@@ -227,7 +246,7 @@ function plotCrossSection() {
             reset_line_UID();
             }
     }
-    xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&zstart="+zstartstr+"&datatype="+datatypestr+"&uid="+uid,true);
+    xmlhttp.open("GET","php/plotCrossSection.php?firstlat="+firstlatstr+"&firstlon="+firstlonstr+"&secondlat="+secondlatstr+"&secondlon="+secondlonstr+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&floors="+floorstr+"&zstart="+zstartstr+"&datatype="+datatypestr+"&uid="+uid,true);
     xmlhttp.send();
 }
 
@@ -253,6 +272,7 @@ function plotVerticalProfileByList(dataarray,idx,total) {
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
     var zrangestr=_getZrange(modelstr);
+    var floorstr=_getFloors(modelstr);
     var elt=document.getElementById("modelType");
     var commentstr = elt.options[elt.selectedIndex].innerHTML;
 
@@ -281,7 +301,7 @@ function plotVerticalProfileByList(dataarray,idx,total) {
             plotVerticalProfileByList(dataarray,idx+1,total);
         }
     }
-    xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zendstr+"&zmode="+zmodestr+"&model="+modelstr+"&comment="+commentstr+"&zrange="+zrangestr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
+    xmlhttp.open("GET","php/plotVerticalProfile.php?lat="+latstr+"&lon="+lonstr+"&z="+zendstr+"&zmode="+zmodestr+"&model="+modelstr+"&comment="+commentstr+"&zrange="+zrangestr+"&floors="+floorstr+"&zstart="+zstartstr+"&zstep="+zstepstr+"&uid="+uid,true);
     xmlhttp.send();
 }
 
@@ -322,6 +342,7 @@ function plotHorizontalSlice() {
     var zmodestr=document.getElementById("zModeType").value;
     var modelstr=document.getElementById("modelType").value;
     var zrangestr=_getZrange(modelstr);
+    var floorstr=_getFloors(modelstr);
     var uid=document.getElementById("areaUIDTxt").value;
 
     var secondlatstr=document.getElementById("areaSecondLatTxt").value;
@@ -375,7 +396,7 @@ function plotHorizontalSlice() {
             reset_area_UID();
         }
     }
-    xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+flat1+"&firstlon="+flon1+"&secondlat="+flat2+"&secondlon="+flon2+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&datatype="+datatypestr+"&uid="+uid,true);
+    xmlhttp.open("GET","php/plotHorizontalSlice.php?firstlat="+flat1+"&firstlon="+flon1+"&secondlat="+flat2+"&secondlon="+flon2+"&z="+zstr+"&zmode="+zmodestr+"&model="+modelstr+"&zrange="+zrangestr+"&floors="+floorstr+"&datatype="+datatypestr+"&uid="+uid,true);
     xmlhttp.send();
 }
 

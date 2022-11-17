@@ -10,6 +10,7 @@ $datastr = ($_GET['datastr']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 $zrange = ($_GET['zrange']);
+$floors = ($_GET['floors']);
 $chunkid = intVal($_GET['chunkid']);
 $uid = ($_GET['uid']);
 $lastchunks = intVal($_GET['chunks'])-1;
@@ -56,6 +57,9 @@ if ($zmode == 'e') {
 }
 if ($zrange != 'none') {
   $estr=' -z '.$zrange.$estr;
+}
+if ($floors != 'none') {
+  $estr=' -L '.$floors.$estr;
 }
 
 $query="../model/UCVM_TARGET/utilities/run_ucvm_query.sh -m ".$model." -f ../model/UCVM_TARGET/conf/ucvm.conf ".$estr;

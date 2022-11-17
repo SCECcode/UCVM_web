@@ -49,23 +49,39 @@ jQuery(document).ready(function() {
       set_point_latlons_special();
       // special case.. elygtl:ely or elygtl:taper
       var v=document.getElementById('zrange').style.display;
+      var vv=document.getElementById('floors').style.display;
       var ely=model.includes("elygtl:ely");
       var taper=model.includes("elygtl:taper");
-      if(v=="none" && ely) {
-         document.getElementById('zrange').style.display="block";
+
+      if(ely) {
+         if( v == "none" ) { 
+           document.getElementById('zrange').style.display="block";
+         }
+         if(vv != "none") {
+           document.getElementById('floors').style.display="none";
+         }
          set_zrange_presets();
 	 set_zrange_stop(350);     
          return;
       }
-      if(v=="none" && taper) {
-         document.getElementById('zrange').style.display="block";
+      if(taper) {
+         if(v == "none") {
+           document.getElementById('zrange').style.display="block";
+         }
+         if(vv == "none") {
+           document.getElementById('floors').style.display="block";
+         }
          set_zrange_presets();
-//	 set_zrange_stop(350);     
-//	 set_zlimit(700);  -- to do, using -Z to set the Z limit for taper
+         set_zrange_stop(700);
+         set_floors_presets();
          return;
       }
       if(v=="block" && !ely && !taper) {
          document.getElementById('zrange').style.display="none";
+         set_zrange_presets();
+      }
+      if(vv=="block" && !taper) {
+         document.getElementById('floors').style.display="none";
       }
   });
 

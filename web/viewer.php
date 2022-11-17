@@ -196,6 +196,36 @@ TODO: need a new id
                 </div>
                 </div>
             </div>
+<!-- special pull-out for elygtl, taper -->
+            <div id="floors" class="input-group mt-1" style="display:none;"> 
+                <div class="row offset-2">
+                Floors:
+                <div class="col-3 pr-0">
+                    <input type="text"
+                        id="vsFloorTxt"
+                        placeholder="vsFloor"
+                        title="vs floor value"
+                        onfocus="this.value=''"
+                        class="form-control">
+                </div>
+                <div class="col-3 pr-0">
+                    <input type="text"
+                        id="vpFloorTxt"
+                        placeholder="vsFloor"
+                        title="vp floor value"
+                        onfocus="this.value=''"
+                        class="form-control">
+                </div>
+                <div class="col-3 pr-0">
+                    <input type="text"
+                        id="densityFloorTxt"
+                        placeholder="densityFloor"
+                        title="density floor value"
+                        onfocus="this.value=''"
+                        class="form-control">
+                </div>
+                </div>
+            </div>
             <div class="input-group filters mb-3 mt-1">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="zModeType" >Select Z Mode</label>

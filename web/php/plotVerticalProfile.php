@@ -16,6 +16,7 @@ $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 $comment = "'".($_GET['comment'])."'";
 $zrange = ($_GET['zrange']);
+$floors = ($_GET['floors']);
 $uid = ($_GET['uid']);
 
 $file="../result/".$uid."_v.png";
@@ -26,6 +27,9 @@ $lstr = " -v ".$zstep." -b ".$zstart." -s ".$lat.",".$lon." -e ".$z;
 
 if ($zrange != 'none') {
   $lstr = " -z ".$zrange.$lstr;
+}
+if ($floors != 'none') {
+  $lstr = " -L ".$floors.$lstr;
 }
 
 if ($comment != 'none') {
@@ -39,6 +43,8 @@ if ($zmode == 'e') {
   } else {
     $query= $envstr." plot_depth_profile.py ".$qstub.$lstr;
 }
+
+echo $query;
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 

@@ -21,6 +21,7 @@ $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 $zrange = ($_GET['zrange']);
+$floors = ($_GET['floors']);
 $datatype = ($_GET['datatype']);
 $uid = ($_GET['uid']);
 
@@ -55,6 +56,9 @@ if($datatype != 'vs30') {
 
   if ($zrange != 'none') {
    $lstr=" -z ".$zrange.$lstr;
+  }
+  if ($floors != 'none') {
+   $lstr=" -L ".$floors.$lstr;
   }
 
   $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a sd -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";

@@ -20,6 +20,7 @@ $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model= ($_GET['model']);
 $zrange = ($_GET['zrange']);
+$floors = ($_GET['floors']);
 $zstart = ($_GET['zstart']);
 $datatype = ($_GET['datatype']);
 $uid = ($_GET['uid']);
@@ -41,6 +42,9 @@ $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon;
 
 if ($zrange != 'none') {
     $lstr= ' -z '.$zrange.$lstr;
+}
+if ($floors != 'none') {
+    $lstr= ' -L '.$floors.$lstr;
 }
 
 $vval= intval(((float)$z-(float)$zstart)/100); 
