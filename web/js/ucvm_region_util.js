@@ -72,6 +72,16 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
+if(isModelInstalled("cvms5") && isModelInstalled("cencal")
+   && isModelInstalled("CCA")) {
+option = document.createElement("option");
+option.text = "CCA,cencal,CVM-S4.26,elygtl:ely";
+option.label = "CCA,cencal,CVM-S4.26,elygtl:ely";
+option.value= "cca,cencal,cvms5,elygtl:ely";
+sel.add(option);
+}
+
+
    if(isModelInstalled("1d")) {
      option = document.createElement("option");
      option.text = "1D";
