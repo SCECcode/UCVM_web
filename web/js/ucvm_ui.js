@@ -535,6 +535,27 @@ function set_zrange_presets()
    }
 }
 
+function set_floors_presets()
+{
+   var t= document.getElementById("zModeType").value;
+   if( t == 'd' ) {
+       $( "#vsFloorTxt" ).val('500');
+       $( "#vpFloorTxt" ).val('1700');
+       $( "#densityFloorTxt" ).val('1700');
+       } else {
+         $( "#vsFloorTxt" ).val('-1');
+         $( "#vpFloorTxt" ).val('-1');
+         $( "#densityFloorTxt" ).val('-1');
+   }
+}
+
+function set_zrange_start(v) {
+   $( "#zrangeStartTxt" ).val(v);
+}
+function set_zrange_stop(v) {
+   $( "#zrangeStopTxt" ).val(v);
+}
+
 function getCSVFromJSON(jblob) {
     var objs=Object.keys(jblob);
     var len=objs.length;
