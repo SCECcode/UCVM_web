@@ -93,6 +93,14 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
+   if(isModelInstalled("sfcvm") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,1D";
+     option.label = "SFCVM,1D";
+     option.value= "SFCVM,1d"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("sjfz") && isModelInstalled("1d")) {
      option = document.createElement("option");
      option.text = "SJFZ,1D";
