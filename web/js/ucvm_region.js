@@ -6,6 +6,20 @@
 
 var UCVM_tb={
 "models": [
+    {'id':23,
+     'model name':'San Francisco Bay Velocity Model',
+     'abb name':'sfcvm',
+     'path name':'sfcvm',
+     'model filename':'sfcvm.tar.gz',
+     'description':'USGS San Francisco Bay Region 3D Velocity Model',
+     'coordinates': [
+        {'lon':-120.644051,'lat':37.050062},
+        {'lon':-121.922036,'lat':36.320331},
+        {'lon':-123.858493,'lat':38.424179},
+        {'lon':-122.562365,'lat':39.174505},
+        {'lon':-120.644051,'lat':37.050062}
+               ],
+     'color':'#FF00FF'},
     {'id':22,
      'model name':'San Jacinto Fault Zone',
      'abb name':'sjfz',

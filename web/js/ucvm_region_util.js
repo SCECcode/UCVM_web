@@ -90,6 +90,27 @@ sel.add(option);
      sel.add(option);
    }
 
+   if(
+isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
+isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
+isModelInstalled("cvmhibbn") && isModelInstalled("cvmhsmbn"),
+isModelInstalled("cvmhsbbn") && isModelInstalled("cvmhsbcbn"),
+isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
+) {
+     option = document.createElement("option");
+     option.text = "CVM-H All Basins, CVM-S4.26.M01";
+     option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn,cvmsi";
+     sel.add(option);
+   }
+
+   if(isModelInstalled("sfcvm") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,1D";
+     option.label = "SFCVM,1D";
+     option.value= "SFCVM,1d"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("sjfz") && isModelInstalled("1d")) {
      option = document.createElement("option");
      option.text = "SJFZ,1D";
