@@ -10,15 +10,16 @@ $datastr = ($_GET['datastr']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 $zrange = ($_GET['zrange']);
+$floors = ($_GET['floors']);
 $chunkid = intVal($_GET['chunkid']);
 $uid = ($_GET['uid']);
 $lastchunks = intVal($_GET['chunks'])-1;
 
 /* if chunkid == 0, it is first chunk, create 
-   the .json file in result/UCVM_uidpoint_matprops.json, 
+   the .json file in result/UCVM_uid_p_matprops.json, 
    other ones, just 'append'               */
 
-$fname="../result/".$uid."point_matprops.json";
+$fname="../result/".$uid."_p_matprops.json";
 
 // setup the start
 if ($chunkid == 0) {
@@ -57,6 +58,9 @@ if ($zmode == 'e') {
 if ($zrange != 'none') {
   $estr=' -z '.$zrange.$estr;
 }
+if ($floors != 'none') {
+  $estr=' -L '.$floors.$estr;
+}
 
 $query="../model/UCVM_TARGET/utilities/run_ucvm_query.sh -m ".$model." -f ../model/UCVM_TARGET/conf/ucvm.conf ".$estr;
 
@@ -71,7 +75,7 @@ if($chunkid == $lastchunks) {
 // don't transfer back the material property..
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
-$resultarray->mp= $uid."point_matprops.json";
+$resultarray->mp= $uid."_p_matprops.json";
 $resultarray->query= $query;
 
 $resultstring = htmlspecialchars(json_encode($resultarray), ENT_QUOTES, 'UTF-8');

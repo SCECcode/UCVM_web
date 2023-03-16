@@ -7,7 +7,7 @@
 function removeFromList(alist, uid) {
     var cnt=alist.length;
     var item;
-    for(i=0;i<cnt;i++) {
+    for(var i=0;i<cnt;i++) {
        item=alist[i];
        if(item['uid']==uid) { // found the item to remove
            var index = alist.indexOf(item);
@@ -24,11 +24,16 @@ function removeFromList(alist, uid) {
 //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
 //    var rnd= Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-function getRnd() {
+function getRnd(stub) {
 //https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
-    var timestamp = $.now();
-    var rnd="UCVM_"+timestamp;
-    return rnd;
+    let timestamp = $.now();
+// timestamp is 13 digits, chop to tail end to 8 digits 
+    let tt=timestamp % 100000000;
+    if(stub == "" || stub == undefined) { 
+      return tt;
+      } else {	     
+        return stub+"_"+tt;
+    }
 }
 
 // [[lon1,lat1,z1],...,[lonn,latn,zn]]
@@ -36,8 +41,7 @@ function getRnd() {
 function makeLatlngs(darray) {
    var cnt=darray.length;
    var latlngs=[];
-   var i;
-   for(i=0;i<cnt;i++) {
+   for(var i=0;i<cnt;i++) {
       var item=darray[i];
       var lon=item[0];
       var lat=item[1];
@@ -140,12 +144,17 @@ function ckExist(url) {
 }
 
 function makeVProfileMetaFname(uid) {
-  var s=uid+"vertical_meta.json";
+  var s=uid+"_v_meta.json";
   return s;
 }
 
 function makeVProfileMPFname(uid) {
-  var s=uid+"vertical_matprops.json";
+  var s=uid+"_v_matprops.json";
+  return s;
+}
+
+function makeVProfileCSVFname(uid) {
+  var s=uid+"_v_data.csv";
   return s;
 }
 //
@@ -159,7 +168,7 @@ function loadAndProcessBinfromFile(urls) {
   var nlist=[];
   var cnt=urls.length;
 
-  for( var urlidx=0; urlidx < cnt; urlidx++ ) {
+  for(var urlidx=0; urlidx < cnt; urlidx++ ) {
       var url=urls[urlidx]; 
 //      var metaurl=makeMetaFname(url);
       var metaurl="BC_cvms5_gate_vs_meta.json";
@@ -283,7 +292,15 @@ var sort_by=function(field, reverse, primer){
 //
 // Reading files using the HTML5 FileReader.
 //
-function readAndProcessLocalFile(fobj) {
+function readAndProcessLocalFile(fobj,forPoint) {
+  if(forPoint==1) {
+    readAndProcessLocalFileForPoint(fobj);
+    } else {
+      readAndProcessLocalFileForProfile(fobj);
+  }
+}
+
+function readAndProcessLocalFileForPoint(fobj) {
 
   var reader = new FileReader();
 
@@ -296,26 +313,32 @@ function readAndProcessLocalFile(fobj) {
       window.console.log("ERROR, can not process the upload file ");
       return;
     }
-    var is_csv=0;
-    if(ffline[0].includes(",")) 
-      is_csv=1;
     for(i=0;i<cnt;i++) {
-       var fline=ffline[i];
+      var fline=ffline[i];
+      if(fline[0]=='#')
+        continue;
         
-       if(is_csv) {
-         $.csv.toArray(fline, {}, function(err, data) {
-           var v=data;
-           if( v != "" ) {
+      if(fline.includes(",")) { 
+        $.csv.toArray(fline, {}, function(err, data) {
+           var v=[];
+           if( data != "" && data.length >= 3 ) {
+             v.push(data[0]);
+             v.push(data[1]);
+             v.push(data[2]);
              fdata.push(v);
            }
-         }); 
-       } else {
+        }); 
+        } else {
 // space separated format 
-           var v=fline.split(' ');
-           if( v != "" ) {
+           var data=fline.split(' ');
+           var v=[]; 
+           if( data != "" && data.length >= 3 ) {
+             v.push(data[0]);
+             v.push(data[1]);
+             v.push(data[2]);
              fdata.push(v);
            }
-       }
+      }
     }
 
     var cnt=fdata.length;
@@ -324,7 +347,7 @@ function readAndProcessLocalFile(fobj) {
     if(chunks == 1)
        chunk_size=cnt;
 
-    var uid=getRnd();
+    var uid=getRnd("UCVM");
      
     add_file_of_point(uid,fobj);
     getMaterialPropertyByLatlonList(uid,fdata,0, chunks, chunk_size);
@@ -332,7 +355,53 @@ function readAndProcessLocalFile(fobj) {
   };
   reader.readAsText(fobj);
   
-};
+}
+
+function readAndProcessLocalFileForProfile(fobj) {
+
+  var reader = new FileReader();
+
+  reader.onload=function(event) {
+    var csv = event.target.result; 
+    var ffline = reader.result.split('\n');
+    var cnt=ffline.length;
+    var fdata=[];
+    if(cnt == 0) { 
+      window.console.log("ERROR, can not process the upload file ");
+      return;
+    }
+
+    for(i=0;i<cnt;i++) {
+      var fline=ffline[i];
+      if(fline[0] == '#')
+        continue; 	     
+      if(fline.includes(",")) { 
+        $.csv.toArray(fline, {}, function(err, data) {
+           var v=data;
+           if(v != "" && v.length >= 5) {
+             fdata.push(v);
+           }
+        }); 
+        } else {
+// space separated format 
+          var v=fline.split(' ');
+          if(v != "" && v.length >= 5) {
+            fdata.push(v);
+          }
+      }
+    }
+
+    for(let i=0; i< fdata.length; i++) {
+       let item=fdata[i];
+       let stub=item[5];
+       let uid=getRnd(stub); // rewrite the stub
+       fdata[i][5]=uid;
+    }
+    plotVerticalProfileByList(fdata,0,fdata.length);
+
+  };
+  reader.readAsText(fobj);
+}
 
 function refreshMPTable() {
     var table=document.getElementById("materialPropertyTable");

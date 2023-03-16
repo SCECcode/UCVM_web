@@ -16,9 +16,10 @@ $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 $comment = "'".($_GET['comment'])."'";
 $zrange = ($_GET['zrange']);
+$floors = ($_GET['floors']);
 $uid = ($_GET['uid']);
 
-$file="../result/".$uid."vertical.png";
+$file="../result/".$uid."_v.png";
 
 $envstr=makeEnvString();
 
@@ -26,6 +27,9 @@ $lstr = " -v ".$zstep." -b ".$zstart." -s ".$lat.",".$lon." -e ".$z;
 
 if ($zrange != 'none') {
   $lstr = " -z ".$zrange.$lstr;
+}
+if ($floors != 'none') {
+  $lstr = " -L ".$floors.$lstr;
 }
 
 if ($comment != 'none') {
@@ -44,12 +48,19 @@ $result = exec(escapeshellcmd($query), $retval, $status);
 
 $rc=checkResult($query, $result, $uid);
 
+if ($zmode == 'e') {
+  $rc=makeCSVElevationProfile($uid);
+  } else {
+    $rc=makeCSVDepthProfile($uid);
+}
+
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
-$resultarray->plot= $uid."vertical.png";
+$resultarray->plot= $uid."_v.png";
 $resultarray->query= $query;
-$resultarray->meta= $uid."vertical_meta.json";
-$resultarray->dataset= $uid."vertical_matprops.json";
+$resultarray->meta= $uid."_v_meta.json";
+$resultarray->dataset= $uid."_v_matprops.json";
+$resultarray->csv= $uid."_v_data.csv";
 
 if ( $status == 0 && file_exists($file)) {
 

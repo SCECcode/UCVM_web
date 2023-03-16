@@ -41,6 +41,6 @@ source model/UCVM/conf/ucvm_env.sh
 cd $UCVM_INSTALL_PATH
 git clone https://github.com/SCECcode/ucvm_plotting.git
 cd ucvm_plotting
-sudo /usr/local/share/anaconda2/bin/pip install dist/ucvm_plotting-0.0.2.tar.gz
+sudo /usr/local/share/anaconda2/bin/pip install dist/ucvm_plotting-0.0.4.tar.gz
 
     

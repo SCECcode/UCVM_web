@@ -20,6 +20,7 @@ $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model= ($_GET['model']);
 $zrange = ($_GET['zrange']);
+$floors = ($_GET['floors']);
 $zstart = ($_GET['zstart']);
 $datatype = ($_GET['datatype']);
 $uid = ($_GET['uid']);
@@ -29,7 +30,7 @@ $secondlon = ($_GET['secondlon']);
 
 $envstr=makeEnvString();
 
-$file="../result/".$uid."cross.png";
+$file="../result/".$uid."_c.png";
 
 $hhval= ((float)$secondlat - (float)$firstlat)*110.57;
 $hhhval= ((float)$secondlon - (float)$firstlon)*111.32;
@@ -42,10 +43,13 @@ $lstr = " -b ".$firstlat.",".$firstlon." -u ".$secondlat.",".$secondlon;
 if ($zrange != 'none') {
     $lstr= ' -z '.$zrange.$lstr;
 }
+if ($floors != 'none') {
+    $lstr= ' -L '.$floors.$lstr;
+}
 
 $vval= intval(((float)$z-(float)$zstart)/100); 
 $lstr=$lstr ." -e ".$z;
-$qstub=" -s ".$zstart." -h ".$hval." -d ".$datatype." -c ".$model." -a d -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET "."-v ".$vval;
+$qstub=" -s ".$zstart." -h ".$hval." -d ".$datatype." -c ".$model." -a sd -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET "."-v ".$vval;
 if ($zmode == 'e') {
     $query= $envstr." plot_elevation_cross_section.py".$qstub.$lstr;
     } else {
@@ -59,10 +63,10 @@ $rc=checkResult($query, $result, $uid);
 
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
-$resultarray->plot= $uid."cross.png";
+$resultarray->plot= $uid."_c.png";
 $resultarray->query= $query;
-$resultarray->meta= $uid."cross_meta.json";
-$resultarray->data= $uid."cross_data.bin";
+$resultarray->meta= $uid."_c_meta.json";
+$resultarray->data= $uid."_c_data.bin";
 
 
 if ( $status == 0 && file_exists($file)) {

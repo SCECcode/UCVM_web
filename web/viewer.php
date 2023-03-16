@@ -196,6 +196,36 @@ TODO: need a new id
                 </div>
                 </div>
             </div>
+<!-- special pull-out for elygtl, taper -->
+            <div id="floors" class="input-group mt-1" style="display:none;"> 
+                <div class="row offset-2">
+                Floors:
+                <div class="col-3 pr-0">
+                    <input type="text"
+                        id="vsFloorTxt"
+                        placeholder="vsFloor"
+                        title="vs floor value"
+                        onfocus="this.value=''"
+                        class="form-control">
+                </div>
+                <div class="col-3 pr-0">
+                    <input type="text"
+                        id="vpFloorTxt"
+                        placeholder="vsFloor"
+                        title="vp floor value"
+                        onfocus="this.value=''"
+                        class="form-control">
+                </div>
+                <div class="col-3 pr-0">
+                    <input type="text"
+                        id="densityFloorTxt"
+                        placeholder="densityFloor"
+                        title="density floor value"
+                        onfocus="this.value=''"
+                        class="form-control">
+                </div>
+                </div>
+            </div>
             <div class="input-group filters mb-3 mt-1">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="zModeType" >Select Z Mode</label>
@@ -293,11 +323,10 @@ TODO: need a new id
                                     </div>
                                 </div>
                                 <div class="mt-2">
-                                     <input class="form-control" id='fileBtn' type='file' onchange='selectLocalFiles(this.files)' style='display:none;'></input>
-                                     <button id="fileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("fileBtn").click();'>
+                                     <input class="form-control" id='infileBtn' type='file' onchange='selectLocalFiles(this.files,1)' style='display:none;'></input>
+                                     <button id="fileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("infileBtn").click();'>
                                      <span class="glyphicon glyphicon-file"></span> Select file to use</button>
 <button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalfile" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                     <div id="spinIconForListProperty" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
                                 </div>
                             </div>
                         </li>
@@ -334,7 +363,7 @@ TODO: need a new id
                                                onfocus="this.value=''" 
                                                class="form-control">
                                         <input type="text"
-                                               id="profileZTxt" 
+                                               id="profileZEndTxt" 
                                                placeholder="Z ends" 
                                                title="Z ends"
                                                onfocus="this.value=''" 
@@ -358,10 +387,15 @@ TODO: need a new id
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
-                                    <div class="col-1 pr-0">
-                                        <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
-                                    </div>
                                 </div>
+<!---XXX----->
+                                <div class="mt-2">
+                                     <input class="form-control" id='inprofilefileBtn' type='file' onchange='selectLocalFiles(this.files,0)' style='display:none;'></input>
+                                     <button id="profilefileSelectBtn" class="btn ucvm-top-btn" style="width:85%" title="open a file to ingest" onclick='javascript:document.getElementById("inprofilefileBtn").click();'>
+                                     <span class="glyphicon glyphicon-file"></span> Select file to use</button>
+<button class="btn ucvm-top-small-btn" data-toggle="modal" data-target="#modalprofilefile" onclick="$('#sidebar').hide();"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                </div>
+<!---XXX----->
                             </div>
                         </li>
 
@@ -681,7 +715,39 @@ TODO: need a new id
 lon1 lat1 z1             lon1,lat1,z1
 lon2 lat2 z2      or     lon2,lat2,z2
 </pre>
-<h5> Z value should match the Z mode selection from the main viewer </h5>
+<h5> Z value should match the Z mode selection from the main viewer, maximum display points is 200</h5>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="close" data-dismiss="modal" onclick="$('#sidebar').show();">&times;</button>
+      </div>
+
+    </div> <!--Content-->
+  </div>
+</div> <!--Modal: Name-->
+
+<!--Modal: ModelType -->
+<div class="modal" id="modalprofilefile" tabindex="-1" style="z-index:9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="modalprofilefileDialog" role="document">
+
+    <!--Content-->
+    <div class="modal-content" id="modalprofilefileContent">
+      <!--Body-->
+      <div class="modal-body" id="modalprofilefileBody">
+        <div class="row col-md-12 ml-auto" style="overflow:hidden;">
+
+          <div class="col-12" id="profilefile-container">
+
+<h5>Local input file format is 6 columns of Longitude, Latitude, Starting Depth, Ending Depth, Z Step and
+a label that is being used as datafile prefix separated by a comma or a space </h5>
+<pre>
+   lon,lat,start,end,step,label
+    or
+   lon lat start end step label
+</pre>
+<h5> Z Step value should match the Z mode selection from the main viewer</h5>
+
           </div>
         </div>
       </div>
@@ -711,8 +777,6 @@ lon2 lat2 z2      or     lon2,lat2,z2
 
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-outline-primary btn-md" data-dismiss="modal" onclick="$('#sidebar').show();">Close</button>
-        <div class="spinDialog" style="position:absolute;top:40%;left:50%; z-index:9999;">
-          <div id="spinIconForProfile" align="center" style="display:none;"><i class="glyphicon glyphicon-cog fa-spin" style="color:red"></i></div>
       </div> 
 <!--
       <div class="modal-footer justify-content-center">

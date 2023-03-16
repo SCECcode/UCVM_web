@@ -66,6 +66,7 @@ function readVProfileDataFile(uid) {
 
   var fmeta=makeVProfileMetaFname(uid);
   var fmp=makeVProfileMPFname(uid);
+  var fcsv=makeVProfileCSVFname(uid);
   fmeta="result/"+fmeta;
   fmp="result/"+fmp;
 
@@ -74,7 +75,7 @@ function readVProfileDataFile(uid) {
   var fmpblob=getTextFile(fmp);
   var mpjson=JSON.parse(fmpblob);
   if( "depth" in metajson ) {
-    var data= { uid:uid, mp:mpjson, meta:metajson };
+    var data= { uid:uid, mp:mpjson, meta:metajson};
     return data;
     } else {
     return null;

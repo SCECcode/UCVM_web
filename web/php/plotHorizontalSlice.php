@@ -21,6 +21,7 @@ $z = ($_GET['z']);
 $zmode = ($_GET['zmode']);
 $model = ($_GET['model']);
 $zrange = ($_GET['zrange']);
+$floors = ($_GET['floors']);
 $datatype = ($_GET['datatype']);
 $uid = ($_GET['uid']);
 
@@ -47,7 +48,7 @@ if ($sval == 0) {
   $sval=0.001;
 }
 
-$file="../result/".$uid."horizontal.png";
+$file="../result/".$uid."_h.png";
 
 if($datatype != 'vs30') {
   $zval=(int) $z;
@@ -56,8 +57,12 @@ if($datatype != 'vs30') {
   if ($zrange != 'none') {
    $lstr=" -z ".$zrange.$lstr;
   }
+  if ($floors != 'none') {
+   $lstr=" -L ".$floors.$lstr;
+  }
 
-  $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a d -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";
+  $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a sd -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";
+#  $qstub=" -d ".$datatype." -c ".$model." -s ".$sval." -a s -o ".$file." -n ../model/UCVM_TARGET/conf/ucvm.conf -i ../model/UCVM_TARGET ";
 
   if( $zmode == 'd') {
     $query= $envstr." plot_horizontal_slice.py ".$qstub.$lstr;
@@ -76,10 +81,10 @@ $rc=checkResult($query,$result,$uid);
 
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
-$resultarray->plot= $uid."horizontal.png";
+$resultarray->plot= $uid."_h.png";
 $resultarray->query= $query;
-$resultarray->meta= $uid."horizontal_meta.json";
-$resultarray->data= $uid."horizontal_data.bin";
+$resultarray->meta= $uid."_h_meta.json";
+$resultarray->data= $uid."_h_data.bin";
 
 if ( $status == 0 && file_exists($file)) {
     $resultstring = htmlspecialchars(json_encode($resultarray), ENT_QUOTES, 'UTF-8');

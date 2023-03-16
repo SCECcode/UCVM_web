@@ -6,12 +6,26 @@
 
 var UCVM_tb={
 "models": [
+    {'id':23,
+     'model name':'San Francisco Bay Velocity Model',
+     'abb name':'sfcvm',
+     'path name':'sfcvm',
+     'model filename':'sfcvm.tar.gz',
+     'description':'USGS San Francisco Bay Region 3D Velocity Model',
+     'coordinates': [
+        {'lon':-120.644051,'lat':37.050062},
+        {'lon':-121.922036,'lat':36.320331},
+        {'lon':-123.858493,'lat':38.424179},
+        {'lon':-122.562365,'lat':39.174505},
+        {'lon':-120.644051,'lat':37.050062}
+               ],
+     'color':'#FF00FF'},
     {'id':22,
-     'model name':'Southern California Plate Boundary Region',
-     'abb name':'scpbr',
-     'path name':'scpbr',
-     'model filename':'scpbr.tar.gz',
-     'description':'SCPBR',
+     'model name':'San Jacinto Fault Zone',
+     'abb name':'sjfz',
+     'path name':'sjfz',
+     'model filename':'sjfz.tar.gz',
+     'description':'SJFZ',
      'coordinates': [
           { 'lon':-115.38,'lat':32.38 },
           { 'lon':-118.17, 'lat':32.38 },
@@ -293,7 +307,7 @@ var UCVM_tb={
      'abb name':'cvms5',
      'path name':'cvms5',
      'model filename':'cvms5.tar.gz',
-     'description':'Tomography improved version of CVM-S4 with no geotechnical layer',
+     'description':'Tomography improved version of CVM-S4 with no geotechnical layer(optional)',
      'coordinates': [
           { 'lon':-116.000, 'lat':30.4499 },
           { 'lon':-122.300, 'lat':34.7835 },

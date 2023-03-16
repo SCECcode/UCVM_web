@@ -15,10 +15,10 @@ var hold_mptable=1;
 /**** 
     $resultarray = new \stdClass();
     $resultarray->uid= $uid;
-    $resultarray->plot= $uid."cross.png";
+    $resultarray->plot= $uid."_c.png";
     $resultarray->query= $query;
-    $resultarray->meta= $uid."cross_meta.json";
-    $resultarray->data= $uid."cross_data.bin";
+    $resultarray->meta= $uid."_c_meta.json";
+    $resultarray->data= $uid."_c_data.bin";
 ****/
 // [ {"uid":uid, "blob":blob } ]
 var ucvm_metaplottb_list=[];
@@ -150,7 +150,9 @@ function processByLatlonForArea() {
 }
 
 // it is filelist
-function selectLocalFiles(_urls) {
+// forPoint==1 is for latlon
+// forPoint==0 is for depth/elevation profile
+function selectLocalFiles(_urls,forPoint) {
 
     document.getElementById('spinIconForListProperty').style.display = "block";
 
@@ -159,13 +161,17 @@ function selectLocalFiles(_urls) {
     }
     var _url=_urls[0];
     if( _url instanceof File) {
-      readAndProcessLocalFile(_url);
+      readAndProcessLocalFile(_url, forPoint);
     } else {
       throw new Error("local file must be a File object type!");
     }
 
     // clear the the btn
-    document.getElementById("fileBtn").value="";
+    if(forPoint) {
+      document.getElementById("infileBtn").value="";
+      } else {
+        document.getElementById("inprofilefileBtn").value="";
+    }
 }
 
 function clearSearchResult() {
@@ -196,6 +202,9 @@ function makeDownloadLinks(str) {
     for(i=0;i<sz;i++) {
        var val=str[keys[i]]; 
        switch(keys[i]) {
+          case 'csv':
+              html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"downloadlink\"><span class=\"glyphicon glyphicon-download-alt\"></span></a>&nbsp;&nbsp;csv data file</div>";
+              break;
           case 'plot':
               html=html+"<div class=\"links\"><a class=\"openpop\" href=\"result/"+val+"\" target=\"pngbox\"><span class=\"glyphicon glyphicon-picture\"></span></a>&nbsp;&nbsp;PNG plot</div>";
               break;
@@ -524,6 +533,27 @@ function set_zrange_presets()
          $( "#zrangeStartTxt" ).val('0');
          $( "#zrangeStopTxt" ).val('-350');
    }
+}
+
+function set_floors_presets()
+{
+   var t= document.getElementById("zModeType").value;
+   if( t == 'd' ) {
+       $( "#vsFloorTxt" ).val('500');
+       $( "#vpFloorTxt" ).val('1700');
+       $( "#densityFloorTxt" ).val('1700');
+       } else {
+         $( "#vsFloorTxt" ).val('-1');
+         $( "#vpFloorTxt" ).val('-1');
+         $( "#densityFloorTxt" ).val('-1');
+   }
+}
+
+function set_zrange_start(v) {
+   $( "#zrangeStartTxt" ).val(v);
+}
+function set_zrange_stop(v) {
+   $( "#zrangeStopTxt" ).val(v);
 }
 
 function getCSVFromJSON(jblob) {
