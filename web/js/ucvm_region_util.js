@@ -135,30 +135,6 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
-   if(isModelInstalled("cvms")) {
-     option = document.createElement("option");
-     option.text = "CVM-S4,elygtl:taper";
-     option.label = "CVM-S4,elygtl:taper";
-     option.value= "cvms,elygtl:taper";
-     sel.add(option);
-   }
-
-   if(isModelInstalled("cvms5")) {
-     option = document.createElement("option");
-     option.text = "CVM-S4.26,elygtl:ely";
-     option.label = "CVM-S4.26,elygtl:ely";
-     option.value= "cvms5,elygtl:ely";
-     sel.add(option);
-   }
-
-   if(isModelInstalled("cvms5")) {
-     option = document.createElement("option");
-     option.text = "CVM-S4.26,elygtl:taper";
-     option.label = "CVM-S4.26,elygtl:taper";
-     option.value= "cvms5,elygtl:taper";
-     sel.add(option);
-   }
-
    if(isModelInstalled("cvmsi")) {
      option = document.createElement("option");
      option.text = "CVM-S4.26M01,elygtl:ely";
