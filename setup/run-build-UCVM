@@ -37,7 +37,6 @@ if [ "$(uname)" == "Darwin" ]; then
   unset PROJ_LIB
 fi
 
-
 cd $UCVM_SRC_PATH; make runcheck
 
 ## make sure everything in installed model is globally readable
