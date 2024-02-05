@@ -90,6 +90,15 @@ sel.add(option);
      sel.add(option);
    }
 
+   if(isModelInstalled("ppb1d")) {
+     option = document.createElement("option");
+     option.text = "PPB1D";
+     option.text = "PPB1D";
+     option.label = "PPB1D";
+     option.value= "ppb1d"; 
+     sel.add(option);
+   }
+
    if(
 isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
 isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
@@ -103,13 +112,39 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
+   if(isModelInstalled("sfcvm") && isModelInstalled("cca")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,CCA";
+     option.label = "SFCVM,CCA";
+     option.value= "sfcvm,cca"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("sfcvm") && isModelInstalled("1d")) {
      option = document.createElement("option");
      option.text = "SFCVM,1D";
      option.label = "SFCVM,1D";
-     option.value= "SFCVM,1d"; 
+     option.value= "sfcvm,1d"; 
      sel.add(option);
    }
+
+   if(isModelInstalled("sfcvm") && isModelInstalled("cca") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,CCA,1D";
+     option.label = "SFCVM,CCA,1D";
+     option.value= "sfcvm,cca,1d";
+     sel.add(option);
+   }
+
+// bbp1d is with 1d
+   if(isModelInstalled("sfcvm") && isModelInstalled("cca") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,CCA,BBP1D";
+     option.label = "SFCVM,CCA,BBP1D";
+     option.value= "sfcvm,cca,bbp1d";
+     sel.add(option);
+   }
+
 
    if(isModelInstalled("sfcvm")) {
      option = document.createElement("option");
