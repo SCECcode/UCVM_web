@@ -136,6 +136,16 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
+// nc1d is with 1d
+   if(isModelInstalled("sfcvm") && isModelInstalled("cca") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,CCA,NC1D";
+     option.label = "SFCVM,CCA,NC1D";
+     option.value= "sfcvm,cca,nc1d";
+     sel.add(option);
+   }
+
+
 // bbp1d is with 1d
    if(isModelInstalled("sfcvm") && isModelInstalled("cca") && isModelInstalled("1d")) {
      option = document.createElement("option");
