@@ -72,6 +72,23 @@ function makeModelSelection()
    option.value= "disabled";
    sel.add(option);
 
+if(isModelInstalled("sfcvm") && isModelInstalled("cca")
+   && isModelInstalled("1d")) {
+option = document.createElement("option");
+option.text = "SFCVM,CCA,elygtl:taper,BBP1D";
+option.label = "SFCVM,CCA,elygtl:taper,BBP1D";
+option.value= "sfcvm,cca,elygtl:taper,bbp1d";
+sel.add(option);
+}
+ 
+if(isModelInstalled("sfcvm") && isModelInstalled("cca")
+   && isModelInstalled("1d")) {
+option = document.createElement("option");
+option.text = "SFCVM,CCA,BBP1D";
+option.label = "SFCVM,CCA,BBP1D";
+option.value= "sfcvm,cca,bbp1d";
+sel.add(option);
+}
 if(isModelInstalled("cvms5") && isModelInstalled("cencal")
    && isModelInstalled("cca")) {
 option = document.createElement("option");
@@ -90,12 +107,12 @@ sel.add(option);
      sel.add(option);
    }
 
-   if(isModelInstalled("ppb1d")) {
+   if(isModelInstalled("1d")) {
      option = document.createElement("option");
-     option.text = "PPB1D";
-     option.text = "PPB1D";
-     option.label = "PPB1D";
-     option.value= "ppb1d"; 
+     option.text = "BBP1D";
+     option.text = "BBP1D";
+     option.label = "BBP1D";
+     option.value= "bbp1d"; 
      sel.add(option);
    }
 
