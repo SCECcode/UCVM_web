@@ -16,7 +16,7 @@ if [ "$(uname)" == "Darwin" ]; then
 ##export CC=gcc
 ./get_largefiles.py -m cvms,cvms5,cvmsi
 else
-./get_largefiles.py -m sfcvm,cvmsi,cca
+./get_largefiles.py -m sfcvm,cvmsi,cca,cvmh
 #./get_largefiles.py -m wfcvm,cca,cencal,cvms,cvmsi,cvms5,cvmh,ivlsu,cvlsu,albacore,sjfz,cvmhlabn,cvmhsgbn,cvmhvbn,cvmhibbn,cvmhrbn,cvmhsbbn,cvmhsbcbn,cvmhsmbn,cvmhstbn
 fi
 
@@ -28,6 +28,8 @@ cd $UCVM_SRC_PATH/largefiles; ./stage_largefiles.py
 ## because of the new PROJ/ucvm_setup.py
 unset PROJ_LIB
 
+export CC=gcc10-gcc
+export CXX=gcc10-g++
 cd $UCVM_SRC_PATH
 ./ucvm_setup.py -a -d -p $UCVM_INSTALL_PATH &> ucvm_setup_install.log
 
