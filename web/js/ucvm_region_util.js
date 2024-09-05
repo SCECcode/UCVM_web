@@ -56,6 +56,7 @@ function makeModelSelection()
      // check the model directory to make sure it exists before adding 
      // the option
      if(isModelInstalled(pname)) {
+window.console.log(pname);
         var sel=document.getElementById('modelType');
         option = document.createElement("option");
         option.text = mname;
@@ -80,7 +81,6 @@ option.label = "CCA,cencal,CVM-S4.26,elygtl:ely";
 option.value= "cca,cencal,cvms5,elygtl:ely";
 sel.add(option);
 }
-
 
    if(isModelInstalled("1d")) {
      option = document.createElement("option");
@@ -127,6 +127,7 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
+/*
    if(isModelInstalled("sjfz")) {
      option = document.createElement("option");
      option.text = "SJFZ,elygtl:taper";
@@ -142,6 +143,7 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      option.value= "cvms,elygtl:taper";
      sel.add(option);
    }
+*/
 
    if(isModelInstalled("cvms5")) {
      option = document.createElement("option");
@@ -151,6 +153,7 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
+/*
    if(isModelInstalled("cvms5")) {
      option = document.createElement("option");
      option.text = "CVM-S4.26,elygtl:taper";
@@ -158,6 +161,7 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      option.value= "cvms5,elygtl:taper";
      sel.add(option);
    }
+*/
 
    if(isModelInstalled("cvmsi")) {
      option = document.createElement("option");
@@ -167,6 +171,7 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
+/*
    if(isModelInstalled("cvmsi")) {
      option = document.createElement("option");
      option.text = "CVM-S4.26M01,elygtl:taper";
@@ -174,6 +179,7 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      option.value= "cvmsi,elygtl:taper";
      sel.add(option);
    }
+*/
 
    if(
 isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn") &&
@@ -186,19 +192,6 @@ isModelInstalled("cvmhstbn")
      option.text = "CVM-H All Basins";
      option.label = "CVM-H All Basins";
      option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn";
-     sel.add(option);
-   }
-
-   if(
-isModelInstalled("cvmhlabn") && isModelInstalled("cvmhsgbn"),
-isModelInstalled("cvmhvbn") && isModelInstalled("cvmhrbn"),
-isModelInstalled("cvmhibbn") && isModelInstalled("cvmhsmbn"),
-isModelInstalled("cvmhsbbn") && isModelInstalled("cvmhsbcbn"),
-isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
-) {
-     option = document.createElement("option");
-     option.text = "CVM-H All Basins, CVM-S4.26.M01";
-     option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn,cvmsi";
      sel.add(option);
    }
 
