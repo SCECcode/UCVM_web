@@ -73,8 +73,25 @@ window.console.log(pname);
    option.value= "disabled";
    sel.add(option);
 
+if(isModelInstalled("sfcvm") && isModelInstalled("cca")
+   && isModelInstalled("1d")) {
+option = document.createElement("option");
+option.text = "SFCVM,CCA,elygtl:taper,BBP1D";
+option.label = "SFCVM,CCA,elygtl:taper,BBP1D";
+option.value= "sfcvm,cca,elygtl:taper,bbp1d";
+sel.add(option);
+}
+ 
+if(isModelInstalled("sfcvm") && isModelInstalled("cca")
+   && isModelInstalled("1d")) {
+option = document.createElement("option");
+option.text = "SFCVM,CCA,BBP1D";
+option.label = "SFCVM,CCA,BBP1D";
+option.value= "sfcvm,cca,bbp1d";
+sel.add(option);
+}
 if(isModelInstalled("cvms5") && isModelInstalled("cencal")
-   && isModelInstalled("CCA")) {
+   && isModelInstalled("cca")) {
 option = document.createElement("option");
 option.text = "CCA,cencal,CVM-S4.26,elygtl:ely";
 option.label = "CCA,cencal,CVM-S4.26,elygtl:ely";
@@ -87,6 +104,15 @@ sel.add(option);
      option.text = "1D";
      option.label = "1D";
      option.value= "1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "BBP1D";
+     option.text = "BBP1D";
+     option.label = "BBP1D";
+     option.value= "bbp1d"; 
      sel.add(option);
    }
 
@@ -103,11 +129,63 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      sel.add(option);
    }
 
+   if(isModelInstalled("sfcvm") && isModelInstalled("cca")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,CCA";
+     option.label = "SFCVM,CCA";
+     option.value= "sfcvm,cca"; 
+     sel.add(option);
+   }
+
    if(isModelInstalled("sfcvm") && isModelInstalled("1d")) {
      option = document.createElement("option");
      option.text = "SFCVM,1D";
      option.label = "SFCVM,1D";
-     option.value= "SFCVM,1d"; 
+     option.value= "sfcvm,1d"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("sfcvm") && isModelInstalled("cca") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,CCA,1D";
+     option.label = "SFCVM,CCA,1D";
+     option.value= "sfcvm,cca,1d";
+     sel.add(option);
+   }
+
+// nc1d is with 1d
+   if(isModelInstalled("sfcvm") && isModelInstalled("cca") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,CCA,SF1D";
+     option.label = "SFCVM,CCA,SF1D";
+     option.value= "sfcvm,cca,sf1d";
+     sel.add(option);
+   }
+
+
+// bbp1d is with 1d
+   if(isModelInstalled("sfcvm") && isModelInstalled("cca") && isModelInstalled("1d")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,CCA,BBP1D";
+     option.label = "SFCVM,CCA,BBP1D";
+     option.value= "sfcvm,cca,bbp1d";
+     sel.add(option);
+   }
+
+
+   if(isModelInstalled("sfcvm")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,elygtl:taper";
+     option.label = "SFCVM,elygtl:taper";
+     option.value= "sfcvm,elygtl:taper"; 
+     sel.add(option);
+   }
+
+   if(isModelInstalled("sfcvm")) {
+     option = document.createElement("option");
+     option.text = "SFCVM,elygtl:ely";
+     option.label = "SFCVM,elygtl:ely";
+     option.value= "sfcvm,elygtl:ely"; 
      sel.add(option);
    }
 

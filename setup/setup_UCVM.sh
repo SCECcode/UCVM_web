@@ -11,9 +11,5 @@
 
 export TOP_UCVM_DIR=`pwd`
 
-export ANACONDA2=/usr/local/share/anaconda2
-
 export UCVM_SRC_PATH=$TOP_UCVM_DIR/model/UCVM
 export UCVM_INSTALL_PATH=$TOP_UCVM_DIR/web/model/UCVM_TARGET
-
-export PATH=$ANACONDA2/bin:$PATH

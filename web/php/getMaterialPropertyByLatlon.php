@@ -30,7 +30,11 @@ if ($floors != 'none') {
 
 $query="../model/UCVM_TARGET/utilities/run_ucvm_query.sh -m ".$model." -f ../model/UCVM_TARGET/conf/ucvm.conf ".$estr;
 
+#print $query;
+
 $result = exec(escapeshellcmd($query), $retval, $status);
+
+#print $result;
 
 $item=json_decode($result);
 $item->{"Zmode"} = $zmode;

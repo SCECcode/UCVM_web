@@ -3,9 +3,28 @@
   ucvm_region.js
 
 ****/
+/* small cs242
+{'lon':-122.170840,'lat':37.792210},
+{'lon':-122.146804,'lat':37.775966},
+{'lon':-122.136642,'lat':37.785434},
+{'lon':-122.160679,'lat':37.801680},
+*/
 
 var UCVM_tb={
 "models": [
+    {'id':24,
+     'model name':'CS 242',
+     'abb name':'cs242',
+     'path name':'cs242',
+     'model filename':'cs242.tar.gz',
+     'description':'CS 242',
+     'coordinates': [
+{'lon':-121.899223,'lat':36.299894},
+{'lon':-120.013908,'lat':34.083659},
+{'lon':-118.753975,'lat':34.789165},
+{'lon':-120.618201,'lat':37.024137},
+         ],
+     'color':'#0F00FF'},
     {'id':23,
      'model name':'San Francisco Bay Velocity Model',
      'abb name':'sfcvm',
@@ -13,12 +32,11 @@ var UCVM_tb={
      'model filename':'sfcvm.tar.gz',
      'description':'USGS San Francisco Bay Region 3D Velocity Model',
      'coordinates': [
-        {'lon':-120.644051,'lat':37.050062},
-        {'lon':-121.922036,'lat':36.320331},
-        {'lon':-123.858493,'lat':38.424179},
-        {'lon':-122.562365,'lat':39.174505},
-        {'lon':-120.644051,'lat':37.050062}
-               ],
+          {'lon':-121.9309,'lat':35.0364},
+          {'lon':-118.9787,'lat':36.7104},
+          {'lon':-123.2775,'lat':41.4586},
+          {'lon':-126.3216,'lat':39.6755},
+          {'lon':-121.9309,'lat':35.0364} ],
      'color':'#FF00FF'},
     {'id':22,
      'model name':'San Jacinto Fault Zone',
@@ -264,11 +282,11 @@ var UCVM_tb={
           { 'lon':-113.56834, 'lat':33.65166 } ],
      'color':'#FF3D00'},
     {'id':4,
-     'model name':'CS173h',
-     'abb name':'cs173h',
-     'path name':'cs173h',
-     'model filename':'cs173h.tar.gz',
-     'description':'CS173-H CyberShake Study 17.3 Velocity Model with Harvard Basins',
+     'model name':'CS173',
+     'abb name':'cs173',
+     'path name':'cs173',
+     'model filename':'cs173.tar.gz',
+     'description':'CS173-H CyberShake Study 17.3 Velocity Model',
      'coordinates': [
          { 'lon':-127.65648, 'lat':37.08416 },
          { 'lon':-116.48562, 'lat':31.26643 },
