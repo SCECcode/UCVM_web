@@ -86,6 +86,10 @@ function fixLineOrdering(firstlat, firstlon, secondlat, secondlon) {
 }
 
 function processSearchResult(rlist,uid=0) {
+
+    let dstr;
+    let str;
+
     if (rlist == 'plotHorizontalSlice') {
         dstr = '[data-side=\"'+"horizontalSlice"+uid+'\"]';
         str = $(dstr).data('params');
@@ -114,6 +118,7 @@ function processSearchResult(rlist,uid=0) {
     if (rlist == 'getInstallModelList') {
         dstr = '[data-side=\"'+"installModelList"+'\"]';
         str = $(dstr).data('params');
+window.console.log("HERE");
     }
 
     if (rlist == undefined) {
