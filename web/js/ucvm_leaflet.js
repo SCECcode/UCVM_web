@@ -46,9 +46,9 @@ var lineDrawer;
 // this is for drawing model's layer..
 var polygon_options = {
     color:'red',
-    fillOpacity:0.04,
+    fillOpacity:0.06,
     opacity:0.7,
-    weight:1,
+    weight:1.6,
     shapeOptions: {
               clickable: false
     }

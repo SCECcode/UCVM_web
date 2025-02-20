@@ -58,8 +58,18 @@ if ($zmode == 'e') {
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+#print($query);
+#print("<br>");
+#print("result > ",$result);
+#print("<br>");
+#print_r($retval);
+#print("<br>");
+#print($status);
+#print("done<br>");
 
 $rc=checkResult($query, $result, $uid);
+
+#print($rc);
 
 $resultarray = new \stdClass();
 $resultarray->uid= $uid;
