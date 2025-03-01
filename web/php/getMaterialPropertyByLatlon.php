@@ -34,7 +34,7 @@ $query="../model/UCVM_TARGET/utilities/run_ucvm_query.sh -m ".$model." -f ../mod
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
-#print $result;
+p#rint $result;
 
 $item=json_decode($result);
 $item->{"Zmode"} = $zmode;

@@ -16,7 +16,7 @@ if [ "$(uname)" == "Darwin" ]; then
 ##export CC=gcc
 ./get_largefiles.py -m cvms,cvms5,cvmsi
 else
-./get_largefiles.py -m cvmhla,linthurber,sjfz,ivlsu
+./get_largefiles.py -m sfcvm,cvmh,cs248
 #./get_largefiles.py -m wfcvm,cca,cencal,cvms,cvmsi,cvms5,cvmh,ivlsu,cvlsu,albacore,sjfz,cvmhlabn,cvmhsgbn,cvmhvbn,cvmhibbn,cvmhrbn,cvmhsbbn,cvmhsbcbn,cvmhsmbn,cvmhstbn
 fi
 
