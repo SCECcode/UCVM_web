@@ -167,7 +167,7 @@ TODO: need a new id
 
     <div id="content-container" class="row flex-row flex-wrap">
         <div id="control-container" class="col-5">
-          <div class="col-12 mt-4" style="padding-top:10px; padding-left:0px; padding-righ:0px">
+          <div class="col-12 mt-4" style="padding-top:10px; padding-left:0px; padding-right:0px">
             <div class="input-group filters mb-1">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="modelType" >Select Model Type</label>
