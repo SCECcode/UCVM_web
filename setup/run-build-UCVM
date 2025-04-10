@@ -9,15 +9,14 @@ cd $TOP_UCVM_DIR/model
 
 #git clone https://github.com/SCECcode/ucvm.git UCVM
 #git clone https://github.com/SCECcode/ucvm.git -b withSCPBR UCVM
-git clone https://github.com/SCECcode/ucvm.git -b testMei UCVM
+git clone https://github.com/SCECcode/ucvm.git -b testFrontera UCVM
 
 cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
 ##export CC=gcc
 ./get_largefiles.py -m cvms,cvms5,cvmsi
 else
-./get_largefiles.py -m cvmhla,linthurber,sjfz,ivlsu
-#./get_largefiles.py -m wfcvm,cca,cencal,cvms,cvmsi,cvms5,cvmh,ivlsu,cvlsu,albacore,sjfz,cvmhlabn,cvmhsgbn,cvmhvbn,cvmhibbn,cvmhrbn,cvmhsbbn,cvmhsbcbn,cvmhsmbn,cvmhstbn
+./get_largefiles.py -m cvmsi,sfcvm
 fi
 
 if [ "$(uname)" != "Darwin" ]; then

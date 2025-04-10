@@ -44,7 +44,11 @@ if ($zmode == 'e') {
     $query= $envstr." plot_depth_profile.py ".$qstub.$lstr;
 }
 
+print $query;
+
 $result = exec(escapeshellcmd($query), $retval, $status);
+
+print $result;
 
 $rc=checkResult($query, $result, $uid);
 
