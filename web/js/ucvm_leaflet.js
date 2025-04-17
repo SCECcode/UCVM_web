@@ -46,7 +46,7 @@ var lineDrawer;
 // this is for drawing model's layer..
 var polygon_options = {
     color:'red',
-    fillOpacity:0.06,
+    fillOpacity:0.0,
     opacity:0.7,
     weight:1.6,
     shapeOptions: {
@@ -244,6 +244,17 @@ function makeModelLayer(latlngs,color) {
   ]);
   return layer;
 }
+
+function makeModelLayer2(latlngs,color,note) {
+  var mypoly=polygon_options;
+  mypoly['color']=color;
+  let poly=new L.polygon(latlngs, mypoly);
+  poly.bindTooltip(note);
+  var layer= new L.FeatureGroup([ poly ]);
+  
+  return layer;
+}
+
 
 function addAreaLayerGroup(latA,lonA,latB,lonB) {
   var bounds = [[latA, lonA], [latB, lonB]];

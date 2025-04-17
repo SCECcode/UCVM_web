@@ -35,6 +35,9 @@ var show_ctm=false;
 // tracking the layer that contains CRM latlon points 
 var ucvm_crm_point_layer;
 var show_crm_point=false;
+// track current visible  cvm layers
+var show_cvm_save_list; 
+var show_cvm=false;
 
 
 /******************************************/
@@ -109,6 +112,19 @@ function toggleShowCTM() {
        viewermap.removeLayer(ucvm_ctm_layer);
        $('#ucvm_ctm_btn').addClass('glyphicon-ok-sign');
        $('#ucvm_ctm_btn').removeClass('glyphicon-remove-sign');
+   }
+}
+
+function toggleShowModels() {
+   show_cvm=!show_cvm;
+   if(show_cvm) {
+     show_cvm_save_list=load_all_models();
+     $('#ucvm_cvm_btn').removeClass('glyphicon-ok-sign');
+     $('#ucvm_cvm_btn').addClass('glyphicon-remove-sign');
+     } else {
+       reload_models_from_list(show_cvm_save_list);
+       $('#ucvm_cvm_btn').addClass('glyphicon-ok-sign');
+       $('#ucvm_cvm_btn').removeClass('glyphicon-remove-sign');
    }
 }
 

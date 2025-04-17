@@ -6,11 +6,11 @@
 var UCVM_tb={
 "models": [
 	    {'id':28,
-     'model name':'UW-SFBCVM',
+     'model name':'UW SanFrancisco Bay',
      'abb name':'uwsfbcvm',
      'path name':'uwsfbcvm',
      'model filename':'uwsfbcvm.tar.gz',
-     'description':'UW-SFBCVM',
+     'description':'UW San Francisco Bay',
      'coordinates': [
 {'lon':-124.0,'lat':35.8},
 {'lon':-120.0,'lat':35.8},
@@ -27,15 +27,15 @@ var UCVM_tb={
      'coordinates': [
 {'lon':-114.0,'lat':31.5},
 {'lon':-125.0,'lat':31.5},
-{'lon':-125.0,'lat':42.0},
-{'lon':-114.0,'lat':42.0},
+{'lon':-125.0,'lat':43.0},
+{'lon':-114.0,'lat':43.0},
          ],
      'color':'#FF0F0F'},
     {'id':26,
-     'model name':'Lin-Thurber',
-     'abb name':'linthurber',
-     'path name':'linthurber',
-     'model filename':'linthurber.tar.gz',
+     'model name':'UW Lin CA',
+     'abb name':'uwlinca',
+     'path name':'uwlinca',
+     'model filename':'uwlinca.tar.gz',
      'description':'Lin Thurber',
      'coordinates': [
 {'lon':-126.9210,'lat':39.8816},

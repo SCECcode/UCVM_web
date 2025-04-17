@@ -147,6 +147,8 @@ TODO: need a new id
        <span id="ucvm_crm_btn" class="glyphicon glyphicon-ok-sign"></span>GFM1.0</button>
     <button class="btn ucvm-small-btn" title="display CTM regions" onclick='toggleShowCTM()'>
        <span id="ucvm_ctm_btn" class="glyphicon glyphicon-ok-sign"></span>CTM</button>
+    <button class="btn ucvm-small-btn" title="display All models" onclick='toggleShowModels()'>
+       <span id="ucvm_cvm_btn" class="glyphicon glyphicon-ok-sign"></span>CVM</button>
 <!--
     <button class="btn ucvm-small-btn" title="display CRM points" onclick='toggleShowCRMPoints()'>
        <span id="ucvm_crm_point_btn" class="glyphicon glyphicon-ok-sign"></span>CRM Points</button>

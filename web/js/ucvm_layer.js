@@ -70,7 +70,7 @@ var ucvm_area_list=[];
 // suppress all  model layer on the map
 function remove_all_models() {
   ucvm_model_list.forEach(function(element) {
-      var l=element['layer'];
+      let l=element['layer'];
       if(element['visible']=1) {
         element['visible']=0;
         element['oidx']=0;
@@ -79,16 +79,53 @@ function remove_all_models() {
   });
 }
 
+// show all model layers on the map
+function load_all_models() {
+   var save_model_list=[];
+   let cnt=ucvm_model_list.length;
+
+   for(let i=0;i<cnt;i++) {
+     let t=ucvm_model_list[i];
+window.console.log(" collecting.. ", t['model']);
+     if(isModelInstalled(t['model'])) {
+       if(t['visible']==0) {
+          t['visible']=1;
+          t['oidx']=(1+i);
+          var layer=t['layer'];
+          viewermap.addLayer(layer);
+          } else {
+            save_model_list.push(i);
+       }
+     }
+   }
+   return save_model_list;
+}
+
+
+// from a saved list reload what is in there
+function reload_models_from_list(mlist) {
+   remove_all_models();
+   let cnt=mlist.length;
+   for(let i=0; i < cnt; i++) {
+     let idx=mlist[i];
+     let t=ucvm_model_list[idx];
+     t['visible']=1; 
+     t['oidx']=(i+1);
+     let layer=t['layer'];
+     viewermap.addLayer(layer);
+   }
+   return 0; 
+}
+
 function load_a_model(name, order) {
-   var cnt=ucvm_model_list.length;
-   var i;
-   for(i=0;i<cnt;i++) {
-     var t=ucvm_model_list[i];
+   let cnt=ucvm_model_list.length;
+   for(let i=0;i<cnt;i++) {
+     let t=ucvm_model_list[i];
      if(t['model'] == name ) {
        if(t['visible']==0) {
           t['visible']=1; 
           t['oidx']=order;
-          var layer=t['layer'];
+          let layer=t['layer'];
           viewermap.addLayer(layer);
           return 1;
        }
@@ -127,7 +164,7 @@ function make_all_model_layer() {
       var name=name_list[i];
       var color=getModelColor(name);
       var latlngs=makeLatlngsCoordinate(name);
-      var layer=makeModelLayer(latlngs,color);
+      var layer=makeModelLayer2(latlngs,color,name);
       ucvm_model_list.push({"model": name, "layer": layer, "visible": 0, "oidx":0 });
    }
 

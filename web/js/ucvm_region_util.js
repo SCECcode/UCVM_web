@@ -68,34 +68,25 @@ window.console.log(pname);
    // special case
    var sel=document.getElementById('modelType');
    option = document.createElement("option");
+
    option.text = "-- Advanced --";
    option.setAttribute("disabled", true);
    option.value= "disabled";
    sel.add(option);
 
-if(isModelInstalled("sfcvm") && isModelInstalled("cca")
-   && isModelInstalled("1d")) {
+if(isModelInstalled("cvmsi")) {
 option = document.createElement("option");
-option.text = "SFCVM,CCA,elygtl:taper,BBP1D";
-option.label = "SFCVM,CCA,elygtl:taper,BBP1D";
-option.value= "sfcvm,cca,elygtl:taper,bbp1d";
+option.text = "CVM-S4.26M01,elygtl:taper";
+option.label = "CVM-S4.26M01,elygtl:taper";
+option.value= "cvmsi,elygtl:taper";
 sel.add(option);
 }
- 
-if(isModelInstalled("sfcvm") && isModelInstalled("cca")
-   && isModelInstalled("1d")) {
+
+if(isModelInstalled("cvmsi")) {
 option = document.createElement("option");
-option.text = "SFCVM,CCA,BBP1D";
-option.label = "SFCVM,CCA,BBP1D";
-option.value= "sfcvm,cca,bbp1d";
-sel.add(option);
-}
-if(isModelInstalled("cvms5") && isModelInstalled("cencal")
-   && isModelInstalled("cca")) {
-option = document.createElement("option");
-option.text = "CCA,cencal,CVM-S4.26,elygtl:ely";
-option.label = "CCA,cencal,CVM-S4.26,elygtl:ely";
-option.value= "cca,cencal,cvms5,elygtl:ely";
+option.text = "CVM-S4.26M01,elygtl:ely";
+option.label = "CVM-S4.26M01,elygtl:ely";
+option.value= "cvmsi,elygtl:ely";
 sel.add(option);
 }
 
@@ -126,30 +117,6 @@ isModelInstalled("cvmhstbn") && isModelInstalled("cvmsi")
      option = document.createElement("option");
      option.text = "CVM-H All Basins, CVM-S4.26.M01";
      option.value= "cvmhlabn,cvmhsgbn,cvmhvbn,cvmhrbn,cvmhibbn,cvmhsmbn,cvmhsbbn,cvmhsbcbn,cvmhstbn,cvmsi";
-     sel.add(option);
-   }
-
-   if(isModelInstalled("sfcvm") && isModelInstalled("cca")) {
-     option = document.createElement("option");
-     option.text = "SFCVM,CCA";
-     option.label = "SFCVM,CCA";
-     option.value= "sfcvm,cca"; 
-     sel.add(option);
-   }
-
-   if(isModelInstalled("sfcvm") && isModelInstalled("1d")) {
-     option = document.createElement("option");
-     option.text = "SFCVM,1D";
-     option.label = "SFCVM,1D";
-     option.value= "sfcvm,1d"; 
-     sel.add(option);
-   }
-
-   if(isModelInstalled("sfcvm") && isModelInstalled("cca") && isModelInstalled("1d")) {
-     option = document.createElement("option");
-     option.text = "SFCVM,CCA,1D";
-     option.label = "SFCVM,CCA,1D";
-     option.value= "sfcvm,cca,1d";
      sel.add(option);
    }
 
