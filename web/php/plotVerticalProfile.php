@@ -48,6 +48,8 @@ if ($zmode == 'e') {
 
 $result = exec(escapeshellcmd($query), $retval, $status);
 
+print $result;
+
 $rc=checkResult($query, $result, $uid);
 
 if ($zmode == 'e') {

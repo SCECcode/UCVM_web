@@ -26,6 +26,22 @@ cd $UCVM_SRC_PATH/largefiles; ./stage_largefiles.py
 ## because of the new PROJ/ucvm_setup.py
 unset PROJ_LIB
 
+### for system that has really old gcc
+#This is for linux/moho
+if command -v gcc10-gcc &> /dev/null; then
+  echo "gcc10-gcc exists" 
+  export CC=gcc10-gcc
+  export CXX=gcc10-g++
+else
+  if command -v gcc-10 &> /dev/null; then
+    echo "gcc-10 exists" 
+    export CC=gcc-10
+    export CXX=g++-10
+  else
+    echo "use default gcc" 
+  fi
+fi
+  
 cd $UCVM_SRC_PATH
 ./ucvm_setup.py -a -d -p $UCVM_INSTALL_PATH &> ucvm_setup_install.log
 
