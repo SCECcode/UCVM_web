@@ -15,7 +15,7 @@ cd $UCVM_SRC_PATH/largefiles
 if [ "$(uname)" == "Darwin" ]; then
 ./get_largefiles.py -m cvms,cvms5,cvmsi
 else
-./get_largefiles.py -m cvmsi,sfcvm
+./get_largefiles.py -m wfcvm,cca,sfcvm,cvms,cvmsi,cvms5,cvmh,ivlsu,cvlsu,albacore,sjfz,cvmhlabn,cvmhsgbn,cvmhvbn,cvmhibbn,cvmhrbn,cvmhsbbn,cvmhsbcbn,cvmhsmbn,cvmhstbn,cs248
 fi
 
 if [ "$(uname)" != "Darwin" ]; then
@@ -42,6 +42,7 @@ else
   fi
 fi
   
+export PYTHONUNBUFFERED=TRUE
 cd $UCVM_SRC_PATH
 ./ucvm_setup.py -a -d -p $UCVM_INSTALL_PATH &> ucvm_setup_install.log
 
