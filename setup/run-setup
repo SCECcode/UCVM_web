@@ -10,7 +10,7 @@ git clone git@github.com:meihuisu/ucvm_plotly_web.git plotly_profile
 source model/UCVM/conf/ucvm_env.sh
 
 cd $UCVM_INSTALL_PATH
-git clone https://github.com/SCECcode/ucvm_plotting.git -b withAnaconda3
+git clone https://github.com/SCECcode/ucvm_plotting.git 
 cd ucvm_plotting
 sudo /usr/local/share/anaconda2/bin/pip install dist/ucvm_plotting-0.0.6.tar.gz
 
